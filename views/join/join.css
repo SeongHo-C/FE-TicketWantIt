@@ -1,0 +1,25 @@
+#logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.signup_style {
+  width: 300px;
+  margin: 10px auto;
+}
+
+#signup_form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign_inputText {
+  margin: 1%;
+}
+
+#signup_btn {
+  width: 75px;
+  margin: 10px auto;
+}
