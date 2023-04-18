@@ -1,0 +1,21 @@
+.dn {
+  display: none;
+}
+
+.w1240 {
+  position: relative;
+  width: 1240px;
+  margin: 0 auto;
+}
+
+:root {
+  --color--blue1: #0068ff;
+  --color--blue2: #0090f6;
+
+  --color--black1: #252525;
+  --color--black2: #666666;
+  --color--black3: #999999;
+  --color--black4: #cccccc;
+
+  --color--white: #ffffff;
+}
