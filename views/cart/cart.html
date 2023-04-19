@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장바구니 페이지</title>
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="cart.css" />
+    <script
+      src="https://kit.fontawesome.com/cab4956b39.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="w1140">
+    <header class="header"><p class="header_title">임시 헤더</p></header>
+    <section class="cart">
+      <div class="title_area">
+        <h2>장바구니</h2>
+      </div>
+      <table class="tickets">
+        <colgroup>
+          <col style="width: 5%" />
+          <col style="width: 10%" />
+          <col style="width: 20%" />
+          <col style="width: 15%" />
+          <col style="width: 8%" />
+          <col style="width: 10%" />
+          <col style="width: 12%" />
+          <col style="width: 10%" />
+          <col style="width: 10%" />
+        </colgroup>
+        <!-- 연령제한 장소 전시회명 가격 날짜 수량 -->
+        <thead>
+          <tr>
+            <th><input type="checkbox" /></th>
+            <th>이미지</th>
+            <th>전시회명</th>
+            <th>장소</th>
+            <th>연령제한</th>
+            <th>판매가</th>
+            <th>수량</th>
+            <th>합계</th>
+            <th>선택</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox" /></td>
+            <td>
+              <img
+                class="ticket_img"
+                src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
+                alt="sample image"
+              />
+            </td>
+            <td>
+              <p class="ticket_title">
+                [얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓
+              </p>
+            </td>
+            <td><p>서울시립미술관</p></td>
+            <td><p>15세 이상</p></td>
+            <td><p class="ticket_money">10,000원</p></td>
+            <td class="ticket_quantity">
+              <button class="ticket_quantity_button">
+                <i class="fas fa-minus"></i>
+              </button>
+              <input type="text" class="ticket_quantity_input" value="1" />
+              <button class="ticket_quantity_button">
+                <i class="fas fa-plus"></i>
+              </button>
+            </td>
+            <td><p class="ticket_total">10,000원</p></td>
+            <td>
+              <button class="ticket_order ticket_choice_button">
+                주문하기
+              </button>
+              <button class="ticket_delete ticket_choice_button">삭제</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="table_footer">
+        <div>
+          <span>선택상품을</span>
+          <button class="table_footer_button slected_delete">삭제하기</button>
+        </div>
+        <button class="table_footer_button all_delete">장바구니 비우기</button>
+      </div>
+      <table class="calculate">
+        <colgroup>
+          <col style="width: 50%" />
+          <col style="width: 50%" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>총 상품금액</th>
+            <th>결제예정금액</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><p>10,000원</p></td>
+            <td><p>= 10,000원</p></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="order_area">
+        <button class="order_button all_order">전체 상품 주문</button>
+        <button class="order_button selected_order">선택 상품 주문</button>
+      </div>
+    </section>
+  </body>
+</html>

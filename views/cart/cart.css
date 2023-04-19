@@ -1,0 +1,192 @@
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header {
+  height: 80px;
+
+  background-color: lightgrey;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.header_title {
+  padding: 30px;
+}
+
+.title_area {
+  padding: 100px;
+
+  text-align: center;
+  min-height: 30px;
+}
+
+/* 테이블 */
+.tickets > thead > tr > th {
+  padding: 15px;
+
+  color: var(--color--black2);
+}
+
+.tickets > thead {
+  border-top: 2px solid var(--color--black1);
+  border-bottom: 1px solid var(--color--black4);
+}
+
+.tickets > tbody > tr > td {
+  padding: 20px;
+
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--color--black4);
+}
+
+.ticket_img {
+  width: 80px;
+  height: 80px;
+
+  border-radius: 50%;
+}
+
+.ticket_title {
+  font-weight: 600;
+}
+
+.ticket_money {
+  font-weight: 600;
+}
+
+.ticket_quantity_input {
+  width: 20px;
+
+  text-align: center;
+}
+
+.ticket_quantity_button {
+  outline: none;
+  border: 0;
+  border-radius: 1rem;
+  color: white;
+  background-color: var(--color--black1);
+  cursor: pointer;
+}
+
+.ticket_total {
+  font-weight: 600;
+}
+
+.ticket_choice_button {
+  padding: 0.4rem 0.6rem;
+  margin: 0.2rem 0;
+
+  width: 6rem;
+
+  outline: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.ticket_order {
+  border: 0;
+  color: white;
+  background-color: var(--color--black1);
+}
+
+.ticket_delete {
+  border: 0.5px solid var(--color--black4);
+  background-color: white;
+}
+
+.table_footer {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 10px;
+
+  font-size: 0.8rem;
+}
+
+.table_footer_button {
+  padding: 0.4rem 0.6rem;
+  margin: 0.2rem 0;
+
+  outline: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  border: 0.5px solid var(--color--black4);
+  color: var(--color--black3);
+  background-color: white;
+}
+
+.table_footer_button.slected_delete {
+  margin-left: 10px;
+}
+
+.calculate {
+  margin-top: 2rem;
+
+  width: 100%;
+}
+
+.calculate > thead > tr > th {
+  padding: 15px;
+
+  color: var(--color--black1);
+  font-weight: 600;
+}
+
+.calculate > thead {
+  border-top: 2px solid var(--color--black1);
+  border-bottom: 1px solid var(--color--black4);
+}
+
+.calculate > thead > tr > th {
+  padding: 15px;
+
+  color: var(--color--black1);
+  font-weight: 600;
+}
+
+.calculate > tbody > tr > td {
+  padding: 30px;
+
+  color: var(--color--black1);
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color--black4);
+}
+
+.order_area {
+  text-align: center;
+}
+
+.order_button {
+  padding: 0.6rem 1rem;
+  margin: 1.2rem 0.3rem;
+
+  outline: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.all_order {
+  border: 0;
+  color: white;
+  background-color: var(--color--black1);
+}
+
+.selected_order {
+  border: 0.5px solid var(--color--black4);
+  background-color: white;
+}
+
+button:hover {
+  opacity: 0.8;
+}
