@@ -1,5 +1,5 @@
-const tickets_info = {
-  0: {
+const tickets_info = [
+  {
     productID: 0,
     thumbnail:
       'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
@@ -7,8 +7,9 @@ const tickets_info = {
     place: '서울시립미술관',
     speciesAge: 15,
     price: 10000,
+    quantity: 1,
   },
-  1: {
+  {
     productID: 1,
     thumbnail:
       'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
@@ -16,14 +17,15 @@ const tickets_info = {
     place: '서울시립미술관',
     speciesAge: 15,
     price: 10000,
+    quantity: 2,
   },
-};
+];
 
 const ticketsList = document.querySelector('.tickets_list');
 
 function onSelect() {
-  for (let i in tickets_info) {
-    const ticket = createTicket(tickets_info[i]);
+  for (let ticket_info of tickets_info) {
+    const ticket = createTicket(ticket_info);
 
     ticketsList.innerHTML += ticket;
   }

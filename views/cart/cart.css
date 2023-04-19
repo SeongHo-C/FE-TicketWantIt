@@ -48,14 +48,18 @@ h2 {
 
 .ticket_quantity_input {
   width: 20px;
+  height: 20px;
 
   text-align: center;
 }
 
 .ticket_quantity_button {
+  width: 25px;
+  height: 25px;
+
   outline: none;
   border: 0;
-  border-radius: 20px;
+  border-radius: 10px;
   color: white;
   background-color: var(--color--black1);
   cursor: pointer;
