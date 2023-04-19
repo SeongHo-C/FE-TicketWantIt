@@ -16,19 +16,34 @@ let tickets_info = [
     productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
     place: '서울시립미술관',
     speciesAge: 15,
-    price: 10000,
-    quantity: 2,
+    price: 20000,
+    quantity: 3,
   },
 ];
 
 const ticketsList = document.querySelector('.tickets_list');
+const calculateList = document.querySelector('.calculate_list');
 
 function onSelect() {
   for (let ticket_info of tickets_info) {
     const ticket = createTicket(ticket_info);
-
     ticketsList.innerHTML += ticket;
   }
+
+  const totalPrice = calculateTotalPrice(tickets_info);
+  calculateList.innerHTML += totalPrice;
+}
+
+function calculateTotalPrice(tickets_info) {
+  const totalPrice = tickets_info.reduce(
+    (sum, { price, quantity }) => sum + price * quantity,
+    0
+  );
+
+  return `<tr>
+  <td><p>${totalPrice.toLocaleString()}원</p></td>
+  <td><p>= ${totalPrice.toLocaleString()}원</p></td>
+</tr>`;
 }
 
 // 상세 페이지에서 localstorage에 장바구니 추가 작업 필요
