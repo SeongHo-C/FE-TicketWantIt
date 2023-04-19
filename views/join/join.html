@@ -16,21 +16,21 @@
     <div id='header'>
       
     </div>
-    <a id='logo' href="메인페이지">Ticket Want it!</a>
+    <a id='logo' href="../home/index.html">Ticket Want it!</a>
     <div class='join_style'>
       <form id='join_form'>
         <span>E-mail</span>
-        <input type='text' class='join_inputText' placeholder='E-MAIL' onblur="emailCheck(this.value)"/>
-        <div class='dn'>이메일을 확인해주세요.</div>
+        <input type='text' class='join_inputText' placeholder='E-MAIL'/>
+        <div class='error'></div>
         <span>이름</span>
         <input type='text' class='join_inputText' placeholder='NAME'/>
-        <div class='dn'>이름은 2글자 이상 써주세요.</div>
+        <div class='error'></div>
         <span>비밀번호</span>
         <input type='password' class='join_inputText' placeholder='PASSWORD'/>
-        <div class='dn'>비밀번호는 6글자 이상 써주세요.</div>
+        <div class='error'></div>
         <span>비밀번호 확인</span>
         <input type='password' class='join_inputText' placeholder='CONFIRM PASSWORD'/>
-        <div class='dn'>비밀번호가 다릅니다.</div>
+        <div class='error'></div>
         <button id='join_btn'>회원가입</button>
       </form>
     </div>

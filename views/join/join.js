@@ -12,35 +12,19 @@ const [
   nameError,
   passwordError,
   confirmPasswordError,
-] = document.querySelectorAll('.dn');
+] = document.querySelectorAll('.error');
 
 const joinButton = document.querySelector('#join_btn');
 
-function emailCheck(email) {
+function emailCheck() {
   var emailRegExp = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
   if (!emailRegExp.test(email)) {
-    emailError.style.visibility = 'visible';
+    emailError.innerHTML = '이메일을 확인해주세요.';
+    return false;
   } else {
-    emailError.style.visibility = 'hidden';
+    emailError.innerHTML = '';
   }
 }
-
-const hideError = () => {
-  if (nameInput.value.length > 0) {
-    nameError.style.visibility = 'hidden';
-  }
-  else if (password.value.length > 0) {
-    passwordError.style.visibility = 'hidden';
-  }
-  else if (confirmPassword.value === password.value) {
-    confirmPasswordError.style.visibility = 'hidden';
-  }
-}
-
-[ nameError, passwordError, confirmPasswordError ].forEach(input => {
-  input.addEventListener('input', hideError);
-})
 
 const joinFunction = (e) => {
   e.preventDefault();
@@ -48,19 +32,19 @@ const joinFunction = (e) => {
   emailCheck(email.value);
 
   if (nameInput.value.length < 2) {
-    nameError.style.visibility = 'visible';
+    nameError.innerHTML = '이름은 2글자 이상 써주세요.';
     return false;
   }
   else if (password.value.length < 6) {
-    passwordError.style.visibility = 'visible';
+    passwordError.innerHTML = '비밀번호는 6글자 이상 써주세요.';
     return false;
   }
   else if (confirmPassword.value !== password.value) {
-    confirmPasswordError.style.visibility = 'visible';
+    confirmPasswordError.innerHTML = '비밀번호가 다릅니다.';
     return false;
   }
 
-  axios.post('/api/users', {
+  axios.post('', {
       email : email.value,
       name : nameInput.value,
       password : password.value,
@@ -68,12 +52,16 @@ const joinFunction = (e) => {
   .then((res) => {
     if (res) {
         alert('회원가입이 완료되었습니다!');
-        window.location.href = 'login.html';
+        window.location.href = '../login/login.html';
     } else {
         alert('회원가입에 실패했습니다.');
         return;
-    }
-  })
-}
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      alert('회원가입에 실패했습니다.');
+    })
+  }
 
 joinButton.addEventListener('click', joinFunction);
