@@ -16,6 +16,7 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <script src="cart.js" defer></script>
   </head>
   <body class="w1140">
     <header>
@@ -108,7 +109,7 @@
           <tr>
             <th><input type="checkbox" /></th>
             <th>이미지</th>
-            <th>전시회명</th>
+            <th>상품명</th>
             <th>장소</th>
             <th>연령제한</th>
             <th>판매가</th>
@@ -117,42 +118,7 @@
             <th>선택</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><input type="checkbox" /></td>
-            <td>
-              <img
-                class="ticket_img"
-                src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
-                alt="sample image"
-              />
-            </td>
-            <td>
-              <p class="ticket_title">
-                [얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓
-              </p>
-            </td>
-            <td><p>서울시립미술관</p></td>
-            <td><p>15세 이상</p></td>
-            <td><p class="ticket_money">10,000원</p></td>
-            <td class="ticket_quantity">
-              <button class="ticket_quantity_button">
-                <i class="fas fa-minus"></i>
-              </button>
-              <input type="text" class="ticket_quantity_input" value="1" />
-              <button class="ticket_quantity_button">
-                <i class="fas fa-plus"></i>
-              </button>
-            </td>
-            <td><p class="ticket_total">10,000원</p></td>
-            <td>
-              <button class="ticket_order ticket_choice_button">
-                주문하기
-              </button>
-              <button class="ticket_delete ticket_choice_button">삭제</button>
-            </td>
-          </tr>
-        </tbody>
+        <tbody class="tickets_list"></tbody>
       </table>
       <div class="table_footer">
         <div>
