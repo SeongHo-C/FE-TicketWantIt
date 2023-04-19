@@ -55,7 +55,7 @@ h2 {
 .ticket_quantity_button {
   outline: none;
   border: 0;
-  border-radius: 1rem;
+  border-radius: 20px;
   color: white;
   background-color: var(--color--black1);
   cursor: pointer;
@@ -73,7 +73,7 @@ h2 {
 
   outline: none;
   cursor: pointer;
-  border-radius: 0.5rem;
+  border-radius: 10px;
   font-size: 0.8rem;
 }
 
@@ -97,13 +97,18 @@ h2 {
   font-size: 0.8rem;
 }
 
+.table_footer > div {
+  display: flex;
+  align-items: center;
+}
+
 .table_footer_button {
   padding: 0.4rem 0.6rem;
   margin: 0.2rem 0;
 
   outline: none;
   cursor: pointer;
-  border-radius: 0.5rem;
+  border-radius: 10px;
   font-size: 0.8rem;
   border: 0.5px solid var(--color--black4);
   color: var(--color--black3);
@@ -160,7 +165,7 @@ h2 {
 
   outline: none;
   cursor: pointer;
-  border-radius: 0.5rem;
+  border-radius: 10px;
   font-size: 0.8rem;
 }
 
