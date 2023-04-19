@@ -1,61 +1,79 @@
-import axios from "axios";
+import axios from 'axios';
 
 const [
   email,
   nameInput,
   password,
   confirmPassword,
-] = document.querySelectorAll(".inputText");
+] = document.querySelectorAll('.join_inputText');
 
-const logo = document.querySelector("#logo");
-const signUpButton = document.querySelector("#signup_btn");
+const [
+  emailError,
+  nameError,
+  passwordError,
+  confirmPasswordError,
+] = document.querySelectorAll('.dn');
 
-const signUpFunction = (e) => {
+const joinButton = document.querySelector('#join_btn');
+
+function emailCheck(email) {
+  var emailRegExp = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (!emailRegExp.test(email)) {
+    emailError.style.visibility = 'visible';
+  } else {
+    emailError.style.visibility = 'hidden';
+  }
+}
+
+const hideError = () => {
+  if (nameInput.value.length > 0) {
+    nameError.style.visibility = 'hidden';
+  }
+  else if (password.value.length > 0) {
+    passwordError.style.visibility = 'hidden';
+  }
+  else if (confirmPassword.value === password.value) {
+    confirmPasswordError.style.visibility = 'hidden';
+  }
+}
+
+[ nameError, passwordError, confirmPasswordError ].forEach(input => {
+  input.addEventListener('input', hideError);
+})
+
+const joinFunction = (e) => {
   e.preventDefault();
 
-  //email 형식으로 바꾸기
-  if (email.value.length < 3) {
-    alert("ID를 2글자 이상 입력해주세요.");
+  emailCheck(email.value);
+
+  if (nameInput.value.length < 2) {
+    nameError.style.visibility = 'visible';
+    return false;
   }
-  else if (nameInput.value.length < 3) {
-    alert("이름을 2글자 이상 입력해주세요.");
-  }
-  else if (password.value.length < 7) {
-    alert("비밀번호를 6글자 이상 입력해주세요.");
+  else if (password.value.length < 6) {
+    passwordError.style.visibility = 'visible';
+    return false;
   }
   else if (confirmPassword.value !== password.value) {
-    alert("비밀번호가 다릅니다. 비밀번호를 확인해주세요.");
+    confirmPasswordError.style.visibility = 'visible';
+    return false;
   }
 
-  axios.post("회원가입 API", {
-    headers: {
-      "Content-type" : "application/json"
-    },
-    data: {
+  axios.post('/api/users', {
       email : email.value,
       name : nameInput.value,
       password : password.value,
-    }
   })
-  //then 부분 async await으로 찾아보기
   .then((res) => {
-    if (res.status === 200) {
-      if (confirm("회원가입 하시겠습니까?")) {
-        alert("회원가입이 완료되었습니다!");
+    if (res) {
+        alert('회원가입이 완료되었습니다!');
         window.location.href = 'login.html';
-      } else {
-          alert("회원가입에 실패했습니다.");
-          return;
-      }
     } else {
-        alert("회원가입에 실패했습니다.");
+        alert('회원가입에 실패했습니다.');
         return;
     }
   })
 }
 
-signUpButton.addEventListener("click", signUpFunction);
-
-logo.addEventListener("click", () => {
-  window.location.href = "login.html"
-})
+joinButton.addEventListener('click', joinFunction);

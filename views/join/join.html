@@ -5,22 +5,34 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     
-    <title>sign up | Ticket Want it!</title>
+    <title>join | Ticket Want it!</title>
+    <link rel='stylesheet' href='../../css/reset.css'>
+    <link rel='stylesheet' href='../../css/style.css'>
     <link rel='stylesheet' href='join.css'>
+    <script src='https://unpkg.com/axios/dist/axios.min.js' defer></script>
+    <script src='join.js' defer></script>
   </head>
   <body>
-    <header id='logo'>
-      Ticket Want it!
-    </header>
+    <div id='header'>
+      
+    </div>
+    <a id='logo' href="메인페이지">Ticket Want it!</a>
     <div class='join_style'>
       <form id='join_form'>
-        <input type='text' class='join_inputText' placeholder='E-MAIL'/>
+        <span>E-mail</span>
+        <input type='text' class='join_inputText' placeholder='E-MAIL' onblur="emailCheck(this.value)"/>
+        <div class='dn'>이메일을 확인해주세요.</div>
+        <span>이름</span>
         <input type='text' class='join_inputText' placeholder='NAME'/>
+        <div class='dn'>이름은 2글자 이상 써주세요.</div>
+        <span>비밀번호</span>
         <input type='password' class='join_inputText' placeholder='PASSWORD'/>
+        <div class='dn'>비밀번호는 6글자 이상 써주세요.</div>
+        <span>비밀번호 확인</span>
         <input type='password' class='join_inputText' placeholder='CONFIRM PASSWORD'/>
+        <div class='dn'>비밀번호가 다릅니다.</div>
         <button id='join_btn'>회원가입</button>
       </form>
     </div>
   </body>
-  <script src='https://unpkg.com/axios/dist/axios.min.js'></script>
 </html>
