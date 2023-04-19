@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const [
   email,
   nameInput,
@@ -17,7 +15,7 @@ const [
 const joinButton = document.querySelector('#join_btn');
 
 function emailCheck() {
-  var emailRegExp = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  var emailRegExp = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   if (!emailRegExp.test(email)) {
     emailError.innerHTML = '이메일을 확인해주세요.';
     return false;
@@ -44,13 +42,18 @@ const joinFunction = (e) => {
     return false;
   }
 
-  axios.post('', {
+  axios({
+    url: 'ip주소/api/user',
+    method: 'post', 
+    data: { 
       email : email.value,
       name : nameInput.value,
       password : password.value,
-  })
+    }
+    })
   .then((res) => {
-    if (res) {
+    console.log(res);
+    if (res.data) {
         alert('회원가입이 완료되었습니다!');
         window.location.href = '../login/login.html';
     } else {
