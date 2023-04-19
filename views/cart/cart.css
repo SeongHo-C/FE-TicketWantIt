@@ -3,18 +3,6 @@ h2 {
   font-weight: 600;
 }
 
-.header {
-  height: 80px;
-
-  background-color: lightgrey;
-  font-size: 1.5rem;
-  text-align: center;
-}
-
-.header_title {
-  padding: 30px;
-}
-
 .title_area {
   padding: 100px;
 
