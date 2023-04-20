@@ -4,19 +4,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>장바구니 페이지</title>
+    <title>주문/결제 페이지</title>
     <link rel="stylesheet" href="../../css/reset.css" />
     <link rel="stylesheet" href="../../css/style.css" />
-    <link rel="stylesheet" href="cart.css" />
     <script
       src="https://kit.fontawesome.com/cab4956b39.js"
       crossorigin="anonymous"
     ></script>
+    <script
+      src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+      defer
+    ></script>
+    <script src="order.js" defer></script>
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
-    <script src="cart.js" defer></script>
+    <link rel="stylesheet" href="order.css" />
   </head>
   <body>
     <header>
@@ -88,63 +92,108 @@
         </div>
       </div>
     </header>
-    <section class="cart w1140">
+    <form class="w1000" action="" method="post" autocomplete="on">
       <div class="title_area">
-        <h2>장바구니</h2>
+        <h2>주문 / 결제</h2>
       </div>
-      <table class="tickets">
-        <colgroup>
-          <col style="width: 5%" />
-          <col style="width: 10%" />
-          <col style="width: 20%" />
-          <col style="width: 15%" />
-          <col style="width: 8%" />
-          <col style="width: 10%" />
-          <col style="width: 12%" />
-          <col style="width: 10%" />
-          <col style="width: 10%" />
-        </colgroup>
-        <!-- 연령제한 장소 전시회명 가격 날짜 수량 -->
-        <thead>
-          <tr>
-            <th><input type="checkbox" id="all_check" name="all_check" /></th>
-            <th>이미지</th>
-            <th>상품명</th>
-            <th>장소</th>
-            <th>연령제한</th>
-            <th>판매가</th>
-            <th>수량</th>
-            <th>합계</th>
-            <th>선택</th>
-          </tr>
-        </thead>
-        <tbody class="tickets_list"></tbody>
-      </table>
-      <div class="table_footer">
+      <div class="wrap address_layout">
         <div>
-          <span>선택상품을</span>
-          <button class="table_footer_button selected_delete">삭제하기</button>
+          <p class="subtitle">배송지</p>
         </div>
-        <button class="table_footer_button all_delete">장바구니 비우기</button>
+        <ul class="address_input_wrap">
+          <li>
+            <input
+              type="text"
+              id="zipCode"
+              class="zip-code"
+              placeholder="우편번호"
+            />
+            <input
+              type="button"
+              id="addressSearchBtn"
+              class="address_search_btn"
+              value="주소 검색"
+            />
+          </li>
+          <li>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              class="address"
+              placeholder="주소"
+              readonly
+              required
+            />
+          </li>
+          <li>
+            <input
+              type="text"
+              id="addressDetail"
+              class="address_detail"
+              placeholder="상세주소"
+            />
+          </li>
+        </ul>
       </div>
-      <table class="calculate">
-        <colgroup>
-          <col style="width: 50%" />
-          <col style="width: 50%" />
-        </colgroup>
-        <thead>
-          <tr>
-            <th>총 상품금액</th>
-            <th>결제예정금액</th>
-          </tr>
-        </thead>
-        <tbody class="calculate_list"></tbody>
-      </table>
-      <div class="order_area">
-        <button class="order_button all_order">전체 상품 주문</button>
-        <button class="order_button selected_order">선택 상품 주문</button>
+      <div class="wrap phone_layout">
+        <div>
+          <p class="subtitle">휴대전화</p>
+        </div>
+        <div class="phone_input_wrap">
+          <select name="phone_1" id="phone1">
+            <option value="010">010</option>
+            <option value="011">011</option>
+            <option value="016">016</option>
+            <option value="017">017</option>
+            <option value="018">018</option>
+            <option value="019">019</option>
+          </select>
+          -
+          <input type="text" name="phone_2" id="phone2" maxlength="4" />
+          -
+          <input type="text" name="phone_3" id="phone3" maxlength="4" />
+        </div>
       </div>
-    </section>
+      <div class="wrap order_layout">
+        <div>
+          <p class="subtitle">주문상품</p>
+        </div>
+        <div class="order_wrap">
+          <div class="ticket">
+            <img
+              class="ticket_img"
+              src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
+              alt="샘플 이미지"
+            />
+            <div class="ticket_info">
+              <a href="/">[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓</a>
+              <div class="ticket_sub_info">
+                <p>장소: 서울시립미술관</p>
+                <p>수량: 1개</p>
+              </div>
+              <p class="ticket_money">60,000원</p>
+            </div>
+          </div>
+          <div class="ticket">
+            <img
+              class="ticket_img"
+              src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
+              alt="샘플 이미지"
+            />
+            <div class="ticket_info">
+              <a href="/">[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓</a>
+              <div class="ticket_sub_info">
+                <p>장소: 서울시립미술관</p>
+                <p>수량: 1개</p>
+              </div>
+              <p class="ticket_money">60,000원</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="payment_button">70,000원 결제하기</button>
+    </form>
     <footer>
       <div class="inner w1140">
         <div class="footer_top">
