@@ -92,13 +92,14 @@
         </div>
       </div>
     </header>
-    <form class="w1000" action="" method="post" autocomplete="on">
+    <form class="w1000" method="post">
       <div class="title_area">
         <h2>주문 / 결제</h2>
       </div>
       <div class="wrap address_layout">
-        <div>
-          <p class="subtitle">배송지</p>
+        <div class="subtitle">
+          <span class="star">*</span>
+          <span>배송지</span>
         </div>
         <ul class="address_input_wrap">
           <li>
@@ -129,6 +130,7 @@
           <li>
             <input
               type="text"
+              name="addressDetail"
               id="addressDetail"
               class="address_detail"
               placeholder="상세주소"
@@ -137,8 +139,9 @@
         </ul>
       </div>
       <div class="wrap phone_layout">
-        <div>
-          <p class="subtitle">휴대전화</p>
+        <div class="subtitle">
+          <span class="star">*</span>
+          <span>휴대전화</span>
         </div>
         <div class="phone_input_wrap">
           <select name="phone_1" id="phone1">
@@ -156,12 +159,12 @@
         </div>
       </div>
       <div class="wrap order_layout">
-        <div>
-          <p class="subtitle">주문상품</p>
+        <div class="subtitle">
+          <span>주문상품</span>
         </div>
         <ul class="order_list"></ul>
       </div>
-      <button type="submit" class="payment_button">70,000원 결제하기</button>
+      <button type="submit" class="payment_button"></button>
     </form>
     <footer>
       <div class="inner w1140">

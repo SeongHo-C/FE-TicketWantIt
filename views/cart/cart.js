@@ -6,7 +6,7 @@ let tickets_info = [
     productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
     place: '서울시립미술관',
     speciesAge: 15,
-    price: 10000,
+    price: 30000,
     quantity: 1,
   },
   {
