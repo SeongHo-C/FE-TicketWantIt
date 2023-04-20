@@ -184,6 +184,10 @@ h2 {
   background-color: white;
 }
 
+.selected_delete {
+  margin-left: 10px;
+}
+
 button:hover {
   opacity: 0.8;
 }
