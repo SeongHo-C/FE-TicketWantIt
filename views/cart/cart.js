@@ -1,7 +1,7 @@
 let tickets_info = [
   {
-    productID: 0,
-    thumbnail:
+    productID: '0',
+    imageUrl:
       'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
     productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
     place: '서울시립미술관',
@@ -10,8 +10,8 @@ let tickets_info = [
     quantity: 1,
   },
   {
-    productID: 1,
-    thumbnail:
+    productID: '1',
+    imageUrl:
       'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
     productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
     place: '서울시립미술관',
@@ -20,9 +20,6 @@ let tickets_info = [
     quantity: 3,
   },
 ];
-
-const ticketsList = document.querySelector('.tickets_list');
-const calculateList = document.querySelector('.calculate_list');
 
 function onSelect() {
   for (let ticket_info of tickets_info) {
@@ -83,7 +80,7 @@ function onPlus(productID) {
 function createTicket(ticket) {
   const {
     productID,
-    thumbnail,
+    imageUrl,
     productName,
     place,
     speciesAge,
@@ -92,11 +89,11 @@ function createTicket(ticket) {
   } = ticket;
 
   return `<tr id=ticket${productID}>
-  <td><input type="checkbox" /></td>
+  <td><input type="checkbox" id=only_check${productID} name='ticket_check'/></td>
   <td>
     <img
       class="ticket_img"
-      src="${thumbnail}"
+      src="${imageUrl}"
       alt="sample image"
     />
   </td>
@@ -128,6 +125,57 @@ function createTicket(ticket) {
   `;
 }
 
+function onCheckedCheckbox() {
+  const tickets = document.querySelectorAll('input[name="ticket_check"]');
+  const productIDs = [];
+
+  for (let ticket of tickets) {
+    const productID = ticket.id.slice(-1);
+    if (ticket.checked) productIDs.push(productID);
+  }
+
+  return productIDs;
+}
+
+function onDelete(type, productIDs = []) {
+  if (type === 'selected')
+    tickets_info = tickets_info.filter(
+      (ticket_info) => !productIDs.includes(ticket_info.productID)
+    );
+  else tickets_info.length = 0;
+}
+
+const ticketsList = document.querySelector('.tickets_list');
+const calculateList = document.querySelector('.calculate_list');
+const allCheck = document.querySelector('#all_check');
+const selectedDeleteBtn = document.querySelector('.selected_delete');
+const allDeleteBtn = document.querySelector('.all_delete');
+
 window.addEventListener('load', () => {
   onSelect();
+});
+
+allCheck.addEventListener('change', () => {
+  const checkboxes = document.querySelectorAll('input[name="ticket_check"]');
+
+  if (allCheck.checked) {
+    for (let checkbox of checkboxes) checkbox.checked = true;
+  } else {
+    for (let checkbox of checkboxes) checkbox.checked = false;
+  }
+});
+
+selectedDeleteBtn.addEventListener('click', () => {
+  const productIDs = onCheckedCheckbox();
+
+  if (productIDs.length < 1) {
+    alert('선택된 상품이 없습니다.');
+    return;
+  }
+
+  onDelete('selected', productIDs);
+});
+
+allDeleteBtn.addEventListener('click', () => {
+  onDelete('all');
 });
