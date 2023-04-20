@@ -145,11 +145,19 @@ function onDelete(type, productIDs = []) {
   else tickets_info.length = 0;
 }
 
+function onNavigateOrder() {
+  const tickets = JSON.stringify(tickets_info);
+  localStorage.setItem('ticket_order', tickets);
+
+  location.href = '/views/order/order.html';
+}
+
 const ticketsList = document.querySelector('.tickets_list');
 const calculateList = document.querySelector('.calculate_list');
 const allCheck = document.querySelector('#all_check');
 const selectedDeleteBtn = document.querySelector('.selected_delete');
 const allDeleteBtn = document.querySelector('.all_delete');
+const allOrderBtn = document.querySelector('.all_order');
 
 window.addEventListener('load', () => {
   onSelect();
@@ -178,4 +186,13 @@ selectedDeleteBtn.addEventListener('click', () => {
 
 allDeleteBtn.addEventListener('click', () => {
   onDelete('all');
+});
+
+allOrderBtn.addEventListener('click', () => {
+  if (tickets_info.length < 1) {
+    alert('장바구니에 상품이 없습니다.');
+    return;
+  }
+
+  onNavigateOrder();
 });
