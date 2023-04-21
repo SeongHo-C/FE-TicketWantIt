@@ -1,0 +1,97 @@
+body {
+  font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', 'sans-serif';
+}
+
+main {
+  display: flex;
+  margin: 0 auto;
+  width: 1140px;
+  min-height: 700px;
+}
+
+#container {
+  width: 250px;
+  height: 100%;
+  background-color: var(--color--white);
+}
+
+.side_contents {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.side_contents li {
+  padding: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--color--black4);
+  color: var(--color--black1);
+}
+
+.side_contents li#active {
+  color: var(--color--white);
+  background-color: var(--color--blue2);
+  font-weight: bold;
+}
+
+#contents {
+  margin-left: 30px;
+  width: calc(100% - 280px);
+}
+
+#Title {
+  text-align: center;
+  font-size: 24px;
+  background-color: var(--color--black4);
+}
+
+table {
+  text-align: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+td:first-child {
+  vertical-align: middle;
+  padding: 25px;
+  width: 30%;
+  border-bottom: 1px solid var(--color--black4);
+}
+
+td:last-child {
+  vertical-align: middle;
+  padding: 25px;
+  width: 70%;
+  border-bottom: 1px solid var(--color--black4);
+}
+
+.address {
+  margin: 0;
+  width: 100px;
+}
+
+.userCurrentInfo span {
+  margin-right: 10px;
+}
+
+#infoModify {
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  width: 300px;
+  margin: 5px;
+}
+
+#infoModify button {
+  margin: 30px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+#warning {
+  text-align: center;
+  color: var(--color--black3);
+}
