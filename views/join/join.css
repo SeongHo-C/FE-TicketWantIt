@@ -1,0 +1,64 @@
+body {
+  font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', 'sans-serif';
+}
+
+.contents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 150px auto;
+  width: 400px;
+  height: 600px;
+  
+  border-top: solid var(--color--black1) 2px;
+  border-bottom: solid var(--color--black1) 2px;
+}
+
+legend {
+  text-align: center;
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+}
+
+#join_form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.join_inputText {
+  margin: 5px;
+  padding: 10px;
+  width: 260px;
+}
+
+#join_btn {
+  display: block;
+  margin: 20px auto;
+  width: 80px;
+  height: 35px;
+
+  border: 0;
+  border-radius: 15px;
+  background-color: var(--color--blue1);
+  color: var(--color--white);
+  cursor: pointer;
+}
+
+.error {
+  display: none;
+  margin: 0 0 5px 5px;
+
+  font-size: 12px;
+  color: red;
+}
