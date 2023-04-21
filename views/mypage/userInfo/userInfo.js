@@ -5,7 +5,6 @@ const [
   address
 ] = document.querySelectorAll('.userInfo')
 
-
  axios.get('/api/user')
  .then((res) => {
    email.innerHTML = res.data.email;
