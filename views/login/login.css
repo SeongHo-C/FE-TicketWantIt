@@ -1,0 +1,73 @@
+body {
+  font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', 'sans-serif';
+}
+
+.contents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 150px auto;
+  width: 400px;
+  height: 600px;
+  
+  border-top: solid var(--color--black1) 2px;
+  border-bottom: solid var(--color--black1) 2px;
+}
+
+#login_form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+legend {
+  text-align: center;
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+}
+
+.login_inputText {
+  margin: 10px;
+  padding: 8px;
+  width: 260px;
+}
+
+#login_btn {
+  display: block;
+  margin: 10px auto;
+  width: 80px;
+  height: 30px;
+
+  border: 0;
+  border-radius: 15px;
+  background-color: var(--color--blue2);
+  color: var(--color--white);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.error {
+  display: none;
+  margin: 0 0 5px 10px;
+
+  font-size: 12px;
+  color: red;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  margin: 3px auto;
+  font-size: 13px;
+  color: var(--color--black3);
+}
