@@ -111,5 +111,5 @@ orderForm.addEventListener('submit', (e) => {
   };
 
   // api 호출
-  location.href = '/views/order_complete/order_complete.html';
+  location.href = `/views/order_complete/order_complete.html?orderId="123456789"&totalPrice=${totalPrice}`;
 });
