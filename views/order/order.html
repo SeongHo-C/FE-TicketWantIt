@@ -92,13 +92,14 @@
         </div>
       </div>
     </header>
-    <form class="w1000" action="" method="post" autocomplete="on">
+    <form class="w1000" method="post">
       <div class="title_area">
         <h2>주문 / 결제</h2>
       </div>
       <div class="wrap address_layout">
-        <div>
-          <p class="subtitle">배송지</p>
+        <div class="subtitle">
+          <span class="star">*</span>
+          <span>배송지</span>
         </div>
         <ul class="address_input_wrap">
           <li>
@@ -107,6 +108,7 @@
               id="zipCode"
               class="zip-code"
               placeholder="우편번호"
+              readonly
             />
             <input
               type="button"
@@ -129,6 +131,7 @@
           <li>
             <input
               type="text"
+              name="addressDetail"
               id="addressDetail"
               class="address_detail"
               placeholder="상세주소"
@@ -137,8 +140,9 @@
         </ul>
       </div>
       <div class="wrap phone_layout">
-        <div>
-          <p class="subtitle">휴대전화</p>
+        <div class="subtitle">
+          <span class="star">*</span>
+          <span>휴대전화</span>
         </div>
         <div class="phone_input_wrap">
           <select name="phone_1" id="phone1">
@@ -156,43 +160,12 @@
         </div>
       </div>
       <div class="wrap order_layout">
-        <div>
-          <p class="subtitle">주문상품</p>
+        <div class="subtitle">
+          <span>주문상품</span>
         </div>
-        <div class="order_wrap">
-          <div class="ticket">
-            <img
-              class="ticket_img"
-              src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
-              alt="샘플 이미지"
-            />
-            <div class="ticket_info">
-              <a href="/">[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓</a>
-              <div class="ticket_sub_info">
-                <p>장소: 서울시립미술관</p>
-                <p>수량: 1개</p>
-              </div>
-              <p class="ticket_money">60,000원</p>
-            </div>
-          </div>
-          <div class="ticket">
-            <img
-              class="ticket_img"
-              src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
-              alt="샘플 이미지"
-            />
-            <div class="ticket_info">
-              <a href="/">[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓</a>
-              <div class="ticket_sub_info">
-                <p>장소: 서울시립미술관</p>
-                <p>수량: 1개</p>
-              </div>
-              <p class="ticket_money">60,000원</p>
-            </div>
-          </div>
-        </div>
+        <ul class="order_list"></ul>
       </div>
-      <button type="submit" class="payment_button">70,000원 결제하기</button>
+      <button type="submit" class="payment_button"></button>
     </form>
     <footer>
       <div class="inner w1140">
