@@ -29,7 +29,6 @@ function createTicket(ticket) {
     alt="샘플 이미지"
   />
   <div class="ticket_info">
-    <a href="/">${productName}</a>
     <div class="ticket_sub_info">
       <p>장소: ${place}</p>
       <p>수량: ${quantity}개</p>
