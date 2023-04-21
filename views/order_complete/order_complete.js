@@ -20,5 +20,5 @@ window.addEventListener('load', () => {
 });
 
 orderDetailCheckBtn.addEventListener('click', () => {
-  location.href = '';
+  location.href = '/views/mypage/order/order.html';
 });

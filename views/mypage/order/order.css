@@ -1,97 +1,93 @@
-body {
-  font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', 'sans-serif';
-}
-
-main {
-  display: flex;
-  margin: 0 auto;
-  width: 1140px;
-  min-height: 700px;
+* {
+  box-sizing: border-box;
 }
 
 #container {
-  width: 250px;
-  height: 100%;
+  display: flex;
+
+  margin: 2rem auto;
+  min-height: 500px;
+
   background-color: var(--color--white);
 }
 
-.side_contents {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+#active {
+  color: var(--color--blue2);
+  font-weight: bold;
 }
 
-.side_contents li {
-  padding: 20px;
-  font-size: 16px;
+.side_content {
+  flex-basis: 15%;
+}
+
+.side_content li {
+  padding: 15px;
+
   cursor: pointer;
   border-bottom: 1px solid var(--color--black4);
   color: var(--color--black1);
 }
 
-.side_contents li#active {
-  color: var(--color--white);
-  background-color: var(--color--blue2);
-  font-weight: bold;
+#content {
+  flex-basis: 85%;
 }
 
-#contents {
-  margin-left: 30px;
-  width: calc(100% - 280px);
-}
-
-#Title {
+.title_area {
   text-align: center;
-  font-size: 24px;
-  background-color: var(--color--black4);
 }
 
-table {
-  text-align: center;
-  margin-top: 20px;
-  width: 100%;
+.title_area > h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-td:first-child {
+.order_table {
+  margin: 2rem;
+
+  width: 900px;
+}
+
+.order_table > thead > tr > th {
+  padding: 15px 0;
+
+  color: var(--color--black2);
+  font-size: 0.9rem;
   vertical-align: middle;
-  padding: 25px;
-  width: 30%;
+}
+
+.order_table > thead {
+  border-top: 2px solid var(--color--black1);
   border-bottom: 1px solid var(--color--black4);
 }
 
-td:last-child {
+.order_table > tbody > tr > td {
+  padding: 20px 5px;
+
+  text-align: center;
   vertical-align: middle;
-  padding: 25px;
-  width: 70%;
+  font-size: 0.8rem;
   border-bottom: 1px solid var(--color--black4);
+  min-height: 135px;
 }
 
-.address {
-  margin: 0;
-  width: 100px;
+.order_price,
+.product_info {
+  font-weight: 600;
 }
 
-.userCurrentInfo span {
-  margin-right: 10px;
-}
+.order_status > button {
+  padding: 0.5rem 0;
+  margin-top: 0.2rem;
 
-#infoModify {
-  display: flex;
-  justify-content: center;
-}
+  width: 5rem;
 
-input {
-  width: 300px;
-  margin: 5px;
-}
-
-#infoModify button {
-  margin: 30px;
-  padding: 8px;
+  outline: none;
   cursor: pointer;
+  border: 0;
+  border-radius: 10px;
 }
 
-#warning {
-  text-align: center;
-  color: var(--color--black3);
+.modify_button {
+  background-color: var(--color--black1);
+  color: var(--color--white);
 }
