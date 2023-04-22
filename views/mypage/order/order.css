@@ -2,10 +2,15 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow: auto;
+}
+
 #container {
   display: flex;
 
   margin: 2rem auto;
+
   min-height: 500px;
 
   background-color: var(--color--white);
@@ -90,4 +95,135 @@
 .modify_button {
   background-color: var(--color--black1);
   color: var(--color--white);
+}
+
+#modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#modal > .modal-window {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1rem;
+
+  width: 500px;
+  height: 500px;
+
+  background: var(--color--white);
+  border-radius: 10px;
+}
+
+.close_area {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal_title {
+  text-align: center;
+}
+
+.modal_title > h2 {
+  font-size: 1.2rem;
+}
+
+.star {
+  color: var(--color--red);
+}
+
+.subtitle {
+  padding: 0.5rem;
+}
+
+.wrap {
+  margin-bottom: 20px;
+}
+
+.address_input_wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  height: 180px;
+
+  padding: 1rem;
+
+  border: 1px solid var(--color--black3);
+  border-radius: 10px;
+  background-color: var(--color--white);
+}
+
+.address_input_wrap > li > input {
+  height: 40px;
+
+  vertical-align: middle;
+  border: 1px solid #dadada;
+  padding: 0px 15px;
+}
+
+.address_search_btn {
+  background-color: var(--color--white);
+  outline: none;
+  cursor: pointer;
+}
+
+.address,
+.address_detail {
+  width: 400px;
+}
+
+.phone_input_wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem;
+
+  border: 1px solid var(--color--black3);
+  border-radius: 10px;
+  background-color: var(--color--white);
+}
+
+#phone1,
+#phone2,
+#phone3 {
+  padding: 0px 15px;
+
+  width: 130px;
+  height: 40px;
+}
+
+.modal_modify {
+  text-align: center;
+}
+
+.modal_modify > button {
+  margin: 0.25rem 0;
+
+  width: 50%;
+  height: 30px;
+
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  color: var(--color--white);
+  background-color: var(--color--black3);
+  transition: all 300ms ease-in;
+}
+
+.modal_modify > button:hover {
+  background-color: var(--color--black2);
 }
