@@ -9,14 +9,11 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
             rel="stylesheet"
         />
-  <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-        />
   <link rel='stylesheet' href='../../../css/reset.css'>
   <link rel='stylesheet' href='../../../css/style.css'>
   <link rel='stylesheet' href='./userInfoModify.css'>
-  <script src='./userInfoModify.js' defer></script>
+  <script src='https://unpkg.com/axios/dist/axios.min.js' defer></script>
+  <script type='module' src='./userInfoModify.js' defer></script>
 
   <title>My Page | Ticket Want it!</title>
 </head>
@@ -105,55 +102,50 @@
             </div>
         </div>
     </header>
-    <main>
-        <div id='container'>
-            <div class="side_contents">
-                <ul>
-                    <a href='../userInfo/userInfo.html'><li>회원 정보</li></a>
-                  <a href='./userInfoModify.html'><li id='active'>회원정보 수정</li></a>
-                  <a href='../order/order.html' ><li>주문 조회</li></a>
-                </ul>
-            </div>
+    <div id="container" class="w1140">
+        <div class="side_content">
+          <ul>
+            <a href="../userInfo/userInfo.html"><li>회원정보</li></a>
+            <a href="./userInfoModify.html"
+              ><li id="active">회원정보 수정</li></a
+            >
+            <a href="../order/order.html"><li >주문 조회</li></a>
+          </ul>
         </div>
-        <div id='contents'>
-            <table>
-                <tr id='Title'>
-                    <th colspan='2'>회원정보 수정</th>
-                </tr>
-                <tr>
-                    <td>E-mail</td>
-                    <td class='userCurrentInfo'>
-                        <span>qpdlql7860@google.com</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>이름</td>
-                    <td class='userCurrentInfo'>
-                        <input class='userCurrentInfoInput'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>비밀번호</td>
-                    <td class='userCurrentInfo'>
-                        <input class='userCurrentInfoInput'></input>
-                    </td>
-                </tr>
-                <tr>
-                    <td>비밀번호 확인</td>
-                    <td class='userCurrentInfo'>
-                        <input id='userCurrentInfoInput'></input>
-                    </td>
-                </tr>
-            </table>
-            <div id='infoModify'>
-                <button id='infoModifyButton'>정보 수정</button>
-                <button id='withdrawalButton'>회원 탈퇴</button>
-            </div>
-            <div id='warning'>
-                *이름, 전화번호, 주소를 정확히 입력하지 않으면 배송 시 불이익이 발생할 수 있습니다.
-            </div>
+        <div id="content">
+          <div class="title_area">
+            <h2>회원정보</h2>
+          </div>
+          <table class="userInfo_table">
+            <thead>
+              <tr>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p>E-MAIL</p>
+                </td>
+                <td class='userInfo'></td>
+              </tr>
+              <tr>
+                <td>
+                  <p>이름</p>
+                </td>
+                <td class='userInfo'><input type="text" class='userInfoInput'></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class='buttons'>
+            <button id='userPasswordButton'><a href="../../findPassword/changePassword.html">비밀번호 <br>변경</a>
+            </button>
+            <button id='userInfoModifyButton'>정보변경</button>
+          </div>
+          <div id='warning'>
+            *이름, 전화번호, 주소를 정확히 입력하지 않으면 배송 시 불이익이 발생할 수 있습니다.
+          </div>
         </div>
-    </main>
+      </div>
   </form>
   <footer>
     <div class="inner w1140">
@@ -261,14 +253,5 @@
         </div>
     </div>
 </footer>
-  <script>
-    var swiper = new Swiper(".mainBanner", {
-        loop: true,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-  </script>
 </body>
 </html>

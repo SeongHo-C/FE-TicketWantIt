@@ -9,14 +9,11 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
             rel="stylesheet"
         />
-  <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-        />
   <link rel='stylesheet' href='../../../css/reset.css'>
   <link rel='stylesheet' href='../../../css/style.css'>
   <link rel='stylesheet' href='./userInfo.css'>
-  <script src='./userInfo.js' defer></script>
+  <script src='https://unpkg.com/axios/dist/axios.min.js' defer></script>
+  <script type='module' src='./userInfo.js' defer></script>
 
   <title>My Page | Ticket Want it!</title>
 </head>
@@ -105,51 +102,46 @@
             </div>
         </div>
     </header>
-    <main>
-        <div id='container'>
-            <div class="side_contents">
-                <ul>
-                  <a href='./userInfo.html'><li id='active'>회원 정보</li></a>
-                  <a href='../userInfoModify/userInfoModify.html'><li>회원정보 수정</li></a>
-                  <a href='../order/order.html'><li>주문 조회</li></a>
-                </ul>
-            </div>
+        
+    <div id="container" class="w1140">
+        <div class="side_content">
+          <ul>
+            <a href="./userInfo.html"><li id="active">회원정보</li></a>
+            <a href="../userInfoModify/userInfoModify.html"
+              ><li>회원정보 수정</li></a
+            >
+            <a href="../order/order.html"><li >주문 조회</li></a>
+          </ul>
         </div>
-        <div id='contents'>
-            <table>
-                <tr id='Title'>
-                    <th colspan='2'>회원정보</th>
-                </tr>
-                <tr>
-                    <td>E-mail</td>
-                    <td class='userCurrentInfo'>
-                        <div class='userInfo'></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>이름</td>
-                    <td class='userCurrentInfo'>
-                        <div class='userInfo'></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>전화번호</td>
-                    <td class='userCurrentInfo'>
-                        <div class='userInfo'></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>주소</td>
-                    <td class='userCurrentInfo'>
-                        <div class='userInfo'></div>
-                    </td>
-                </tr>
-            </table>
-            <div id='infoModify'>
-            </div>
+        <div id="content">
+          <div class="title_area">
+            <h2>회원정보</h2>
+          </div>
+          <table class="userInfo_table">
+            <thead>
+              <tr>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p>E-MAIL</p>
+                </td>
+                <td class='userInfo'></td>
+              </tr>
+              <tr>
+                <td>
+                  <p>이름</p>
+                </td>
+                <td class='userInfo'></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class='buttons'>
+            <button id='withdrawalButton'>회원탈퇴</button>
+          </div>
         </div>
-    </main>
-  </form>
+      </div>
   <footer>
     <div class="inner w1140">
         <div class="footer_top">
@@ -256,14 +248,5 @@
         </div>
     </div>
 </footer>
-  <script>
-    var swiper = new Swiper(".mainBanner", {
-        loop: true,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-  </script>
 </body>
 </html>

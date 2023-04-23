@@ -1,72 +1,89 @@
-body {
-  font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', 'sans-serif';
+* {
+  box-sizing: border-box;
 }
 
-main {
-  display: flex;
-  margin: 0 auto;
-  width: 1140px;
-  min-height: 700px;
+body {
+  font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', 'sans-serif';
+  overflow: auto;
 }
 
 #container {
-  width: 250px;
-  height: 100%;
+  display: flex;
+
+  margin: 2rem auto;
+
+  min-height: 500px;
+
   background-color: var(--color--white);
 }
 
-.side_contents {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+#active {
+  color: var(--color--blue2);
+  font-weight: bold;
 }
 
-.side_contents li {
-  padding: 20px 20px;
-  font-size: 16px;
+.side_content {
+  flex-basis: 15%;
+}
+
+.side_content li {
+  padding: 15px;
+
   cursor: pointer;
   border-bottom: 1px solid var(--color--black4);
   color: var(--color--black1);
 }
 
-.side_contents li#active {
-  color: var(--color--white);
+#content {
+  flex-basis: 85%;
+}
+
+.title_area {
+  text-align: center;
+}
+
+.title_area > h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.userInfo_table {
+  margin: 2rem;
+
+  width: 900px;
+}
+
+.userInfo_table > thead > tr > th {
+  vertical-align: middle;
+}
+
+.userInfo_table > thead {
+  border-top: 2px solid var(--color--black1);
+  border-bottom: 1px solid var(--color--black4);
+}
+
+.userInfo_table > tbody > tr > td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 20px 5px;
+
+  font-size: 1rem;
+  border-bottom: 1px solid var(--color--black4);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  margin: 30px;
+  width: 80px;
+  height: 40px;
+
+  border: 0;
+  border-radius: 15px;
   background-color: var(--color--blue2);
-  font-weight: bold;
-}
-
-#contents {
-  margin-left: 30px;
-  width: calc(100% - 280px);
-}
-
-#Title {
-  text-align: center;
-  font-size: 24px;
-  background-color: var(--color--black4);
-}
-
-table {
-  text-align: center;
-  margin-top: 20px;
-  width: 100%;
-}
-
-td:first-child {
-  vertical-align: middle;
-  padding: 25px;
-  width: 30%;
-  border-bottom: 1px solid var(--color--black4);
-}
-
-td:last-child {
-  vertical-align: middle;
-  padding: 25px;
-  width: 70%;
-  border-bottom: 1px solid var(--color--black4);
-}
-
-.address {
-  margin: 0;
-  width: 100px;
+  color: var(--color--white);
+  cursor: pointer;
 }
