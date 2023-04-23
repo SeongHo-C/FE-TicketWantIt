@@ -116,7 +116,7 @@ function createTicket(ticket) {
   </td>
   <td><p class="ticket_total">${(price * quantity).toLocaleString()}원</p></td>
   <td>
-    <button class="ticket_order ticket_choice_button">
+    <button class="ticket_order ticket_choice_button" onclick='onChoice(${productID})'>
       주문하기
     </button>
     <button class="ticket_delete ticket_choice_button">삭제</button>
@@ -145,7 +145,15 @@ function onDelete(type, productIDs = []) {
   else tickets_info.length = 0;
 }
 
-function onNavigateOrder() {
+function onChoice(productID) {
+  const choiceTicket = tickets_info.find(
+    (ticket_info) => ticket_info.productID === String(productID)
+  );
+
+  onNavigateOrder([choiceTicket]);
+}
+
+function onNavigateOrder(tickets_info) {
   const tickets = JSON.stringify(tickets_info);
   localStorage.setItem('ticket_order', tickets);
 
@@ -158,6 +166,7 @@ const allCheck = document.querySelector('#all_check');
 const selectedDeleteBtn = document.querySelector('.selected_delete');
 const allDeleteBtn = document.querySelector('.all_delete');
 const allOrderBtn = document.querySelector('.all_order');
+const selectedOrderBtn = document.querySelector('.selected_order');
 
 window.addEventListener('load', () => {
   onSelect();
@@ -194,5 +203,20 @@ allOrderBtn.addEventListener('click', () => {
     return;
   }
 
-  onNavigateOrder();
+  onNavigateOrder(tickets_info);
+});
+
+selectedOrderBtn.addEventListener('click', () => {
+  const productIDs = onCheckedCheckbox();
+
+  if (productIDs.length < 1) {
+    alert('선택된 상품이 없습니다.');
+    return;
+  }
+
+  const selectedTickets = tickets_info.filter((ticket_info) =>
+    productIDs.includes(ticket_info.productID)
+  );
+
+  onNavigateOrder(selectedTickets);
 });
