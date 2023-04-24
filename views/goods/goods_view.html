@@ -1,268 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="../../css/reset.css" />
-        <link rel="stylesheet" href="../../css/style.css" />
-        <link rel="stylesheet" href="../goods/goods.css" />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-        />
-        <!-- Axios -->
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script defer src="./goods_view.js"></script>
-        <title>Document</title>
-    </head>
-    <body>
-        <header>
-            <div class="header">
-                <div class="inner w1140">
-                    <div class="left">
-                        <div class="logo">
-                            <a href="../home/index.html"
-                                ><span>티켓원잇!</span></a
-                            >
-                        </div>
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href=""><span>전체</span> </a>
-                                </li>
-                                <li>
-                                    <a href=""><span>전시회</span> </a>
-                                </li>
-                                <li>
-                                    <a href=""><span>콘서트</span> </a>
-                                </li>
-                                <li>
-                                    <a href=""><span>뮤지컬</span> </a>
-                                </li>
-                                <li>
-                                    <a href=""><span>연극</span> </a>
-                                </li>
-                                <li>
-                                    <a href=""><span>굿즈샵</span> </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="right">
-                        <ul class="menu">
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <div class="menu_icon login">
-                                        <i class="ri-login-circle-line"></i>
-                                    </div>
-                                    <span>LOGIN</span>
-                                </a>
-                            </li>
-                            <li class="dn">
-                                <a href="javascript:void(0)">
-                                    <div class="menu_icon logout">
-                                        <i class="ri-login-circle-line"></i>
-                                    </div>
-                                    <span>LOGOUT</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <div class="menu_icon mypage">
-                                        <i class="ri-user-3-line"></i>
-                                    </div>
-                                    <span>MYPAGE</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <div class="menu_icon cart">
-                                        <i class="ri-shopping-cart-line"></i>
-                                    </div>
-                                    <span>CART</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../goods/goods.css" />
+    <script src="./goods_view.js" defer></script>
+    <title>상품 상세 페이지</title>
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <div class="inner w1140">
+          <div class="left">
+            <div class="logo">
+              <a href="../home/index.html"><span>티켓원잇!</span></a>
             </div>
-        </header>
-        <div id="container">
-            <div class="content">
-                <div id="goods" class="w1140">
-                    <div class="page_title">
-                        <h2>DETAIL VIEW</h2>
-                    </div>
-                    <div class="goods_detail">
-                        <div class="img_box">
-                            <img
-                                src="../../asset/images/goods_list5.jpg"
-                                alt=""
-                            />
-                        </div>
-                        <div class="info_box">
-                            <div>
-                                <div class="top">
-                                    <div class="date">
-                                        2023-02-04 ~ 2023-04-27
-                                    </div>
-                                    <div class="title">
-                                        다비드 자맹: 프로방스에서 온 댄디보이
-                                    </div>
-                                    <div class="description">
-                                        내면의 감정을 바깥으로 끌어와 역동적으로
-                                        표현하는 프랑스 화가 다비드 자맹의
-                                        개인전
-                                    </div>
-                                    <div class="price">18,000 원</div>
-                                </div>
-
-                                <div class="detail_info">
-                                    <dl class="age">
-                                        <dt>연령제한</dt>
-                                        <dd>없음</dd>
-                                    </dl>
-                                    <dl>
-                                        <dt>장소</dt>
-                                        <dd>국립현대미술관</dd>
-                                    </dl>
-                                </div>
-                                <div class="count">
-                                    <button type="button">
-                                        <span>-</span>
-                                    </button>
-                                    <input
-                                        type="text"
-                                        value="1"
-                                        inputmode="numeric"
-                                        onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');"
-                                    />
-
-                                    <button type="button">
-                                        <span><i class="ri-add-line"></i></span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="btn_box">
-                                <button class="btn_cart">장바구니</button>
-                                <button class="btn_buy">바로구매</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <nav>
+              <ul>
+                <li>
+                  <a href=""><span>전체</span> </a>
+                </li>
+                <li>
+                  <a href=""><span>전시회</span> </a>
+                </li>
+                <li>
+                  <a href=""><span>콘서트</span> </a>
+                </li>
+                <li>
+                  <a href=""><span>뮤지컬</span> </a>
+                </li>
+                <li>
+                  <a href=""><span>연극</span> </a>
+                </li>
+                <li>
+                  <a href=""><span>굿즈샵</span> </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="right">
+            <ul class="menu">
+              <li>
+                <a href="javascript:void(0)">
+                  <div class="menu_icon login">
+                    <i class="ri-login-circle-line"></i>
+                  </div>
+                  <span>LOGIN</span>
+                </a>
+              </li>
+              <li class="dn">
+                <a href="javascript:void(0)">
+                  <div class="menu_icon logout">
+                    <i class="ri-login-circle-line"></i>
+                  </div>
+                  <span>LOGOUT</span>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0)">
+                  <div class="menu_icon mypage">
+                    <i class="ri-user-3-line"></i>
+                  </div>
+                  <span>MYPAGE</span>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:void(0)">
+                  <div class="menu_icon cart">
+                    <i class="ri-shopping-cart-line"></i>
+                  </div>
+                  <span>CART</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <footer>
-            <div class="inner w1140">
-                <div class="footer_top">
-                    <div class="left">
-                        <div class="logo">TICKET ONEIT!</div>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>개인정보처리방침</span></a
-                                >
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>이용약관</span></a
-                                >
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>이용안내</span></a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="right">
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><i class="ri-instagram-line"></i
-                                ></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><i class="ri-gitlab-fill"></i
-                                ></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><i class="ri-github-fill"></i
-                                ></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer_info">
-                    <ul>
-                        <li>
-                            <div class="customer_center">
-                                <strong>CUSTOMER SUPPORT CENTER</strong>
-                                <span>
-                                    <i class="ri-customer-service-line"></i>
-                                    <a href="tel:전화번호">02-1234-5678</a>
-                                </span>
-                            </div>
-                            <div class="kakaotalk">
-                                <strong>KAKAOTALK</strong>
-                                <span
-                                    ><i class="ri-kakao-talk-fill"></i
-                                    ><a href="javascript:void(0)"
-                                        >TICKET ONEIT!</a
-                                    >
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="operating_hours">
-                                <strong>OPERATING HOURS</strong>
-                                <p>
-                                    MON - FRI AM 09:30 - PM 05:30<br />
-                                    LUNCH PM 12:00 - 1:00<br />
-                                    SAT, SUN, HOLIDAY OFF
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="accout_info">
-                                <strong>ACCOUNT INFORMATION</strong>
-                                <p>
-                                    신한은행 12345678900<br />
-                                    예금주 (주)티켓원잇
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="company_info">
-                                <strong>COMPANY INFORMATION</strong>
-                                <p>
-                                    회사 : 주식회사 티켓원잇<br />
-                                    팀장 : 윤우정 <br />
-                                    팀원 : 김윤중, 유하영, 이민영, 이성호,
-                                    정혜린<br />
-                                    사업자등록번호 : [123-12-12345]<br />
-                                    주소 : (04799)서울 성동구 아차산로17길 48<br />
-                                    제휴문의 : 엘리스 / contact@elice.io
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer_etc">
-                    <p>
-                        Copyright ⓒ 2023 - 2023 Ticket One It Inc. All Rights
-                        Reserved.
-                    </p>
-                </div>
-            </div>
-        </footer>
-    </body>
+      </div>
+    </header>
+    <div id="container">
+      <div class="content">
+        <div id="goods" class="w1140">
+          <div class="page_title">
+            <h2>DETAIL VIEW</h2>
+          </div>
+          <div class="goods_detail"></div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="inner w1140">
+        <div class="footer_top">
+          <div class="left">
+            <div class="logo">TICKET ONEIT!</div>
+            <ul>
+              <li>
+                <a href="javascript:void(0)"><span>개인정보처리방침</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"><span>이용약관</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"><span>이용안내</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="right">
+            <ul>
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="ri-instagram-line"></i
+                ></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"><i class="ri-gitlab-fill"></i></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"><i class="ri-github-fill"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer_info">
+          <ul>
+            <li>
+              <div class="customer_center">
+                <strong>CUSTOMER SUPPORT CENTER</strong>
+                <span>
+                  <i class="ri-customer-service-line"></i>
+                  <a href="tel:전화번호">02-1234-5678</a>
+                </span>
+              </div>
+              <div class="kakaotalk">
+                <strong>KAKAOTALK</strong>
+                <span
+                  ><i class="ri-kakao-talk-fill"></i
+                  ><a href="javascript:void(0)">TICKET ONEIT!</a>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="operating_hours">
+                <strong>OPERATING HOURS</strong>
+                <p>
+                  MON - FRI AM 09:30 - PM 05:30<br />
+                  LUNCH PM 12:00 - 1:00<br />
+                  SAT, SUN, HOLIDAY OFF
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="accout_info">
+                <strong>ACCOUNT INFORMATION</strong>
+                <p>
+                  신한은행 12345678900<br />
+                  예금주 (주)티켓원잇
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="company_info">
+                <strong>COMPANY INFORMATION</strong>
+                <p>
+                  회사 : 주식회사 티켓원잇<br />
+                  팀장 : 윤우정 <br />
+                  팀원 : 김윤중, 유하영, 이민영, 이성호, 정혜린<br />
+                  사업자등록번호 : [123-12-12345]<br />
+                  주소 : (04799)서울 성동구 아차산로17길 48<br />
+                  제휴문의 : 엘리스 / contact@elice.io
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="footer_etc">
+          <p>Copyright ⓒ 2023 - 2023 Ticket One It Inc. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
