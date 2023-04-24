@@ -1,29 +1,28 @@
-const productView = document.querySelector(".goods_detail");
+const productView = document.querySelector('.goods_detail');
+let productsViewItem;
 
 async function main() {
-    /* 추후에 api연결되면 이걸로 변경 */
-    // const response = await axios({
-    //     method: "GET",
-    //     url: "https://fakestoreapi.com/products",
-    // });
+  /* 추후에 api연결되면 이걸로 변경 */
+  // const response = await axios({
+  //     method: "GET",
+  //     url: "https://fakestoreapi.com/products",
+  // });
 
-    const response = await axios.get("./goods_view.json");
+  const response = await axios.get('./goods_view.json');
 
-    const products = await response.data;
-    console.log(products);
+  const products = await response.data;
+  console.log(products);
 
-    // URL에서 productId 값을 가져오기
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlProductId = urlParams.get("productId");
-    console.log(urlProductId);
+  // URL에서 productId 값을 가져오기
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlProductId = urlParams.get('productId');
+  console.log(urlProductId);
 
-    //URL의 productId값과 goods_view.json의 productID의 값이 같은경우에 해당 값 출력
+  //URL의 productId값과 goods_view.json의 productID의 값이 같은경우에 해당 값 출력
 
-    const productsViewItem = products.find(
-        (item) => item.productID === urlProductId
-    );
+  productsViewItem = products.find((item) => item.productID === urlProductId);
 
-    productView.innerHTML = `
+  productView.innerHTML = `
         <div class="img_box">
             <img
                 src="${productsViewItem.productID}"
@@ -69,9 +68,8 @@ async function main() {
                     </button>
                 </div>
             </div>
-
             <div class="btn_box">
-                <button class="btn_cart">장바구니</button>
+                <button class="btn_cart" onclick='onAddCart()'>장바구니</button>
                 <button class="btn_buy">바로구매</button>
             </div>
         </div>
@@ -79,3 +77,39 @@ async function main() {
 }
 
 main();
+
+// 장바구니 추가
+function onAddCart() {
+  const countInput = document.querySelector('.count > input');
+  const quantity = Number(countInput.value);
+  const { productID, imageUrl, productName, place, speciesAge, price } =
+    productsViewItem;
+
+  const ticket = {
+    productID,
+    imageUrl,
+    productName,
+    place,
+    speciesAge,
+    price,
+    quantity,
+  };
+  const cart = JSON.parse(localStorage.getItem('cart'));
+
+  if (cart) {
+    const isTicket = cart.find((item) => item.productID === ticket.productID);
+
+    if (isTicket) {
+      alert('장바구니에 상품이 이미 존재합니다.');
+      return;
+    }
+
+    cart.push(ticket);
+    localStorage.setItem('cart', JSON.stringify(cart));
+  } else {
+    localStorage.setItem('cart', JSON.stringify([ticket]));
+  }
+
+  alert('장바구니에 상품이 추가되었습니다.');
+  console.log(JSON.parse(localStorage.getItem('cart')));
+}
