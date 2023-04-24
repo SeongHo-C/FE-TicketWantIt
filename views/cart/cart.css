@@ -40,7 +40,7 @@ h2 {
   font-weight: 600;
 }
 
-.ticket_money {
+.ticket_price {
   font-weight: 600;
 }
 
@@ -51,7 +51,7 @@ h2 {
   text-align: center;
 }
 
-.ticket_quantity_button {
+.ticket_quantity > button {
   width: 25px;
   height: 25px;
 
@@ -61,6 +61,7 @@ h2 {
   color: white;
   background-color: var(--color--black1);
   cursor: pointer;
+  vertical-align: middle;
 }
 
 .ticket_total {

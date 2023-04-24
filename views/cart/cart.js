@@ -44,7 +44,6 @@ function calculateTotalPrice(tickets_info) {
 </tr>`;
 }
 
-// 상세 페이지에서 localstorage에 장바구니 추가 작업 필요
 function onMinus(productID) {
   tickets_info = tickets_info.map((ticket_info) => {
     const quantity = ticket_info.quantity;
@@ -54,16 +53,14 @@ function onMinus(productID) {
         alert('최소 수량은 1개 입니다.');
         return;
       }
-
       return { ...ticket_info, quantity: quantity - 1 };
     }
-    return ticket_info;
   });
 
-  // location.reload();
+  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  location.reload();
 }
 
-// 상세 페이지에서 localstorage에 장바구니 추가 작업 필요
 function onPlus(productID) {
   tickets_info = tickets_info.map((ticket_info) => {
     const quantity = ticket_info.quantity;
@@ -71,11 +68,11 @@ function onPlus(productID) {
     if (ticket_info.productID === productID) {
       return { ...ticket_info, quantity: quantity + 1 };
     }
-
     return ticket_info;
   });
 
-  // location.reload();
+  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  location.reload();
 }
 
 function createTicket(ticket) {
@@ -105,13 +102,13 @@ function createTicket(ticket) {
   </td>
   <td><p>${place}</p></td>
   <td><p>${speciesAge}세 이상</p></td>
-  <td><p class="ticket_money">${price.toLocaleString()}원</p></td>
+  <td><p class="ticket_price">${price.toLocaleString()}원</p></td>
   <td class="ticket_quantity">
-    <button class="ticket_quantity_button quantity_minus_button" onclick='onMinus(${productID})'>
+    <button class="quantity_minus_button" onclick='onMinus(${productID})'>
       <i class="fas fa-minus"></i>
     </button>
     <input type="text" class="ticket_quantity_input" value=${quantity} />
-    <button class="ticket_quantity_button quantity_plus_button" onclick='onPlus(${productID})'>
+    <button class="quantity_plus_button" onclick='onPlus(${productID})'>
       <i class="fas fa-plus"></i>
     </button>
   </td>
