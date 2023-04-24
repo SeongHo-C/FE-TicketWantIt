@@ -1,11 +1,13 @@
-let tickets_info = JSON.parse(localStorage.getItem('cart'));
+let tickets_info = localStorage.getItem('cart')
+  ? JSON.parse(localStorage.getItem('cart'))
+  : [];
 
 function onLoad() {
   if (tickets_info.length < 1) return;
+
   const tickets = tickets_info
     .map((ticket_info) => createTicket(ticket_info))
     .join('');
-
   ticketsList.innerHTML = tickets;
 
   const totalPrice = calculateTotalPrice(tickets_info);
@@ -66,14 +68,14 @@ function createTicket(ticket) {
     price,
     quantity = 1,
   } = ticket;
-  console.log(ticket);
+
   return `<tr id=ticket${productId}>
   <td><input type="checkbox" id=only_check${productId} name='ticket_check'/></td>
   <td>
     <img
       class="ticket_img"
       src="${imageUrl}"
-      alt="sample image"
+      alt="상품 이미지"
     />
   </td>
   <td>
@@ -95,10 +97,10 @@ function createTicket(ticket) {
   </td>
   <td><p class="ticket_total">${(price * quantity).toLocaleString()}원</p></td>
   <td class="only_ticket">
-    <button class="ticket_order" onclick='onlyOrder(${productId})'>
+    <button class="ticket_order" onclick="onlyOrder('${productId}')">
       주문하기
     </button>
-    <button class="ticket_delete" onclick='onlyDelete(${productId})'>삭제</button>
+    <button class="ticket_delete" onclick="onlyDelete('${productId}')">삭제</button>
   </td>
 </tr>
   `;
@@ -109,7 +111,7 @@ function onCheckedCheckbox() {
   const productIds = [];
 
   for (let ticket of tickets) {
-    const productId = ticket.id.slice(-1);
+    const productId = ticket.id.split('only_check')[1];
     if (ticket.checked) productIds.push(productId);
   }
 
@@ -175,22 +177,18 @@ function selectedDelete() {
 }
 
 function onlyDelete(productId) {
-  if (tickets_info.length < 1) {
-    alert('장바구니에 상품이 없습니다.');
-    return;
-  }
-
   onDelete('selected', [productId]);
 }
 
-function onDelete(type, productIds = []) {
+function onDelete(type, productIds) {
   if (type === 'selected')
     tickets_info = tickets_info.filter(
-      (ticket_info) => !productIds.includes(ticket_info.productID)
+      (ticket_info) => !productIds.includes(ticket_info.productId)
     );
   else tickets_info.length = 0;
 
-  localStorage.setItem('cart', tickets_info);
+  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  location.reload();
 }
 
 const ticketsList = document.querySelector('.tickets_list');
