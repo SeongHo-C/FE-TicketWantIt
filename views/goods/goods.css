@@ -90,6 +90,14 @@
   border-left: 2px solid var(--color--black1);
 }
 
+.goods_detail .info_box .ticket_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  flex: 1;
+}
+
 .goods_detail .info_box .top {
   margin: 0 0 20px;
 }
@@ -119,7 +127,7 @@
 }
 
 .goods_detail .info_box .price {
-  margin: 50px 0;
+  /* margin: 50px 0; */
 
   font-size: 24px;
   font-weight: 700;
