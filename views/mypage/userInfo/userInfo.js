@@ -1,8 +1,5 @@
 import { logout } from '../../modules/logout.js';
-import { handleMyPageClick } from '../../modules/goToMypage.js';
-import { addInterceptor, getToken } from '../../modules/interceptor.js'
-
-addInterceptor();
+import { handleMyPageClick, getToken } from '../../modules/goToMypage.js';
 
 const [
   email,
@@ -11,20 +8,28 @@ const [
 
 const withdrawalButton = document.querySelector('#withdrawalButton')
 
-try {
-  const response = await axios.get('/api/user', {
+const userInfo = () => {
+  axios.get('http://10.10.6.156:5000/api/user',
+  {
     headers: {'Authorization': `Bearer ${getToken()}`}
-  });
-
-  email.innerHTML = response.data.email;
-  nameInput.innerHTML = response.data.name;
-} catch (err) {
-  console.log(err);
-  alert('정보를 불러오지 못했습니다. 잠시 뒤 다시 시도해보세요.');
+  })
+  .then((response) => {
+    console.log(response)
+    const token = getToken();
+    const decodedToken = jwt_decode(token);
+    email.innerHTML = response.data.email;
+    nameInput.innerHTML = response.data.name;
+  })
+ .catch((err => {
+    console.log(err);
+    alert('정보를 불러오지 못했습니다. 잠시 뒤 다시 시도해보세요.');
+ })
+)
 }
 
 //회원탈퇴
 const withdrawal = (e) => {
+  
   e.preventDefault();
 
   if (confirm('정말 탈퇴하시겠습니까?')) {
@@ -47,6 +52,7 @@ const withdrawal = (e) => {
   }
 }
 
+window.addEventListener('load', userInfo);
 document.querySelector('.mypage').addEventListener('click', handleMyPageClick);
 document.querySelector('.logout').addEventListener('click', logout);
 withdrawalButton.addEventListener('click', withdrawal);

@@ -13,8 +13,11 @@
   <link rel='stylesheet' href='../../css/style.css'>
   <link rel='stylesheet' href='login.css'>
   <script src='https://unpkg.com/axios/dist/axios.min.js' defer></script>
+  <script src="
+    https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
+    "></script>
   <script type='module' src='./login.js' defer></script>
-  <title>join | Ticket Want it!</title>
+  <title>log in | Ticket Want it!</title>
 </head>
 </head>
 <body>
@@ -109,7 +112,7 @@
               Welcome!
             </legend>
             <label for='login'>E-MAIL</label>
-              <input type='text' id='login' class='login_inputText' placeholder='E-MAIL' onblur="emailCheck(this.value)"/>
+              <input type='text' id='login' class='login_inputText' placeholder='E-MAIL'/>
               <div class='error'>이메일을 확인해주세요.</div>
             <label for='password'>PASSWORD</label>
               <input type='password' id='password'class='login_inputText' placeholder='PASSWORD'/>

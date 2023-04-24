@@ -1,6 +1,3 @@
-import axios from 'axios';
-import setLoginLogoutButton from './setLoginLogoutButton';
-
 export const logout = () => {
   axios.get('/api/auth/logout')
   .then(() => {

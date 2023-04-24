@@ -64,6 +64,10 @@ confirmPassword.addEventListener('input', () => {
   }
 });
 
+function saveToken(token) {
+  localStorage.setItem('token', token);
+}
+
 //회원가입
 const joinFunction = (e) => {
   e.preventDefault();
@@ -83,15 +87,22 @@ const joinFunction = (e) => {
     return false;
   }
 
-axios.post('/api/users', {
+axios.post('http://10.10.6.156:5000/api/user', {
     email : id.value + '@' + email.value,
     name : nameInput.value,
     password : password.value,
+}, {
+  headers: {
+    'Content-Type': 'application/json'
+  }
 })
-.then((res) => {
-  if (res) {
+.then((response) => {
+  if (response) {
       alert('회원가입이 완료되었습니다!');
-      window.location.href = '../login/login.html';
+      const token = response.data.token;
+      localStorage.setItem('token', response.data.token);
+      saveToken(token);
+      window.location.href = '../home/index.html';
   } else {
       alert('회원가입에 실패했습니다.');
       return;
