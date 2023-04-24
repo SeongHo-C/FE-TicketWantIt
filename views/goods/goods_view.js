@@ -6,7 +6,7 @@ async function main() {
     const productId = urlParams.get('productId');
 
     const response = await axios.get(
-      `http://10.10.6.158:5000/api/product/detail?productId=${productId}`
+      `http://34.64.112.166/api/product/detail?productId=${productId}`
     );
     productViewItem = response.data;
 
@@ -35,7 +35,7 @@ function createView(data) {
             />
         </div>
         <div class="info_box">
-            <div>
+            <div class="ticket_info">
                 <div class="top">
                     <div class="date">${startDate} ~ ${endDate}</div>
                     <div class="title">
@@ -44,9 +44,8 @@ function createView(data) {
                     <div class="description">
                         ${description}
                     </div>
-                    <div class="price">${price.toLocaleString()}원</div>
                 </div>
-
+                <div class="price">${price.toLocaleString()}원</div>
                 <div class="detail_info">
                     <dl class="age">
                         <dt>연령제한</dt>
@@ -60,25 +59,18 @@ function createView(data) {
             </div>
             <div class="btn_box">
                 <button class="btn_cart" onclick='onAddCart()'>장바구니</button>
-                <button class="btn_buy">바로구매</button>
+                <button class="btn_buy" onclick='onDirectBuy()'>바로구매</button>
             </div>
         </div>
     `;
 }
 
-const productView = document.querySelector('.goods_detail');
-
-window.addEventListener('load', () => {
-  main();
-});
-
-// 장바구니 추가
-function onAddCart() {
-  const { productID, imageUrl, productName, place, speciesAge, price } =
+function createTicket() {
+  const { productId, imageUrl, productName, place, speciesAge, price } =
     productViewItem;
 
-  const ticket = {
-    productID,
+  return {
+    productId,
     imageUrl,
     productName,
     place,
@@ -86,10 +78,14 @@ function onAddCart() {
     price,
     quantity: 1,
   };
-  const cart = JSON.parse(localStorage.getItem('cart'));
+}
 
+function onAddCart() {
+  const ticket = createTicket();
+
+  const cart = JSON.parse(localStorage.getItem('cart'));
   if (cart) {
-    const isTicket = cart.find((item) => item.productID === ticket.productID);
+    const isTicket = cart.find((item) => item.productId === ticket.productId);
 
     if (isTicket) {
       alert('장바구니에 상품이 이미 존재합니다.');
@@ -104,3 +100,21 @@ function onAddCart() {
 
   alert('장바구니에 상품이 추가되었습니다.');
 }
+
+function onDirectBuy() {
+  const ticket = createTicket();
+
+  onNavigateOrder([ticket]);
+}
+
+function onNavigateOrder(ticket) {
+  localStorage.setItem('ticket_order', JSON.stringify(ticket));
+
+  location.href = '/views/order/order.html';
+}
+
+const productView = document.querySelector('.goods_detail');
+
+window.addEventListener('load', () => {
+  main();
+});
