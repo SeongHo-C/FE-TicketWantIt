@@ -5,55 +5,34 @@
 */
 
 async function main() {
-    /* 추후에 api연결되면 이걸로 변경 */
-    // const response = await axios({
-    //     method: "GET",
-    //     url: "https://fakestoreapi.com/products",
-    // });
+  /* 추후에 api연결되면 이걸로 변경 */
+  const response = await axios.get('http://10.10.6.158:5000/api/product');
 
-    const response = await axios.get("./goods_list.json");
+  // const response = await axios.get("./goods_list.json");
 
-    const products = await response.data;
-    console.log(products);
+  const products = await response.data;
+  console.log(products);
 
-    const productList = document.querySelector(".goods_list ul");
+  const productList = document.querySelector('.goods_list ul');
 
-    productList.innerHTML = products
-        .map(
-            ({ productId, productName, price, imageUrl }) => `
+  productList.innerHTML = products
+    .map(
+      ({ productId, productName, price, imageUrl, startDate, endDate }) => `
             <li>
-                <a href="./goods_view.html/?productId=${productId}">
+                <a href="./goods_view.html?productId=${productId}">
                 <div class="img_box">
                     <img src="${imageUrl}" alt="${productName}" />
                 </div>
                 <div class="info_box">
-                    <span class="goods_date">2023-04-20</span>
+                    <span class="goods_date">${startDate} - ${endDate}</span>
                     <strong class="goods_tit">${productName}</strong>
                     <span class="goods_pri">${price}</span>
                 </div>
                 </a>
             </li>
         `
-        )
-        .join("");
-
-    // a 태그 클릭 이벤트 리스너 추가
-    const productLinks = document.querySelectorAll(".goods_list ul li a");
-
-    productLinks.forEach((link) => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault(e);
-
-            // 클릭된 a 태그의 href 속성 값 가져오기
-            const href = link.getAttribute("href");
-            console.log(href);
-
-            const productId = href.split("?productId=")[1];
-
-            // 상세보기 페이지로 이동하기
-            window.location.href = `./goods_view.html?productId=${productId}`;
-        });
-    });
+    )
+    .join('');
 }
 
 main();
