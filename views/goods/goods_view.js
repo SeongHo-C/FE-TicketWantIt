@@ -1,14 +1,20 @@
-const productView = document.querySelector('.goods_detail');
-
 async function main() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const productId = urlParams.get('productId');
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('productId');
 
-  const response = await axios.get(
-    `http://10.10.6.158:5000/api/product/detail?productId=${productId}`
-  );
+    const response = await axios.get(
+      `http://10.10.6.158:5000/api/product/detail?productId=${productId}`
+    );
+
+    productView.innerHTML = createView(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function createView(data) {
   const {
-    category,
     description,
     startDate,
     endDate,
@@ -17,20 +23,18 @@ async function main() {
     price,
     productName,
     speciesAge,
-  } = response.data;
+  } = data;
 
-  console.log(response.data);
-  productView.innerHTML = `
-        <div class="img_box">
+  return `<div class="img_box">
             <img
                 src=${imageUrl}
-                alt=""
+                alt="상품 이미지"
             />
         </div>
         <div class="info_box">
             <div>
                 <div class="top">
-                    <div class="date">2023-02-04 ~ 2023-04-27</div>
+                    <div class="date">${startDate} ~ ${endDate}</div>
                     <div class="title">
                     ${productName}
                     </div>
@@ -50,21 +54,6 @@ async function main() {
                         <dd>${place}</dd>
                     </dl>
                 </div>
-                <div class="count">
-                    <button type="button">
-                        <span>-</span>
-                    </button>
-                    <input
-                        type="text"
-                        value="1"
-                        inputmode="numeric"
-                        onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');"
-                    />
-
-                    <button type="button">
-                        <span><i class="ri-add-line"></i></span>
-                    </button>
-                </div>
             </div>
 
             <div class="btn_box">
@@ -75,4 +64,8 @@ async function main() {
     `;
 }
 
-main();
+const productView = document.querySelector('.goods_detail');
+
+window.addEventListener('load', () => {
+  main();
+});

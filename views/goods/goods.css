@@ -113,13 +113,14 @@
 
 .goods_detail .info_box .description {
   display: block;
-  padding: 0 0 20px;
   font-size: 16px;
   color: var(--color--black3);
   word-break: keep-all;
 }
 
 .goods_detail .info_box .price {
+  margin: 50px 0;
+
   font-size: 24px;
   font-weight: 700;
   color: var(--color--red);
@@ -178,31 +179,4 @@
   background: var(--color--black1);
   border: 1px solid var(--color--black1);
   color: var(--color--white);
-}
-
-.count {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  border-bottom: 2px solid var(--color--black1);
-}
-
-.count > button {
-  width: 50px;
-  height: 50px;
-  border: none;
-  background: none;
-  font-size: 24px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.count input[type='text'] {
-  width: calc(100% - 100px);
-  height: 50px;
-  background: none;
-  border: none;
-  text-align: center;
-  font-size: 20px;
 }
