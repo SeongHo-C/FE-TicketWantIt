@@ -21,14 +21,15 @@ let tickets_info = [
   },
 ];
 
-function onSelect() {
-  for (let ticket_info of tickets_info) {
-    const ticket = createTicket(ticket_info);
-    ticketsList.innerHTML += ticket;
-  }
+function onLoad() {
+  const tickets = tickets_info
+    .map((ticket_info) => createTicket(ticket_info))
+    .join('');
+
+  ticketsList.innerHTML = tickets;
 
   const totalPrice = calculateTotalPrice(tickets_info);
-  calculateList.innerHTML += totalPrice;
+  calculateList.innerHTML = totalPrice;
 }
 
 function calculateTotalPrice(tickets_info) {
@@ -169,7 +170,7 @@ const allOrderBtn = document.querySelector('.all_order');
 const selectedOrderBtn = document.querySelector('.selected_order');
 
 window.addEventListener('load', () => {
-  onSelect();
+  onLoad();
 });
 
 allCheck.addEventListener('change', () => {
