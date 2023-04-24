@@ -1,28 +1,29 @@
-// let tickets_info = [
-//   {
-//     productID: '0',
-//     imageUrl:
-//       'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
-//     productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
-//     place: '서울시립미술관',
-//     speciesAge: 15,
-//     price: 30000,
-//     quantity: 1,
-//   },
-//   {
-//     productID: '1',
-//     imageUrl:
-//       'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
-//     productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
-//     place: '서울시립미술관',
-//     speciesAge: 15,
-//     price: 20000,
-//     quantity: 3,
-//   },
-// ];
-let tickets_info = [];
+let tickets_info = [
+  {
+    productID: '0',
+    imageUrl:
+      'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
+    productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
+    place: '서울시립미술관',
+    speciesAge: 15,
+    price: 30000,
+    quantity: 1,
+  },
+  {
+    productID: '1',
+    imageUrl:
+      'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
+    productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
+    place: '서울시립미술관',
+    speciesAge: 15,
+    price: 20000,
+    quantity: 3,
+  },
+];
 
 function onLoad() {
+  if (tickets_info.length < 1) return;
+
   const tickets = tickets_info
     .map((ticket_info) => createTicket(ticket_info))
     .join('');
