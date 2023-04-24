@@ -26,7 +26,7 @@ function createTicket(ticket) {
   <img
     class="ticket_img"
     src=${imageUrl}
-    alt="샘플 이미지"
+    alt="상품 이미지"
   />
   <div class="ticket_info">
     <h2>${productName}</h2>
@@ -53,6 +53,17 @@ function execDaumPostcode() {
       addressDetail.focus();
     },
   }).open();
+}
+
+async function pay(data) {
+  const response = await axios.post('http://34.64.112.166/api/orders', data, {
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiTE11azFmdTUzNENZSVRfRl9faC05IiwibmFtZSI6InVzZXIxIiwiaXNBZG1pbiI6ZmFsc2UsImlzVGVtcFBhc3N3b3JkIjpmYWxzZSwiaWF0IjoxNjgyMzYxNjcwLCJleHAiOjE2ODIzNjUyNzB9.29iDsUIDgwifPgKm-DmUoPR72TDAOP9ylXXfcE00k64',
+    },
+  });
+
+  console.log(response);
 }
 
 const orderList = document.querySelector('.order_list');
@@ -109,7 +120,7 @@ orderForm.addEventListener('submit', (e) => {
     items,
     totalPrice,
   };
-
-  // api 호출
-  location.href = `/views/order_complete/order_complete.html?orderId="123456789"&totalPrice=${totalPrice}`;
+  console.log(data);
+  // pay(data);
+  // location.href = `/views/order_complete/order_complete.html?orderId="123456789"&totalPrice=${totalPrice}`;
 });

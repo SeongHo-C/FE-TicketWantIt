@@ -120,7 +120,7 @@ function onCheckedCheckbox() {
 
 function onlyOrder(productId) {
   const ticket = tickets_info.find(
-    (ticket_info) => ticket_info.productId === String(productId)
+    (ticket_info) => ticket_info.productId === productId
   );
 
   onNavigateOrder([ticket]);
