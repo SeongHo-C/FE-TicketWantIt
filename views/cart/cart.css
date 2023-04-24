@@ -68,7 +68,7 @@ h2 {
   font-weight: 600;
 }
 
-.ticket_choice_button {
+.only_ticket > button {
   padding: 0.4rem 0.6rem;
   margin: 0.2rem 0;
 

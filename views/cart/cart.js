@@ -113,11 +113,11 @@ function createTicket(ticket) {
     </button>
   </td>
   <td><p class="ticket_total">${(price * quantity).toLocaleString()}원</p></td>
-  <td>
-    <button class="ticket_order ticket_choice_button" onclick='onChoice(${productID})'>
+  <td class="only_ticket">
+    <button class="ticket_order" onclick='onlyOrder(${productID})'>
       주문하기
     </button>
-    <button class="ticket_delete ticket_choice_button">삭제</button>
+    <button class="ticket_delete">삭제</button>
   </td>
 </tr>
   `;
@@ -135,20 +135,44 @@ function onCheckedCheckbox() {
   return productIDs;
 }
 
+function onlyOrder(productID) {
+  const ticket = tickets_info.find(
+    (ticket_info) => ticket_info.productID === String(productID)
+  );
+
+  onNavigateOrder([ticket]);
+}
+
+function selectedOrder() {
+  const productIDs = onCheckedCheckbox();
+
+  if (productIDs.length < 1) {
+    alert('선택된 상품이 없습니다.');
+    return;
+  }
+
+  const selectedTickets = tickets_info.filter((ticket_info) =>
+    productIDs.includes(ticket_info.productID)
+  );
+
+  onNavigateOrder(selectedTickets);
+}
+
+function allOrder() {
+  if (tickets_info.length < 1) {
+    alert('장바구니에 상품이 없습니다.');
+    return;
+  }
+
+  onNavigateOrder(tickets_info);
+}
+
 function onDelete(type, productIDs = []) {
   if (type === 'selected')
     tickets_info = tickets_info.filter(
       (ticket_info) => !productIDs.includes(ticket_info.productID)
     );
   else tickets_info.length = 0;
-}
-
-function onChoice(productID) {
-  const choiceTicket = tickets_info.find(
-    (ticket_info) => ticket_info.productID === String(productID)
-  );
-
-  onNavigateOrder([choiceTicket]);
 }
 
 function onNavigateOrder(tickets_info) {
@@ -180,6 +204,10 @@ allCheck.addEventListener('change', () => {
   }
 });
 
+allDeleteBtn.addEventListener('click', () => {
+  onDelete('all');
+});
+
 selectedDeleteBtn.addEventListener('click', () => {
   const productIDs = onCheckedCheckbox();
 
@@ -191,30 +219,10 @@ selectedDeleteBtn.addEventListener('click', () => {
   onDelete('selected', productIDs);
 });
 
-allDeleteBtn.addEventListener('click', () => {
-  onDelete('all');
-});
-
 allOrderBtn.addEventListener('click', () => {
-  if (tickets_info.length < 1) {
-    alert('장바구니에 상품이 없습니다.');
-    return;
-  }
-
-  onNavigateOrder(tickets_info);
+  allOrder();
 });
 
 selectedOrderBtn.addEventListener('click', () => {
-  const productIDs = onCheckedCheckbox();
-
-  if (productIDs.length < 1) {
-    alert('선택된 상품이 없습니다.');
-    return;
-  }
-
-  const selectedTickets = tickets_info.filter((ticket_info) =>
-    productIDs.includes(ticket_info.productID)
-  );
-
-  onNavigateOrder(selectedTickets);
+  selectedOrder();
 });
