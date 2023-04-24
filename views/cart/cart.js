@@ -1,25 +1,26 @@
-let tickets_info = [
-  {
-    productID: '0',
-    imageUrl:
-      'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
-    productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
-    place: '서울시립미술관',
-    speciesAge: 15,
-    price: 30000,
-    quantity: 1,
-  },
-  {
-    productID: '1',
-    imageUrl:
-      'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
-    productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
-    place: '서울시립미술관',
-    speciesAge: 15,
-    price: 20000,
-    quantity: 3,
-  },
-];
+// let tickets_info = [
+//   {
+//     productID: '0',
+//     imageUrl:
+//       'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
+//     productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
+//     place: '서울시립미술관',
+//     speciesAge: 15,
+//     price: 30000,
+//     quantity: 1,
+//   },
+//   {
+//     productID: '1',
+//     imageUrl:
+//       'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
+//     productName: '[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓',
+//     place: '서울시립미술관',
+//     speciesAge: 15,
+//     price: 20000,
+//     quantity: 3,
+//   },
+// ];
+let tickets_info = [];
 
 function onLoad() {
   const tickets = tickets_info
@@ -117,7 +118,7 @@ function createTicket(ticket) {
     <button class="ticket_order" onclick='onlyOrder(${productID})'>
       주문하기
     </button>
-    <button class="ticket_delete">삭제</button>
+    <button class="ticket_delete" onclick='onlyDelete(${productID})'>삭제</button>
   </td>
 </tr>
   `;
@@ -143,6 +144,15 @@ function onlyOrder(productID) {
   onNavigateOrder([ticket]);
 }
 
+function allOrder() {
+  if (tickets_info.length < 1) {
+    alert('장바구니에 상품이 없습니다.');
+    return;
+  }
+
+  onNavigateOrder(tickets_info);
+}
+
 function selectedOrder() {
   const productIDs = onCheckedCheckbox();
 
@@ -158,13 +168,39 @@ function selectedOrder() {
   onNavigateOrder(selectedTickets);
 }
 
-function allOrder() {
+function onNavigateOrder(tickets_info) {
+  localStorage.setItem('ticket_order', JSON.stringify(tickets_info));
+
+  location.href = '/views/order/order.html';
+}
+
+function allDelete() {
   if (tickets_info.length < 1) {
     alert('장바구니에 상품이 없습니다.');
     return;
   }
 
-  onNavigateOrder(tickets_info);
+  onDelete('all');
+}
+
+function selectedDelete() {
+  const productIDs = onCheckedCheckbox();
+
+  if (productIDs.length < 1) {
+    alert('선택된 상품이 없습니다.');
+    return;
+  }
+
+  onDelete('selected', productIDs);
+}
+
+function onlyDelete(productID) {
+  if (tickets_info.length < 1) {
+    alert('장바구니에 상품이 없습니다.');
+    return;
+  }
+
+  onDelete('selected', [productID]);
 }
 
 function onDelete(type, productIDs = []) {
@@ -173,13 +209,8 @@ function onDelete(type, productIDs = []) {
       (ticket_info) => !productIDs.includes(ticket_info.productID)
     );
   else tickets_info.length = 0;
-}
 
-function onNavigateOrder(tickets_info) {
-  const tickets = JSON.stringify(tickets_info);
-  localStorage.setItem('ticket_order', tickets);
-
-  location.href = '/views/order/order.html';
+  localStorage.setItem('cart', tickets_info);
 }
 
 const ticketsList = document.querySelector('.tickets_list');
@@ -204,25 +235,18 @@ allCheck.addEventListener('change', () => {
   }
 });
 
-allDeleteBtn.addEventListener('click', () => {
-  onDelete('all');
-});
-
-selectedDeleteBtn.addEventListener('click', () => {
-  const productIDs = onCheckedCheckbox();
-
-  if (productIDs.length < 1) {
-    alert('선택된 상품이 없습니다.');
-    return;
-  }
-
-  onDelete('selected', productIDs);
-});
-
 allOrderBtn.addEventListener('click', () => {
   allOrder();
 });
 
 selectedOrderBtn.addEventListener('click', () => {
   selectedOrder();
+});
+
+allDeleteBtn.addEventListener('click', () => {
+  allDelete();
+});
+
+selectedDeleteBtn.addEventListener('click', () => {
+  selectedDelete();
 });
