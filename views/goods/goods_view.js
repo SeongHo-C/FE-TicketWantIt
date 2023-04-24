@@ -1,32 +1,29 @@
-const productView = document.querySelector(".goods_detail");
+const productView = document.querySelector('.goods_detail');
 
 async function main() {
-    /* 추후에 api연결되면 이걸로 변경 */
-    // const response = await axios({
-    //     method: "GET",
-    //     url: "https://fakestoreapi.com/products",
-    // });
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('productId');
 
-    const response = await axios.get("./goods_view.json");
+  const response = await axios.get(
+    `http://10.10.6.158:5000/api/product/detail?productId=${productId}`
+  );
+  const {
+    category,
+    description,
+    startDate,
+    endDate,
+    imageUrl,
+    place,
+    price,
+    productName,
+    speciesAge,
+  } = response.data;
 
-    const products = await response.data;
-    console.log(products);
-
-    // URL에서 productId 값을 가져오기
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlProductId = urlParams.get("productId");
-    console.log(urlProductId);
-
-    //URL의 productId값과 goods_view.json의 productID의 값이 같은경우에 해당 값 출력
-
-    const productsViewItem = products.find(
-        (item) => item.productID === urlProductId
-    );
-
-    productView.innerHTML = `
+  console.log(response.data);
+  productView.innerHTML = `
         <div class="img_box">
             <img
-                src="${productsViewItem.productID}"
+                src=${imageUrl}
                 alt=""
             />
         </div>
@@ -35,22 +32,22 @@ async function main() {
                 <div class="top">
                     <div class="date">2023-02-04 ~ 2023-04-27</div>
                     <div class="title">
-                    ${productsViewItem.productName}
+                    ${productName}
                     </div>
                     <div class="description">
-                        ${productsViewItem.description}
+                        ${description}
                     </div>
-                    <div class="price">${productsViewItem.price}</div>
+                    <div class="price">${price.toLocaleString()}원</div>
                 </div>
 
                 <div class="detail_info">
                     <dl class="age">
                         <dt>연령제한</dt>
-                        <dd>${productsViewItem.speciesAge}</dd>
+                        <dd>${speciesAge}</dd>
                     </dl>
                     <dl>
                         <dt>장소</dt>
-                        <dd>${productsViewItem.place}</dd>
+                        <dd>${place}</dd>
                     </dl>
                 </div>
                 <div class="count">
