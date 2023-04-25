@@ -113,7 +113,7 @@ function onDirectBuy() {
 function onNavigateOrder(ticket) {
   localStorage.setItem('ticket_order', JSON.stringify(ticket));
 
-  location.href = '/views/order/order.html';
+  location.href = '../order/order.html';
 }
 
 const productView = document.querySelector('.goods_detail');
