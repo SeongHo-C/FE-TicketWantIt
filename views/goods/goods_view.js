@@ -83,7 +83,10 @@ function createTicket() {
 function onAddCart() {
   const ticket = createTicket();
 
-  const cart = JSON.parse(localStorage.getItem('cart'));
+  const cart = localStorage.getItem('cart')
+    ? JSON.parse(localStorage.getItem('cart'))
+    : false;
+
   if (cart) {
     const isTicket = cart.find((item) => item.productId === ticket.productId);
 

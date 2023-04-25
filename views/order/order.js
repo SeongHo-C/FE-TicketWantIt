@@ -26,7 +26,7 @@ function createTicket(ticket) {
   <img
     class="ticket_img"
     src=${imageUrl}
-    alt="샘플 이미지"
+    alt="상품 이미지"
   />
   <div class="ticket_info">
     <h2>${productName}</h2>
@@ -53,6 +53,37 @@ function execDaumPostcode() {
       addressDetail.focus();
     },
   }).open();
+}
+
+async function pay(data) {
+  try {
+    const response = await axios.post('http://34.64.112.166/api/orders', data, {
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNlb25naG8iLCJlbWFpbCI6InNlb25naG9AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlzVGVtcFBhc3N3b3JkIjpmYWxzZSwiaWF0IjoxNjgyNDA4MDc0LCJleHAiOjE2ODI0MTE2NzR9.QZ6XDY1Clh2K9n5AIMp35uT-QOzOEgMVjsk17kqo5W8',
+      },
+    });
+
+    const { orderId } = response.data;
+    onDeleteCart();
+
+    location.href = `/views/order_complete/order_complete.html?orderId=${orderId}&totalPrice=${data.totalPrice}`;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function onDeleteCart() {
+  const cart = JSON.parse(localStorage.getItem('cart'));
+
+  const productIds = tickets_info.map((ticket_info) => ticket_info.productId);
+
+  const remainingCart = cart.filter(
+    (item) => !productIds.includes(item.productId)
+  );
+
+  const storeCart = remainingCart.length > 0 ? remainingCart : [];
+  localStorage.setItem('cart', JSON.stringify(storeCart));
 }
 
 const orderList = document.querySelector('.order_list');
@@ -103,13 +134,15 @@ orderForm.addEventListener('submit', (e) => {
 
   const totalPrice = calculateTotalPrice(tickets_info);
 
+  const zipCode = zipCodeInput.value;
+
   const data = {
+    zipCode,
     customerAddress,
     customerPhoneNum,
     items,
     totalPrice,
   };
 
-  // api 호출
-  location.href = `/views/order_complete/order_complete.html?orderId="123456789"&totalPrice=${totalPrice}`;
+  pay(data);
 });

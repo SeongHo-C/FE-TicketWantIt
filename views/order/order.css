@@ -28,7 +28,7 @@
   padding: 1rem;
 
   font-size: 1.3rem;
-  border: 2px solid var(--color--black3);
+  border: 1px solid var(--color--black3);
   border-radius: 10px 10px 0 0;
   background-color: var(--color--white);
 }
@@ -46,7 +46,7 @@
 
   padding: 1rem;
 
-  border: 2px solid var(--color--black3);
+  border: 1px solid var(--color--black3);
   border-radius: 0 0 10px 10px;
   background-color: var(--color--white);
 }
@@ -73,7 +73,7 @@
 .phone_input_wrap {
   padding: 1rem;
 
-  border: 2px solid var(--color--black3);
+  border: 1px solid var(--color--black3);
   border-radius: 0 0 10px 10px;
   background-color: var(--color--white);
 }
@@ -90,7 +90,7 @@
 .order_list {
   padding: 0 20px;
 
-  border: 2px solid var(--color--black3);
+  border: 1px solid var(--color--black3);
   border-radius: 0 0 10px 10px;
   background-color: var(--color--white);
 }
