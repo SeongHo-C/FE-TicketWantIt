@@ -101,7 +101,7 @@ async function goodsConnectApi() {
     list.forEach((li) =>
         li.querySelector(".btn_delete").addEventListener("click", async (e) => {
             const orderElem = e.target.closest("li");
-            const orderId = orderElem.dataset.id;
+            const orderId = orderElem.dataset.order;
 
             console.log(orderId);
 
