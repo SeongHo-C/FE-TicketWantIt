@@ -60,7 +60,7 @@ async function pay(data) {
     const response = await axios.post('http://34.64.112.166/api/orders', data, {
       headers: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNlb25naG8iLCJlbWFpbCI6InNlb25naG9AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlzVGVtcFBhc3N3b3JkIjpmYWxzZSwiaWF0IjoxNjgyNDA4MDc0LCJleHAiOjE2ODI0MTE2NzR9.QZ6XDY1Clh2K9n5AIMp35uT-QOzOEgMVjsk17kqo5W8',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNlb25naG8iLCJlbWFpbCI6InNlb25naG9AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlzVGVtcFBhc3N3b3JkIjpmYWxzZSwiaWF0IjoxNjgyNDIzNDQwLCJleHAiOjE2ODI0MjcwNDB9.Dt-C74jbHSVvbDH-wn154bCr5UjNCizXfjvqJzxEnvQ',
       },
     });
 
