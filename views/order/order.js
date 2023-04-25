@@ -60,7 +60,7 @@ async function pay(data) {
     const response = await axios.post('http://34.64.112.166/api/orders', data, {
       headers: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQzNzk3OCwiZXhwIjoxNjgyNDQxNTc4fQ.YnAwaWeUS6vOMareFKWI8nuHHHpbY5B47u98L_cBHP4',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0MjQyMSwiZXhwIjoxNjgyNDQ2MDIxfQ.1yC0U2hLV2UbeOZ-n-1H2jZP58Bzm3QOigHHtlwuGcw',
       },
     });
 
@@ -107,7 +107,7 @@ orderForm.addEventListener('submit', (e) => {
 
   const address = e.target['address'].value;
   const addressDetail = e.target['addressDetail'].value;
-  const customerAddress = `${address} ${addressDetail}`;
+  const customerAddress = `${address} (상세주소)${addressDetail}`;
 
   if (!address) {
     alert('주소를 입력해주세요.');

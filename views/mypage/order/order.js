@@ -1,3 +1,5 @@
+let orderId;
+
 async function onLoad() {
   const { orderList } = await getOrder();
   console.log(orderList);
@@ -70,7 +72,7 @@ function firstItemTemplate(
                 <p>${orderStatus}</p>
                 ${
                   orderStatus === '주문중'
-                    ? `<button class="modify_button" onclick="orderModify('${zipCode}', '${customerAddress}', '${customerPhoneNum}')">수정하기</button>
+                    ? `<button class="modify_button" onclick="orderModify('${zipCode}', '${customerAddress}', '${customerPhoneNum}', '${orderId}')">수정하기</button>
                   <button class="cancel_button" onclick="orderCancel()">취소하기</button>`
                     : ''
                 }
@@ -78,7 +80,42 @@ function firstItemTemplate(
             </tr>`;
 }
 
-function orderModify(zipCode, customerAddress, customerPhoneNum) {}
+function orderModify(zipCode, customerAddress, customerPhoneNum, orderId) {
+  modal.style.display = 'flex';
+  body.style.overflow = 'hidden';
+
+  const [primary, detail] = customerAddress.split('(상세주소)');
+  const [phone1, phone2, phone3] = customerPhoneNum.split('-');
+
+  zipCodeInput.value = zipCode || '';
+  addressInput.value = primary || '';
+  addressDetail.value = detail || '';
+  phone1Input.value = phone1 || '010';
+  phone2Input.value = phone2 || '';
+  phone3Input.value = phone3 || '';
+
+  modalForm.name = orderId;
+}
+
+async function modify(data, orderId) {
+  try {
+    const response = await axios.put(
+      `http://34.64.112.166/api/orders/${orderId}`,
+      data,
+      {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0MjQyMSwiZXhwIjoxNjgyNDQ2MDIxfQ.1yC0U2hLV2UbeOZ-n-1H2jZP58Bzm3QOigHHtlwuGcw',
+        },
+      }
+    );
+
+    if (response) alert('주문정보 수정이 완료되었습니다.');
+    location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 function extraItemTemplate(item) {
   const { name, quantity, price } = item;
@@ -105,7 +142,7 @@ async function getOrder() {
     const response = await axios.get('http://34.64.112.166/api/orders', {
       headers: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQzOTQxOSwiZXhwIjoxNjgyNDQzMDE5fQ.R4U-iculWX9Y1PUIVGjqOWgqeA9FKz4v1Z6cC5JR4IQ',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0MzUxMiwiZXhwIjoxNjgyNDQ3MTEyfQ.hx43-YeelnX9bFK2Tme2a9vwkVcKtZI9koS-QXfuyKI',
       },
     });
 
@@ -137,25 +174,64 @@ function execDaumPostcode() {
   }).open();
 }
 
-const modifyBtn = document.querySelector('.modify_button');
-const modal = document.querySelector('#modal');
 const body = document.querySelector('body');
+const modal = document.querySelector('#modal');
+const modalForm = document.querySelector('.modal_form');
 const closeModalBtn = document.querySelector('.close_area > button');
 const addressSearchBtn = document.querySelector('#addressSearchBtn');
+const orderTableList = document.querySelector('.order_table > .order_list');
 const zipCodeInput = document.querySelector('.zip-code');
 const addressInput = document.querySelector('.address');
 const addressDetail = document.querySelector('.address_detail');
-const orderTableList = document.querySelector('.order_table > .order_list');
+const phone1Input = document.querySelector('#phone1');
+const phone2Input = document.querySelector('#phone2');
+const phone3Input = document.querySelector('#phone3');
 
 window.addEventListener('load', () => {
   onLoad();
 });
 
-closeModalBtn.addEventListener('click', () => {
+closeModalBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+
   modal.style.display = 'none';
   body.style.overflow = 'auto';
 });
 
 addressSearchBtn.addEventListener('click', () => {
   execDaumPostcode();
+});
+
+modalForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const address = e.target['address'].value;
+  const addressDetail = e.target['addressDetail'].value;
+  const customerAddress = `${address} (상세주소)${addressDetail}`;
+
+  if (!address) {
+    alert('주소를 입력해주세요.');
+    e.target['address'].focus();
+    return;
+  }
+
+  const phone1 = e.target['phone_1'].value;
+  const phone2 = e.target['phone_2'].value;
+  const phone3 = e.target['phone_3'].value;
+  const customerPhoneNum = `${phone1}-${phone2}-${phone3}`;
+
+  if (!phone2 || !phone3) {
+    alert('휴대전화 번호를 입력해주세요.');
+    e.target['phone2'].focus();
+    return;
+  }
+
+  const orderId = e.target.name;
+
+  const data = {
+    customerAddress,
+    customerPhoneNum,
+  };
+
+  modify(data, orderId);
 });
