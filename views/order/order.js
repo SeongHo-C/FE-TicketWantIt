@@ -56,14 +56,34 @@ function execDaumPostcode() {
 }
 
 async function pay(data) {
-  const response = await axios.post('http://34.64.112.166/api/orders', data, {
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiTE11azFmdTUzNENZSVRfRl9faC05IiwibmFtZSI6InVzZXIxIiwiaXNBZG1pbiI6ZmFsc2UsImlzVGVtcFBhc3N3b3JkIjpmYWxzZSwiaWF0IjoxNjgyMzYxNjcwLCJleHAiOjE2ODIzNjUyNzB9.29iDsUIDgwifPgKm-DmUoPR72TDAOP9ylXXfcE00k64',
-    },
-  });
+  try {
+    const response = await axios.post('http://34.64.112.166/api/orders', data, {
+      headers: {
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNlb25naG8iLCJlbWFpbCI6InNlb25naG9AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlzVGVtcFBhc3N3b3JkIjpmYWxzZSwiaWF0IjoxNjgyNDA4MDc0LCJleHAiOjE2ODI0MTE2NzR9.QZ6XDY1Clh2K9n5AIMp35uT-QOzOEgMVjsk17kqo5W8',
+      },
+    });
 
-  console.log(response);
+    const { orderId } = response.data;
+    onDeleteCart();
+
+    location.href = `/views/order_complete/order_complete.html?orderId=${orderId}&totalPrice=${data.totalPrice}`;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function onDeleteCart() {
+  const cart = JSON.parse(localStorage.getItem('cart'));
+
+  const productIds = tickets_info.map((ticket_info) => ticket_info.productId);
+
+  const remainingCart = cart.filter(
+    (item) => !productIds.includes(item.productId)
+  );
+
+  const storeCart = remainingCart.length > 0 ? remainingCart : [];
+  localStorage.setItem('cart', JSON.stringify(storeCart));
 }
 
 const orderList = document.querySelector('.order_list');
@@ -114,13 +134,15 @@ orderForm.addEventListener('submit', (e) => {
 
   const totalPrice = calculateTotalPrice(tickets_info);
 
+  const zipCode = zipCodeInput.value;
+
   const data = {
+    zipCode,
     customerAddress,
     customerPhoneNum,
     items,
     totalPrice,
   };
-  console.log(data);
-  // pay(data);
-  // location.href = `/views/order_complete/order_complete.html?orderId="123456789"&totalPrice=${totalPrice}`;
+
+  pay(data);
 });
