@@ -1,5 +1,3 @@
-let orderId;
-
 async function onLoad() {
   const { orderList } = await getOrder();
   console.log(orderList);
