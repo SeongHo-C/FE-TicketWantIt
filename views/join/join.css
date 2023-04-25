@@ -1,5 +1,6 @@
 body {
   font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', 'sans-serif';
+  overflow: auto;
 }
 
 .contents {
@@ -53,9 +54,14 @@ label {
   margin-left: 35px;
 }
 
-#join_btn {
-  display: block;
-  margin: 20px auto;
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons button {
+  margin: 30px;
   width: 80px;
   height: 40px;
 
@@ -80,4 +86,104 @@ label {
   margin: 3px auto;
   font-size: 13px;
   color: var(--color--black3);
+}
+
+#modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+#modal > .modal-window {
+  display: flex;
+  flex-direction: column;
+  margin: 20% auto;
+  padding: 1rem;
+
+  width: 400px;
+  height: 200px;
+
+  background: var(--color--white);
+  border-radius: 10px;
+}
+
+.close_area {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close_area > button {
+  padding: 0;
+
+  background: transparent;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 300ms ease-in;
+}
+
+.close_area > button:hover {
+  transform: scale(1.05);
+  color: var(--color--red);
+}
+
+.modal_title {
+  text-align: center;
+}
+
+.modal_title > h2 {
+  font-size: 1.2rem;
+}
+
+.confirm_input_wrap {
+  display: flex;
+
+  padding: 1rem;
+
+  border: 1px solid var(--color--black3);
+  border-radius: 10px;
+  background-color: var(--color--white);
+}
+
+
+#confirmInput {
+  padding: 0px 15px;
+
+  width: 200px;
+  height: 40px;
+}
+
+.modal_modify > button {
+  margin: 0.25rem;
+
+  width: 100%;
+  height: 40px;
+
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  color: var(--color--white);
+  background-color: var(--color--black3);
+  transition: all 300ms ease-in;
+}
+
+.modal_modify > button:hover {
+  background-color: var(--color--black2);
+}
+
+#timer {
+  margin: auto;
+  color: red;
 }

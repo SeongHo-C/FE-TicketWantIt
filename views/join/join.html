@@ -14,6 +14,9 @@
   <link rel='stylesheet' href='./join.css'>
   <script src='https://unpkg.com/axios/dist/axios.min.js' defer></script>
   <script type='module' src='./join.js' defer></script>
+  <script src="
+    https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
+    "></script>
   <script type='module' src='../../modules/tokenPresent.js'></script>
   
   <title>join | Ticket Want it!</title>
@@ -138,11 +141,32 @@
                   <input type='password'  id='confirm_password'class='join_inputText' placeholder='CONFIRM PASSWORD'/>
                 <div class='error'>비밀번호가 다릅니다.</div>
               </div>
-            <button id='join_btn'>회원가입</button>
+            <div class='buttons'>
+              <button id='emailConfirmButton'>E-MAIL<br>인증</button>
+              <button id='join_btn'>회원가입</button>
+            </div>
             <div id='warning'>*비밀번호 분실 시 회원가입한 이메일로 초기화 된 비밀번호를 보냅니다.</div>
           </fieldset>
         </form>
       </div>
+    </div>
+    <div id="modal">
+        <div class="modal-window">
+          <div class="close_area">
+            <button><i class="ri-close-circle-line"></i></button>
+          </div>
+          <div class="modal_title">
+            <h2>인증번호</h2>
+          </div>
+            <div class="confirm_input_wrap">
+              <input type="text" id="confirmInput"/>
+              <div class="modal_modify">
+                <button id='confirmButton'>인증</button>
+              </div>
+              <div id='timer'></div>
+            </div>
+          </div>
+        </div>
     </div>
   <footer>
     <div class="inner w1140">
