@@ -1,300 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="../../css/reset.css" />
-        <link rel="stylesheet" href="../../css/style.css" />
-        <link rel="stylesheet" href="./admin.css" />
-        <script defer src="./admin.js"></script>
-        <title>상품관리</title>
-    </head>
-    <body>
-        <div id="container">
-            <div class="contents">
-                <div class="wrap">
-                    <nav>
-                        <div class="logo">
-                            <div class="img"></div>
-                            <span>Ticket Oneit!</span>
-                        </div>
-                        <div class="category">
-                            <div class="title">CATEGORY</div>
-                            <ul>
-                                <li>
-                                    <a href="./order.html"
-                                        ><i class="ri-file-list-3-line"></i
-                                        ><span>주문조회</span>
-                                    </a>
-                                </li>
-                                <li class="on">
-                                    <a href="./goods.html"
-                                        ><i class="ri-shopping-bag-3-line"></i
-                                        ><span>상품관리</span></a
-                                    >
-                                </li>
-                                <li>
-                                    <a href="./category.html"
-                                        ><i class="ri-menu-add-fill"></i
-                                        ><span>카테고리</span></a
-                                    >
-                                </li>
-                            </ul>
-
-                            <div class="link">
-                                <ul>
-                                    <li>
-                                        <a href=""
-                                            ><i class="ri-store-fill"></i
-                                            ><span>내 쇼핑몰 바로가기</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href=""
-                                            ><i class="ri-gitlab-fill"></i
-                                            ><span>GitLab</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href=""
-                                            ><i class="ri-github-fill"></i
-                                            ><span>GitHub</span></a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a href=""
-                                            ><i class="ri-kakao-talk-fill"></i
-                                            ><span>kakaotalk</span></a
-                                        >
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                    <main>
-                        <div class="header">
-                            <div class="left">
-                                <div class="date_box">
-                                    <div class="icon">
-                                        <i class="ri-calendar-line"></i>
-                                    </div>
-                                    <div class="date">
-                                        <strong>TODAY</strong>
-                                        <span>23 APR 2023</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="user_box">
-                                    <div class="icon">
-                                        <i class="ri-user-3-line"></i>
-                                    </div>
-                                    <div class="info">
-                                        <strong>관리자</strong>
-                                        <span><em>쇼핑몰디브한잔</em> 님</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="admin_goods">
-                            <div class="admin_title">
-                                <h2>상품관리</h2>
-                                <span>Product list</span>
-                                <div class="btn_box">
-                                    <a href="./goods_edit.html" class="btn_add"
-                                        >상품추가</a
-                                    >
-                                </div>
-                            </div>
-                            <div class="admin_content">
-                                <ul class="goods_list">
-                                    <li>
-                                        <div class="goods_detail">
-                                            <div class="img_box">
-                                                <img
-                                                    src="../../asset/images/goods_list5.jpg"
-                                                    alt=""
-                                                />
-                                            </div>
-                                            <div class="info_box">
-                                                <div class="detail_info">
-                                                    <div class="title">
-                                                        <strong
-                                                            >다비드 자맹:
-                                                            프로방스에서 온
-                                                            댄디보이</strong
-                                                        >
-                                                    </div>
-                                                    <dl class="date">
-                                                        <dt>날짜</dt>
-                                                        <dd>
-                                                            2023-02-04 ~
-                                                            2023-04-27
-                                                        </dd>
-                                                    </dl>
-                                                    <dl class="description">
-                                                        <dt>설명</dt>
-                                                        <dd>
-                                                            내면의 감정을
-                                                            바깥으로 끌어와
-                                                            역동적으로 표현하는
-                                                            프랑스 화가 다비드
-                                                            자맹의 개인전
-                                                        </dd>
-                                                    </dl>
-                                                    <dl class="price">
-                                                        <dt>가격</dt>
-                                                        <dd>18,000 원</dd>
-                                                    </dl>
-                                                    <dl class="age">
-                                                        <dt>연령제한</dt>
-                                                        <dd>없음</dd>
-                                                    </dl>
-                                                    <dl>
-                                                        <dt>장소</dt>
-                                                        <dd>국립현대미술관</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="btn_box">
-                                                    <button class="btn_modify">
-                                                        상품수정
-                                                    </button>
-                                                    <button class="btn_delete">
-                                                        상품삭제
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="goods_detail">
-                                            <div class="img_box">
-                                                <img
-                                                    src="../../asset/images/goods_list5.jpg"
-                                                    alt=""
-                                                />
-                                            </div>
-                                            <div class="info_box">
-                                                <div class="detail_info">
-                                                    <div class="title">
-                                                        <strong
-                                                            >다비드 자맹:
-                                                            프로방스에서 온
-                                                            댄디보이</strong
-                                                        >
-                                                    </div>
-                                                    <dl class="date">
-                                                        <dt>날짜</dt>
-                                                        <dd>
-                                                            2023-02-04 ~
-                                                            2023-04-27
-                                                        </dd>
-                                                    </dl>
-                                                    <dl class="description">
-                                                        <dt>설명</dt>
-                                                        <dd>
-                                                            내면의 감정을
-                                                            바깥으로 끌어와
-                                                            역동적으로 표현하는
-                                                            프랑스 화가 다비드
-                                                            자맹의 개인전
-                                                        </dd>
-                                                    </dl>
-                                                    <dl class="price">
-                                                        <dt>가격</dt>
-                                                        <dd>18,000 원</dd>
-                                                    </dl>
-                                                    <dl class="age">
-                                                        <dt>연령제한</dt>
-                                                        <dd>없음</dd>
-                                                    </dl>
-                                                    <dl>
-                                                        <dt>장소</dt>
-                                                        <dd>국립현대미술관</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="btn_box">
-                                                    <button class="btn_modify">
-                                                        상품수정
-                                                    </button>
-                                                    <button class="btn_delete">
-                                                        상품삭제
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="goods_detail">
-                                            <div class="img_box">
-                                                <img
-                                                    src="../../asset/images/goods_list5.jpg"
-                                                    alt=""
-                                                />
-                                            </div>
-                                            <div class="info_box">
-                                                <div class="detail_info">
-                                                    <div class="title">
-                                                        <strong
-                                                            >다비드 자맹:
-                                                            프로방스에서 온
-                                                            댄디보이</strong
-                                                        >
-                                                    </div>
-                                                    <dl class="date">
-                                                        <dt>날짜</dt>
-                                                        <dd>
-                                                            2023-02-04 ~
-                                                            2023-04-27
-                                                        </dd>
-                                                    </dl>
-                                                    <dl class="description">
-                                                        <dt>설명</dt>
-                                                        <dd>
-                                                            내면의 감정을
-                                                            바깥으로 끌어와
-                                                            역동적으로 표현하는
-                                                            프랑스 화가 다비드
-                                                            자맹의 개인전
-                                                        </dd>
-                                                    </dl>
-                                                    <dl class="price">
-                                                        <dt>가격</dt>
-                                                        <dd>18,000 원</dd>
-                                                    </dl>
-                                                    <dl class="age">
-                                                        <dt>연령제한</dt>
-                                                        <dd>없음</dd>
-                                                    </dl>
-                                                    <dl>
-                                                        <dt>장소</dt>
-                                                        <dd>국립현대미술관</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="btn_box">
-                                                    <button class="btn_modify">
-                                                        상품수정
-                                                    </button>
-                                                    <button class="btn_delete">
-                                                        상품삭제
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </main>
-                </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="./admin.css" />
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="./admin_goods.js"></script>
+    <title>상품관리</title>
+  </head>
+  <body>
+    <div id="container">
+      <div class="contents">
+        <div class="wrap">
+          <nav>
+            <div class="logo">
+              <div class="img"></div>
+              <span>Ticket Oneit!</span>
             </div>
-        </div>
+            <div class="category">
+              <div class="title">CATEGORY</div>
+              <ul>
+                <li>
+                  <a href="./order.html"
+                    ><i class="ri-file-list-3-line"></i><span>주문조회</span>
+                  </a>
+                </li>
+                <li class="on">
+                  <a href="./goods.html"
+                    ><i class="ri-shopping-bag-3-line"></i
+                    ><span>상품관리</span></a
+                  >
+                </li>
+                <li>
+                  <a href="./category.html"
+                    ><i class="ri-menu-add-fill"></i><span>카테고리</span></a
+                  >
+                </li>
+              </ul>
 
-        <footer></footer>
-    </body>
+              <div class="link">
+                <ul>
+                  <li>
+                    <a href=""
+                      ><i class="ri-store-fill"></i
+                      ><span>내 쇼핑몰 바로가기</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="ri-gitlab-fill"></i><span>GitLab</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="ri-github-fill"></i><span>GitHub</span></a
+                    >
+                  </li>
+                  <li>
+                    <a href=""
+                      ><i class="ri-kakao-talk-fill"></i
+                      ><span>kakaotalk</span></a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <main>
+            <div class="header">
+              <div class="left">
+                <div class="date_box">
+                  <div class="icon">
+                    <i class="ri-calendar-line"></i>
+                  </div>
+                  <div class="date">
+                    <strong>TODAY</strong>
+                    <span>23 APR 2023</span>
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                <div class="user_box">
+                  <div class="icon">
+                    <i class="ri-user-3-line"></i>
+                  </div>
+                  <div class="info">
+                    <strong>관리자</strong>
+                    <span><em>쇼핑몰디브한잔</em> 님</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="admin_goods">
+              <div class="admin_title">
+                <h2>상품관리</h2>
+                <span>Product list</span>
+                <div class="btn_box">
+                  <a href="./goods_edit.html" class="btn_add">상품추가</a>
+                </div>
+              </div>
+              <div class="admin_content">
+                <ul class="goods_list">
+                  <li>
+                    <div class="goods_detail">
+                      <div class="img_box">
+                        <img src="../../asset/images/goods_list5.jpg" alt="" />
+                      </div>
+                      <div class="info_box">
+                        <div class="detail_info">
+                          <div class="title">
+                            <strong
+                              >다비드 자맹: 프로방스에서 온 댄디보이</strong
+                            >
+                          </div>
+                          <dl class="date">
+                            <dt>날짜</dt>
+                            <dd>2023-02-04 ~ 2023-04-27</dd>
+                          </dl>
+                          <dl class="description">
+                            <dt>설명</dt>
+                            <dd>
+                              내면의 감정을 바깥으로 끌어와 역동적으로 표현하는
+                              프랑스 화가 다비드 자맹의 개인전
+                            </dd>
+                          </dl>
+                          <dl class="price">
+                            <dt>가격</dt>
+                            <dd>18,000 원</dd>
+                          </dl>
+                          <dl class="age">
+                            <dt>연령제한</dt>
+                            <dd>없음</dd>
+                          </dl>
+                          <dl>
+                            <dt>장소</dt>
+                            <dd>국립현대미술관</dd>
+                          </dl>
+                        </div>
+                        <div class="btn_box">
+                          <button class="btn_modify">상품수정</button>
+                          <button class="btn_delete">상품삭제</button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="goods_detail">
+                      <div class="img_box">
+                        <img src="../../asset/images/goods_list5.jpg" alt="" />
+                      </div>
+                      <div class="info_box">
+                        <div class="detail_info">
+                          <div class="title">
+                            <strong
+                              >다비드 자맹: 프로방스에서 온 댄디보이</strong
+                            >
+                          </div>
+                          <dl class="date">
+                            <dt>날짜</dt>
+                            <dd>2023-02-04 ~ 2023-04-27</dd>
+                          </dl>
+                          <dl class="description">
+                            <dt>설명</dt>
+                            <dd>
+                              내면의 감정을 바깥으로 끌어와 역동적으로 표현하는
+                              프랑스 화가 다비드 자맹의 개인전
+                            </dd>
+                          </dl>
+                          <dl class="price">
+                            <dt>가격</dt>
+                            <dd>18,000 원</dd>
+                          </dl>
+                          <dl class="age">
+                            <dt>연령제한</dt>
+                            <dd>없음</dd>
+                          </dl>
+                          <dl>
+                            <dt>장소</dt>
+                            <dd>국립현대미술관</dd>
+                          </dl>
+                        </div>
+                        <div class="btn_box">
+                          <button class="btn_modify">상품수정</button>
+                          <button class="btn_delete">상품삭제</button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="goods_detail">
+                      <div class="img_box">
+                        <img src="../../asset/images/goods_list5.jpg" alt="" />
+                      </div>
+                      <div class="info_box">
+                        <div class="detail_info">
+                          <div class="title">
+                            <strong
+                              >다비드 자맹: 프로방스에서 온 댄디보이</strong
+                            >
+                          </div>
+                          <dl class="date">
+                            <dt>날짜</dt>
+                            <dd>2023-02-04 ~ 2023-04-27</dd>
+                          </dl>
+                          <dl class="description">
+                            <dt>설명</dt>
+                            <dd>
+                              내면의 감정을 바깥으로 끌어와 역동적으로 표현하는
+                              프랑스 화가 다비드 자맹의 개인전
+                            </dd>
+                          </dl>
+                          <dl class="price">
+                            <dt>가격</dt>
+                            <dd>18,000 원</dd>
+                          </dl>
+                          <dl class="age">
+                            <dt>연령제한</dt>
+                            <dd>없음</dd>
+                          </dl>
+                          <dl>
+                            <dt>장소</dt>
+                            <dd>국립현대미술관</dd>
+                          </dl>
+                        </div>
+                        <div class="btn_box">
+                          <button class="btn_modify">상품수정</button>
+                          <button class="btn_delete">상품삭제</button>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <footer></footer>
+  </body>
 </html>
