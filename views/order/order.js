@@ -60,7 +60,7 @@ async function pay(data) {
     const response = await axios.post('http://34.64.112.166/api/orders', data, {
       headers: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNlb25naG8iLCJlbWFpbCI6InNlb25naG9AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlzVGVtcFBhc3N3b3JkIjpmYWxzZSwiaWF0IjoxNjgyNDIzNDQwLCJleHAiOjE2ODI0MjcwNDB9.Dt-C74jbHSVvbDH-wn154bCr5UjNCizXfjvqJzxEnvQ',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0MjQyMSwiZXhwIjoxNjgyNDQ2MDIxfQ.1yC0U2hLV2UbeOZ-n-1H2jZP58Bzm3QOigHHtlwuGcw',
       },
     });
 
@@ -107,7 +107,7 @@ orderForm.addEventListener('submit', (e) => {
 
   const address = e.target['address'].value;
   const addressDetail = e.target['addressDetail'].value;
-  const customerAddress = `${address} ${addressDetail}`;
+  const customerAddress = `${address} (상세주소)${addressDetail}`;
 
   if (!address) {
     alert('주소를 입력해주세요.');
@@ -118,10 +118,10 @@ orderForm.addEventListener('submit', (e) => {
   const phone1 = e.target['phone_1'].value;
   const phone2 = e.target['phone_2'].value;
   const phone3 = e.target['phone_3'].value;
-  const customerPhoneNum = `${phone1}${phone2}${phone3}`;
+  const customerPhoneNum = `${phone1}-${phone2}-${phone3}`;
 
   if (!phone2 || !phone3) {
-    alert('휴대전화를 입력해주세요.');
+    alert('휴대전화 번호를 입력해주세요.');
     e.target['phone2'].focus();
     return;
   }
