@@ -1,5 +1,7 @@
+import { saveToken } from '../../modules/saveToken.js';
 
 const [
+  id,
   email,
   nameInput,
   password,
@@ -15,9 +17,23 @@ const [
 
 const joinButton = document.querySelector('#join_btn');
 
+//email select box
+function emailSelection() {
+  var selectEmail = document.getElementById("selectEmail");
+
+  if (selectEmail.value === "") {
+    email.removeAttribute("readonly");
+    email.value = "";
+    email.focus();
+  } else {
+    email.setAttribute("readonly", true);
+    email.value = selectEmail.value;
+  }
+}
+
 //E-mail 형식 유효성 검사
 function emailCheck(email) {
-  var emailRegExp = /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  var emailRegExp = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   if (!emailRegExp.test(email)) {
     emailError.style.display = 'block';
@@ -27,21 +43,26 @@ function emailCheck(email) {
 }
 
 //정보 재입력 시 Error 숨기기
-const hideError = () => {
+email.addEventListener('input', () => {
+  if (email.value.length > 0) {
+    emailError.style.display = 'none';
+  }
+});
+nameInput.addEventListener('input', () => {
   if (nameInput.value.length > 0) {
     nameError.style.display = 'none';
   }
-  else if (password.value.length > 0) {
+});
+password.addEventListener('input', () => {
+  if (password.value.length > 0) {
     passwordError.style.display = 'none';
   }
-  else if (confirmPassword.value === password.value) {
+});
+confirmPassword.addEventListener('input', () => {
+  if (confirmPassword.value === password.value) {
     confirmPasswordError.style.display = 'none';
   }
-}
-
-[ nameError, passwordError, confirmPasswordError ].forEach(input => {
-  input.addEventListener('input', hideError);
-})
+});
 
 //회원가입
 const joinFunction = (e) => {
@@ -62,24 +83,31 @@ const joinFunction = (e) => {
     return false;
   }
 
-  axios.post('/api/users', {
-      email : email.value,
-      name : nameInput.value,
-      password : password.value,
-  })
-  .then((res) => {
-    if (res) {
-        alert('회원가입이 완료되었습니다!');
-        window.location.href = '../login/login.html';
-    } else {
-        alert('회원가입에 실패했습니다.');
-        return;
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-    alert('회원가입에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
-   })
+axios.post('http://34.64.112.166/api/user', {
+    email : id.value + '@' + email.value,
+    name : nameInput.value,
+    password : password.value,
+}, {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+.then((response) => {
+  if (response) {
+      alert('회원가입이 완료되었습니다!');
+      const token = response.data;
+      saveToken(token);
+      window.location.href = '../home/index.html';
+  } else {
+      alert('회원가입에 실패했습니다.');
+      return;
+  }
+})
+.catch((error) => {
+  console.log(error);
+  alert('회원가입에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
+ })
 }
 
+document.querySelector('#selectEmail').addEventListener('change', emailSelection);
 joinButton.addEventListener('click', joinFunction);

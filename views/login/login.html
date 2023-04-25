@@ -9,16 +9,16 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
             rel="stylesheet"
         />
-  <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-        />
   <link rel='stylesheet' href='../../css/reset.css'>
   <link rel='stylesheet' href='../../css/style.css'>
   <link rel='stylesheet' href='login.css'>
   <script src='https://unpkg.com/axios/dist/axios.min.js' defer></script>
-  <script src='./login.js' defer></script>
-  <title>join | Ticket Want it!</title>
+  <script src="
+    https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
+    "></script>
+  <script type='module' src='./login.js' defer></script>
+  <script type='module' src='../../modules/tokenPresent.js'></script>
+  <title>log in | Ticket Want it!</title>
 </head>
 </head>
 <body>
@@ -68,33 +68,33 @@
                 </div>
                 <div class="right">
                     <ul class="menu">
-                        <li>
-                            <a href="./login.html">
-                                <div class="menu_icon login">
+                        <li class="menu_icon login">
+                            <a href="javascript:void(0)" >
+                                <div>
                                     <i class="ri-login-circle-line"></i>
                                 </div>
                                 <span>LOGIN</span>
                             </a>
                         </li>
-                        <li class="dn">
+                        <li class="menu_icon logout">
                             <a href="javascript:void(0)">
-                                <div class="menu_icon logout">
+                                <div>
                                     <i class="ri-login-circle-line"></i>
                                 </div>
                                 <span>LOGOUT</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="./login.html">
-                                <div class="menu_icon mypage">
+                        <li  class="menu_icon mypage">
+                            <a href="javascript:void(0)">
+                                <div>
                                     <i class="ri-user-3-line"></i>
                                 </div>
                                 <span>MYPAGE</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="./login.html">
-                                <div class="menu_icon cart">
+                        <li class="menu_icon cart">
+                            <a href="javascript:void(0)">
+                                <div>
                                     <i class="ri-shopping-cart-line"></i>
                                 </div>
                                 <span>CART</span>
@@ -113,7 +113,7 @@
               Welcome!
             </legend>
             <label for='login'>E-MAIL</label>
-              <input type='text' id='login' class='login_inputText' placeholder='E-MAIL' onblur="emailCheck(this.value)"/>
+              <input type='text' id='login' class='login_inputText' placeholder='E-MAIL'/>
               <div class='error'>이메일을 확인해주세요.</div>
             <label for='password'>PASSWORD</label>
               <input type='password' id='password'class='login_inputText' placeholder='PASSWORD'/>
@@ -231,14 +231,5 @@
         </div>
     </div>
 </footer>
-  <script>
-    var swiper = new Swiper(".mainBanner", {
-        loop: true,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-  </script>
 </body>
 </html>
