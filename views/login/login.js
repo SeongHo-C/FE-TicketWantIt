@@ -1,3 +1,5 @@
+import { saveToken } from '../../modules/saveToken.js';
+
 const [
   email,
   password,
@@ -24,6 +26,7 @@ const deletePasswordErrorMessage = () => {
 }
 
 //로그인
+// 토큰을 받아와서 localStorage에 저장하는 함수
 const logInFunction = (e) => {
   e.preventDefault();
 
@@ -36,25 +39,37 @@ const logInFunction = (e) => {
     return false;
   }
 
-   axios.post('/api/auth', {
+   axios.post('http://34.64.112.166/api/auth', {
        email: email.value,
        password: password.value,
-     }, {
-      withCredentials: true
      })
-     .then((res) => {
-       if (res.status === 200) {
-        window.location.href = '../../home/index.html';
-       } else {
-        throw new Error('로그인에 실패했습니다.');
+     .then((response) => {
+        const token = response.data;
+        /* 관리자 페이지 이동 & 임시 비밀번호 확인
+        if (jwt_decode(token).isAdmin) {
+          if (confirm('관리자 페이지로 이동하시겠습니까?')) {
+            saveToken(token);
+            window.location.href = '../admin/login.html';
+          } else {
+            saveToken(token);
+            window.location.href = '../home/index.html';
+          }
+        }
+        if (jwt_decode(token).isTempPassword) {
+          alert('임시 비밀번호로 로그인 했습니다. 비밀번호 변경창으로 이동합니다.')
+          saveToken(token);
+          window.location.href = '../findPassword/changePassword.html';
+        } else {
+          */
+          saveToken(token);
+          window.location.href = '../home/index.html';
        }
-     })
+     )
      .catch((error) => {
       console.log(error);
-      alert('로그인에 실패했습니다.');
+      alert('이메일과 비밀번호를 확인해주세요.');
      })
   };
-
 
 email.addEventListener('input', deleteEmailErrorMessage);
 password.addEventListener('input', deletePasswordErrorMessage);

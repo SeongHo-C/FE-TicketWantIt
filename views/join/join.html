@@ -9,15 +9,13 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
             rel="stylesheet"
         />
-  <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
-        />
   <link rel='stylesheet' href='../../css/reset.css'>
   <link rel='stylesheet' href='../../css/style.css'>
-  <link rel='stylesheet' href='join.css'>
+  <link rel='stylesheet' href='./join.css'>
   <script src='https://unpkg.com/axios/dist/axios.min.js' defer></script>
-  <script src='./join.js' defer></script>
+  <script type='module' src='./join.js' defer></script>
+  <script type='module' src='../../modules/tokenPresent.js'></script>
+  
   <title>join | Ticket Want it!</title>
 </head>
 </head>
@@ -68,33 +66,33 @@
                 </div>
                 <div class="right">
                     <ul class="menu">
-                        <li>
-                            <a href="../login/login.html">
-                                <div class="menu_icon login">
+                        <li class="menu_icon login">
+                            <a href="javascript:void(0)" >
+                                <div>
                                     <i class="ri-login-circle-line"></i>
                                 </div>
                                 <span>LOGIN</span>
                             </a>
                         </li>
-                        <li class="dn">
+                        <li class="menu_icon logout">
                             <a href="javascript:void(0)">
-                                <div class="menu_icon logout">
+                                <div>
                                     <i class="ri-login-circle-line"></i>
                                 </div>
                                 <span>LOGOUT</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="../login/login.html">
-                                <div class="menu_icon mypage">
+                        <li  class="menu_icon mypage">
+                            <a href="javascript:void(0)">
+                                <div>
                                     <i class="ri-user-3-line"></i>
                                 </div>
                                 <span>MYPAGE</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="../login/login.html">
-                                <div class="menu_icon cart">
+                        <li class="menu_icon cart">
+                            <a href="javascript:void(0)">
+                                <div>
                                     <i class="ri-shopping-cart-line"></i>
                                 </div>
                                 <span>CART</span>
@@ -112,23 +110,36 @@
             <legend>
               Sign up
             </legend>
-            <label id='email'>E-mail</label>
-              <input type='text' id='email' class='join_inputText' placeholder='E-MAIL' onblur="emailCheck(this.value)"/>
-              <div class='error'>이메일을 확인해주세요.</div>
-
-            <label id='name'>이름</label>
-              <input type='text' id='name' class='join_inputText' placeholder='NAME'/>
-              <div class='error'>이름은 2글자 이상 써주세요.</div>
-
-            <label id='password'>비밀번호</label>
-              <input type='password' id='password' class='join_inputText' placeholder='PASSWORD'/>
-              <div class='error'>비밀번호는 6글자 이상 써주세요.</div>
-
-            <label id='confirm_password'>비밀번호 확인</label>
-              <input type='password'  id='confirm_password'class='join_inputText' placeholder='CONFIRM PASSWORD'/>
-              <div class='error'>비밀번호가 다릅니다.</div>
-
+              <div class='input_box'>
+                <label id='name'>E-mail</label>
+                  <input type='text' id='id' class='join_inputText' placeholder='ID'/>@
+                  <input type="text" id='email' class='join_inputText'>
+                  <select name="selectEmail" id="selectEmail" onchange='emailSelection()'>
+                    <option value="">직접 입력</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="hanmail.net">hanmail.net</option>
+                    <option value="daum.net">daum.net</option>
+                  </select>
+                <div class='error'>이메일을 확인해주세요.</div>
+              </div>
+              <div class='input_box'>
+                <label id='name'>이름</label>
+                  <input type='text' id='name' class='join_inputText' placeholder='NAME'/>
+                <div class='error'>이름은 2글자 이상 써주세요.</div>
+              </div>
+              <div class='input_box'>
+                <label id='password'>비밀번호</label>
+                  <input type='password' id='password' class='join_inputText' placeholder='PASSWORD'/>
+                <div class='error'>비밀번호는 6글자 이상 써주세요.</div>
+              </div>
+              <div class='input_box'>
+                <label id='confirm_password'>비밀번호 확인</label>
+                  <input type='password'  id='confirm_password'class='join_inputText' placeholder='CONFIRM PASSWORD'/>
+                <div class='error'>비밀번호가 다릅니다.</div>
+              </div>
             <button id='join_btn'>회원가입</button>
+            <div id='warning'>*비밀번호 분실 시 회원가입한 이메일로 초기화 된 비밀번호를 보냅니다.</div>
           </fieldset>
         </form>
       </div>
@@ -239,14 +250,5 @@
         </div>
     </div>
 </footer>
-  <script>
-    var swiper = new Swiper(".mainBanner", {
-        loop: true,
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-  </script>
 </body>
 </html>
