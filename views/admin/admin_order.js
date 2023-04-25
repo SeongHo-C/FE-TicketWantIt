@@ -46,11 +46,11 @@ async function goodsConnectApi() {
                             <div>
                                 <dl>
                                     <dt>이름</dt>
-                                    <dd>${customerId}</dd>
+                                    <dd>${customerId.name}</dd>
                                 </dl>
                                 <dl>
                                     <dt>메일주소</dt>
-                                    <dd>${customerId}</dd>
+                                    <dd>${customerId.email}</dd>
                                 </dl>
                             </div>
                         </div>
@@ -101,7 +101,7 @@ async function goodsConnectApi() {
     list.forEach((li) =>
         li.querySelector(".btn_delete").addEventListener("click", async (e) => {
             const orderElem = e.target.closest("li");
-            const orderId = orderElem.dataset.id;
+            const orderId = orderElem.dataset.order;
 
             console.log(orderId);
 
