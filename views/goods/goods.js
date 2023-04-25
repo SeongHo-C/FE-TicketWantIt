@@ -1,13 +1,27 @@
 async function main() {
-  const response = await axios.get('http://34.64.112.166/api/product');
+    const url = new URL(window.location.href);
+    const urlParams = url.searchParams;
+    const urlCategoryId = urlParams.get("category");
+    console.log(urlCategoryId);
 
-  const products = response.data;
+    const response = await axios.get(
+        `http://34.64.112.166/api/product/category?category=${urlCategoryId}`
+    );
 
-  const productList = document.querySelector('.goods_list ul');
+    const products = response.data;
+    const productList = document.querySelector(".goods_list ul");
+    const categoryTitle = document.querySelector(".category_title h2");
 
-  productList.innerHTML = products
-    .map(
-      ({ productId, productName, price, imageUrl, startDate, endDate }) => `
+    productList.innerHTML = products
+        .map(
+            ({
+                productId,
+                productName,
+                price,
+                imageUrl,
+                startDate,
+                endDate,
+            }) => `
             <li>
                 <a href="./goods_view.html?productId=${productId}">
                 <div class="img_box">
@@ -21,24 +35,10 @@ async function main() {
                 </a>
             </li>
         `
-    )
-    .join('');
+        )
+        .join("");
+
+    categoryTitle.innerHTML = urlCategoryId;
 }
 
 main();
-
-/*
-2차 구현사항 - 카테고리에따라 분류하기
-const categoryNav = document.querySelector("nav");
-const categoryList = categoryNav.querySelectorAll("li");
-
-function sortCategory(e) {
-    e.preventDefault();
-    const selectedCategory = e.target.textContent;
-    console.log(`Selected category: ${selectedCategory}`);
-}
-
-categoryList.forEach((category) => {
-    category.addEventListener("click", sortCategory);
-});
-*/
