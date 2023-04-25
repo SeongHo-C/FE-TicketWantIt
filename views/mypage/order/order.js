@@ -73,7 +73,7 @@ function firstItemTemplate(
                 ${
                   orderStatus === '주문중'
                     ? `<button class="modify_button" onclick="orderModify('${zipCode}', '${customerAddress}', '${customerPhoneNum}', '${orderId}')">수정하기</button>
-                  <button class="cancel_button" onclick="orderCancel()">취소하기</button>`
+                  <button class="cancel_button" onclick="orderCancel('${orderId}')">취소하기</button>`
                     : ''
                 }
               </td>
@@ -97,7 +97,7 @@ function orderModify(zipCode, customerAddress, customerPhoneNum, orderId) {
   modalForm.name = orderId;
 }
 
-async function modify(data, orderId) {
+async function modifyAPI(data, orderId) {
   try {
     const response = await axios.put(
       `http://34.64.112.166/api/orders/${orderId}`,
@@ -105,12 +105,37 @@ async function modify(data, orderId) {
       {
         headers: {
           Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0MjQyMSwiZXhwIjoxNjgyNDQ2MDIxfQ.1yC0U2hLV2UbeOZ-n-1H2jZP58Bzm3QOigHHtlwuGcw',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
         },
       }
     );
 
     if (response) alert('주문정보 수정이 완료되었습니다.');
+    location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function orderCancel(orderId) {
+  const isConfirm = window.confirm('정말로 주문을 취소하시겠습니까?');
+
+  if (isConfirm) cancelAPI(orderId);
+}
+
+async function cancelAPI(orderId) {
+  try {
+    const response = await axios.delete(
+      `http://34.64.112.166/api/orders/${orderId}`,
+      {
+        headers: {
+          Authorization:
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
+        },
+      }
+    );
+
+    if (response) alert('주문 취소가 완료되었습니다.');
     location.reload();
   } catch (error) {
     console.log(error);
@@ -142,7 +167,7 @@ async function getOrder() {
     const response = await axios.get('http://34.64.112.166/api/orders', {
       headers: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0MzUxMiwiZXhwIjoxNjgyNDQ3MTEyfQ.hx43-YeelnX9bFK2Tme2a9vwkVcKtZI9koS-QXfuyKI',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
       },
     });
 
@@ -233,5 +258,5 @@ modalForm.addEventListener('submit', (e) => {
     customerPhoneNum,
   };
 
-  modify(data, orderId);
+  modifyAPI(data, orderId);
 });
