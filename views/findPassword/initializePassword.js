@@ -1,6 +1,3 @@
-import { handleMyPageClick } from '../modules/goToMypage.js';
-import { getToken } from '../modules/interceptor.js';
-
 const [
   id,
   email
@@ -23,26 +20,19 @@ function emailSelection() {
 }
 
 const sendMail = () => {
-  axios.post('/api/user/reset-password', {
+  axios.post('http://34.64.112.166/api/user/reset-password', {
     email: id.value + '@' + email.value
-  }, 
-  {
-      headers: {
-        'Authorization': `Bearer ${getToken()}`
-      }
   })
-  .then((res) => {
-    if (res) {
-      alert('초기화 된 비밀번호가 발송되었습니다.')
-    } else {
-      alert('비밀번호 초기화에 실패했습니다.')
-    }
+  .then((response) => {
+    console.log(response);
+    alert('초기화 된 비밀번호를 발송했습니다.')
+    //removeToken();
   })
   .catch((err) => {
     console.log(err);
-    alert('비밀번호 초기화에 실패했습니다.')
+    alert('비밀번호 초기화에 실패했습니다.');
   })
 }
 
-document.querySelector('.mypage').addEventListener('click', handleMyPageClick);
+document.querySelector('#selectEmail').addEventListener('change', emailSelection);
 sendMailButton.addEventListener('click', sendMail);

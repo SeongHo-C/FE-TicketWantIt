@@ -1,4 +1,4 @@
-import { handleMyPageClick } from '../modules/goToMypage.js';
+import { saveToken } from '../../modules/saveToken.js';
 
 const [
   id,
@@ -64,10 +64,6 @@ confirmPassword.addEventListener('input', () => {
   }
 });
 
-function saveToken(token) {
-  localStorage.setItem('token', token);
-}
-
 //회원가입
 const joinFunction = (e) => {
   e.preventDefault();
@@ -87,7 +83,7 @@ const joinFunction = (e) => {
     return false;
   }
 
-axios.post('http://10.10.6.156:5000/api/user', {
+axios.post('http://34.64.112.166/api/user', {
     email : id.value + '@' + email.value,
     name : nameInput.value,
     password : password.value,
@@ -99,8 +95,7 @@ axios.post('http://10.10.6.156:5000/api/user', {
 .then((response) => {
   if (response) {
       alert('회원가입이 완료되었습니다!');
-      const token = response.data.token;
-      localStorage.setItem('token', response.data.token);
+      const token = response.data;
       saveToken(token);
       window.location.href = '../home/index.html';
   } else {
@@ -114,6 +109,5 @@ axios.post('http://10.10.6.156:5000/api/user', {
  })
 }
 
-document.querySelector('.mypage').addEventListener('click', handleMyPageClick);
 document.querySelector('#selectEmail').addEventListener('change', emailSelection);
 joinButton.addEventListener('click', joinFunction);

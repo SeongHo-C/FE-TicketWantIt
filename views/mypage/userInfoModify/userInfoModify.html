@@ -17,7 +17,8 @@
     https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
     "></script>
   <script type='module' src='./userInfoModify.js' defer></script>
-
+  <script type='module' src='../../../modules/tokenPresent.js'></script>
+  
   <title>My Page | Ticket Want it!</title>
 </head>
 </head>
@@ -68,33 +69,33 @@
                 </div>
                 <div class="right">
                     <ul class="menu">
-                        <li class="dn">
-                            <a href="javascript:void(0)">
-                                <div class="menu_icon login">
+                        <li class="menu_icon login">
+                            <a href="javascript:void(0)" >
+                                <div>
                                     <i class="ri-login-circle-line"></i>
                                 </div>
                                 <span>LOGIN</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="menu_icon logout">
                             <a href="javascript:void(0)">
-                                <div class="menu_icon logout">
+                                <div>
                                     <i class="ri-login-circle-line"></i>
                                 </div>
                                 <span>LOGOUT</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="../userInfo/userInfo.html">
-                                <div class="menu_icon mypage">
+                        <li  class="menu_icon mypage">
+                            <a href="javascript:void(0)">
+                                <div>
                                     <i class="ri-user-3-line"></i>
                                 </div>
                                 <span>MYPAGE</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="../order/order.html">
-                                <div class="menu_icon cart">
+                        <li class="menu_icon cart">
+                            <a href="javascript:void(0)">
+                                <div>
                                     <i class="ri-shopping-cart-line"></i>
                                 </div>
                                 <span>CART</span>
@@ -129,7 +130,7 @@
                 <td>
                   <p>E-MAIL</p>
                 </td>
-                <td class='userInfo'></td>
+                <td id='email' class='userInfo'></td>
               </tr>
               <tr>
                 <td>

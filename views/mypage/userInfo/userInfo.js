@@ -1,5 +1,5 @@
-import { logout } from '../../modules/logout.js';
-import { handleMyPageClick, getToken } from '../../modules/goToMypage.js';
+import { getToken } from '../../../modules/getToken.js';
+import { removeToken } from '../../../modules/removeToken.js';
 
 const [
   email,
@@ -8,24 +8,33 @@ const [
 
 const withdrawalButton = document.querySelector('#withdrawalButton')
 
+ const tokenStatus = () => {
+   const token = getToken();
+   if (!token) {
+     alert('로그인 후 이용해주시기 바랍니다.')
+     window.location.href = '/views/login/login.html';
+   }
+ }
+
+ tokenStatus();
+
 const userInfo = () => {
-  axios.get('http://10.10.6.156:5000/api/user',
+  axios.get('http://34.64.112.166/api/user',
   {
     headers: {'Authorization': `Bearer ${getToken()}`}
   })
   .then((response) => {
-    console.log(response)
     const token = getToken();
     const decodedToken = jwt_decode(token);
-    email.innerHTML = response.data.email;
-    nameInput.innerHTML = response.data.name;
+    email.innerHTML = decodedToken.email;
+    nameInput.innerHTML = decodedToken.name;
   })
- .catch((err => {
+ .catch((err) => {
     console.log(err);
-    alert('정보를 불러오지 못했습니다. 잠시 뒤 다시 시도해보세요.');
  })
-)
 }
+
+userInfo();
 
 //회원탈퇴
 const withdrawal = (e) => {
@@ -33,14 +42,16 @@ const withdrawal = (e) => {
   e.preventDefault();
 
   if (confirm('정말 탈퇴하시겠습니까?')) {
-    axios.delete('/api/user',
+    axios.delete('http://34.64.112.166/api/user',
     {
       headers: {
         'Authorization': `Bearer ${getToken()}`
       }
     })
-    .then((res) => {
-      console.log(res);
+    .then(() => {
+      const token = getToken();
+      removeToken(token);
+      window.location.href = '../../home/index.html';
       alert('정상적으로 회원탈퇴가 완료되었습니다. 다음에 또 이용해주세요.')
     })
     .catch((err) => {
@@ -52,7 +63,4 @@ const withdrawal = (e) => {
   }
 }
 
-window.addEventListener('load', userInfo);
-document.querySelector('.mypage').addEventListener('click', handleMyPageClick);
-document.querySelector('.logout').addEventListener('click', logout);
 withdrawalButton.addEventListener('click', withdrawal);

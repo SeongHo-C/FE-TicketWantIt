@@ -1,15 +1,27 @@
-import { logout } from '../../modules/logout.js';
-import { handleMyPageClick } from '../../modules/goToMypage.js';
-import { addInterceptor, getToken } from '../../modules/interceptor.js'
-
-addInterceptor();
+import { getToken } from '../../../modules/getToken.js';
+import { saveToken } from '../../../modules/saveToken.js';
 
 const [
   nameInput
  ] = document.querySelectorAll('.userInfoInput');
 
+const email = document.querySelector('#email');
 const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const warning = document.querySelector('#warning');
+
+const tokenStatus = () => {
+  const token = getToken();
+  if (!token) {
+    alert('로그인 후 이용해주시기 바랍니다.')
+    window.location.href = '/views/login/login.html';
+  }
+}
+
+tokenStatus();
+
+const token = getToken();
+const decodedToken = jwt_decode(token);
+email.innerHTML = decodedToken.email;
 
 //유저 정보 수정
 const userInfoModify = () => {
@@ -19,15 +31,27 @@ const userInfoModify = () => {
         return false;
   }
 
-  axios.put('/api/user', 
+  axios.put('http://34.64.112.166/api/user', 
   {
       name: nameInput.value
   }, {
     headers: {'Authorization': `Bearer ${getToken()}`}
   })
-  .then((res) => {
-    if (res.data) {
-      alert('정보가 성공적으로 업데이트 되었습니다.')
+  .then((response) => {
+    if (response) {
+      axios.get('http://34.64.112.166/api/auth',
+      {
+        headers: {'Authorization': `Bearer ${getToken()}`}
+      })
+      .then((res) => {
+        const token = res.data;
+        saveToken(token);
+        alert('정보가 성공적으로 업데이트 되었습니다.')
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('정보 업데이트에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
+      })
     } else {
       alert('정보 업데이트에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
     }
@@ -38,12 +62,4 @@ const userInfoModify = () => {
   })
 }
 
-nameInput.addEventListener('input', () => {
-  if (nameInput.value.length > 0) {
-    nameError.style.color = '#cccccc';
-  }
-});
-
-document.querySelector('.mypage').addEventListener('click', handleMyPageClick);
-document.querySelector('.logout').addEventListener('click', logout);
 userInfoModifyButton.addEventListener('click', userInfoModify);

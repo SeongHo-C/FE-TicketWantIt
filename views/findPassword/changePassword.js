@@ -1,8 +1,15 @@
-import { logout } from '../modules/logout.js';
-import { handleMyPageClick } from '../modules/goToMypage.js';
-import { addInterceptor, getToken } from '../modules/interceptor.js';
+import { getToken } from '../../modules/getToken.js';
+import { removeToken } from '../../modules/removeToken.js';
 
-addInterceptor();
+const tokenStatus = () => {
+  const token = getToken();
+  if (!token) {
+    alert('로그인 후 이용해주시기 바랍니다.')
+    window.location.href = '/views/login/login.html';
+  }
+}
+
+tokenStatus();
 
 const [
   currentPassword,
@@ -29,12 +36,12 @@ const changePassword = (e) => {
     passwordError.style.display = 'block';
     return false;
   } 
-  else if (password !== confirmPassword) {
-    confirmPasswordError.style.display = 'block';
-    return false;
-  }
+   else if (password.value !== confirmPassword.value) {
+     confirmPasswordError.style.display = 'block';
+     return false;
+   }
 
-   axios.post('/api/user/change-password', {
+   axios.post('http://34.64.112.166/api/user/change-password', {
      currentPassword: currentPassword.value,
      password: password.value
    }, 
@@ -43,20 +50,19 @@ const changePassword = (e) => {
       'Authorization': `Bearer ${getToken()}`
     }
     })
-   .then((res) => {
-     if (res.status === 400 ) {
+   .then((response) => {
+     if (response.status === 400) {
        currentPasswordError.style.display = 'block';
      } else {
        alert('비밀번호 변경이 완료되었습니다.');
-       window.location.href = '../login/login.js'
+       removeToken(token);
+       window.location.href = '../login/login.html'
      }
    })
    .catch((err) => {
      console.log(err);
-     alert('')
+     alert('비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
    })
 }
 
-document.querySelector('.mypage').addEventListener('click', handleMyPageClick);
-document.querySelector('.logout').addEventListener('click', logout);
 passwordChangeButton.addEventListener('click', changePassword)
