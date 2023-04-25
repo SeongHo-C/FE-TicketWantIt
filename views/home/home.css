@@ -63,11 +63,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
+    flex-wrap: wrap;
     gap: 0 15px;
 }
 
 .main_goods .goods_list ul li {
-    flex: 0.33;
+    width: 32%;
 }
 
 .main_goods .info_box {

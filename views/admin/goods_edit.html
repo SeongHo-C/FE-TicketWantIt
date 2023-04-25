@@ -11,7 +11,10 @@
         <link rel="stylesheet" href="../../css/reset.css" />
         <link rel="stylesheet" href="../../css/style.css" />
         <link rel="stylesheet" href="./admin.css" />
-        <script defer src="./admin.js"></script>
+
+        <!-- Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script defer src="./admin_edit.js"></script>
         <title>상품관리</title>
     </head>
     <body>
@@ -147,14 +150,40 @@
                                             </dl>
                                             <dl>
                                                 <dt>
-                                                    <label for="goodsDate"
-                                                        >날짜</label
+                                                    <label for="goodsCate"
+                                                        >카테고리</label
                                                     >
                                                 </dt>
                                                 <dd>
                                                     <input
                                                         type="text"
-                                                        id="goodsDate"
+                                                        id="goodsCate"
+                                                    />
+                                                </dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>
+                                                    <label for="goodsDateStart"
+                                                        >시작일</label
+                                                    >
+                                                </dt>
+                                                <dd>
+                                                    <input
+                                                        type="text"
+                                                        id="goodsDateStart"
+                                                    />
+                                                </dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>
+                                                    <label for="goodsDateEnd"
+                                                        >종료일</label
+                                                    >
+                                                </dt>
+                                                <dd>
+                                                    <input
+                                                        type="text"
+                                                        id="goodsDateEnd"
                                                     />
                                                 </dd>
                                             </dl>
@@ -226,14 +255,5 @@
         </div>
 
         <footer></footer>
-        <script>
-            const formImageInput = document.querySelector("#goodsImage");
-            const formUrlInput = document.querySelector(".goods_image");
-
-            formImageInput.addEventListener("change", function () {
-                const imageValue = formImageInput.value;
-                formUrlInput.value = imageValue;
-            });
-        </script>
     </body>
 </html>
