@@ -46,11 +46,11 @@ async function goodsConnectApi() {
                             <div>
                                 <dl>
                                     <dt>이름</dt>
-                                    <dd>${customerId}</dd>
+                                    <dd>${customerId.name}</dd>
                                 </dl>
                                 <dl>
                                     <dt>메일주소</dt>
-                                    <dd>${customerId}</dd>
+                                    <dd>${customerId.email}</dd>
                                 </dl>
                             </div>
                         </div>
