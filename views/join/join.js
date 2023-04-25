@@ -1,4 +1,5 @@
 import { saveToken } from '../../modules/saveToken.js';
+import { getToken } from '../../modules/getToken.js';
 
 const [
   id,
@@ -16,6 +17,12 @@ const [
 ] = document.querySelectorAll('.error');
 
 const joinButton = document.querySelector('#join_btn');
+const modal = document.querySelector('#modal');
+const closeModalButton = document.querySelector('.close_area > button');
+const emailConfirmButton = document.querySelector('#emailConfirmButton');
+const confirmInput = document.querySelector('#confirmInput');
+const confirmButton = document.querySelector('#confirmButton');
+const timer = document.querySelector('#timer');
 
 //email select box
 function emailSelection() {
@@ -64,6 +71,57 @@ confirmPassword.addEventListener('input', () => {
   }
 });
 
+//이메일 인증번호요청
+const emailConfirm = () => {
+  axios.post('http://34.64.112.166/api/user/emailAuth', 
+  {
+    email: id.value + '@' + email.value
+  },
+  {
+    headers: {'Authorization': `Bearer ${getToken()}`}
+  })
+  .then((response) => {
+    const token = response.data;
+    localStorage.setItem('authCode', token);
+    alert('인증번호를 발송했습니다.');
+  })
+  .catch((err) => {
+    console.log(err);
+    alert('E-MAIL 인증 요청에 실패했습니다. 잠시 뒤 다시 시도해주세요.')
+  })
+}
+
+//이메일 인증번호 일치여부
+const matchEmailConfirm = () => {
+  axios.post('http://34.64.112.166/api/user/emailAuth', 
+  {
+    email: id.value + '@' + email.value
+  },
+  {
+    headers: {'Authorization': `Bearer ${getToken()}`}
+  })
+  .then((response) => {
+    const token = localStorage.getItem('authCode');
+    const decodedToken = jwt_decode(token);
+    if (decodedToken.authCode == confirmInput.value) {
+      localStorage.removeItem('authCode', token);
+      alert('인증에 성공했습니다.');
+      modal.style.display = 'none';
+      id.setAttribute("readonly", true);
+      email.setAttribute("readonly", true);
+      selectEmail.style.display = 'none';
+    } else {
+      alert('인증번호가 틀립니다. 다시 시도해주세요.');
+      modal.style.display = 'none';
+      return false;
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    alert('E-MAIL 인증 요청에 실패했습니다. E-MAIL을 확인해주세요.')
+  })
+}
+
 //회원가입
 const joinFunction = (e) => {
   e.preventDefault();
@@ -110,4 +168,32 @@ axios.post('http://34.64.112.166/api/user', {
 }
 
 document.querySelector('#selectEmail').addEventListener('change', emailSelection);
+let tokenTimer;
+emailConfirmButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  emailConfirm();
+  modal.style.display = 'block';
+  let leftTime = 180;
+  tokenTimer = setInterval(() => {
+  const minute = Math.floor(leftTime / 60);
+  const seconds = (leftTime % 60);
+  if (seconds < 10) {
+    timer.textContent = `${minute} :0${seconds}`;
+  } else {
+    timer.textContent = `${minute} :${seconds}`;
+  }
+  leftTime--;
+
+  if (leftTime < 0) {
+    clearInterval(tokenTimer);
+    timer.textContent = `0 :00`;
+    alert('인증번호 유효기간이 끝났습니다. 다시 시도해주세요.');
+  }
+}, 100);
+});
+closeModalButton.addEventListener('click', (e) => {
+  clearInterval(tokenTimer);
+  modal.style.display = 'none';
+});
+confirmButton.addEventListener('click', matchEmailConfirm);
 joinButton.addEventListener('click', joinFunction);

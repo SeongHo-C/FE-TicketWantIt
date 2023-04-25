@@ -19,17 +19,16 @@ function emailSelection() {
   }
 }
 
-const sendMail = () => {
+const sendMail = (e) => {
+  e.preventDefault();
+
   axios.post('http://34.64.112.166/api/user/reset-password', {
     email: id.value + '@' + email.value
   })
   .then((response) => {
-    console.log(response);
     alert('초기화 된 비밀번호를 발송했습니다.')
-    //removeToken();
   })
   .catch((err) => {
-    console.log(err);
     alert('비밀번호 초기화에 실패했습니다.');
   })
 }

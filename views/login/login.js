@@ -45,26 +45,22 @@ const logInFunction = (e) => {
      })
      .then((response) => {
         const token = response.data;
-        /* 관리자 페이지 이동 & 임시 비밀번호 확인
         if (jwt_decode(token).isAdmin) {
           if (confirm('관리자 페이지로 이동하시겠습니까?')) {
             saveToken(token);
             window.location.href = '../admin/login.html';
           } else {
-            saveToken(token);
-            window.location.href = '../home/index.html';
+            return;
           }
-        }
-        if (jwt_decode(token).isTempPassword) {
+        } else if (jwt_decode(token).isTempPassword) {
           alert('임시 비밀번호로 로그인 했습니다. 비밀번호 변경창으로 이동합니다.')
           saveToken(token);
           window.location.href = '../findPassword/changePassword.html';
         } else {
-          */
           saveToken(token);
           window.location.href = '../home/index.html';
-       }
-     )
+        }
+      }) 
      .catch((error) => {
       console.log(error);
       alert('이메일과 비밀번호를 확인해주세요.');
@@ -73,5 +69,4 @@ const logInFunction = (e) => {
 
 email.addEventListener('input', deleteEmailErrorMessage);
 password.addEventListener('input', deletePasswordErrorMessage);
-
 logInButton.addEventListener('click', logInFunction);
