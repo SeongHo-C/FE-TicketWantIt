@@ -16,6 +16,7 @@
       src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
       defer
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>My Page | Ticket Want it!</title>
   </head>
   <body>
@@ -105,9 +106,9 @@
         </div>
         <table class="order_table">
           <colgroup>
-            <col style="width: 15%" />
+            <col style="width: 17%" />
             <col style="width: 10%" />
-            <col style="width: 40%" />
+            <col style="width: 38%" />
             <col style="width: 5%" />
             <col style="width: 15%" />
             <col style="width: 15%" />
@@ -122,50 +123,7 @@
               <th>주문처리상태</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>
-                <p>2023-04-12<br />[20230412-000257]</p>
-              </td>
-              <td>
-                <img
-                  src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
-                  alt="샘플 이미지"
-                />
-              </td>
-              <td class="product_info">
-                <p>[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓</p>
-              </td>
-              <td><p>1</p></td>
-              <td class="order_price"><p>30,000원</p></td>
-              <td class="order_status">
-                <p>준비중</p>
-                <button class="modify_button">수정하기</button>
-                <button class="cancel_button">취소하기</button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p>2023-04-12<br />[20230412-000257]</p>
-              </td>
-              <td>
-                <img
-                  src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
-                  alt="샘플 이미지"
-                />
-              </td>
-              <td class="product_info">
-                <p>[얼리버드] 에드워드 호퍼: 길 위에서 6월 티켓</p>
-              </td>
-              <td><p>1</p></td>
-              <td class="order_price"><p>30,000원</p></td>
-              <td class="order_status">
-                <p>준비중</p>
-                <button class="modify_button">수정하기</button>
-                <button class="cancel_button">취소하기</button>
-              </td>
-            </tr>
-          </tbody>
+          <tbody class="order_list"></tbody>
         </table>
       </div>
     </div>

@@ -60,7 +60,7 @@ async function pay(data) {
     const response = await axios.post('http://34.64.112.166/api/orders', data, {
       headers: {
         Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNlb25naG8iLCJlbWFpbCI6InNlb25naG9AZ21haWwuY29tIiwiaXNBZG1pbiI6ZmFsc2UsImlzVGVtcFBhc3N3b3JkIjpmYWxzZSwiaWF0IjoxNjgyNDA4MDc0LCJleHAiOjE2ODI0MTE2NzR9.QZ6XDY1Clh2K9n5AIMp35uT-QOzOEgMVjsk17kqo5W8',
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQzNzk3OCwiZXhwIjoxNjgyNDQxNTc4fQ.YnAwaWeUS6vOMareFKWI8nuHHHpbY5B47u98L_cBHP4',
       },
     });
 
@@ -118,10 +118,10 @@ orderForm.addEventListener('submit', (e) => {
   const phone1 = e.target['phone_1'].value;
   const phone2 = e.target['phone_2'].value;
   const phone3 = e.target['phone_3'].value;
-  const customerPhoneNum = `${phone1}${phone2}${phone3}`;
+  const customerPhoneNum = `${phone1}-${phone2}-${phone3}`;
 
   if (!phone2 || !phone3) {
-    alert('휴대전화를 입력해주세요.');
+    alert('휴대전화 번호를 입력해주세요.');
     e.target['phone2'].focus();
     return;
   }
