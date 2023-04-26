@@ -87,11 +87,11 @@ function createTicket(ticket) {
   <td><p>${speciesAge}</p></td>
   <td><p class="ticket_price">${price.toLocaleString()}원</p></td>
   <td class="ticket_quantity">
-    <button class="quantity_minus_button" onclick="onMinus('${productId}')">
+    <button class="minus_button" onclick="onMinus('${productId}')">
     <i class="ri-indeterminate-circle-line"></i>
     </button>
     <input type="text" class="ticket_quantity_input" value=${quantity} />
-    <button class="quantity_plus_button" onclick="onPlus('${productId}')">
+    <button class="plus_button" onclick="onPlus('${productId}')">
     <i class="ri-add-circle-line"></i>
     </button>
   </td>
