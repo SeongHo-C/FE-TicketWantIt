@@ -1,3 +1,6 @@
+import { isTokenExpired, tokenRefresh } from '../../modules/token.mjs';
+import instance from '../../modules/axios_interceptor.mjs';
+
 const tickets_info = JSON.parse(localStorage.getItem('ticket_order'));
 
 function onLoad() {
@@ -57,12 +60,9 @@ function execDaumPostcode() {
 
 async function pay(data) {
   try {
-    const response = await axios.post('http://34.64.112.166/api/orders', data, {
-      headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0MjQyMSwiZXhwIjoxNjgyNDQ2MDIxfQ.1yC0U2hLV2UbeOZ-n-1H2jZP58Bzm3QOigHHtlwuGcw',
-      },
-    });
+    if (isTokenExpired()) tokenRefresh();
+
+    const response = await instance.post('/api/orders', data);
 
     const { orderId } = response.data;
     onDeleteCart();
@@ -127,9 +127,9 @@ orderForm.addEventListener('submit', (e) => {
   }
 
   const items = tickets_info.map((ticket_info) => {
-    const { productName, quantity, price } = ticket_info;
+    const { productName, quantity, price, imageUrl } = ticket_info;
 
-    return { name: productName, quantity, price };
+    return { name: productName, quantity, price, imageUrl };
   });
 
   const totalPrice = calculateTotalPrice(tickets_info);
