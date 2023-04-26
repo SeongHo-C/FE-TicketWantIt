@@ -1,3 +1,5 @@
+import URL from '../../modules/server_url.mjs';
+
 let productViewItem;
 
 async function main() {
@@ -6,7 +8,7 @@ async function main() {
     const productId = urlParams.get('productId');
 
     const response = await axios.get(
-      `http://34.64.112.166/api/product/detail?productId=${productId}`
+      `${URL}/api/product/detail?productId=${productId}`
     );
     productViewItem = response.data;
 
@@ -33,8 +35,8 @@ function createView(data) {
                 src=${imageUrl}
                 alt="상품 이미지"
             />
-        </div>
-        <div class="info_box">
+            </div>
+          <div class="info_box">
             <div class="ticket_info">
                 <div class="top">
                     <div class="date">${startDate} ~ ${endDate}</div>
@@ -45,7 +47,7 @@ function createView(data) {
                         ${description}
                     </div>
                 </div>
-                <div class="price">${price.toLocaleString()}원</div>
+                <div class="price">${Number(price).toLocaleString()}원</div>
                 <div class="detail_info">
                     <dl class="age">
                         <dt>연령제한</dt>
@@ -63,21 +65,6 @@ function createView(data) {
             </div>
         </div>
     `;
-}
-
-function createTicket() {
-  const { productId, imageUrl, productName, place, speciesAge, price } =
-    productViewItem;
-
-  return {
-    productId,
-    imageUrl,
-    productName,
-    place,
-    speciesAge,
-    price,
-    quantity: 1,
-  };
 }
 
 function onAddCart() {
@@ -102,6 +89,21 @@ function onAddCart() {
   }
 
   alert('장바구니에 상품이 추가되었습니다.');
+}
+
+function createTicket() {
+  const { productId, imageUrl, productName, place, speciesAge, price } =
+    productViewItem;
+
+  return {
+    productId,
+    imageUrl,
+    productName,
+    place,
+    speciesAge,
+    price,
+    quantity: 1,
+  };
 }
 
 function onDirectBuy() {
