@@ -1,5 +1,5 @@
-import { saveToken } from '../../modules/saveToken.js';
-
+import { saveToken } from '../../modules/token.mjs';
+import URL from '../../modules/server_url.mjs';
 const [
   email,
   password,
@@ -39,7 +39,7 @@ const logInFunction = (e) => {
     return false;
   }
 
-   axios.post('http://34.64.112.166/api/auth', {
+   axios.post(`${URL}/api/auth`, {
        email: email.value,
        password: password.value,
      })
