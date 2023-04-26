@@ -9,10 +9,14 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
+    "></script>
+    <script src="./goods_view.js" defer></script>
+    <script type="module" src="../../modules/tokenPresent.js" defer></script>
     <link rel="stylesheet" href="../../css/reset.css" />
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="../goods/goods.css" />
-    <script src="./goods_view.js" defer></script>
     <title>상품 상세 페이지</title>
   </head>
   <body>
@@ -26,55 +30,55 @@
             <nav>
               <ul>
                 <li>
-                  <a href=""><span>전체</span> </a>
+                  <a href="javascript:void(0)"><span>전체</span> </a>
                 </li>
                 <li>
-                  <a href=""><span>전시회</span> </a>
+                  <a href="javascript:void(0)"><span>전시회</span> </a>
                 </li>
                 <li>
-                  <a href=""><span>콘서트</span> </a>
+                  <a href="javascript:void(0)"><span>콘서트</span> </a>
                 </li>
                 <li>
-                  <a href=""><span>뮤지컬</span> </a>
+                  <a href="javascript:void(0)"><span>뮤지컬</span> </a>
                 </li>
                 <li>
-                  <a href=""><span>연극</span> </a>
+                  <a href="javascript:void(0)"><span>연극</span> </a>
                 </li>
                 <li>
-                  <a href=""><span>굿즈샵</span> </a>
+                  <a href="javascript:void(0)"><span>굿즈샵</span> </a>
                 </li>
               </ul>
             </nav>
           </div>
           <div class="right">
             <ul class="menu">
-              <li>
+              <li class="menu_icon login">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon login">
+                  <div>
                     <i class="ri-login-circle-line"></i>
                   </div>
                   <span>LOGIN</span>
                 </a>
               </li>
-              <li class="dn">
+              <li class="menu_icon logout">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon logout">
+                  <div>
                     <i class="ri-login-circle-line"></i>
                   </div>
                   <span>LOGOUT</span>
                 </a>
               </li>
-              <li>
+              <li class="menu_icon mypage">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon mypage">
+                  <div>
                     <i class="ri-user-3-line"></i>
                   </div>
                   <span>MYPAGE</span>
                 </a>
               </li>
-              <li>
+              <li class="menu_icon cart">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon cart">
+                  <div>
                     <i class="ri-shopping-cart-line"></i>
                   </div>
                   <span>CART</span>
