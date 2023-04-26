@@ -78,7 +78,12 @@ const goodsUpdateApi = async (e) => {
         try {
             const response = await axios.put(
                 `http://34.64.112.166/api/admin_product/edit?productId=${urlProductId}`,
-                formData
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${getToken()}`,
+                    },
+                }
             );
             console.log("상품이 수정되었습니다:", response.data);
 
@@ -108,7 +113,12 @@ const goodsUpdateApi = async (e) => {
         try {
             const response = await axios.post(
                 "http://34.64.112.166/api/admin_product/add",
-                formData
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${getToken()}`,
+                    },
+                }
             );
             console.log("새 상품이 추가되었습니다:", response.data);
 

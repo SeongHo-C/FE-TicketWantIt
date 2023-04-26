@@ -4,10 +4,14 @@ const categoryList = document.querySelector(".cate_list > ul");
 
 /* 상품목록리스트 */
 async function categoryApi() {
-    const response = await axios({
-        method: "GET",
-        url: "http://34.64.112.166/api/admin_category",
-    });
+    const response = await axios.get(
+        "http://34.64.112.166/api/admin_category",
+        {
+            headers: {
+                Authorization: `Bearer ${getToken()}`,
+            },
+        }
+    );
 
     const categories = response.data;
     console.log(categories);
@@ -37,7 +41,12 @@ async function categoryApi() {
         if (e.target.classList.contains("btn_cate_delete")) {
             try {
                 const response = await axios.delete(
-                    `http://34.64.112.166/api/admin_category/delete?categoryId=${categoryId}`
+                    `http://34.64.112.166/api/admin_category/delete?categoryId=${categoryId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${getToken()}`,
+                        },
+                    }
                 );
 
                 console.log("카테고리가 삭제되었습니다:", response);
@@ -55,6 +64,11 @@ async function categoryApi() {
                     `http://34.64.112.166/api/admin_category/edit?categoryId=${categoryId}`,
                     {
                         category: categoryInput.value,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${getToken()}`,
+                        },
                     }
                 );
 
@@ -93,6 +107,11 @@ async function categoryAdd() {
                 "http://34.64.112.166/api/admin_category/add",
                 {
                     category: addCategoryInput.value,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${getToken()}`,
+                    },
                 }
             );
 
