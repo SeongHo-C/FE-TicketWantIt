@@ -28,65 +28,55 @@ async function categoryApi() {
         )
         .join("");
 
+    // 카테고리 추가, 삭제
+    async function handleCategoryClick(e) {
+        e.preventDefault();
+        const categoryElem = e.target.closest("li");
+        const categoryId = categoryElem.dataset.id;
+
+        if (e.target.classList.contains("btn_cate_delete")) {
+            try {
+                const response = await axios.delete(
+                    `http://34.64.112.166/api/admin_category/delete?categoryId=${categoryId}`
+                );
+
+                console.log("카테고리가 삭제되었습니다:", response);
+
+                alert("카테고리가 삭제되었습니다.");
+                location.reload();
+            } catch (error) {
+                console.error("카테고리 삭제 중 오류가 발생했습니다:", error);
+            }
+        } else if (e.target.classList.contains("btn_cate_modify")) {
+            const categoryInput = categoryElem.querySelector("input");
+
+            try {
+                const response = await axios.put(
+                    `http://34.64.112.166/api/admin_category/edit?categoryId=${categoryId}`,
+                    {
+                        category: categoryInput.value,
+                    }
+                );
+
+                console.log("해당 카테고리가 수정되었습니다:", response);
+
+                alert("해당 카테고리가 수정되었습니다.");
+                location.reload();
+            } catch (error) {
+                console.error("카테고리 수정 중 오류가 발생했습니다:", error);
+            }
+        }
+    }
+
     const list = document.querySelectorAll(".cate_list > ul > li");
 
-    list.forEach((li) =>
-        li
-            .querySelector(".btn_cate_delete")
-            .addEventListener("click", async (e) => {
-                e.preventDefault();
-                const categoryElem = e.target.closest("li");
-                const categoryId = categoryElem.dataset.id;
+    list.forEach((li) => {
+        const deleteButton = li.querySelector(".btn_cate_delete");
+        const modifyButton = li.querySelector(".btn_cate_modify");
 
-                console.log(categoryId);
-
-                try {
-                    const response = await axios.delete(
-                        `http://34.64.112.166/api/admin_category/delete?categoryId=${categoryId}`
-                    );
-
-                    console.log("카테고리가 삭제되었습니다:", response);
-
-                    alert("카테고리가 삭제되었습니다.");
-                    location.reload();
-                } catch (error) {
-                    console.error(
-                        "카테고리 삭제 중 오류가 발생했습니다:",
-                        error
-                    );
-                }
-            })
-    );
-
-    list.forEach((li) =>
-        li
-            .querySelector(".btn_cate_modify")
-            .addEventListener("click", async (e) => {
-                e.preventDefault();
-                const categoryElem = e.target.closest("li");
-                const categoryInput = categoryElem.querySelector("input");
-                const categoryId = categoryElem.dataset.id;
-
-                try {
-                    const response = await axios.put(
-                        `http://34.64.112.166/api/admin_category/edit?categoryId=${categoryId}`,
-                        {
-                            category: categoryInput.value,
-                        }
-                    );
-
-                    console.log("해당 카테고리가 수정되었습니다:", response);
-
-                    alert("해당 카테고리가 수정되었습니다.");
-                    location.reload();
-                } catch (error) {
-                    console.error(
-                        "카테고리 수정 중 오류가 발생했습니다:",
-                        error
-                    );
-                }
-            })
-    );
+        deleteButton.addEventListener("click", handleCategoryClick);
+        modifyButton.addEventListener("click", handleCategoryClick);
+    });
 }
 
 categoryApi();
