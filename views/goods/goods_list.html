@@ -10,12 +10,12 @@
         />
         <link rel="stylesheet" href="../../css/reset.css" />
         <link rel="stylesheet" href="../../css/style.css" />
-        <link rel="stylesheet" href="../goods/goods.css" />
+        <link rel="stylesheet" href="../../css/goods.css" />
         <!-- Axios -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script src="./goods.js" defer></script>
+        <script defer src="./goods.js"></script>
         <script defer src="../../modules/header.js"></script>
-        <title>상품 목록 페이지</title>
+        <title>상품 목록</title>
     </head>
     <body>
         <header>
@@ -33,33 +33,33 @@
                     </div>
                     <div class="right">
                         <ul class="menu">
-                            <li>
+                            <li class="menu_icon login">
                                 <a href="javascript:void(0)">
-                                    <div class="menu_icon login">
+                                    <div>
                                         <i class="ri-login-circle-line"></i>
                                     </div>
                                     <span>LOGIN</span>
                                 </a>
                             </li>
-                            <li class="dn">
+                            <li class="menu_icon logout dn">
                                 <a href="javascript:void(0)">
-                                    <div class="menu_icon logout">
+                                    <div>
                                         <i class="ri-login-circle-line"></i>
                                     </div>
                                     <span>LOGOUT</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="menu_icon mypage">
                                 <a href="javascript:void(0)">
-                                    <div class="menu_icon mypage">
+                                    <div>
                                         <i class="ri-user-3-line"></i>
                                     </div>
                                     <span>MYPAGE</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="menu_icon cart">
                                 <a href="javascript:void(0)">
-                                    <div class="menu_icon cart">
+                                    <div>
                                         <i class="ri-shopping-cart-line"></i>
                                     </div>
                                     <span>CART</span>
@@ -70,7 +70,6 @@
                 </div>
             </div>
         </header>
-
         <div id="container">
             <div class="content">
                 <div id="goods" class="w1140">
