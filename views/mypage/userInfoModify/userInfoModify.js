@@ -2,16 +2,35 @@ import { getToken,saveToken } from '../../../modules/token.mjs';
 import URL from '../../../modules/server_url.mjs';
 
 const [
-  nameInput
+  nameInput,
+  zipCode,
+  address,
+  addressDetail
  ] = document.querySelectorAll('.userInfoInput');
 
 const email = document.querySelector('#email');
 const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const warning = document.querySelector('#warning');
-
+const addressSearchBtn = document.querySelector('#addressSearchBtn')
 const token = getToken();
 const decodedToken = jwt_decode(token);
 email.innerHTML = decodedToken.email;
+
+function execDaumPostcode() {
+  new daum.Postcode({
+    oncomplete: function (data) {
+      let addr = '';
+
+      if (data.userSelectedType === 'R') addr = data.roadAddress;
+      else addr = data.jibunAddress;
+
+      zipCode.value = data.zonecode;
+      address.value = addr;
+
+      addressDetail.focus();
+    },
+  }).open();
+}
 
 //유저 정보 수정
 const userInfoModify = () => {
@@ -23,7 +42,8 @@ const userInfoModify = () => {
 
   axios.put(`${URL}/api/user`, 
   {
-      name: nameInput.value
+      name: nameInput.value,
+      address: `${address.value} ${addressDetail.value} ${zipCode}`
   }, {
     headers: {'Authorization': `Bearer ${getToken()}`}
   })
@@ -53,3 +73,4 @@ const userInfoModify = () => {
 }
 
 userInfoModifyButton.addEventListener('click', userInfoModify);
+addressSearchBtn.addEventListener("click", execDaumPostcode);
