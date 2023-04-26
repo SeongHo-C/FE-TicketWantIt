@@ -9,9 +9,9 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
             rel="stylesheet"
         />
-  <link rel='stylesheet' href='../../../css/reset.css'>
-  <link rel='stylesheet' href='../../../css/style.css'>
-  <link rel='stylesheet' href='./userInfoModify.css'>
+  <link rel='stylesheet' href='../../../css/style/reset.css'>
+  <link rel='stylesheet' href='../../../css/style/style.css'>
+  <link rel='stylesheet' href='../../../css/layout/userInfoModify.css'>
   <script src='https://unpkg.com/axios/dist/axios.min.js' defer></script>
   <script src="
     https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
@@ -19,6 +19,8 @@
   <script type='module' src='./userInfoModify.js' defer></script>
   <script type='module' src='../../../modules/tokenPresent.js'></script>
   <script type='module' src='../../../modules/tokenCheck.mjs'></script>
+  <script src='../../../modules/header.js' defer></script>
+  
   <title>My Page | Ticket Want it!</title>
 </head>
 </head>
@@ -28,56 +30,25 @@
             <div class="inner w1140">
                 <div class="left">
                     <div class="logo">
-                        <a href="../../home/index.html"
+                        <a href="../../../index.html"
                             ><span>티켓원잇!</span></a
                         >
                     </div>
                     <nav>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>전체</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>전시회</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>콘서트</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>뮤지컬</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>연극</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>굿즈샵</span>
-                                </a>
-                            </li>
-                        </ul>
+                        <ul></ul>
                     </nav>
                 </div>
                 <div class="right">
                     <ul class="menu">
                         <li class="menu_icon login">
-                            <a href="javascript:void(0)" >
+                            <a href="javascript:void(0)">
                                 <div>
                                     <i class="ri-login-circle-line"></i>
                                 </div>
                                 <span>LOGIN</span>
                             </a>
                         </li>
-                        <li class="menu_icon logout">
+                        <li class="menu_icon logout dn">
                             <a href="javascript:void(0)">
                                 <div>
                                     <i class="ri-login-circle-line"></i>
@@ -85,7 +56,7 @@
                                 <span>LOGOUT</span>
                             </a>
                         </li>
-                        <li  class="menu_icon mypage">
+                        <li class="menu_icon mypage">
                             <a href="javascript:void(0)">
                                 <div>
                                     <i class="ri-user-3-line"></i>
@@ -105,7 +76,7 @@
                 </div>
             </div>
         </div>
-    </header>
+      </header>
     <div id="container" class="w1140">
         <div class="side_content">
           <ul>
