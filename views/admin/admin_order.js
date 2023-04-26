@@ -13,16 +13,22 @@ async function goodsConnectApi() {
 
     orderList.innerHTML = orders.orderList
         .map(
-            ({ _id, orderId, date, customerId, items, totalPrice }) => `
+            ({
+                _id,
+                orderId,
+                date,
+                customerId,
+                items,
+                totalPrice,
+                orderStatus,
+            }) => `
             <li data-order="${orderId}" data-id="${_id}">
                 <div class="order_detail">
                     <div class="top">
                         <div class="left">
                             <div>
                                 <strong>주문일자</strong>
-                                <span>${new Date(date)
-                                    .toISOString()
-                                    .slice(0, 10)}</span>
+                                <span>${date.slice(0, 10)}</span>
                             </div>
                             <div>
                                 <strong>주문번호</strong>
@@ -30,12 +36,17 @@ async function goodsConnectApi() {
                             </div>
                         </div>
                         <div class="right">
-                            <div class="delivery_status">
-                                <select name="" id="">
-                                    <option value="">주문완료</option>
-                                    <option value="">주문확인</option>
-                                    <option value="">배송중</option>
-                                    <option value="">배송완료</option>
+                            <div class="order_status">
+                                <select name="orderStatus" id="orderStatus">
+                                <option value="1" ${
+                                    orderStatus === 1 ? "selected" : ""
+                                }>주문확인</option>
+                                <option value="2" ${
+                                    orderStatus === 2 ? "selected" : ""
+                                }>배송중</option>
+                                <option value="3" ${
+                                    orderStatus === 3 ? "selected" : ""
+                                }>배송완료</option>
                                 </select>
                             </div>
                         </div>
@@ -97,6 +108,34 @@ async function goodsConnectApi() {
         .join("");
 
     const list = document.querySelectorAll(".order_list > li");
+
+    list.forEach((li) => {
+        li.querySelector("#orderStatus").addEventListener(
+            "change",
+            async (e) => {
+                const orderElem = e.target.closest("li");
+                const orderId = orderElem.dataset.order;
+                const orderStatus = e.target.value;
+                console.log("onchange select", orderStatus, orderId);
+
+                try {
+                    const response = await axios.patch(
+                        `http://34.64.112.166/api/adminOrder/${orderId}/${orderStatus}`
+                    );
+
+                    console.log("배송정보가 변경되었습니다:", response);
+
+                    alert("배송정보가 변경되었습니다.");
+                    location.reload();
+                } catch (error) {
+                    console.error(
+                        "배송정보 변경 중 오류가 발생했습니다:",
+                        error
+                    );
+                }
+            }
+        );
+    });
 
     list.forEach((li) =>
         li.querySelector(".btn_delete").addEventListener("click", async (e) => {
