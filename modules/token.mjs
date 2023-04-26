@@ -1,4 +1,4 @@
-import URL from './server_url.mjs';
+import instance from '../modules/axios_interceptor.mjs';
 
 function getToken() {
   return localStorage.getItem('token');
@@ -12,25 +12,24 @@ function removeToken() {
   localStorage.removeItem('token');
 }
 
-const isTokenExpired = () => {
+function isTokenExpired() {
   const token = getToken();
   const decodedToken = jwt_decode(token);
   const currentTime = Date.now() / 1000;
 
-  if (decodedToken.exp > currentTime) {
-    axios
-      .post(`${URL}/api/auth`, {
-        email: email.value,
-        password: password.value,
-      })
-      .then((response) => {
-        const token = response.data;
-        saveToken(token);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-};
+  if (decodedToken.exp > currentTime) return true;
+  return false;
+}
 
-export { getToken, saveToken, removeToken, isTokenExpired };
+async function tokenRefresh() {
+  try {
+    const response = await instance.get('/api/auth');
+    const token = response.data;
+
+    saveToken(token);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { getToken, saveToken, removeToken, isTokenExpired, tokenRefresh };
