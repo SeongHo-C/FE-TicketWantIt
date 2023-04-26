@@ -25,7 +25,7 @@ async function main() {
                     endDate,
                 }) => `
                 <li>
-                    <a href="./goods_view.html?productId=${productId}">
+                    <a href="/views/goods/goods_view.html?productId=${productId}">
                     <div class="img_box">
                         <img src="${imageUrl}" alt="${productName}" />
                     </div>
@@ -57,7 +57,7 @@ async function main() {
                     endDate,
                 }) => `
                 <li>
-                    <a href="./goods_view.html?productId=${productId}">
+                    <a href="/views/goods/goods_view.html?productId=${productId}">
                     <div class="img_box">
                         <img src="${imageUrl}" alt="${productName}" />
                     </div>

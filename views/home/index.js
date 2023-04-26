@@ -15,7 +15,7 @@ async function newArrivals() {
         .map(
             ({ productId, productName, price, imageUrl }) => `
             <li>
-                <a href="../goods/goods_view.html?productId=${productId}">
+                <a href="/views/goods/goods_view.html?productId=${productId}">
                 <div class="img_box">
                     <img src="${imageUrl}" alt="${productName}" />
                 </div>
@@ -50,7 +50,7 @@ async function mdRecommends() {
         .map(
             ({ productId, productName, price, imageUrl }) => `
             <li>
-                <a href="../goods/goods_view.html?productId=${productId}">
+                <a href="/views/goods/goods_view.html?productId=${productId}">
                 <div class="img_box">
                     <img src="${imageUrl}" alt="${productName}" />
                 </div>
