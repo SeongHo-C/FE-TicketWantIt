@@ -1,10 +1,13 @@
+import URL from './server_url.mjs';
+import { getToken } from './token.mjs';
+
 const instance = axios.create({
-  baseURL: 'http://34.64.112.166',
+  baseURL: URL,
 });
 
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = getToken();
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
       config.headers['Content-Type'] = 'application/json; charset=utf-8';
