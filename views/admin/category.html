@@ -11,7 +11,9 @@
         <link rel="stylesheet" href="../../css/reset.css" />
         <link rel="stylesheet" href="../../css/style.css" />
         <link rel="stylesheet" href="./admin.css" />
-        <script defer src="./admin.js"></script>
+        <!-- Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script defer src="./admin_category.js"></script>
         <title>카테고리</title>
     </head>
     <body>
@@ -115,8 +117,9 @@
                                         <input
                                             type="text"
                                             placeholder="추가할 카테고리를 입력해주세요"
+                                            id="addCategory"
                                         />
-                                        <button>추가</button>
+                                        <button class="btn_add_category">추가</button>
                                     </div>
                                     <div class="cate_list">
                                         <div class="title">
@@ -124,13 +127,13 @@
                                         </div>
                                         <ul>
                                             <li>
-                                                <strong>전시</strong>
+                                                <input type="text" data-id=""></input>
                                                 <button class="btn_cate_delete">
                                                     삭제
                                                 </button>
                                             </li>
                                             <li>
-                                                <strong>공연</strong>
+                                                <input type="text" data-id=""></input>
                                                 <button class="btn_cate_delete">
                                                     삭제
                                                 </button>
