@@ -4,9 +4,10 @@ const productList = document.querySelector(".admin_goods .goods_list");
 
 /* 상품목록리스트 */
 async function goodsListApi() {
-    const response = await axios({
-        method: "GET",
-        url: "http://34.64.112.166/api/admin_product",
+    const response = await axios.get("http://34.64.112.166/api/admin_product", {
+        headers: {
+            Authorization: `Bearer ${getToken()}`,
+        },
     });
 
     const products = response.data;
@@ -126,7 +127,12 @@ async function goodsListApi() {
 
             try {
                 const response = await axios.delete(
-                    `http://34.64.112.166/api/admin_product/delete?productId=${productId}`
+                    `http://34.64.112.166/api/admin_product/delete?productId=${productId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${getToken()}`,
+                        },
+                    }
                 );
 
                 console.log("상품이 삭제되었습니다:", response);

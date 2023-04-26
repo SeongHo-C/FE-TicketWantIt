@@ -1,11 +1,12 @@
 "use strict";
 /* 주문목록 조회 */
 const orderList = document.querySelector(".order_list");
-
+// console.log(localStorage.getItem("token"));
 async function goodsConnectApi() {
-    const response = await axios({
-        method: "GET",
-        url: "http://34.64.112.166/api/adminOrder",
+    const response = await axios.get("http://34.64.112.166/api/adminOrder", {
+        headers: {
+            Authorization: `Bearer ${getToken()}`,
+        },
     });
 
     const orders = await response.data;
@@ -120,7 +121,12 @@ async function goodsConnectApi() {
 
                 try {
                     const response = await axios.patch(
-                        `http://34.64.112.166/api/adminOrder/${orderId}/${orderStatus}`
+                        `http://34.64.112.166/api/adminOrder/${orderId}/${orderStatus}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${getToken()}`,
+                            },
+                        }
                     );
 
                     console.log("배송정보가 변경되었습니다:", response);
@@ -146,7 +152,12 @@ async function goodsConnectApi() {
 
             try {
                 const response = await axios.delete(
-                    `http://34.64.112.166/api/adminOrder/${orderId}`
+                    `http://34.64.112.166/api/adminOrder/${orderId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${getToken()}`,
+                        },
+                    }
                 );
 
                 console.log("상품이 삭제되었습니다:", response);
