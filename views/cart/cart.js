@@ -151,6 +151,13 @@ function selectedOrder() {
 }
 
 function onNavigateOrder(tickets_info) {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    location.href = '/views/login/login.html';
+    alert('로그인 후 이용해주시기 바랍니다.');
+  }
+
   localStorage.setItem('ticket_order', JSON.stringify(tickets_info));
 
   location.href = '/views/order/order.html';
