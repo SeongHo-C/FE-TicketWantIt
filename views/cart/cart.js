@@ -87,12 +87,12 @@ function createTicket(ticket) {
   <td><p>${speciesAge}</p></td>
   <td><p class="ticket_price">${price.toLocaleString()}원</p></td>
   <td class="ticket_quantity">
-    <button class="quantity_minus_button" onclick="onMinus('${productId}')">
-      <i class="fas fa-minus"></i>
+    <button class="minus_button" onclick="onMinus('${productId}')">
+    <i class="ri-indeterminate-circle-line"></i>
     </button>
     <input type="text" class="ticket_quantity_input" value=${quantity} />
-    <button class="quantity_plus_button" onclick="onPlus('${productId}')">
-      <i class="fas fa-plus"></i>
+    <button class="plus_button" onclick="onPlus('${productId}')">
+    <i class="ri-add-circle-line"></i>
     </button>
   </td>
   <td><p class="ticket_total">${(price * quantity).toLocaleString()}원</p></td>
@@ -151,6 +151,13 @@ function selectedOrder() {
 }
 
 function onNavigateOrder(tickets_info) {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    location.href = '/views/login/login.html';
+    alert('로그인 후 이용해주시기 바랍니다.');
+  }
+
   localStorage.setItem('ticket_order', JSON.stringify(tickets_info));
 
   location.href = '/views/order/order.html';

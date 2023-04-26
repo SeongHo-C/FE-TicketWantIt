@@ -8,14 +8,11 @@
     <link rel="stylesheet" href="../../css/reset.css" />
     <link rel="stylesheet" href="../../css/style.css" />
     <link rel="stylesheet" href="cart.css" />
-    <script
-      src="https://kit.fontawesome.com/cab4956b39.js"
-      crossorigin="anonymous"
-    ></script>
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <script type="module" src="../../modules/tokenPresent.js" defer></script>
     <script src="cart.js" defer></script>
   </head>
   <body>
@@ -51,33 +48,33 @@
           </div>
           <div class="right">
             <ul class="menu">
-              <li>
+              <li class="menu_icon login">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon login">
+                  <div>
                     <i class="ri-login-circle-line"></i>
                   </div>
                   <span>LOGIN</span>
                 </a>
               </li>
-              <li class="dn">
+              <li class="menu_icon logout">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon logout">
+                  <div>
                     <i class="ri-login-circle-line"></i>
                   </div>
                   <span>LOGOUT</span>
                 </a>
               </li>
-              <li>
+              <li class="menu_icon mypage">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon mypage">
+                  <div>
                     <i class="ri-user-3-line"></i>
                   </div>
                   <span>MYPAGE</span>
                 </a>
               </li>
-              <li>
+              <li class="menu_icon cart">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon cart">
+                  <div>
                     <i class="ri-shopping-cart-line"></i>
                   </div>
                   <span>CART</span>
@@ -88,6 +85,7 @@
         </div>
       </div>
     </header>
+
     <section class="cart w1140">
       <div class="title_area">
         <h2>장바구니</h2>
@@ -104,7 +102,6 @@
           <col style="width: 10%" />
           <col style="width: 10%" />
         </colgroup>
-        <!-- 연령제한 장소 전시회명 가격 날짜 수량 -->
         <thead>
           <tr>
             <th><input type="checkbox" id="all_check" name="all_check" /></th>
@@ -154,6 +151,7 @@
         <button class="order_button selected_order">선택 상품 주문</button>
       </div>
     </section>
+
     <footer>
       <div class="inner w1140">
         <div class="footer_top">
