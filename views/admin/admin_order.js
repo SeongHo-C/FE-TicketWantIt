@@ -1,4 +1,7 @@
-"use strict";
+import { getToken } from "../../modules/token.mjs";
+
+("use strict");
+
 /* 주문목록 조회 */
 const orderList = document.querySelector(".order_list");
 // console.log(localStorage.getItem("token"));

@@ -1,4 +1,6 @@
-"use strict";
+import { getToken } from "../../modules/token.mjs";
+
+("use strict");
 
 const categoryList = document.querySelector(".cate_list > ul");
 
