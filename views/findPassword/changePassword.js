@@ -1,5 +1,6 @@
 import { getToken, removeToken } from '../../modules/token.mjs';
 import URL from '../../modules/server_url.mjs';
+import { togglePasswordVisibility, togglePasswordInvisibility } from '../../modules/passwordVisibility.mjs';
 
 const [
   currentPassword,
@@ -12,6 +13,18 @@ const [
   passwordError,
   confirmPasswordError,
 ] = document.querySelectorAll('.error')
+
+const [
+  currentPasswordCheckEyesClose,
+  passwordCheckEyesClose,
+  confirmPasswordCheckEyesClose
+] = document.querySelectorAll('.ri-eye-close-line')
+
+const [
+  currentPasswordCheckEyesOpen,
+  passwordCheckEyesOpen,
+  confirmPasswordCheckEyesOpen
+] = document.querySelectorAll('.ri-eye-2-line')
 
 const passwordChangeButton = document.querySelector('#passwordChangeButton');
 
@@ -55,4 +68,22 @@ const changePassword = (e) => {
    })
 }
 
+currentPasswordCheckEyesClose.addEventListener('click', () => {
+  togglePasswordVisibility(currentPassword, currentPasswordCheckEyesOpen, currentPasswordCheckEyesClose);
+});
+currentPasswordCheckEyesOpen.addEventListener('click', () => {
+  togglePasswordInvisibility(currentPassword, currentPasswordCheckEyesOpen, currentPasswordCheckEyesClose);
+});
+passwordCheckEyesClose.addEventListener('click', () => {
+  togglePasswordVisibility(password, passwordCheckEyesOpen, passwordCheckEyesClose);
+});
+passwordCheckEyesOpen.addEventListener('click', () => {
+  togglePasswordInvisibility(password, passwordCheckEyesOpen, passwordCheckEyesClose);
+});
+confirmPasswordCheckEyesClose.addEventListener('click', () => {
+  togglePasswordVisibility(confirmPassword, confirmPasswordCheckEyesOpen, confirmPasswordCheckEyesClose);
+});
+confirmPasswordCheckEyesOpen.addEventListener('click', () => {
+  togglePasswordInvisibility(confirmPassword, confirmPasswordCheckEyesOpen, confirmPasswordCheckEyesClose);
+});
 passwordChangeButton.addEventListener('click', changePassword)

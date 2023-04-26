@@ -37,9 +37,26 @@ label {
 }
 
 .login_inputText {
+  position: relative;
   margin: 10px;
   padding: 8px;
   width: 260px;
+}
+
+.input_box {
+  position: relative;
+  margin-left: 35px;
+}
+
+.input_box i {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  cursor: pointer;
+}
+
+.ri-eye-2-line {
+  display: none;
 }
 
 #login_btn {

@@ -1,5 +1,6 @@
 import { saveToken } from '../../modules/token.mjs';
 import URL from '../../modules/server_url.mjs';
+import { togglePasswordVisibility, togglePasswordInvisibility } from '../../modules/passwordVisibility.mjs';
 
 const [
   email,
@@ -11,6 +12,8 @@ const [
   passwordError,
 ] = document.querySelectorAll('.error');
 
+const passwordCheckEyesClose = document.querySelector('.ri-eye-close-line');
+const passwordCheckEyesOpen = document.querySelector('.ri-eye-2-line');
 const logInButton = document.querySelector('#login_btn');
 
 //E-mail(id) & 비밀번호 Error 숨기기
@@ -70,4 +73,10 @@ const logInFunction = (e) => {
 
 email.addEventListener('input', deleteEmailErrorMessage);
 password.addEventListener('input', deletePasswordErrorMessage);
+passwordCheckEyesClose.addEventListener('click', () => {
+  togglePasswordVisibility(password, passwordCheckEyesOpen, passwordCheckEyesClose);
+});
+passwordCheckEyesOpen.addEventListener('click', () => {
+  togglePasswordInvisibility(password, passwordCheckEyesOpen, passwordCheckEyesClose);
+});
 logInButton.addEventListener('click', logInFunction);

@@ -1,5 +1,6 @@
 import { getToken, saveToken } from '../../modules/token.mjs';
 import URL from '../../modules/server_url.mjs';
+import { togglePasswordVisibility, togglePasswordInvisibility } from '../../modules/passwordVisibility.mjs';
 
 const [
   id,
@@ -15,6 +16,16 @@ const [
   passwordError,
   confirmPasswordError,
 ] = document.querySelectorAll('.error');
+
+const [
+  passwordCheckEyesClose,
+  confirmPasswordCheckEyesClose
+] = document.querySelectorAll('.ri-eye-close-line')
+
+const [
+  passwordCheckEyesOpen,
+  confirmPasswordCheckEyesOpen
+] = document.querySelectorAll('.ri-eye-2-line')
 
 const joinButton = document.querySelector('#join_btn');
 const modal = document.querySelector('#modal');
@@ -189,11 +200,24 @@ emailConfirmButton.addEventListener('click', (e) => {
     timer.textContent = `0 :00`;
     alert('인증번호 유효기간이 끝났습니다. 다시 시도해주세요.');
   }
-}, 100);
+}, 1000);
 });
+
 closeModalButton.addEventListener('click', (e) => {
   clearInterval(tokenTimer);
   modal.style.display = 'none';
+});
+passwordCheckEyesClose.addEventListener('click', () => {
+  togglePasswordVisibility(password, passwordCheckEyesOpen, passwordCheckEyesClose);
+});
+passwordCheckEyesOpen.addEventListener('click', () => {
+  togglePasswordInvisibility(password, passwordCheckEyesOpen, passwordCheckEyesClose);
+});
+confirmPasswordCheckEyesClose.addEventListener('click', () => {
+  togglePasswordVisibility(confirmPassword, confirmPasswordCheckEyesOpen, confirmPasswordCheckEyesClose);
+});
+confirmPasswordCheckEyesOpen.addEventListener('click', () => {
+  togglePasswordInvisibility(confirmPassword, confirmPasswordCheckEyesOpen, confirmPasswordCheckEyesClose);
 });
 confirmButton.addEventListener('click', matchEmailConfirm);
 joinButton.addEventListener('click', joinFunction);

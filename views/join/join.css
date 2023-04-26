@@ -51,9 +51,20 @@ label {
 }
 
 .input_box {
+  position: relative;
   margin-left: 35px;
 }
 
+.input_box i {
+  position: absolute;
+  top: 50%;
+  right: 48px;
+  cursor: pointer;
+}
+
+.ri-eye-2-line {
+  display: none;
+}
 
 .buttons {
   display: flex;
