@@ -5,23 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>주문/결제 페이지</title>
-    <link rel="stylesheet" href="../../css/reset.css" />
-    <link rel="stylesheet" href="../../css/style.css" />
-    <script
-      src="https://kit.fontawesome.com/cab4956b39.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-      defer
-    ></script>
-    <script src="order.js" defer></script>
+    <link rel="stylesheet" href="../../css/style/reset.css" />
+    <link rel="stylesheet" href="../../css/style/style.css" />
+    <link rel="stylesheet" href="../../css/layout/order.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+
+    <script
+      src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
+      defer
+    ></script>
+    <script type="module" src="../../modules/tokenPresent.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="order.css" />
+    <script src="order.js" defer></script>
+    <script src="../../modules/header.js" defer></script>
   </head>
   <body>
     <header>
@@ -29,60 +28,41 @@
         <div class="inner w1140">
           <div class="left">
             <div class="logo">
-              <a href="../home/index.html"><span>티켓원잇!</span></a>
+              <a href="../../index.html"><span>티켓원잇!</span></a>
             </div>
             <nav>
-              <ul>
-                <li>
-                  <a href="javascript:void(0)"><span>전체</span> </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)"><span>전시회</span> </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)"><span>콘서트</span> </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)"><span>뮤지컬</span> </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)"><span>연극</span> </a>
-                </li>
-                <li>
-                  <a href="javascript:void(0)"><span>굿즈샵</span> </a>
-                </li>
-              </ul>
+              <ul></ul>
             </nav>
           </div>
           <div class="right">
             <ul class="menu">
-              <li>
+              <li class="menu_icon login">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon login">
+                  <div>
                     <i class="ri-login-circle-line"></i>
                   </div>
                   <span>LOGIN</span>
                 </a>
               </li>
-              <li class="dn">
+              <li class="menu_icon logout dn">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon logout">
+                  <div>
                     <i class="ri-login-circle-line"></i>
                   </div>
                   <span>LOGOUT</span>
                 </a>
               </li>
-              <li>
+              <li class="menu_icon mypage">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon mypage">
+                  <div>
                     <i class="ri-user-3-line"></i>
                   </div>
                   <span>MYPAGE</span>
                 </a>
               </li>
-              <li>
+              <li class="menu_icon cart">
                 <a href="javascript:void(0)">
-                  <div class="menu_icon cart">
+                  <div>
                     <i class="ri-shopping-cart-line"></i>
                   </div>
                   <span>CART</span>
@@ -93,6 +73,7 @@
         </div>
       </div>
     </header>
+
     <form class="w1000" method="post">
       <div class="title_area">
         <h2>주문 / 결제</h2>
