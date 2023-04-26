@@ -52,16 +52,17 @@ h2 {
 }
 
 .ticket_quantity > button {
-  width: 25px;
-  height: 25px;
-
+  background: transparent;
+  font-size: 1rem;
   outline: none;
   border: 0;
-  border-radius: 10px;
-  color: white;
-  background-color: var(--color--black1);
   cursor: pointer;
   vertical-align: middle;
+  transition: transform 300ms ease-in;
+}
+
+.ticket_quantity > button:hover {
+  transform: scale(1.1);
 }
 
 .ticket_total {
