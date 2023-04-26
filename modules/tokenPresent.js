@@ -1,4 +1,5 @@
 import { getToken, removeToken } from './token.mjs';
+import URL from './server_url.mjs';
 
 const tokenPresent = () => {
   const token = getToken();
@@ -9,19 +10,28 @@ const tokenPresent = () => {
     document.querySelector('.login').classList.add('dn');
     document.querySelector('.logout').classList.remove('dn');
   }
-}
+} 
 
 const login = () => {
   window.location.href = '/views/login/login.html';
 }
+
 const myPage = () => {
-  window.location.href = '/views/mypage/userInfo/userInfo.html';
+  const token = getToken();
+  if (!token) {
+    alert('로그인 후 이용해주시기 바랍니다.')
+    window.location.href = '/views/login/login.html';
+  } else {
+    window.location.href = '/views/mypage/userInfo/userInfo.html';
+  }
 }
+
 const cart = () => {
   window.location.href = '/views/cart/cart.html';
 }
+
 const logout = () => {
-  axios.get('http://34.64.112.166/api/auth/logout')
+  axios.get(`${URL}/api/auth/logout`)
   .then(() => {
     const token = getToken();
     removeToken(token);

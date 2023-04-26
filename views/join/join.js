@@ -1,5 +1,5 @@
-import { saveToken } from '../../modules/saveToken.js';
-import { getToken } from '../../modules/getToken.js';
+import { getToken, saveToken } from '../../modules/token.mjs';
+import URL from '../../modules/server_url.mjs';
 
 const [
   id,
@@ -73,7 +73,7 @@ confirmPassword.addEventListener('input', () => {
 
 //이메일 인증번호요청
 const emailConfirm = () => {
-  axios.post('http://34.64.112.166/api/user/emailAuth', 
+  axios.post(`${URL}/api/user/emailAuth`, 
   {
     email: id.value + '@' + email.value
   },
@@ -93,7 +93,7 @@ const emailConfirm = () => {
 
 //이메일 인증번호 일치여부
 const matchEmailConfirm = () => {
-  axios.post('http://34.64.112.166/api/user/emailAuth', 
+  axios.post(`${URL}/api/user/emailAuth`, 
   {
     email: id.value + '@' + email.value
   },
@@ -141,7 +141,7 @@ const joinFunction = (e) => {
     return false;
   }
 
-axios.post('http://34.64.112.166/api/user', {
+axios.post(`${URL}/api/user`, {
     email : id.value + '@' + email.value,
     name : nameInput.value,
     password : password.value,

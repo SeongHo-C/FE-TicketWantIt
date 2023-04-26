@@ -1,5 +1,5 @@
-import { getToken } from '../../../modules/getToken.js';
-import { saveToken } from '../../../modules/saveToken.js';
+import { getToken,saveToken } from '../../../modules/token.mjs';
+import URL from '../../../modules/server_url.mjs';
 
 const [
   nameInput
@@ -8,16 +8,6 @@ const [
 const email = document.querySelector('#email');
 const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const warning = document.querySelector('#warning');
-
-const tokenStatus = () => {
-  const token = getToken();
-  if (!token) {
-    alert('로그인 후 이용해주시기 바랍니다.')
-    window.location.href = '/views/login/login.html';
-  }
-}
-
-tokenStatus();
 
 const token = getToken();
 const decodedToken = jwt_decode(token);
@@ -31,7 +21,7 @@ const userInfoModify = () => {
         return false;
   }
 
-  axios.put('http://34.64.112.166/api/user', 
+  axios.put(`${URL}/api/user`, 
   {
       name: nameInput.value
   }, {
@@ -39,7 +29,7 @@ const userInfoModify = () => {
   })
   .then((response) => {
     if (response) {
-      axios.get('http://34.64.112.166/api/auth',
+      axios.get(`${URL}/api/auth`,
       {
         headers: {'Authorization': `Bearer ${getToken()}`}
       })

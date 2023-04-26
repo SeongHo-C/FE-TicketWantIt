@@ -1,5 +1,5 @@
-import { getToken } from '../../../modules/getToken.js';
-import { removeToken } from '../../../modules/removeToken.js';
+import { getToken, removeToken } from '../../../modules/token.mjs';
+import URL from '../../../modules/server_url.mjs';
 
 const [
   email,
@@ -8,18 +8,8 @@ const [
 
 const withdrawalButton = document.querySelector('#withdrawalButton')
 
- const tokenStatus = () => {
-   const token = getToken();
-   if (!token) {
-     alert('로그인 후 이용해주시기 바랍니다.')
-     window.location.href = '/views/login/login.html';
-   }
- }
-
- tokenStatus();
-
 const userInfo = () => {
-  axios.get('http://34.64.112.166/api/user',
+  axios.get(`${URL}/api/user`,
   {
     headers: {'Authorization': `Bearer ${getToken()}`}
   })
@@ -42,7 +32,7 @@ const withdrawal = (e) => {
   e.preventDefault();
 
   if (confirm('정말 탈퇴하시겠습니까?')) {
-    axios.delete('http://34.64.112.166/api/user',
+    axios.delete(`${URL}/api/user`,
     {
       headers: {
         'Authorization': `Bearer ${getToken()}`

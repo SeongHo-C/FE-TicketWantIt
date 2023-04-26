@@ -1,15 +1,5 @@
-import { getToken } from '../../modules/getToken.js';
-import { removeToken } from '../../modules/removeToken.js';
-
-const tokenStatus = () => {
-  const token = getToken();
-  if (!token) {
-    alert('로그인 후 이용해주시기 바랍니다.')
-    window.location.href = '/views/login/login.html';
-  }
-}
-
-tokenStatus();
+import { getToken, removeToken } from '../../modules/token.mjs';
+import URL from '../../modules/server_url.mjs';
 
 const [
   currentPassword,
@@ -41,7 +31,7 @@ const changePassword = (e) => {
      return false;
    }
 
-   axios.post('http://34.64.112.166/api/user/change-password', {
+   axios.post(`${URL}/api/user/change-password`, {
      currentPassword: currentPassword.value,
      password: password.value
    }, 
