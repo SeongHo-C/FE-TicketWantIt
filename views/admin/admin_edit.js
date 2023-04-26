@@ -1,4 +1,6 @@
-"use strict";
+import { getToken } from "../../modules/token.mjs";
+
+("use strict");
 
 const imageUrl = document.querySelector("#goodsImage");
 const formUrlInput = document.querySelector(".goods_image");

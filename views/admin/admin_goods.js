@@ -1,4 +1,6 @@
-"use strict";
+import { getToken } from "../../modules/token.mjs";
+
+("use strict");
 
 const productList = document.querySelector(".admin_goods .goods_list");
 
