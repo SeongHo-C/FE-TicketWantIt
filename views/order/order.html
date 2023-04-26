@@ -5,22 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>주문/결제 페이지</title>
-    <link rel="stylesheet" href="../../css/style/reset.css" />
-    <link rel="stylesheet" href="../../css/style/style.css" />
-    <link rel="stylesheet" href="../../css/layout/order.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="../../css/style/reset.css" />
+    <link rel="stylesheet" href="../../css/style/style.css" />
+    <link rel="stylesheet" href="../../css/layout/order.css" />
 
     <script
       src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
       defer
     ></script>
-    <script type="module" src="../../modules/tokenPresent.js" defer></script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
+    "></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="order.js" defer></script>
+    <script type="module" src="../../modules/tokenPresent.js" defer></script>
     <script src="../../modules/header.js" defer></script>
+    <script type="module" src="order.js" defer></script>
   </head>
   <body>
     <header>
