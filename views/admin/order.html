@@ -8,12 +8,13 @@
             href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
             rel="stylesheet"
         />
-        <link rel="stylesheet" href="../../css/reset.css" />
-        <link rel="stylesheet" href="../../css/style.css" />
-        <link rel="stylesheet" href="../../css/admin.css" />
+        <link rel="stylesheet" href="../../css/style/reset.css" />
+        <link rel="stylesheet" href="../../css/style/style.css" />
+        <link rel="stylesheet" href="../../css/admin/admin.css" />
         <!-- Axios -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script type="module" defer src="./admin_order.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+        <script defer type="module" src="./admin_order.js"></script>
         <title>주문조회</title>
     </head>
     <body>
@@ -51,7 +52,7 @@
                             <div class="link">
                                 <ul>
                                     <li>
-                                        <a href=""
+                                        <a href="/index.html"
                                             ><i class="ri-store-fill"></i
                                             ><span>내 쇼핑몰 바로가기</span>
                                         </a>
@@ -109,262 +110,7 @@
                                 <span>Order list</span>
                             </div>
                             <div class="admin_content">
-                                <!--
-                                    상단 : 배송상태, 주문일자
-                                    유저정보 : 임시 이미지, 이름, 메일주소
-                                    상품정보(구매상품 리스트) : 상품명, 구매수량, 가격
-
-                                    총합계금액 
-                                -->
-                                <ul class="order_list">
-                                    <li>
-                                        <div class="order_detail">
-                                            <div class="top">
-                                                <div class="left">
-                                                    <div>
-                                                        <strong
-                                                            >주문일자</strong
-                                                        >
-                                                        <span>2023-04-22</span>
-                                                    </div>
-                                                    <div>
-                                                        <strong
-                                                            >주문번호</strong
-                                                        >
-                                                        <span>123458785</span>
-                                                    </div>
-                                                </div>
-                                                <div class="right">
-                                                    <div
-                                                        class="delivery_status"
-                                                    >
-                                                        <select name="" id="">
-                                                            <option value="">
-                                                                주문완료
-                                                            </option>
-                                                            <option value="">
-                                                                주문확인
-                                                            </option>
-                                                            <option value="">
-                                                                배송중
-                                                            </option>
-                                                            <option value="">
-                                                                배송완료
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="info_box">
-                                                <div class="user_info">
-                                                    <div class="title">
-                                                        유저정보
-                                                    </div>
-                                                    <div>
-                                                        <dl>
-                                                            <dt>이름</dt>
-                                                            <dd>윤우정</dd>
-                                                        </dl>
-                                                        <dl>
-                                                            <dt>메일주소</dt>
-                                                            <dd>
-                                                                dbssnfjd122@gmail.com
-                                                            </dd>
-                                                        </dl>
-                                                    </div>
-                                                </div>
-                                                <div class="order_info">
-                                                    <div class="title">
-                                                        주문정보
-                                                    </div>
-                                                    <ul>
-                                                        <li>
-                                                            <div class="img">
-                                                                <img
-                                                                    src="../../asset/images/goods_list5.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <div
-                                                                    class="title"
-                                                                >
-                                                                    다비드 자맹:
-                                                                    프로방스에서
-                                                                    온 댄디보이
-                                                                </div>
-                                                                <dl>
-                                                                    <dt>
-                                                                        구매수량
-                                                                    </dt>
-                                                                    <dd>1</dd>
-                                                                </dl>
-                                                                <dl>
-                                                                    <dt>
-                                                                        가격
-                                                                    </dt>
-                                                                    <dd>
-                                                                        18000원
-                                                                    </dd>
-                                                                </dl>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="img">
-                                                                <img
-                                                                    src="../../asset/images/goods_list5.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <div
-                                                                    class="title"
-                                                                >
-                                                                    다비드 자맹:
-                                                                    프로방스에서
-                                                                    온 댄디보이
-                                                                </div>
-                                                                <dl>
-                                                                    <dt>
-                                                                        구매수량
-                                                                    </dt>
-                                                                    <dd>1</dd>
-                                                                </dl>
-                                                                <dl>
-                                                                    <dt>
-                                                                        가격
-                                                                    </dt>
-                                                                    <dd>
-                                                                        18000원
-                                                                    </dd>
-                                                                </dl>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="total_box">
-                                                <div class="total_price">
-                                                    <strong>총 합계금액</strong>
-                                                    <span>36000원</span>
-                                                </div>
-                                                <div class="btn_box">
-                                                    <button class="btn_delete">
-                                                        주문삭제
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="order_detail">
-                                            <div class="top">
-                                                <div class="left">
-                                                    <div>
-                                                        <strong
-                                                            >주문일자</strong
-                                                        >
-                                                        <span>2023-04-22</span>
-                                                    </div>
-                                                    <div>
-                                                        <strong
-                                                            >주문번호</strong
-                                                        >
-                                                        <span>123458785</span>
-                                                    </div>
-                                                </div>
-                                                <div class="right">
-                                                    <div
-                                                        class="delivery_status"
-                                                    >
-                                                        <select name="" id="">
-                                                            <option value="">
-                                                                주문완료
-                                                            </option>
-                                                            <option value="">
-                                                                주문확인
-                                                            </option>
-                                                            <option value="">
-                                                                배송중
-                                                            </option>
-                                                            <option value="">
-                                                                배송완료
-                                                            </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="info_box">
-                                                <div class="user_info">
-                                                    <div class="title">
-                                                        유저정보
-                                                    </div>
-                                                    <div>
-                                                        <dl>
-                                                            <dt>이름</dt>
-                                                            <dd>윤우정</dd>
-                                                        </dl>
-                                                        <dl>
-                                                            <dt>메일주소</dt>
-                                                            <dd>
-                                                                dbssnfjd122@gmail.com
-                                                            </dd>
-                                                        </dl>
-                                                    </div>
-                                                </div>
-                                                <div class="order_info">
-                                                    <div class="title">
-                                                        주문정보
-                                                    </div>
-                                                    <ul>
-                                                        <li>
-                                                            <div class="img">
-                                                                <img
-                                                                    src="../../asset/images/goods_list5.jpg"
-                                                                    alt=""
-                                                                />
-                                                            </div>
-                                                            <div>
-                                                                <div
-                                                                    class="title"
-                                                                >
-                                                                    다비드 자맹:
-                                                                    프로방스에서
-                                                                    온 댄디보이
-                                                                </div>
-                                                                <dl>
-                                                                    <dt>
-                                                                        구매수량
-                                                                    </dt>
-                                                                    <dd>1</dd>
-                                                                </dl>
-                                                                <dl>
-                                                                    <dt>
-                                                                        가격
-                                                                    </dt>
-                                                                    <dd>
-                                                                        18000원
-                                                                    </dd>
-                                                                </dl>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="total_box">
-                                                <div class="total_price">
-                                                    <strong>총 합계금액</strong>
-                                                    <span>36000원</span>
-                                                </div>
-                                                <div class="btn_box">
-                                                    <button class="btn_delete">
-                                                        주문삭제
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <ul class="order_list"></ul>
                             </div>
                         </div>
                     </main>
