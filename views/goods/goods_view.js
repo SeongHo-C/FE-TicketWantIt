@@ -13,6 +13,12 @@ async function main() {
     productViewItem = response.data;
 
     productView.innerHTML = createView(productViewItem);
+
+    const addCartBtn = document.querySelector('.btn_box > .btn_cart');
+    addCartBtn.onclick = onAddCart;
+
+    const directBuyBtn = document.querySelector('.btn_box > .btn_buy');
+    directBuyBtn.onclick = onDirectBuy;
   } catch (error) {
     console.log(error);
   }
@@ -60,8 +66,8 @@ function createView(data) {
                 </div>
             </div>
             <div class="btn_box">
-                <button class="btn_cart" onclick='onAddCart()'>장바구니</button>
-                <button class="btn_buy" onclick='onDirectBuy()'>바로구매</button>
+                <button class="btn_cart">장바구니</button>
+                <button class="btn_buy">바로구매</button>
             </div>
         </div>
     `;
@@ -91,6 +97,18 @@ function onAddCart() {
   alert('장바구니에 상품이 추가되었습니다.');
 }
 
+function onDirectBuy() {
+  const ticket = createTicket();
+
+  onNavigateOrder([ticket]);
+}
+
+function onNavigateOrder(ticket) {
+  localStorage.setItem('ticket_order', JSON.stringify(ticket));
+
+  location.href = '../order/order.html';
+}
+
 function createTicket() {
   const { productId, imageUrl, productName, place, speciesAge, price } =
     productViewItem;
@@ -104,18 +122,6 @@ function createTicket() {
     price,
     quantity: 1,
   };
-}
-
-function onDirectBuy() {
-  const ticket = createTicket();
-
-  onNavigateOrder([ticket]);
-}
-
-function onNavigateOrder(ticket) {
-  localStorage.setItem('ticket_order', JSON.stringify(ticket));
-
-  location.href = '../order/order.html';
 }
 
 const productView = document.querySelector('.goods_detail');
