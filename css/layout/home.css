@@ -12,6 +12,10 @@
     height: 680px;
 }
 
+.main_visual .swiper-slide > div {
+    height: 100%;
+}
+
 .main_visual .mainBanner {
     height: 100%;
 }
