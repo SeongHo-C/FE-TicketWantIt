@@ -4,7 +4,12 @@
   <meta charset='UTF-8'>
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-
+  <link
+  rel="shortcut icon"
+  href="/asset/icons/favicon.ico"
+  type="image/x-icon"
+/>
+<link rel="icon" href="/asset/icons/favicon.ico" type="image/x-icon" />
   <link
             href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
             rel="stylesheet"
@@ -20,7 +25,7 @@
   <script type='module' src='../../modules/tokenPresent.js'></script>
   <script src='../../modules/header.js' defer></script>
   
-  <title>join | Ticket Want it!</title>
+  <title>Join | Ticket Want it!</title>
 </head>
 <body>
     <header>
@@ -28,9 +33,11 @@
             <div class="inner w1140">
                 <div class="left">
                     <div class="logo">
-                        <a href="../../index.html"
-                            ><span>티켓원잇!</span></a
-                        >
+                        <a href="/index.html"
+                            ><img
+                                src="/asset/icons/logo_c.png"
+                                alt="헤더로고"
+                        /></a>
                     </div>
                     <nav>
                         <ul></ul>
@@ -75,59 +82,73 @@
                 </div>
             </div>
         </div>
-      </header>
+    </header>
     <div id="container">
       <div class="contents">
-        <form id='join_form'>
-          <fieldset>
-            <legend>
-              Sign up
-            </legend>
-              <div class='input_box'>
-                <label id='name'>E-mail</label>
-                  <input type='text' id='id' class='join_inputText' placeholder='ID'/>@
-                  <input type="text" id='email' class='join_inputText'>
-                  <select name="selectEmail" id="selectEmail" onchange='emailSelection()'>
-                    <option value="">직접 입력</option>
-                    <option value="naver.com">naver.com</option>
-                    <option value="gmail.com">gmail.com</option>
-                    <option value="hanmail.net">hanmail.net</option>
-                    <option value="daum.net">daum.net</option>
-                  </select>
-                <div class='error'>이메일을 확인해주세요.</div>
-              </div>
-              <div class='input_box'>
-                <label id='name'>이름</label>
-                  <input type='text' id='name' class='join_inputText' placeholder='NAME'/>
-                <div class='error'>이름은 2글자 이상 써주세요.</div>
-              </div>
-              <div class='input_box'>
-                <label id='password'>비밀번호</label>
-                  <input type='password' id='password' class='join_inputText' placeholder='PASSWORD'/>
-                  <i class="ri-eye-close-line"></i>
-                  <i class="ri-eye-2-line"></i>
-                <div class='error'>비밀번호는 6글자 이상 써주세요.</div>
-              </div>
-              <div class='input_box'>
-                <label id='confirm_password'>비밀번호 확인</label>
-                  <input type='password'  id='confirm_password'class='join_inputText' placeholder='CONFIRM PASSWORD'/>
-                  <i class="ri-eye-close-line"></i>
-                  <i class="ri-eye-2-line"></i>
-                <div class='error'>비밀번호가 다릅니다.</div>
-              </div>
-            <div class='buttons'>
-              <button id='emailConfirmButton'>E-MAIL<br>인증</button>
-              <button id='join_btn'>회원가입</button>
+        <div id="joinWrap" class="w500">
+            <div class="page_title">
+                <h2>회원가입</h2>
             </div>
-            <div id='warning'>*비밀번호 분실 시 회원가입한 이메일로 초기화 된 비밀번호를 보냅니다.</div>
-          </fieldset>
-        </form>
+
+            <ul class="tab">
+                <li>
+                    <a href="../login/login.html">로그인</a>
+                </li>
+                <li  class="on"><a href="javascript:void(0)">회원가입</a></li>
+            </ul>
+
+
+            <form id='join_form'>
+              <fieldset>
+                <legend>
+                  Sign up
+                </legend>
+                  <div class='input_box'>
+                    <label id='name'>E-mail</label>
+                      <input type='text' id='id' class='join_inputText' placeholder='ID'/>@
+                      <input type="text" id='email' class='join_inputText'>
+                      <select name="selectEmail" id="selectEmail" onchange='emailSelection()'>
+                        <option value="">직접 입력</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="hanmail.net">hanmail.net</option>
+                        <option value="daum.net">daum.net</option>
+                      </select>
+                    <div class='error'>이메일을 확인해주세요.</div>
+                  </div>
+                  <div class='input_box'>
+                    <label id='name'>이름</label>
+                      <input type='text' id='name' class='join_inputText' placeholder='NAME'/>
+                    <div class='error'>이름은 2글자 이상 써주세요.</div>
+                  </div>
+                  <div class='input_box'>
+                    <label id='password'>비밀번호</label>
+                      <input type='password' id='password' class='join_inputText' placeholder='PASSWORD'/>
+                      <i class="ri-eye-close-line"></i>
+                      <i class="ri-eye-2-line"></i>
+                    <div class='error'>비밀번호는 6글자 이상 써주세요.</div>
+                  </div>
+                  <div class='input_box'>
+                    <label id='confirm_password'>비밀번호 확인</label>
+                      <input type='password'  id='confirm_password'class='join_inputText' placeholder='CONFIRM PASSWORD'/>
+                      <i class="ri-eye-close-line"></i>
+                      <i class="ri-eye-2-line"></i>
+                    <div class='error'>비밀번호가 다릅니다.</div>
+                  </div>
+                <div class='btn_box'>
+                  <button id='emailConfirmButton'>이메일 인증</button>
+                  <button id='join_btn'>회원가입</button>
+                </div>
+                <div id='warning'>*비밀번호 분실 시 회원가입한 이메일로 초기화 된 비밀번호를 보냅니다.</div>
+              </fieldset>
+            </form>
+        </div>
       </div>
     </div>
     <div id="modal">
         <div class="modal-window">
           <div class="close_area">
-            <button><i class="ri-close-circle-line"></i></button>
+            <button><i class="ri-close-fill"></i></button>
           </div>
           <div class="modal_title">
             <h2>인증번호</h2>
@@ -142,111 +163,113 @@
           </div>
         </div>
     </div>
-  <footer>
-    <div class="inner w1140">
-        <div class="footer_top">
-            <div class="left">
-                <div class="logo">TICKET ONEIT!</div>
-                <ul>
-                    <li>
-                        <a href="javascript:void(0)"
-                            ><span>개인정보처리방침</span></a
-                        >
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"
-                            ><span>이용약관</span></a
-                        >
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"
-                            ><span>이용안내</span></a
-                        >
-                    </li>
-                </ul>
-            </div>
-            <div class="right">
-                <ul>
-                    <li>
-                        <a href="javascript:void(0)"
-                            ><i class="ri-instagram-line"></i
-                        ></a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"
-                            ><i class="ri-gitlab-fill"></i
-                        ></a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"
-                            ><i class="ri-github-fill"></i
-                        ></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer_info">
-            <ul>
-                <li>
-                    <div class="customer_center">
-                        <strong>CUSTOMER SUPPORT CENTER</strong>
-                        <span>
-                            <i class="ri-customer-service-line"></i>
-                            <a href="tel:전화번호">02-1234-5678</a>
-                        </span>
+    <footer>
+        <div class="inner w1140">
+            <div class="footer_top">
+                <div class="left">
+                    <div class="logo">
+                        <img src="/asset/icons/logo_b.png" alt="" />
                     </div>
-                    <div class="kakaotalk">
-                        <strong>KAKAOTALK</strong>
-                        <span
-                            ><i class="ri-kakao-talk-fill"></i
-                            ><a href="javascript:void(0)"
-                                >TICKET ONEIT!</a
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0)"
+                                ><span>개인정보처리방침</span></a
                             >
-                        </span>
-                    </div>
-                </li>
-                <li>
-                    <div class="operating_hours">
-                        <strong>OPERATING HOURS</strong>
-                        <p>
-                            MON - FRI AM 09:30 - PM 05:30<br />
-                            LUNCH PM 12:00 - 1:00<br />
-                            SAT, SUN, HOLIDAY OFF
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="accout_info">
-                        <strong>ACCOUNT INFORMATION</strong>
-                        <p>
-                            신한은행 12345678900<br />
-                            예금주 (주)티켓원잇
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="company_info">
-                        <strong>COMPANY INFORMATION</strong>
-                        <p>
-                            회사 : 주식회사 티켓원잇<br />
-                            팀장 : 윤우정 <br />
-                            팀원 : 김윤중, 유하영, 이민영, 이성호,
-                            정혜린<br />
-                            사업자등록번호 : [123-12-12345]<br />
-                            주소 : (04799)서울 성동구 아차산로17길 48<br />
-                            제휴문의 : 엘리스 / contact@elice.io
-                        </p>
-                    </div>
-                </li>
-            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"
+                                ><span>이용약관</span></a
+                            >
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"
+                                ><span>이용안내</span></a
+                            >
+                        </li>
+                    </ul>
+                </div>
+                <div class="right">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0)"
+                                ><i class="ri-instagram-line"></i
+                            ></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"
+                                ><i class="ri-gitlab-fill"></i
+                            ></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"
+                                ><i class="ri-github-fill"></i
+                            ></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer_info">
+                <ul>
+                    <li>
+                        <div class="customer_center">
+                            <strong>CUSTOMER SUPPORT CENTER</strong>
+                            <span>
+                                <i class="ri-customer-service-line"></i>
+                                <a href="tel:전화번호">02-1234-5678</a>
+                            </span>
+                        </div>
+                        <div class="kakaotalk">
+                            <strong>KAKAOTALK</strong>
+                            <span
+                                ><i class="ri-kakao-talk-fill"></i
+                                ><a href="javascript:void(0)"
+                                    >TICKET ONEIT!</a
+                                >
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="operating_hours">
+                            <strong>OPERATING HOURS</strong>
+                            <p>
+                                MON - FRI AM 09:30 - PM 05:30<br />
+                                LUNCH PM 12:00 - 1:00<br />
+                                SAT, SUN, HOLIDAY OFF
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="accout_info">
+                            <strong>ACCOUNT INFORMATION</strong>
+                            <p>
+                                신한은행 12345678900<br />
+                                예금주 (주)티켓원잇
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="company_info">
+                            <strong>COMPANY INFORMATION</strong>
+                            <p>
+                                회사 : 주식회사 티켓원잇<br />
+                                팀장 : 윤우정 <br />
+                                팀원 : 김윤중, 유하영, 이민영, 이성호,
+                                정혜린<br />
+                                사업자등록번호 : [123-12-12345]<br />
+                                주소 : (04799)서울 성동구 아차산로17길 48<br />
+                                제휴문의 : 엘리스 / contact@elice.io
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer_etc">
+                <p>
+                    Copyright ⓒ 2023 - 2023 Ticket One It Inc. All Rights
+                    Reserved.
+                </p>
+            </div>
         </div>
-        <div class="footer_etc">
-            <p>
-                Copyright ⓒ 2023 - 2023 Ticket One It Inc. All Rights
-                Reserved.
-            </p>
-        </div>
-    </div>
-</footer>
+    </footer>
 </body>
 </html>
