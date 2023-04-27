@@ -1,3 +1,6 @@
+import { isTokenExpired, tokenRefresh } from '../../../modules/token.mjs';
+import instance from '../../../modules/axios_interceptor.mjs';
+
 async function onLoad() {
   const { orderList } = await getOrder();
   console.log(orderList);
@@ -97,16 +100,9 @@ function orderModify(zipCode, customerAddress, customerPhoneNum, orderId) {
 
 async function modifyAPI(data, orderId) {
   try {
-    const response = await axios.put(
-      `http://34.64.112.166/api/orders/${orderId}`,
-      data,
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
-        },
-      }
-    );
+    if (isTokenExpired()) tokenRefresh();
+
+    const response = await instance.put(`/api/orders/${orderId}`, data);
 
     if (response) alert('주문정보 수정이 완료되었습니다.');
     location.reload();
@@ -123,15 +119,9 @@ function orderCancel(orderId) {
 
 async function cancelAPI(orderId) {
   try {
-    const response = await axios.delete(
-      `http://34.64.112.166/api/orders/${orderId}`,
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
-        },
-      }
-    );
+    if (isTokenExpired()) tokenRefresh();
+
+    const response = await instance.delete(`/api/orders/${orderId}`);
 
     if (response) alert('주문 취소가 완료되었습니다.');
     location.reload();
@@ -162,12 +152,9 @@ function extraItemTemplate(item) {
 
 async function getOrder() {
   try {
-    const response = await axios.get('http://34.64.112.166/api/orders', {
-      headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
-      },
-    });
+    if (isTokenExpired()) tokenRefresh();
+
+    const response = await instance.get('/api/orders');
 
     return response.data;
   } catch (error) {
