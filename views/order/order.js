@@ -1,5 +1,5 @@
-import { isTokenExpired, tokenRefresh } from '../../modules/token.mjs';
-import instance from '../../modules/axios_interceptor.mjs';
+import { isTokenExpired, tokenRefresh } from '../../modules/token.js';
+import instance from '../../modules/axios_interceptor.js';
 
 const tickets_info = JSON.parse(localStorage.getItem('ticket_order'));
 

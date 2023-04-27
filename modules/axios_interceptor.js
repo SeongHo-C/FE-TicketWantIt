@@ -1,5 +1,5 @@
-import URL from './server_url.mjs';
-import { getToken } from './token.mjs';
+import URL from './server_url.js';
+import { getToken } from './token.js';
 
 const instance = axios.create({
   baseURL: URL,

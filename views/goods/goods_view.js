@@ -1,4 +1,4 @@
-import instance from '../../modules/axios_interceptor.mjs';
+import instance from '../../modules/axios_interceptor.js';
 
 let productViewItem;
 

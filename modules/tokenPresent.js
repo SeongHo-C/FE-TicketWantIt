@@ -1,5 +1,5 @@
-import { getToken, removeToken } from './token.mjs';
-import URL from './server_url.mjs';
+import { getToken, removeToken } from './token.js';
+import URL from './server_url.js';
 
 const tokenPresent = () => {
   const token = getToken();

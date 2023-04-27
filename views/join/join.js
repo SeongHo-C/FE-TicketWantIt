@@ -1,31 +1,21 @@
-import { getToken, saveToken } from '../../modules/token.mjs';
-import URL from '../../modules/server_url.mjs';
-import { togglePasswordVisibility, togglePasswordInvisibility } from '../../modules/passwordVisibility.mjs';
+import { getToken, saveToken } from '../../modules/token.js';
+import URL from '../../modules/server_url.js';
+import {
+  togglePasswordVisibility,
+  togglePasswordInvisibility,
+} from '../../modules/passwordVisibility.js';
 
-const [
-  id,
-  email,
-  nameInput,
-  password,
-  confirmPassword,
-] = document.querySelectorAll('.join_inputText');
+const [id, email, nameInput, password, confirmPassword] =
+  document.querySelectorAll('.join_inputText');
 
-const [
-  emailError,
-  nameError,
-  passwordError,
-  confirmPasswordError,
-] = document.querySelectorAll('.error');
+const [emailError, nameError, passwordError, confirmPasswordError] =
+  document.querySelectorAll('.error');
 
-const [
-  passwordCheckEyesClose,
-  confirmPasswordCheckEyesClose
-] = document.querySelectorAll('.ri-eye-close-line')
+const [passwordCheckEyesClose, confirmPasswordCheckEyesClose] =
+  document.querySelectorAll('.ri-eye-close-line');
 
-const [
-  passwordCheckEyesOpen,
-  confirmPasswordCheckEyesOpen
-] = document.querySelectorAll('.ri-eye-2-line')
+const [passwordCheckEyesOpen, confirmPasswordCheckEyesOpen] =
+  document.querySelectorAll('.ri-eye-2-line');
 
 const joinButton = document.querySelector('#join_btn');
 const modal = document.querySelector('#modal');
@@ -37,14 +27,14 @@ const timer = document.querySelector('#timer');
 
 //email select box
 function emailSelection() {
-  var selectEmail = document.getElementById("selectEmail");
+  var selectEmail = document.getElementById('selectEmail');
 
-  if (selectEmail.value === "") {
-    email.removeAttribute("readonly");
-    email.value = "";
+  if (selectEmail.value === '') {
+    email.removeAttribute('readonly');
+    email.value = '';
     email.focus();
   } else {
-    email.setAttribute("readonly", true);
+    email.setAttribute('readonly', true);
     email.value = selectEmail.value;
   }
 }
@@ -84,53 +74,53 @@ confirmPassword.addEventListener('input', () => {
 
 //이메일 인증번호요청
 const emailConfirm = () => {
-  axios.post(`${URL}/api/user/emailAuth`, 
-  {
-    email: id.value + '@' + email.value
-  })
-  .then((response) => {
-    console.log(response);
-    const token = response.data;
-    localStorage.setItem('authCode', token);
-    alert('인증번호를 발송했습니다.');
-  })
-  .catch((error) => {
-    console.log(error);
-    alert(`${error.response.data.message}`);
-    modal.style.display = 'none';
-    clearInterval(tokenTimer);
-  })
-}
+  axios
+    .post(`${URL}/api/user/emailAuth`, {
+      email: id.value + '@' + email.value,
+    })
+    .then((response) => {
+      console.log(response);
+      const token = response.data;
+      localStorage.setItem('authCode', token);
+      alert('인증번호를 발송했습니다.');
+    })
+    .catch((error) => {
+      console.log(error);
+      alert(`${error.response.data.message}`);
+      modal.style.display = 'none';
+      clearInterval(tokenTimer);
+    });
+};
 
 //이메일 인증번호 일치여부
 const matchEmailConfirm = () => {
-  axios.post(`${URL}/api/user/emailAuth`, 
-  {
-    email: id.value + '@' + email.value
-  })
-  .then((response) => {
-    console.log(response);
-    const token = localStorage.getItem('authCode');
-    const decodedToken = jwt_decode(token);
-    if (decodedToken.authCode == confirmInput.value) {
-      alert('인증에 성공했습니다.');
-      modal.style.display = 'none';
-      clearInterval(tokenTimer);
-      id.setAttribute("readonly", true);
-      email.setAttribute("readonly", true);
-      selectEmail.style.display = 'none';
-    } else {
-      alert('인증번호가 틀립니다. 다시 시도해주세요.');
-      modal.style.display = 'none';
-      clearInterval(tokenTimer);
-      return false;
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-    alert(`${error.response.data.message}`);
-  })
-}
+  axios
+    .post(`${URL}/api/user/emailAuth`, {
+      email: id.value + '@' + email.value,
+    })
+    .then((response) => {
+      console.log(response);
+      const token = localStorage.getItem('authCode');
+      const decodedToken = jwt_decode(token);
+      if (decodedToken.authCode == confirmInput.value) {
+        alert('인증에 성공했습니다.');
+        modal.style.display = 'none';
+        clearInterval(tokenTimer);
+        id.setAttribute('readonly', true);
+        email.setAttribute('readonly', true);
+        selectEmail.style.display = 'none';
+      } else {
+        alert('인증번호가 틀립니다. 다시 시도해주세요.');
+        modal.style.display = 'none';
+        clearInterval(tokenTimer);
+        return false;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      alert(`${error.response.data.message}`);
+    });
+};
 
 //회원가입
 const joinFunction = (e) => {
@@ -141,49 +131,54 @@ const joinFunction = (e) => {
   if (nameInput.value.length < 2) {
     nameError.style.display = 'block';
     return false;
-  }
-  else if (password.value.length < 6) {
+  } else if (password.value.length < 6) {
     passwordError.style.display = 'block';
     return false;
-  }
-  else if (confirmPassword.value !== password.value) {
+  } else if (confirmPassword.value !== password.value) {
     confirmPasswordError.style.display = 'block';
     return false;
   }
 
-if (!localStorage.getItem('authCode')) {
+  if (!localStorage.getItem('authCode')) {
     alert('이메일 인증을 먼저 진행해주세요.');
     return false;
   } else {
-  axios.post(`${URL}/api/user`, {
-      email : id.value + '@' + email.value,
-      name : nameInput.value,
-      password : password.value,
-  }, {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then((response) => {
-    if (response) {
-        alert('회원가입이 완료되었습니다!');
-        const authToken = localStorage.getItem('authCode');
-        localStorage.removeItem('authCode', authToken);
-        const token = response.data;
-        saveToken(token);
-        window.location.href = '../../index.html';
-    } else {
-        alert('회원가입에 실패했습니다.');
-        return;
-    }
-  })
-  .catch((error) => {
-    alert(`${error.response.data.message}`);
-  })
+    axios
+      .post(
+        `${URL}/api/user`,
+        {
+          email: id.value + '@' + email.value,
+          name: nameInput.value,
+          password: password.value,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
+      .then((response) => {
+        if (response) {
+          alert('회원가입이 완료되었습니다!');
+          const authToken = localStorage.getItem('authCode');
+          localStorage.removeItem('authCode', authToken);
+          const token = response.data;
+          saveToken(token);
+          window.location.href = '../../index.html';
+        } else {
+          alert('회원가입에 실패했습니다.');
+          return;
+        }
+      })
+      .catch((error) => {
+        alert(`${error.response.data.message}`);
+      });
   }
-}
+};
 
-document.querySelector('#selectEmail').addEventListener('change', emailSelection);
+document
+  .querySelector('#selectEmail')
+  .addEventListener('change', emailSelection);
 let tokenTimer;
 emailConfirmButton.addEventListener('click', (e) => {
   e.preventDefault();
@@ -191,21 +186,21 @@ emailConfirmButton.addEventListener('click', (e) => {
   modal.style.display = 'block';
   let leftTime = 180;
   tokenTimer = setInterval(() => {
-  const minute = Math.floor(leftTime / 60);
-  const seconds = (leftTime % 60);
-  if (seconds < 10) {
-    timer.textContent = `${minute} :0${seconds}`;
-  } else {
-    timer.textContent = `${minute} :${seconds}`;
-  }
-  leftTime--;
+    const minute = Math.floor(leftTime / 60);
+    const seconds = leftTime % 60;
+    if (seconds < 10) {
+      timer.textContent = `${minute} :0${seconds}`;
+    } else {
+      timer.textContent = `${minute} :${seconds}`;
+    }
+    leftTime--;
 
-  if (leftTime < 0) {
-    clearInterval(tokenTimer);
-    timer.textContent = `0 :00`;
-    alert('인증번호 유효기간이 끝났습니다. 다시 시도해주세요.');
-  }
-}, 1000);
+    if (leftTime < 0) {
+      clearInterval(tokenTimer);
+      timer.textContent = `0 :00`;
+      alert('인증번호 유효기간이 끝났습니다. 다시 시도해주세요.');
+    }
+  }, 1000);
 });
 
 closeModalButton.addEventListener('click', (e) => {
@@ -213,16 +208,32 @@ closeModalButton.addEventListener('click', (e) => {
   modal.style.display = 'none';
 });
 passwordCheckEyesClose.addEventListener('click', () => {
-  togglePasswordVisibility(password, passwordCheckEyesOpen, passwordCheckEyesClose);
+  togglePasswordVisibility(
+    password,
+    passwordCheckEyesOpen,
+    passwordCheckEyesClose
+  );
 });
 passwordCheckEyesOpen.addEventListener('click', () => {
-  togglePasswordInvisibility(password, passwordCheckEyesOpen, passwordCheckEyesClose);
+  togglePasswordInvisibility(
+    password,
+    passwordCheckEyesOpen,
+    passwordCheckEyesClose
+  );
 });
 confirmPasswordCheckEyesClose.addEventListener('click', () => {
-  togglePasswordVisibility(confirmPassword, confirmPasswordCheckEyesOpen, confirmPasswordCheckEyesClose);
+  togglePasswordVisibility(
+    confirmPassword,
+    confirmPasswordCheckEyesOpen,
+    confirmPasswordCheckEyesClose
+  );
 });
 confirmPasswordCheckEyesOpen.addEventListener('click', () => {
-  togglePasswordInvisibility(confirmPassword, confirmPasswordCheckEyesOpen, confirmPasswordCheckEyesClose);
+  togglePasswordInvisibility(
+    confirmPassword,
+    confirmPasswordCheckEyesOpen,
+    confirmPasswordCheckEyesClose
+  );
 });
 confirmButton.addEventListener('click', matchEmailConfirm);
 joinButton.addEventListener('click', joinFunction);
