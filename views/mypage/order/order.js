@@ -10,6 +10,18 @@ async function onLoad() {
   }
 }
 
+async function getOrder() {
+  try {
+    if (isTokenExpired()) tokenRefresh();
+
+    const response = await instance.get('/api/orders');
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function createOrder(orderData) {
   const {
     items,
@@ -49,7 +61,12 @@ function firstItemTemplate(
   customerAddress,
   customerPhoneNum
 ) {
-  const { name, quantity, price } = item;
+  const {
+    name,
+    quantity,
+    price,
+    imgUrl = 'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
+  } = item;
   orderStatus = getOrderStatus(orderStatus);
 
   return `<tr>
@@ -58,7 +75,7 @@ function firstItemTemplate(
               </td>
               <td>
                 <img
-                  src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
+                  src=${imgUrl}
                   alt="상품 이미지"
                 />
               </td>
@@ -81,6 +98,54 @@ function firstItemTemplate(
             </tr>`;
 }
 
+function extraItemTemplate(item) {
+  const {
+    name,
+    quantity,
+    price,
+    imgUrl = 'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
+  } = item;
+
+  return ` <tr>
+          <td>
+          <img
+            src=${imgUrl}
+            alt="상품 이미지"
+          />
+          </td>
+          <td class="product_info">
+            <p>${name}</p>
+          </td>
+          <td><p>${quantity}</p></td>
+          <td class="order_price"><p>${(
+            price * quantity
+          ).toLocaleString()}원</p></td>
+        </tr>`;
+}
+
+function getOrderStatus(orderStatus) {
+  if (orderStatus === 1) return '주문중';
+  else if (orderStatus === 2) return '배송중';
+  else return '배송 완료';
+}
+
+function execDaumPostcode() {
+  new daum.Postcode({
+    oncomplete: function (data) {
+      let addr = '';
+
+      if (data.userSelectedType === 'R') addr = data.roadAddress;
+      else addr = data.jibunAddress;
+
+      zipCodeInput.value = data.zonecode;
+      addressInput.value = addr;
+
+      addressDetail.focus();
+    },
+  }).open();
+}
+
+window.orderModify = orderModify;
 function orderModify(zipCode, customerAddress, customerPhoneNum, orderId) {
   modal.style.display = 'flex';
   body.style.overflow = 'hidden';
@@ -111,6 +176,7 @@ async function modifyAPI(data, orderId) {
   }
 }
 
+window.orderCancel = orderCancel;
 function orderCancel(orderId) {
   const isConfirm = window.confirm('정말로 주문을 취소하시겠습니까?');
 
@@ -128,60 +194,6 @@ async function cancelAPI(orderId) {
   } catch (error) {
     console.log(error);
   }
-}
-
-function extraItemTemplate(item) {
-  const { name, quantity, price } = item;
-
-  return ` <tr>
-          <td>
-          <img
-            src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
-            alt="상품 이미지"
-          />
-          </td>
-          <td class="product_info">
-            <p>${name}</p>
-          </td>
-          <td><p>${quantity}</p></td>
-          <td class="order_price"><p>${(
-            price * quantity
-          ).toLocaleString()}원</p></td>
-        </tr>`;
-}
-
-async function getOrder() {
-  try {
-    if (isTokenExpired()) tokenRefresh();
-
-    const response = await instance.get('/api/orders');
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-function getOrderStatus(orderStatus) {
-  if (orderStatus === 1) return '주문중';
-  else if (orderStatus === 2) return '배송중';
-  else return '배송 완료';
-}
-
-function execDaumPostcode() {
-  new daum.Postcode({
-    oncomplete: function (data) {
-      let addr = '';
-
-      if (data.userSelectedType === 'R') addr = data.roadAddress;
-      else addr = data.jibunAddress;
-
-      zipCodeInput.value = data.zonecode;
-      addressInput.value = addr;
-
-      addressDetail.focus();
-    },
-  }).open();
 }
 
 const body = document.querySelector('body');
