@@ -1,6 +1,15 @@
-import { getToken } from "../../modules/token.mjs";
+import { getToken } from "../../modules/token.js";
 
 ("use strict");
+
+const currentDate = new Date();
+const options = { day: "numeric", month: "short", year: "numeric" };
+const formattedDate = currentDate
+    .toLocaleDateString("en-US", options)
+    .toUpperCase();
+
+const date = document.querySelector(".date span");
+date.innerHTML = formattedDate;
 
 const productList = document.querySelector(".admin_goods .goods_list");
 
