@@ -1,193 +1,283 @@
 h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .title_area {
-  padding: 100px;
+    padding: 100px;
 
-  text-align: center;
-  min-height: 30px;
+    text-align: center;
+    min-height: 30px;
+}
+
+section .cart {
+    padding: 120px 0 0;
 }
 
 /* 테이블 */
-.tickets > thead > tr > th {
-  padding: 15px;
-
-  color: var(--color--black2);
-}
 
 .tickets > thead {
-  border-top: 2px solid var(--color--black1);
-  border-bottom: 1px solid var(--color--black4);
+    background: var(--color--black1);
+    /* border-top: 2px solid var(--color--black1);
+    border-bottom: 1px solid var(--color--black4); */
+}
+
+.tickets > thead > tr > th {
+    padding: 20px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color--white);
 }
 
 .tickets > tbody > tr > td {
-  padding: 20px;
-
-  text-align: center;
-  vertical-align: middle;
-  font-size: 0.8rem;
-  border-bottom: 1px solid var(--color--black4);
+    padding: 20px;
+    border-bottom: 1px solid var(--color--black4);
+    font-size: 0.8rem;
+    word-break: keep-all;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .ticket_img {
-  width: 80px;
-  height: 80px;
+    width: 80px;
+    height: 80px;
 }
 
 .ticket_title {
-  font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
+    word-break: keep-all;
 }
 
 .ticket_price {
-  font-weight: 600;
+    font-size: 14px;
 }
 
-.ticket_quantity_input {
-  width: 20px;
-  height: 20px;
-
-  text-align: center;
+.ticket_quantity > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.ticket_quantity > button {
-  background: transparent;
-  font-size: 1rem;
-  outline: none;
-  border: 0;
-  cursor: pointer;
-  vertical-align: middle;
-  transition: transform 300ms ease-in;
+.ticket_quantity input {
+    display: block;
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-top: 1px solid var(--color--black4);
+    border-bottom: 1px solid var(--color--black4);
+    outline: none;
+    box-sizing: border-box;
+    text-align: center;
 }
 
-.ticket_quantity > button:hover {
-  transform: scale(1.1);
+.ticket_quantity button {
+    display: block;
+    margin: 0;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    background: var(--color--black1);
+    border: none;
+    font-size: 16px;
+    color: var(--color--white);
+    outline: none;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.ticket_quantity button span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.ticket_quantity button.minus_button span::after {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 1px;
+    background: var(--color--white);
+}
+
+.ticket_quantity button.plus_button span::after {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 1px;
+    background: var(--color--white);
+}
+
+.ticket_quantity button.plus_button span::before {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1px;
+    height: 12px;
+    background: var(--color--white);
 }
 
 .ticket_total {
-  font-weight: 600;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color--red);
 }
 
 .only_ticket > button {
-  padding: 0.4rem 0.6rem;
-  margin: 0.2rem 0;
+    padding: 0.4rem 0.6rem;
+    margin: 0.2rem 0;
+    width: 6rem;
+    outline: none;
+    cursor: pointer;
 
-  width: 6rem;
-
-  outline: none;
-  cursor: pointer;
-  border-radius: 10px;
-  font-size: 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background 0.1s ease-in-out;
 }
 
 .ticket_order {
-  border: 0;
-  color: white;
-  background-color: var(--color--black1);
+    border: 0;
+    color: white;
+    background-color: var(--color--black1);
+}
+
+.ticket_order:hover {
+    background-color: var(--color--blue2);
 }
 
 .ticket_delete {
-  border: 0.5px solid var(--color--black4);
-  background-color: white;
+    border: 0.5px solid var(--color--black4);
+    background-color: white;
 }
 
 .table_footer {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 
-  padding: 10px;
+    padding: 10px;
 
-  font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 
 .table_footer > div {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .table_footer_button {
-  padding: 0.4rem 0.6rem;
-  margin: 0.2rem 0;
+    padding: 0.4rem 0.6rem;
+    margin: 0.2rem 0;
 
-  outline: none;
-  cursor: pointer;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  border: 0.5px solid var(--color--black4);
-  color: var(--color--black3);
-  background-color: white;
+    outline: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    border: 0.5px solid var(--color--black4);
+    color: var(--color--black3);
+    background-color: white;
 }
 
 .table_footer_button.slected_delete {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .calculate {
-  margin-top: 2rem;
+    margin-top: 2rem;
 
-  width: 100%;
+    width: 100%;
 }
 
 .calculate > thead > tr > th {
-  padding: 15px;
+    padding: 15px;
 
-  color: var(--color--black1);
-  font-weight: 600;
+    color: var(--color--black1);
+    font-weight: 600;
 }
 
 .calculate > thead {
-  border-top: 2px solid var(--color--black1);
-  border-bottom: 1px solid var(--color--black4);
+    border-top: 2px solid var(--color--black1);
+    border-bottom: 1px solid var(--color--black4);
 }
 
 .calculate > thead > tr > th {
-  padding: 15px;
+    padding: 15px;
 
-  color: var(--color--black1);
-  font-weight: 600;
+    color: var(--color--black1);
+    font-weight: 600;
 }
 
 .calculate > tbody > tr > td {
-  padding: 30px;
+    padding: 30px;
 
-  color: var(--color--black1);
-  font-weight: 700;
-  font-size: 1.3rem;
-  text-align: center;
-  vertical-align: middle;
-  border-bottom: 1px solid var(--color--black4);
-}
-
-.order_area {
-  text-align: center;
-}
-
-.order_button {
-  padding: 0.6rem 1rem;
-  margin: 1.2rem 0.3rem;
-
-  outline: none;
-  cursor: pointer;
-  border-radius: 10px;
-  font-size: 0.8rem;
+    color: var(--color--black1);
+    font-weight: 700;
+    font-size: 1.3rem;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--color--black4);
 }
 
 .all_order {
-  border: 0;
-  color: white;
-  background-color: var(--color--black1);
+    border: 0;
+    color: white;
+    background-color: var(--color--black1);
 }
 
 .selected_order {
-  border: 0.5px solid var(--color--black4);
-  background-color: white;
+    border: 0.5px solid var(--color--black4);
+    background-color: white;
 }
 
 .selected_delete {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
-button:hover {
-  opacity: 0.8;
+.calculate_list td:last-child p {
+    color: var(--color--red);
+}
+
+.order_area {
+    text-align: center;
+}
+
+.btn_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 100px 0 0;
+    width: 50%;
+}
+
+.btn_box > button {
+    display: block;
+    margin: 0 5px;
+    padding: 10px 0;
+    width: 50%;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.btn_box > button.selected_order {
+    background: var(--color--white);
+    border: 1px solid var(--color--black1);
+    color: var(--color--black1);
+}
+
+.btn_box > button.all_order {
+    border: var(--color--black1);
+    color: var(--color--white);
 }
