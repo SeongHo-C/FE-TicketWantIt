@@ -62,24 +62,27 @@ localStorage.removeItem("product");
 const goodsUpdateApi = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    formData.append("category", category.value);
-    formData.append("productName", productName.value);
-    formData.append("imageUrl", imageUrl.files[0]);
-    formData.append("price", price.value);
-    formData.append("place", place.value);
-    formData.append("speciesAge", speciesAge.value);
-    formData.append("description", description.value);
-    formData.append("startDate", startDate.value);
-    formData.append("endDate", endDate.value);
-
     if (urlProductId !== null) {
         console.log("상품수정");
 
+        const updateApi = {
+            category: String(category.value),
+            productName: String(productName.value),
+            imageUrl: String(imageUrl.files[0]),
+            price: Number(price.value),
+            place: String(place.value),
+            speciesAge: String(speciesAge.value),
+            description: String(description.value),
+            startDate: String(startDate.value),
+            endDate: String(endDate.value),
+        };
+
+        const formData = new FormData();
+        formData.append("imageUrl", imageUrl.files[0]);
+
         try {
-            const response = await axios.put(
-                `http://34.64.112.166/api/admin_product/edit?productId=${urlProductId}`,
+            const responseUrl = await axios.put(
+                `http://34.64.112.166/api/admin_product/edit/img?productId=${urlProductId}`,
                 formData,
                 {
                     headers: {
@@ -87,6 +90,23 @@ const goodsUpdateApi = async (e) => {
                     },
                 }
             );
+
+            console.log("상품 이미지가 수정되었습니다:", responseUrl.data);
+        } catch (error) {
+            console.error("이미지 수정 중 오류가 발생했습니다:", error);
+        }
+
+        try {
+            const response = await axios.put(
+                `http://34.64.112.166/api/admin_product/edit?productId=${urlProductId}`,
+                updateApi,
+                {
+                    headers: {
+                        Authorization: `Bearer ${getToken()}`,
+                    },
+                }
+            );
+
             console.log("상품이 수정되었습니다:", response.data);
 
             window.location.href = "./goods.html";
@@ -95,22 +115,18 @@ const goodsUpdateApi = async (e) => {
         }
     } else {
         console.log("상품추가");
-        /* 
-            post data에 들어가야 할 것들: 
-            카테고리, 상품명, 이미지, 가격, 장소, 연령, 설명, 시작일, 종료일
-        */
 
-        // const updateApi = {
-        //     category: String(category.value),
-        //     productName: String(productName.value),
-        //     imageUrl: String(imageUrl.value),
-        //     price: Number(price.value),
-        //     place: String(place.value),
-        //     speciesAge: String(speciesAge.value),
-        //     description: String(description.value),
-        //     startDate: String(startDate.value),
-        //     endDate: String(endDate.value),
-        // };
+        const formData = new FormData();
+
+        formData.append("category", category.value);
+        formData.append("productName", productName.value);
+        formData.append("imageUrl", imageUrl.files[0]);
+        formData.append("price", price.value);
+        formData.append("place", place.value);
+        formData.append("speciesAge", speciesAge.value);
+        formData.append("description", description.value);
+        formData.append("startDate", startDate.value);
+        formData.append("endDate", endDate.value);
 
         try {
             const response = await axios.post(
