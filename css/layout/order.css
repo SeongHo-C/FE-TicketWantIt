@@ -1,147 +1,151 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#order {
+    display: block;
+    padding: 120px 0 0;
 }
 
 .star {
-  color: var(--color--red);
-}
-
-.title_area {
-  padding: 100px;
-
-  text-align: center;
-  min-height: 30px;
-}
-
-.title_area > h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.w1000 {
-  position: relative;
-  width: 1000px;
-  margin: 0 auto;
+    color: var(--color--red);
 }
 
 .subtitle {
-  padding: 1rem;
-
-  font-size: 1.3rem;
-  border: 1px solid var(--color--black3);
-  border-radius: 10px 10px 0 0;
-  background-color: var(--color--white);
+    display: block;
+    padding: 15px 30px;
+    background: var(--color--black1);
+    border-radius: 5px 5px 0 0;
+    color: var(--color--white);
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .wrap {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .address_input_wrap {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 20px;
+    border: 1px solid var(--color--black4);
+}
 
-  height: 200px;
+.address_input_wrap li {
+    padding: 0 0 15px;
+}
 
-  padding: 1rem;
-
-  border: 1px solid var(--color--black3);
-  border-radius: 0 0 10px 10px;
-  background-color: var(--color--white);
+.address_input_wrap li:last-child {
+    padding: 0;
 }
 
 .address_input_wrap > li > input {
-  height: 40px;
-
-  vertical-align: middle;
-  border: 1px solid #dadada;
-  padding: 0px 15px;
+    padding: 0px 15px;
+    height: 40px;
+    border: 1px solid var(--color--black4);
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
 }
 
 .address_search_btn {
-  background-color: var(--color--white);
-  outline: none;
-  cursor: pointer;
+    background-color: var(--color--white);
+    outline: none;
+    cursor: pointer;
 }
 
 .address,
 .address_detail {
-  width: 500px;
+    width: 500px;
 }
 
 .phone_input_wrap {
-  padding: 1rem;
-
-  border: 1px solid var(--color--black3);
-  border-radius: 0 0 10px 10px;
-  background-color: var(--color--white);
+    padding: 30px 20px;
+    border: 1px solid var(--color--black4);
 }
 
 #phone1,
 #phone2,
 #phone3 {
-  padding: 0px 15px;
-
-  width: 150px;
-  height: 40px;
+    padding: 0px 15px;
+    width: 150px;
+    height: 40px;
+    border: 1px solid var(--color--black4);
+    border-radius: 3px;
 }
 
 .order_list {
-  padding: 0 20px;
-
-  border: 1px solid var(--color--black3);
-  border-radius: 0 0 10px 10px;
-  background-color: var(--color--white);
+    padding: 0 20px;
+    border: 1px solid var(--color--black4);
 }
 
 .ticket {
-  display: flex;
-
-  padding: 20px 0;
-
-  height: 140px;
-
-  border-bottom: 1px dotted var(--color--black3);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px dotted var(--color--black3);
 }
 
 .ticket:last-child {
-  border: none;
+    border: none;
 }
 
 .ticket_img {
-  width: 80px;
-  height: 80px;
+    width: 120px;
+    height: 120px;
 }
 
 .ticket_info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-  margin-left: 20px;
+    margin-left: 20px;
+}
+
+.ticket_info h2 {
+    display: block;
+    padding: 0 0 10px;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .ticket_sub_info {
-  font-size: 0.8rem;
-  color: var(--color--black3);
+    display: block;
+    padding: 0 0 10px;
+    font-size: 13px;
+    color: var(--color--black3);
+}
+
+.ticket_money {
+    display: block;
+    font-weight: 600;
+    color: var(--color--red);
+}
+
+#order .btn_box {
+    padding: 20px 0 0;
 }
 
 .payment_button {
-  margin: 1rem 0;
-  width: 100%;
-  height: 50px;
-
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  cursor: pointer;
-  color: var(--color--white);
-  background-color: var(--color--black3);
-  font-size: 1.2rem;
-  transition: all 300ms ease-in;
+    display: block;
+    width: 100%;
+    height: 64px;
+    background: var(--color--black1);
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color--white);
+    outline: none;
+    cursor: pointer;
+    transition: all 0.1s ease-in;
 }
 
 .payment_button:hover {
-  background-color: var(--color--black2);
+    background-color: var(--color--blue2);
 }
