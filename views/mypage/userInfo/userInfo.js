@@ -19,7 +19,11 @@ const userInfo = () => {
     const decodedToken = jwt_decode(token);
     email.innerHTML = decodedToken.email;
     nameInput.innerHTML = decodedToken.name;
-    address.innerHTML = response.data.address;
+    if (response.data.address === undefined) {
+      address.innerHTML = '';
+    } else {
+      address.innerHTML = response.data.address;
+    }
   })
  .catch((error) => {
     alert(`${error.response.data.message}`);

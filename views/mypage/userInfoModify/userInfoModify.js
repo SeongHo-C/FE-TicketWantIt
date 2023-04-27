@@ -43,7 +43,8 @@ const userInfoModify = () => {
   axios.put(`${URL}/api/user`, 
   {
       name: nameInput.value,
-      address: `(${zipCode.value}) ${address.value} ${addressDetail.value}`
+      zipCode: `${zipCode.value}`,
+      address: `${address.value} (상세주소)${addressDetail.value}`
   }, {
     headers: {'Authorization': `Bearer ${getToken()}`}
   })
