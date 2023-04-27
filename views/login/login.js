@@ -62,7 +62,7 @@ const logInFunction = (e) => {
           window.location.href = '../findPassword/changePassword.html';
         } else {
           saveToken(token);
-          //window.location.href = '../../index.html';
+          window.location.href = '../../index.html';
         }
       }) 
      .catch((error) => {
