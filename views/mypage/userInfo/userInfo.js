@@ -15,14 +15,14 @@ const userInfo = () => {
       const decodedToken = jwt_decode(token);
       email.innerHTML = decodedToken.email;
       nameInput.innerHTML = decodedToken.name;
-      if (response.data.address === undefined) {
+      if (response.data.address == ` (상세주소)`) {
         address.innerHTML = '';
       } else {
         address.innerHTML = response.data.address;
       }
     })
     .catch((error) => {
-      alert(`${error.response.data.message}`);
+      alert(`회원정보를 불러오지 못했습니다.`);
     });
 };
 
@@ -46,7 +46,7 @@ const withdrawal = (e) => {
         alert('정상적으로 회원탈퇴가 완료되었습니다. 다음에 또 이용해주세요.');
       })
       .catch((error) => {
-        alert(`${error.response.data.message}`);
+        alert(`회원탈퇴에 실패했습니다. 잠시 뒤 다시 시도해주세요.`);
       });
   } else {
     return;
