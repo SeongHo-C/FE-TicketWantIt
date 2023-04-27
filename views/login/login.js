@@ -1,6 +1,14 @@
-import { saveToken } from '../../modules/token.mjs';
+import { getToken, saveToken } from '../../modules/token.mjs';
 import URL from '../../modules/server_url.mjs';
 import { togglePasswordVisibility, togglePasswordInvisibility } from '../../modules/passwordVisibility.mjs';
+
+window.onload = function tokenCheck () {
+  const token = getToken();
+  if(token) {
+    alert('이미 로그인 한 상태입니다.')
+    window.location.href = '/index.html';
+  }
+}
 
 const [
   email,
