@@ -1,15 +1,16 @@
 import { getToken, removeToken } from '../../../modules/token.js';
 import URL from '../../../modules/server_url.js';
+import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
+import instance from '../../../modules/axios_interceptor.js';
 
 const [email, nameInput, address] = document.querySelectorAll('.userInfo');
 
 const withdrawalButton = document.querySelector('#withdrawalButton');
 
 const userInfo = () => {
-  axios
-    .get(`${URL}/api/user`, {
-      headers: { Authorization: `Bearer ${getToken()}` },
-    })
+  if (isTokenExpired()) tokenRefresh();
+  instance
+    .get(`${URL}/api/user`)
     .then((response) => {
       const token = getToken();
       const decodedToken = jwt_decode(token);
@@ -31,14 +32,10 @@ userInfo();
 //회원탈퇴
 const withdrawal = (e) => {
   e.preventDefault();
-
+  if (isTokenExpired()) tokenRefresh();
   if (confirm('정말 탈퇴하시겠습니까?')) {
-    axios
-      .delete(`${URL}/api/user`, {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      })
+    instance
+      .delete(`${URL}/api/user`)
       .then(() => {
         const token = getToken();
         removeToken(token);

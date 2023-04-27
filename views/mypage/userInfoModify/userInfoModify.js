@@ -1,5 +1,7 @@
 import { getToken, saveToken } from '../../../modules/token.js';
 import URL from '../../../modules/server_url.js';
+import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
+import instance from '../../../modules/axios_interceptor.js';
 
 const [ nameInput, zipCode, address, addressDetail ] =
   document.querySelectorAll('.userInfoInput');
@@ -30,16 +32,14 @@ function execDaumPostcode() {
 
 //유저 정보 수정
 const userInfoModify = () => {
-  axios
+  if (isTokenExpired()) tokenRefresh();
+  instance
     .put(
       `${URL}/api/user`,
       {
         name: nameInput.value,
         zipCode: `${zipCode.value}`,
         address: `${address.value} (상세주소)${addressDetail.value}`,
-      },
-      {
-        headers: { Authorization: `Bearer ${getToken()}` },
       }
     )
     .then((response) => {

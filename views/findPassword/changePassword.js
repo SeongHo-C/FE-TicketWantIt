@@ -4,6 +4,8 @@ import {
   togglePasswordVisibility,
   togglePasswordInvisibility,
 } from '../../modules/passwordVisibility.js';
+import { isTokenExpired, tokenRefresh } from '../../modules/token.js';
+import instance from '../../modules/axios_interceptor.js';
 
 const [currentPassword, password, confirmPassword] = document.querySelectorAll(
   '.password_inputText'
@@ -28,6 +30,7 @@ const passwordChangeButton = document.querySelector('#passwordChangeButton');
 
 const changePassword = (e) => {
   e.preventDefault();
+  if (isTokenExpired()) tokenRefresh();
 
   if (currentPassword.value.length < 6) {
     currentPasswordError.style.display = 'block';
@@ -40,17 +43,12 @@ const changePassword = (e) => {
     return false;
   }
 
-  axios
+  instance
     .post(
       `${URL}/api/user/change-password`,
       {
         currentPassword: currentPassword.value,
         password: password.value,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
       }
     )
     .then((response) => {
