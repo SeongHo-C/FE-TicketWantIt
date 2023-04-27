@@ -46,7 +46,7 @@ const withdrawal = (e) => {
       window.location.href = '../../../index.html';
       alert('정상적으로 회원탈퇴가 완료되었습니다. 다음에 또 이용해주세요.')
     })
-    .catch((err) => {
+    .catch((error) => {
       alert(`${error.response.data.message}`);
     })
   } else {
