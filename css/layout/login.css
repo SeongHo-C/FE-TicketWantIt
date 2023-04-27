@@ -50,7 +50,7 @@ label {
 
 .input_box i {
   position: absolute;
-  top: 50%;
+  top: 40px;
   right: 20px;
   cursor: pointer;
 }

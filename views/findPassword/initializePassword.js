@@ -28,8 +28,8 @@ const sendMail = (e) => {
   .then((response) => {
     alert('초기화 된 비밀번호를 발송했습니다.')
   })
-  .catch((err) => {
-    alert('비밀번호 초기화에 실패했습니다.');
+  .catch((error) => {
+    alert(`${error.response.data.message}`);
   })
 }
 

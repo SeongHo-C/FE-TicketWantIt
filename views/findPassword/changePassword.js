@@ -57,14 +57,14 @@ const changePassword = (e) => {
      if (response.status === 400) {
        currentPasswordError.style.display = 'block';
      } else {
-       alert('비밀번호 변경이 완료되었습니다.');
+       const token = getToken();
        removeToken(token);
        window.location.href = '../login/login.html'
+       alert('비밀번호 변경이 완료되었습니다. 다시 로그인해주세요.');
      }
    })
-   .catch((err) => {
-     console.log(err);
-     alert('비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.');
+   .catch((error) => {
+    alert(`${error.response.data.message}`);
    })
 }
 

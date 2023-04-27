@@ -89,6 +89,7 @@ const emailConfirm = () => {
     email: id.value + '@' + email.value
   })
   .then((response) => {
+    console.log(response);
     const token = response.data;
     localStorage.setItem('authCode', token);
     alert('인증번호를 발송했습니다.');
@@ -108,10 +109,10 @@ const matchEmailConfirm = () => {
     email: id.value + '@' + email.value
   })
   .then((response) => {
+    console.log(response);
     const token = localStorage.getItem('authCode');
     const decodedToken = jwt_decode(token);
     if (decodedToken.authCode == confirmInput.value) {
-      localStorage.removeItem('authCode', token);
       alert('인증에 성공했습니다.');
       modal.style.display = 'none';
       clearInterval(tokenTimer);
@@ -166,6 +167,8 @@ if (!localStorage.getItem('authCode')) {
   .then((response) => {
     if (response) {
         alert('회원가입이 완료되었습니다!');
+        const authToken = localStorage.getItem('authCode');
+        localStorage.removeItem('authCode', authToken);
         const token = response.data;
         saveToken(token);
         window.location.href = '../../index.html';
@@ -175,8 +178,7 @@ if (!localStorage.getItem('authCode')) {
     }
   })
   .catch((error) => {
-    console.log(error);
-    alert('중복된 이메일입니다. 다른 이메일로 다시 시도해주세요.');
+    alert(`${error.response.data.message}`);
   })
   }
 }

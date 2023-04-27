@@ -35,7 +35,7 @@ const logout = () => {
   .then(() => {
     const token = getToken();
     removeToken(token);
-    window.location.href = '../index.html';
+    window.location.href = '/index.html';
     tokenPresent();
   })
   .catch((err) =>{

@@ -21,8 +21,8 @@ const userInfo = () => {
     nameInput.innerHTML = decodedToken.name;
     address.innerHTML = response.data.address;
   })
- .catch((err) => {
-    console.log(err);
+ .catch((error) => {
+    alert(`${error.response.data.message}`);
  })
 }
 
@@ -47,8 +47,7 @@ const withdrawal = (e) => {
       alert('정상적으로 회원탈퇴가 완료되었습니다. 다음에 또 이용해주세요.')
     })
     .catch((err) => {
-      console.log(err);
-      alert('회원탈퇴에 실패했습니다. 잠시 뒤 다시 시도해주세요.')
+      alert(`${error.response.data.message}`);
     })
   } else {
     return;
