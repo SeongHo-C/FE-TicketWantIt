@@ -129,6 +129,10 @@
     outline: none;
 }
 
+.btn_sns_login {
+    padding-top: 10px;
+}
+
 .login_etc {
     display: flex;
     justify-content: center;
