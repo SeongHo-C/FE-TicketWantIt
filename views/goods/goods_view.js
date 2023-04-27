@@ -1,4 +1,4 @@
-import URL from '../../modules/server_url.mjs';
+import instance from '../../modules/axios_interceptor.mjs';
 
 let productViewItem;
 
@@ -7,8 +7,8 @@ async function main() {
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('productId');
 
-    const response = await axios.get(
-      `${URL}/api/product/detail?productId=${productId}`
+    const response = await instance.get(
+      `/api/product/detail?productId=${productId}`
     );
     productViewItem = response.data;
 
@@ -98,6 +98,13 @@ function onAddCart() {
 }
 
 function onDirectBuy() {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    location.href = '/views/login/login.html';
+    alert('로그인 후 이용해주시기 바랍니다.');
+  }
+
   const ticket = createTicket();
 
   onNavigateOrder([ticket]);
