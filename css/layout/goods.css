@@ -6,33 +6,6 @@
     padding: 120px 20px 0;
 }
 
-.category_title,
-.page_title {
-    display: block;
-    margin: 0 0 50px;
-    padding: 15px 20px;
-    border-bottom: 2px solid var(--color--black1);
-}
-
-.category_title h2,
-.page_title h2 {
-    position: relative;
-    font-size: 28px;
-    font-weight: 700;
-}
-
-.category_title h2::after,
-.page_title h2::after {
-    position: absolute;
-    display: block;
-    content: "";
-    top: 5px;
-    left: -18px;
-    width: 8px;
-    height: 8px;
-    background: var(--color--blue1);
-    border-radius: 50%;
-}
 .goods_list ul {
     display: flex;
     justify-content: flex-start;
