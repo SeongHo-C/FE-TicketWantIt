@@ -94,9 +94,9 @@ const emailConfirm = () => {
     localStorage.setItem('authCode', token);
     alert('인증번호를 발송했습니다.');
   })
-  .catch((err) => {
-    console.log(err);
-    alert('E-MAIL 인증 요청에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
+  .catch((error) => {
+    console.log(error);
+    alert(`${error.response.data.message}`);
     modal.style.display = 'none';
     clearInterval(tokenTimer);
   })
@@ -126,9 +126,9 @@ const matchEmailConfirm = () => {
       return false;
     }
   })
-  .catch((err) => {
-    console.log(err);
-    alert('E-MAIL 인증 요청에 실패했습니다. E-MAIL을 확인해주세요.')
+  .catch((error) => {
+    console.log(error);
+    alert(`${error.response.data.message}`);
   })
 }
 
