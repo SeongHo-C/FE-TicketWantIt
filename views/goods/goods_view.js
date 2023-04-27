@@ -95,6 +95,7 @@ function onAddCart() {
   }
 
   alert('장바구니에 상품이 추가되었습니다.');
+  location.reload();
 }
 
 function onDirectBuy() {
