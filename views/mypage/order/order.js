@@ -1,9 +1,24 @@
+import { isTokenExpired, tokenRefresh } from '../../../modules/token.mjs';
+import instance from '../../../modules/axios_interceptor.mjs';
+
 async function onLoad() {
   const { orderList } = await getOrder();
   console.log(orderList);
   for (let orderData of orderList) {
     const order = createOrder(orderData);
     orderTableList.innerHTML += order;
+  }
+}
+
+async function getOrder() {
+  try {
+    if (isTokenExpired()) tokenRefresh();
+
+    const response = await instance.get('/api/orders');
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
   }
 }
 
@@ -46,7 +61,12 @@ function firstItemTemplate(
   customerAddress,
   customerPhoneNum
 ) {
-  const { name, quantity, price } = item;
+  const {
+    name,
+    quantity,
+    price,
+    imgUrl = 'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
+  } = item;
   orderStatus = getOrderStatus(orderStatus);
 
   return `<tr>
@@ -55,7 +75,7 @@ function firstItemTemplate(
               </td>
               <td>
                 <img
-                  src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
+                  src=${imgUrl}
                   alt="상품 이미지"
                 />
               </td>
@@ -78,75 +98,18 @@ function firstItemTemplate(
             </tr>`;
 }
 
-function orderModify(zipCode, customerAddress, customerPhoneNum, orderId) {
-  modal.style.display = 'flex';
-  body.style.overflow = 'hidden';
-
-  const [primary, detail] = customerAddress.split('(상세주소)');
-  const [phone1, phone2, phone3] = customerPhoneNum.split('-');
-
-  zipCodeInput.value = zipCode || '';
-  addressInput.value = primary || '';
-  addressDetail.value = detail || '';
-  phone1Input.value = phone1 || '010';
-  phone2Input.value = phone2 || '';
-  phone3Input.value = phone3 || '';
-
-  modalForm.name = orderId;
-}
-
-async function modifyAPI(data, orderId) {
-  try {
-    const response = await axios.put(
-      `http://34.64.112.166/api/orders/${orderId}`,
-      data,
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
-        },
-      }
-    );
-
-    if (response) alert('주문정보 수정이 완료되었습니다.');
-    location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-function orderCancel(orderId) {
-  const isConfirm = window.confirm('정말로 주문을 취소하시겠습니까?');
-
-  if (isConfirm) cancelAPI(orderId);
-}
-
-async function cancelAPI(orderId) {
-  try {
-    const response = await axios.delete(
-      `http://34.64.112.166/api/orders/${orderId}`,
-      {
-        headers: {
-          Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
-        },
-      }
-    );
-
-    if (response) alert('주문 취소가 완료되었습니다.');
-    location.reload();
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function extraItemTemplate(item) {
-  const { name, quantity, price } = item;
+  const {
+    name,
+    quantity,
+    price,
+    imgUrl = 'https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg',
+  } = item;
 
   return ` <tr>
           <td>
           <img
-            src="https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg"
+            src=${imgUrl}
             alt="상품 이미지"
           />
           </td>
@@ -158,21 +121,6 @@ function extraItemTemplate(item) {
             price * quantity
           ).toLocaleString()}원</p></td>
         </tr>`;
-}
-
-async function getOrder() {
-  try {
-    const response = await axios.get('http://34.64.112.166/api/orders', {
-      headers: {
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaG9ydElkIjoiblgydE5VS1VaYjhzTnNfY0NjS0NfIiwibmFtZSI6InNkZGRkZGRzIiwiZW1haWwiOiJzZW9uZ2hvQGdtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpc1RlbXBQYXNzd29yZCI6ZmFsc2UsImlhdCI6MTY4MjQ0NjcxMiwiZXhwIjoxNjgyNDUwMzEyfQ.VcWOIIkfG9sepe4bKSwbhOkXX_GJ4tvEsLe5SxNYFqI',
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 function getOrderStatus(orderStatus) {
@@ -195,6 +143,57 @@ function execDaumPostcode() {
       addressDetail.focus();
     },
   }).open();
+}
+
+window.orderModify = orderModify;
+function orderModify(zipCode, customerAddress, customerPhoneNum, orderId) {
+  modal.style.display = 'flex';
+  body.style.overflow = 'hidden';
+
+  const [primary, detail] = customerAddress.split('(상세주소)');
+  const [phone1, phone2, phone3] = customerPhoneNum.split('-');
+
+  zipCodeInput.value = zipCode || '';
+  addressInput.value = primary || '';
+  addressDetail.value = detail || '';
+  phone1Input.value = phone1 || '010';
+  phone2Input.value = phone2 || '';
+  phone3Input.value = phone3 || '';
+
+  modalForm.name = orderId;
+}
+
+async function modifyAPI(data, orderId) {
+  try {
+    if (isTokenExpired()) tokenRefresh();
+
+    const response = await instance.put(`/api/orders/${orderId}`, data);
+
+    if (response) alert('주문정보 수정이 완료되었습니다.');
+    location.reload();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+window.orderCancel = orderCancel;
+function orderCancel(orderId) {
+  const isConfirm = window.confirm('정말로 주문을 취소하시겠습니까?');
+
+  if (isConfirm) cancelAPI(orderId);
+}
+
+async function cancelAPI(orderId) {
+  try {
+    if (isTokenExpired()) tokenRefresh();
+
+    const response = await instance.delete(`/api/orders/${orderId}`);
+
+    if (response) alert('주문 취소가 완료되었습니다.');
+    location.reload();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const body = document.querySelector('body');
