@@ -20,5 +20,12 @@ window.addEventListener('load', () => {
 });
 
 orderDetailCheckBtn.addEventListener('click', () => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    location.href = '/views/login/login.html';
+    alert('로그인 후 이용해주시기 바랍니다.');
+  }
+
   location.href = '/views/mypage/order/order.html';
 });
