@@ -60,7 +60,7 @@ const logInFunction = (e) => {
         if (jwt_decode(token).isAdmin) {
           if (confirm('관리자 페이지로 이동하시겠습니까?')) {
             saveToken(token);
-            window.location.href = '../admin/login.html';
+            window.location.href = '../admin/goods.html';
           } else {
             return;
           }
