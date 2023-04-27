@@ -17,10 +17,9 @@ const userInfo = () => {
   .then((response) => {
     const token = getToken();
     const decodedToken = jwt_decode(token);
-    console.log(decodedToken)
     email.innerHTML = decodedToken.email;
     nameInput.innerHTML = decodedToken.name;
-    address.innerHTML = decodedToken.address;
+    address.innerHTML = response.data.address;
   })
  .catch((err) => {
     console.log(err);

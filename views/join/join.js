@@ -87,9 +87,6 @@ const emailConfirm = () => {
   axios.post(`${URL}/api/user/emailAuth`, 
   {
     email: id.value + '@' + email.value
-  },
-  {
-    headers: {'Authorization': `Bearer ${getToken()}`}
   })
   .then((response) => {
     const token = response.data;
@@ -98,7 +95,9 @@ const emailConfirm = () => {
   })
   .catch((err) => {
     console.log(err);
-    alert('E-MAIL 인증 요청에 실패했습니다. 잠시 뒤 다시 시도해주세요.')
+    alert('E-MAIL 인증 요청에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
+    modal.style.display = 'none';
+    clearInterval(tokenTimer);
   })
 }
 
@@ -107,9 +106,6 @@ const matchEmailConfirm = () => {
   axios.post(`${URL}/api/user/emailAuth`, 
   {
     email: id.value + '@' + email.value
-  },
-  {
-    headers: {'Authorization': `Bearer ${getToken()}`}
   })
   .then((response) => {
     const token = localStorage.getItem('authCode');
@@ -118,12 +114,14 @@ const matchEmailConfirm = () => {
       localStorage.removeItem('authCode', token);
       alert('인증에 성공했습니다.');
       modal.style.display = 'none';
+      clearInterval(tokenTimer);
       id.setAttribute("readonly", true);
       email.setAttribute("readonly", true);
       selectEmail.style.display = 'none';
     } else {
       alert('인증번호가 틀립니다. 다시 시도해주세요.');
       modal.style.display = 'none';
+      clearInterval(tokenTimer);
       return false;
     }
   })
@@ -152,30 +150,35 @@ const joinFunction = (e) => {
     return false;
   }
 
-axios.post(`${URL}/api/user`, {
-    email : id.value + '@' + email.value,
-    name : nameInput.value,
-    password : password.value,
-}, {
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
-.then((response) => {
-  if (response) {
-      alert('회원가입이 완료되었습니다!');
-      const token = response.data;
-      saveToken(token);
-      window.location.href = '../../index.html';
+if (!localStorage.getItem('authCode')) {
+    alert('이메일 인증을 먼저 진행해주세요.');
+    return false;
   } else {
-      alert('회원가입에 실패했습니다.');
-      return;
+  axios.post(`${URL}/api/user`, {
+      email : id.value + '@' + email.value,
+      name : nameInput.value,
+      password : password.value,
+  }, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then((response) => {
+    if (response) {
+        alert('회원가입이 완료되었습니다!');
+        const token = response.data;
+        saveToken(token);
+        window.location.href = '../../index.html';
+    } else {
+        alert('회원가입에 실패했습니다.');
+        return;
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+    alert('중복된 이메일입니다. 다른 이메일로 다시 시도해주세요.');
+  })
   }
-})
-.catch((error) => {
-  console.log(error);
-  alert('회원가입에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
- })
 }
 
 document.querySelector('#selectEmail').addEventListener('change', emailSelection);
