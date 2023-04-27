@@ -62,12 +62,11 @@ const logInFunction = (e) => {
           window.location.href = '../findPassword/changePassword.html';
         } else {
           saveToken(token);
-          window.location.href = '../../index.html';
+          //window.location.href = '../../index.html';
         }
       }) 
      .catch((error) => {
-      console.log(error);
-      alert('이메일과 비밀번호를 확인해주세요.');
+      alert(`${error.response.data.message}`);
      })
   };
 

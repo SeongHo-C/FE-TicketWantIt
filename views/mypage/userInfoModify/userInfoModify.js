@@ -66,9 +66,8 @@ const userInfoModify = () => {
       alert('정보 업데이트에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
     }
   })
-  .catch((err) => {
-    console.log(err);
-    alert('정보 업데이트에 실패했습니다. 잠시 뒤 다시 시도해주세요.');
+  .catch((error) => {
+    alert(`${error.response.data.message}`);
   })
 }
 
