@@ -1,75 +1,75 @@
-let tickets_info = localStorage.getItem("cart")
-    ? JSON.parse(localStorage.getItem("cart"))
-    : [];
+let tickets_info = localStorage.getItem('cart')
+  ? JSON.parse(localStorage.getItem('cart'))
+  : [];
 
 function onLoad() {
-    if (tickets_info.length < 1) return;
+  if (tickets_info.length < 1) return;
 
-    const tickets = tickets_info
-        .map((ticket_info) => createTicket(ticket_info))
-        .join("");
-    ticketsList.innerHTML = tickets;
+  const tickets = tickets_info
+    .map((ticket_info) => createTicket(ticket_info))
+    .join('');
+  ticketsList.innerHTML = tickets;
 
-    const totalPrice = calculateTotalPrice(tickets_info);
-    calculateList.innerHTML = totalPrice;
+  const totalPrice = calculateTotalPrice(tickets_info);
+  calculateList.innerHTML = totalPrice;
 }
 
 function calculateTotalPrice(tickets_info) {
-    const totalPrice = tickets_info.reduce(
-        (sum, { price, quantity }) => sum + price * quantity,
-        0
-    );
+  const totalPrice = tickets_info.reduce(
+    (sum, { price, quantity }) => sum + price * quantity,
+    0
+  );
 
-    return `<tr>
+  return `<tr>
   <td><p>${totalPrice.toLocaleString()}원</p></td>
   <td><p>= ${totalPrice.toLocaleString()}원</p></td>
 </tr>`;
 }
 
 function onMinus(productId) {
-    tickets_info = tickets_info.map((ticket_info) => {
-        const quantity = ticket_info.quantity;
+  tickets_info = tickets_info.map((ticket_info) => {
+    const quantity = ticket_info.quantity;
 
-        if (ticket_info.productId === productId) {
-            if (quantity <= 1) {
-                alert("최소 수량은 1개 입니다.");
-                return ticket_info;
-            }
-            return { ...ticket_info, quantity: quantity - 1 };
-        }
+    if (ticket_info.productId === productId) {
+      if (quantity <= 1) {
+        alert('최소 수량은 1개 입니다.');
         return ticket_info;
-    });
+      }
+      return { ...ticket_info, quantity: quantity - 1 };
+    }
+    return ticket_info;
+  });
 
-    localStorage.setItem("cart", JSON.stringify(tickets_info));
-    location.reload();
+  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  location.reload();
 }
 
 function onPlus(productId) {
-    tickets_info = tickets_info.map((ticket_info) => {
-        const quantity = ticket_info.quantity;
+  tickets_info = tickets_info.map((ticket_info) => {
+    const quantity = ticket_info.quantity;
 
-        if (ticket_info.productId === productId) {
-            return { ...ticket_info, quantity: quantity + 1 };
-        }
-        return ticket_info;
-    });
+    if (ticket_info.productId === productId) {
+      return { ...ticket_info, quantity: quantity + 1 };
+    }
+    return ticket_info;
+  });
 
-    localStorage.setItem("cart", JSON.stringify(tickets_info));
-    location.reload();
+  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  location.reload();
 }
 
 function createTicket(ticket) {
-    const {
-        productId,
-        imageUrl,
-        productName,
-        place,
-        speciesAge,
-        price,
-        quantity = 1,
-    } = ticket;
+  const {
+    productId,
+    imageUrl,
+    productName,
+    place,
+    speciesAge,
+    price,
+    quantity = 1,
+  } = ticket;
 
-    return `<tr id=ticket${productId}>
+  return `<tr id=ticket${productId}>
   <td><input type="checkbox" id=only_check${productId} name='ticket_check'/></td>
   <td>
     <img
@@ -85,7 +85,7 @@ function createTicket(ticket) {
   </td>
   <td><p>${place}</p></td>
   <td><p>${speciesAge}</p></td>
-  <td><p class="ticket_price">${price.toLocaleString()}원</p></td>
+  <td><p class="ticket_price">${Number(price).toLocaleString()}원</p></td>
   <td class="ticket_quantity">
   <div>
     <button class="minus_button" onclick="onMinus('${productId}')">
@@ -109,131 +109,131 @@ function createTicket(ticket) {
 }
 
 function onCheckedCheckbox() {
-    const tickets = document.querySelectorAll('input[name="ticket_check"]');
-    const productIds = [];
+  const tickets = document.querySelectorAll('input[name="ticket_check"]');
+  const productIds = [];
 
-    for (let ticket of tickets) {
-        const productId = ticket.id.split("only_check")[1];
-        if (ticket.checked) productIds.push(productId);
-    }
+  for (let ticket of tickets) {
+    const productId = ticket.id.split('only_check')[1];
+    if (ticket.checked) productIds.push(productId);
+  }
 
-    return productIds;
+  return productIds;
 }
 
 function onlyOrder(productId) {
-    const ticket = tickets_info.find(
-        (ticket_info) => ticket_info.productId === productId
-    );
+  const ticket = tickets_info.find(
+    (ticket_info) => ticket_info.productId === productId
+  );
 
-    onNavigateOrder([ticket]);
+  onNavigateOrder([ticket]);
 }
 
 function allOrder() {
-    if (tickets_info.length < 1) {
-        alert("장바구니에 상품이 없습니다.");
-        return;
-    }
+  if (tickets_info.length < 1) {
+    alert('장바구니에 상품이 없습니다.');
+    return;
+  }
 
-    onNavigateOrder(tickets_info);
+  onNavigateOrder(tickets_info);
 }
 
 function selectedOrder() {
-    const productIds = onCheckedCheckbox();
+  const productIds = onCheckedCheckbox();
 
-    if (productIds.length < 1) {
-        alert("선택된 상품이 없습니다.");
-        return;
-    }
+  if (productIds.length < 1) {
+    alert('선택된 상품이 없습니다.');
+    return;
+  }
 
-    const selectedTickets = tickets_info.filter((ticket_info) =>
-        productIds.includes(ticket_info.productId)
-    );
+  const selectedTickets = tickets_info.filter((ticket_info) =>
+    productIds.includes(ticket_info.productId)
+  );
 
-    onNavigateOrder(selectedTickets);
+  onNavigateOrder(selectedTickets);
 }
 
 function onNavigateOrder(tickets_info) {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
-    if (!token) {
-        location.href = "/views/login/login.html";
-        alert("로그인 후 이용해주시기 바랍니다.");
-    }
+  if (!token) {
+    location.href = '/views/login/login.html';
+    alert('로그인 후 이용해주시기 바랍니다.');
+  }
 
-    localStorage.setItem("ticket_order", JSON.stringify(tickets_info));
+  localStorage.setItem('ticket_order', JSON.stringify(tickets_info));
 
-    location.href = "/views/order/order.html";
+  location.href = '/views/order/order.html';
 }
 
 function allDelete() {
-    if (tickets_info.length < 1) {
-        alert("장바구니에 상품이 없습니다.");
-        return;
-    }
+  if (tickets_info.length < 1) {
+    alert('장바구니에 상품이 없습니다.');
+    return;
+  }
 
-    onDelete("all");
+  onDelete('all');
 }
 
 function selectedDelete() {
-    const productIds = onCheckedCheckbox();
+  const productIds = onCheckedCheckbox();
 
-    if (productIds.length < 1) {
-        alert("선택된 상품이 없습니다.");
-        return;
-    }
+  if (productIds.length < 1) {
+    alert('선택된 상품이 없습니다.');
+    return;
+  }
 
-    onDelete("selected", productIds);
+  onDelete('selected', productIds);
 }
 
 function onlyDelete(productId) {
-    onDelete("selected", [productId]);
+  onDelete('selected', [productId]);
 }
 
 function onDelete(type, productIds) {
-    if (type === "selected")
-        tickets_info = tickets_info.filter(
-            (ticket_info) => !productIds.includes(ticket_info.productId)
-        );
-    else tickets_info.length = 0;
+  if (type === 'selected')
+    tickets_info = tickets_info.filter(
+      (ticket_info) => !productIds.includes(ticket_info.productId)
+    );
+  else tickets_info.length = 0;
 
-    localStorage.setItem("cart", JSON.stringify(tickets_info));
-    location.reload();
+  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  location.reload();
 }
 
-const ticketsList = document.querySelector(".tickets_list");
-const calculateList = document.querySelector(".calculate_list");
-const allCheck = document.querySelector("#all_check");
-const selectedDeleteBtn = document.querySelector(".selected_delete");
-const allDeleteBtn = document.querySelector(".all_delete");
-const allOrderBtn = document.querySelector(".all_order");
-const selectedOrderBtn = document.querySelector(".selected_order");
+const ticketsList = document.querySelector('.tickets_list');
+const calculateList = document.querySelector('.calculate_list');
+const allCheck = document.querySelector('#all_check');
+const selectedDeleteBtn = document.querySelector('.selected_delete');
+const allDeleteBtn = document.querySelector('.all_delete');
+const allOrderBtn = document.querySelector('.all_order');
+const selectedOrderBtn = document.querySelector('.selected_order');
 
-window.addEventListener("load", () => {
-    onLoad();
+window.addEventListener('load', () => {
+  onLoad();
 });
 
-allCheck.addEventListener("change", () => {
-    const checkboxes = document.querySelectorAll('input[name="ticket_check"]');
+allCheck.addEventListener('change', () => {
+  const checkboxes = document.querySelectorAll('input[name="ticket_check"]');
 
-    if (allCheck.checked) {
-        for (let checkbox of checkboxes) checkbox.checked = true;
-    } else {
-        for (let checkbox of checkboxes) checkbox.checked = false;
-    }
+  if (allCheck.checked) {
+    for (let checkbox of checkboxes) checkbox.checked = true;
+  } else {
+    for (let checkbox of checkboxes) checkbox.checked = false;
+  }
 });
 
-allOrderBtn.addEventListener("click", () => {
-    allOrder();
+allOrderBtn.addEventListener('click', () => {
+  allOrder();
 });
 
-selectedOrderBtn.addEventListener("click", () => {
-    selectedOrder();
+selectedOrderBtn.addEventListener('click', () => {
+  selectedOrder();
 });
 
-allDeleteBtn.addEventListener("click", () => {
-    allDelete();
+allDeleteBtn.addEventListener('click', () => {
+  allDelete();
 });
 
-selectedDeleteBtn.addEventListener("click", () => {
-    selectedDelete();
+selectedDeleteBtn.addEventListener('click', () => {
+  selectedDelete();
 });
