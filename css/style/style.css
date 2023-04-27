@@ -42,7 +42,22 @@
 }
 
 #container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
     margin: 0 0 200px;
+}
+
+.contents {
+    width: 100%;
+}
+
+.side_contents {
+    width: 200px;
+}
+
+.side_contents + .contents {
+    width: calc(100% - 200px);
 }
 
 /* header layout */
