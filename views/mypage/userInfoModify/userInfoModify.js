@@ -11,9 +11,23 @@ const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const addressSearchBtn = document.querySelector('#addressSearchBtn');
 const token = getToken();
 const decodedToken = jwt_decode(token);
-nameInput.setAttribute('value',`${decodedToken.name}`);
 email.innerHTML = decodedToken.email;
-
+nameInput.setAttribute('value',`${decodedToken.name}`);
+// if (decodedToken.zipCode) {
+//   zipCode.setAttribute('value',`${decodedToken.zipCode}`);
+// } else {
+//   zipCode.setAttribute('value', '');
+// }
+// if (decodedToken.address) {
+//   address.setAttribute('value',`${decodedToken.address}`);
+// } else {
+//   address.setAttribute('value', '');
+// }
+// if (decodedToken.addressDetail) {
+//   addressDetail.setAttribute('value',`${decodedToken.addressDetail}`);
+// } else {
+//   addressDetail.setAttribute('value', '');
+// }
 function execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {

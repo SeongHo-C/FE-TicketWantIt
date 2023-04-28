@@ -86,12 +86,12 @@ section {
     font-size: 14px;
 }
 .userInfo_table td .address_input_wrap li:first-child input.userInfoInput {
-    width: 270px;
+    width: 268px;
 }
 
 .address_search_btn {
     position: relative;
-    width: 78px;
+    width: 76px;
     height: 2.7rem;
     background-color: var(--color--white);
     border: 1px solid var(--color--black2);
