@@ -79,7 +79,6 @@ const emailConfirm = () => {
       email: id.value + '@' + email.value,
     })
     .then((response) => {
-      console.log(response);
       const token = response.data;
       localStorage.setItem('authCode', token);
       alert('인증번호를 발송했습니다.');
@@ -99,7 +98,6 @@ const matchEmailConfirm = () => {
       email: id.value + '@' + email.value,
     })
     .then((response) => {
-      console.log(response);
       const token = localStorage.getItem('authCode');
       const decodedToken = jwt_decode(token);
       if (decodedToken.authCode == confirmInput.value) {
@@ -109,6 +107,11 @@ const matchEmailConfirm = () => {
         id.setAttribute('readonly', true);
         email.setAttribute('readonly', true);
         selectEmail.style.display = 'none';
+        id.setAttribute('readonly', true);
+        email.setAttribute('readonly', true);
+        nameInput.setAttribute('readonly', true);
+        password.setAttribute('readonly', true);
+        confirmPassword.setAttribute('readonly', true);
       } else {
         alert('인증번호가 틀립니다. 다시 시도해주세요.');
         modal.style.display = 'none';
@@ -125,19 +128,6 @@ const matchEmailConfirm = () => {
 //회원가입
 const joinFunction = (e) => {
   e.preventDefault();
-
-  emailCheck(email.value);
-
-  if (nameInput.value.length < 2) {
-    nameError.style.display = 'block';
-    return false;
-  } else if (password.value.length < 6) {
-    passwordError.style.display = 'block';
-    return false;
-  } else if (confirmPassword.value !== password.value) {
-    confirmPasswordError.style.display = 'block';
-    return false;
-  }
 
   if (!localStorage.getItem('authCode')) {
     alert('이메일 인증을 먼저 진행해주세요.');
@@ -182,25 +172,40 @@ document
 let tokenTimer;
 emailConfirmButton.addEventListener('click', (e) => {
   e.preventDefault();
-  emailConfirm();
-  modal.style.display = 'block';
-  let leftTime = 180;
-  tokenTimer = setInterval(() => {
-    const minute = Math.floor(leftTime / 60);
-    const seconds = leftTime % 60;
-    if (seconds < 10) {
-      timer.textContent = `${minute} :0${seconds}`;
-    } else {
-      timer.textContent = `${minute} :${seconds}`;
-    }
-    leftTime--;
 
-    if (leftTime < 0) {
-      clearInterval(tokenTimer);
-      timer.textContent = `0 :00`;
-      alert('인증번호 유효기간이 끝났습니다. 다시 시도해주세요.');
-    }
-  }, 1000);
+  emailCheck(email.value);
+
+  if (nameInput.value.length < 2) {
+    nameError.style.display = 'block';
+    return false;
+  } else if (password.value.length < 6) {
+    passwordError.style.display = 'block';
+    return false;
+  } else if (confirmPassword.value !== password.value) {
+    confirmPasswordError.style.display = 'block';
+    return false;
+  } else {
+    emailConfirm();
+
+    modal.style.display = 'block';
+    let leftTime = 180;
+    tokenTimer = setInterval(() => {
+      const minute = Math.floor(leftTime / 60);
+      const seconds = leftTime % 60;
+      if (seconds < 10) {
+        timer.textContent = `${minute} :0${seconds}`;
+      } else {
+        timer.textContent = `${minute} :${seconds}`;
+      }
+      leftTime--;
+
+      if (leftTime < 0) {
+        clearInterval(tokenTimer);
+        timer.textContent = `0 :00`;
+        alert('인증번호 유효기간이 끝났습니다. 다시 시도해주세요.');
+      }
+    }, 1000);
+  }
 });
 
 closeModalButton.addEventListener('click', (e) => {

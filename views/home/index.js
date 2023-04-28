@@ -22,7 +22,9 @@ async function newArrivals() {
                 <div class="info_box">
                     <span class="goods_date">2023-04-20</span>
                     <strong class="goods_tit">${productName}</strong>
-                    <span class="goods_pri">${price.toLocaleString()}원</span>
+                    <span class="goods_pri">${Number(
+                        price
+                    ).toLocaleString()}원</span>
                 </div>
                 </a>
             </li>
@@ -57,7 +59,9 @@ async function mdRecommends() {
                 <div class="info_box">
                     <span class="goods_date">2023-04-20</span>
                     <strong class="goods_tit">${productName}</strong>
-                    <span class="goods_pri">${price.toLocaleString()}원</span>
+                    <span class="goods_pri">${Number(
+                        price
+                    ).toLocaleString()}원</span>
                 </div>
                 </a>
             </li>

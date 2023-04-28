@@ -3,7 +3,7 @@ import instance from '../../modules/axios_interceptor.js';
 
 const tickets_info = JSON.parse(localStorage.getItem('ticket_order'));
 
-function onLoad() {
+async function onLoad() {
   for (let ticket_info of tickets_info) {
     const ticket = createTicket(ticket_info);
     orderList.innerHTML += ticket;
@@ -11,6 +11,24 @@ function onLoad() {
 
   const totalPrice = calculateTotalPrice(tickets_info);
   paymentBtn.innerHTML = `<p>${totalPrice.toLocaleString()}원 결제하기</p>`;
+
+  const { zipCode, address, address_detail } = await getUser();
+  zipCodeInput.value = zipCode;
+  addressInput.value = address;
+  addressDetail.value = address_detail;
+}
+
+async function getUser() {
+  const response = await instance.get('/api/user');
+  let { zipCode = '', address = '' } = response.data;
+  let address_detail = '';
+
+  if (address) {
+    address = address.split('(상세주소)')[0];
+    address_detail = address.split('(상세주소)')[1] || '';
+  }
+
+  return { zipCode, address, address_detail };
 }
 
 function calculateTotalPrice(tickets_info) {

@@ -1,116 +1,141 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-body {
-  font-family: 'Spoqa Han Sans Neo', 'Noto Sans KR', 'sans-serif';
-  overflow: auto;
+section {
+    padding: 120px 30px 0;
 }
 
-#container {
-  display: flex;
-
-  margin: 2rem auto;
-
-  min-height: 500px;
-
-  background-color: var(--color--white);
+.contents .inner {
+    padding-left: 50px;
 }
 
 #active {
-  color: var(--color--blue2);
-  font-weight: bold;
+    color: var(--color--blue2);
+    font-weight: bold;
 }
 
-.side_content {
-  flex-basis: 15%;
+.side_contents {
+    width: 200px;
+    padding: 75px 0 0;
 }
 
-.side_content li {
-  padding: 15px;
-
-  cursor: pointer;
-  border-bottom: 1px solid var(--color--black4);
-  color: var(--color--black1);
+.side_contents ul {
+    display: block;
+    padding: 30px 0 30px 30px;
+    height: 100%;
+    border: 1px solid var(--color--black4);
+    border-top: 2px solid var(--color--black1);
 }
 
-#content {
-  flex-basis: 85%;
+.side_contents li {
+    display: block;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color--black1);
 }
 
 .title_area {
-  text-align: center;
+    text-align: center;
 }
 
 .title_area > h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .userInfo_table {
-  margin: 2rem;
-
-  width: 900px;
+    display: table;
+    margin: 0 auto;
+    width: 80%;
 }
 
 .userInfo_table > thead > tr > th {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 .userInfo_table > thead {
-  border-top: 2px solid var(--color--black1);
-  border-bottom: 1px solid var(--color--black4);
+    border-top: 2px solid var(--color--black1);
+    border-bottom: 1px solid var(--color--black4);
 }
 
 .userInfo_table > tbody > tr > td {
-  text-align: center;
-  vertical-align: middle;
-  padding: 20px 5px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 20px 5px;
 
-  font-size: 1rem;
-  border-bottom: 1px solid var(--color--black4);
+    font-size: 1rem;
+    border-bottom: 1px solid var(--color--black4);
+}
+
+.userInfo_table > tbody > tr > td:first-child {
+    width: 25%;
+    background: var(--background--gray1);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.userInfo_table td input[type="text"] {
+    margin: 0 0 5px;
+    padding: 0 10px;
+    width: 350px;
+    height: 42px;
+    border: 1px solid var(--color--black4);
+    border-radius: 3px;
+    font-size: 14px;
+}
+.userInfo_table td .address_input_wrap li:first-child input.userInfoInput {
+    width: 270px;
 }
 
 .address_search_btn {
-  position: absolute;
-  width: 5rem;
-  height: 2.7rem;
-  top: 42.7%;
-  left: 70.9%;
-  background-color: var(--color--white);
-  border: 1px solid var(--color--black2);
-  cursor: pointer;
+    position: relative;
+    width: 78px;
+    height: 2.7rem;
+    background-color: var(--color--white);
+    border: 1px solid var(--color--black2);
+    cursor: pointer;
 }
 
-input {
-  margin: 5px;
-  padding: 10px;
-  width: 350px;
+.btn_box {
+    display: flex;
+    justify-content: center;
+    padding: 100px 0 0;
+    width: 50%;
+    margin: 0 auto;
 }
 
-.buttons {
-  display: flex;
-  justify-content: center;
+.btn_box button {
+    display: block;
+    margin: 0 5px;
+    padding: 10px 0;
+    width: 50%;
+    background: var(--color--black1);
+    border: 1px solid var(--color--black1);
+    color: var(--color--white);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 30px;
+    cursor: pointer;
 }
 
-button {
-  margin: 30px;
-  width: 80px;
-  height: 40px;
-
-  border: 0;
-  border-radius: 15px;
-  background-color: var(--color--blue2);
-  color: var(--color--white);
-  cursor: pointer;
+.btn_box button#userPasswordButton {
+    background: var(--color--white);
+    border: 1px solid var(--color--black1);
+    color: var(--color--black1);
 }
 
-button a {
-  color: var(--color--white);
+.btn_box button#userPasswordButton a {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 #warning {
-  text-align: center;
-  color: var(--color--black4);
-  font-size: 15px;
+    display: block;
+    padding: 30px 0 0;
+    text-align: center;
+    color: var(--color--black4);
+    font-size: 15px;
 }
