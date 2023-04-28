@@ -91,7 +91,7 @@ function createTicket(ticket) {
     <button class="minus_button" onclick="onMinus('${productId}')">
     <span></span>
     </button>
-    <input type="text" class="ticket_quantity_input" value=${quantity} />
+    <input type="text" class="ticket_quantity_input" value=${quantity} readonly/>
     <button class="plus_button" onclick="onPlus('${productId}')">
     <span></span>
     </button>
