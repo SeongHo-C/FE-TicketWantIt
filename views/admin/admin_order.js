@@ -1,4 +1,5 @@
-import { getToken } from '../../modules/token.js';
+import { isTokenExpired, tokenRefresh } from '../../modules/token.js';
+import instance from '../../modules/axios_interceptor.js';
 
 ('use strict');
 
@@ -15,13 +16,11 @@ date.innerHTML = formattedDate;
 const orderList = document.querySelector('.order_list');
 // console.log(localStorage.getItem("token"));
 async function goodsConnectApi() {
-  const response = await axios.get('http://34.64.112.166/api/adminOrder', {
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
+  if (isTokenExpired()) tokenRefresh();
 
-  const orders = await response.data;
+  const response = await instance.get('/api/adminOrder');
+
+  const orders = response.data;
   console.log(orders.orderList);
 
   orderList.innerHTML = orders.orderList
@@ -122,13 +121,10 @@ async function goodsConnectApi() {
       console.log('onchange select', orderStatus, orderId);
 
       try {
-        const response = await axios.patch(
-          `http://34.64.112.166/api/adminOrder/${orderId}/${orderStatus}`,
-          {
-            headers: {
-              Authorization: `Bearer ${getToken()}`,
-            },
-          }
+        if (isTokenExpired()) tokenRefresh();
+
+        const response = await instance.put(
+          `/api/adminOrder/${orderId}/${orderStatus}`
         );
 
         console.log('배송정보가 변경되었습니다:', response);
@@ -149,14 +145,9 @@ async function goodsConnectApi() {
       console.log(orderId);
 
       try {
-        const response = await axios.delete(
-          `http://34.64.112.166/api/adminOrder/${orderId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${getToken()}`,
-            },
-          }
-        );
+        if (isTokenExpired()) tokenRefresh();
+
+        const response = await instance.delete(`/api/adminOrder/${orderId}`);
 
         console.log('상품이 삭제되었습니다:', response);
 
