@@ -92,10 +92,12 @@ async function pay(data) {
 }
 
 function onDeleteCart() {
-  const cart = localStorage.getItem('cart');
-  if (!cart) return;
+  const cart = localStorage.getItem('cart')
+    ? JSON.parse(localStorage.getItem('cart'))
+    : [];
 
-  cart = JSON.parse(cart);
+  if (cart.length < 1) return;
+
   const productIds = tickets_info.map((ticket_info) => ticket_info.productId);
 
   const remainingCart = cart.filter(
@@ -127,7 +129,7 @@ orderForm.addEventListener('submit', (e) => {
 
   const address = e.target['address'].value;
   const addressDetail = e.target['addressDetail'].value;
-  const customerAddress = `${address} (상세주소)${addressDetail}`;
+  const deliveryAddress = `${address} (상세주소)${addressDetail}`;
 
   if (!address) {
     alert('주소를 입력해주세요.');
@@ -138,7 +140,7 @@ orderForm.addEventListener('submit', (e) => {
   const phone1 = e.target['phone_1'].value;
   const phone2 = e.target['phone_2'].value;
   const phone3 = e.target['phone_3'].value;
-  const customerPhoneNum = `${phone1}-${phone2}-${phone3}`;
+  const deliveryPhoneNum = `${phone1}-${phone2}-${phone3}`;
 
   if (!phone2 || !phone3) {
     alert('휴대전화 번호를 입력해주세요.');
@@ -158,8 +160,8 @@ orderForm.addEventListener('submit', (e) => {
 
   const data = {
     zipCode,
-    customerAddress,
-    customerPhoneNum,
+    deliveryAddress,
+    deliveryPhoneNum,
     items,
     totalPrice,
   };
