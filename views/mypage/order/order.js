@@ -29,8 +29,8 @@ function createOrder(orderData) {
     orderStatus,
     zipCode,
     date,
-    customerAddress = '모르는 주소',
-    customerPhoneNum = '없는 번호',
+    deliveryAddress = '모르는 주소',
+    deliveryPhoneNum = '없는 번호',
   } = orderData;
 
   return items
@@ -43,8 +43,8 @@ function createOrder(orderData) {
           orderStatus,
           zipCode,
           items.length,
-          customerAddress,
-          customerPhoneNum
+          deliveryAddress,
+          deliveryPhoneNum
         );
       else return extraItemTemplate(item);
     })
@@ -58,8 +58,8 @@ function firstItemTemplate(
   orderStatus,
   zipCode,
   num,
-  customerAddress,
-  customerPhoneNum
+  deliveryAddress,
+  deliveryPhoneNum
 ) {
   const {
     name,
@@ -90,7 +90,7 @@ function firstItemTemplate(
                 <p>${orderStatus}</p>
                 ${
                   orderStatus === '주문중'
-                    ? `<button class="modify_button" onclick="orderModify('${zipCode}', '${customerAddress}', '${customerPhoneNum}', '${orderId}')">수정하기</button>
+                    ? `<button class="modify_button" onclick="orderModify('${zipCode}', '${deliveryAddress}', '${deliveryPhoneNum}', '${orderId}')">수정하기</button>
                   <button class="cancel_button" onclick="orderCancel('${orderId}')">취소하기</button>`
                     : ''
                 }
@@ -146,12 +146,12 @@ function execDaumPostcode() {
 }
 
 window.orderModify = orderModify;
-function orderModify(zipCode, customerAddress, customerPhoneNum, orderId) {
+function orderModify(zipCode, deliveryAddress, deliveryPhoneNum, orderId) {
   modal.style.display = 'flex';
   body.style.overflow = 'hidden';
 
-  const [primary, detail] = customerAddress.split('(상세주소)');
-  const [phone1, phone2, phone3] = customerPhoneNum.split('-');
+  const [primary, detail] = deliveryAddress.split('(상세주소)');
+  const [phone1, phone2, phone3] = deliveryPhoneNum.split('-');
 
   zipCodeInput.value = zipCode || '';
   addressInput.value = primary || '';
@@ -229,7 +229,7 @@ modalForm.addEventListener('submit', (e) => {
 
   const address = e.target['address'].value;
   const addressDetail = e.target['addressDetail'].value;
-  const customerAddress = `${address} (상세주소)${addressDetail}`;
+  const deliveryAddress = `${address} (상세주소)${addressDetail}`;
 
   if (!address) {
     alert('주소를 입력해주세요.');
@@ -240,7 +240,7 @@ modalForm.addEventListener('submit', (e) => {
   const phone1 = e.target['phone_1'].value;
   const phone2 = e.target['phone_2'].value;
   const phone3 = e.target['phone_3'].value;
-  const customerPhoneNum = `${phone1}-${phone2}-${phone3}`;
+  const deliveryPhoneNum = `${phone1}-${phone2}-${phone3}`;
 
   if (!phone2 || !phone3) {
     alert('휴대전화 번호를 입력해주세요.');
@@ -251,8 +251,8 @@ modalForm.addEventListener('submit', (e) => {
   const orderId = e.target.name;
 
   const data = {
-    customerAddress,
-    customerPhoneNum,
+    deliveryAddress,
+    deliveryPhoneNum,
   };
 
   modifyAPI(data, orderId);
