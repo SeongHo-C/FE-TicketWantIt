@@ -1,9 +1,8 @@
 import { getToken, saveToken } from '../../../modules/token.js';
-import URL from '../../../modules/server_url.js';
 import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
-const [ nameInput, zipCode, address, addressDetail ] =
+const [nameInput, zipCode, address, addressDetail] =
   document.querySelectorAll('.userInfoInput');
 
 const email = document.querySelector('#email');
@@ -12,7 +11,7 @@ const addressSearchBtn = document.querySelector('#addressSearchBtn');
 const token = getToken();
 const decodedToken = jwt_decode(token);
 email.innerHTML = decodedToken.email;
-nameInput.setAttribute('value',`${decodedToken.name}`);
+nameInput.setAttribute('value', `${decodedToken.name}`);
 // if (decodedToken.zipCode) {
 //   zipCode.setAttribute('value',`${decodedToken.zipCode}`);
 // } else {
@@ -47,21 +46,17 @@ function execDaumPostcode() {
 //유저 정보 수정
 const userInfoModify = () => {
   if (isTokenExpired()) tokenRefresh();
+
   instance
-    .put(
-      `${URL}/api/user`,
-      {
-        name: nameInput.value,
-        zipCode: `${zipCode.value}`,
-        address: `${address.value} (상세주소)${addressDetail.value}`,
-      }
-    )
+    .put('/api/user', {
+      name: nameInput.value,
+      zipCode: `${zipCode.value}`,
+      address: `${address.value} (상세주소)${addressDetail.value}`,
+    })
     .then((response) => {
       if (response) {
-        axios
-          .get(`${URL}/api/auth`, {
-            headers: { Authorization: `Bearer ${getToken()}` },
-          })
+        instance
+          .get('/api/auth')
           .then((res) => {
             const token = res.data;
             saveToken(token);
