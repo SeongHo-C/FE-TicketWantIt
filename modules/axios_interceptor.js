@@ -8,9 +8,9 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const token = getToken();
+
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
-      config.headers['Content-Type'] = 'application/json; charset=utf-8';
     }
 
     return config;
