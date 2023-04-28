@@ -2,12 +2,11 @@ import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
 async function onLoad() {
-  const { orderList } = await getOrder();
-  console.log(orderList);
-  for (let orderData of orderList) {
-    const order = createOrder(orderData);
-    orderTableList.innerHTML += order;
-  }
+  const response = await getOrder();
+  if (!response) return;
+
+  const orderList = response.orderList;
+  orderTableList.innerHTML = orderList.map(createOrder).join('');
 }
 
 async function getOrder() {
@@ -18,7 +17,7 @@ async function getOrder() {
 
     return response.data;
   } catch (error) {
-    console.log(error);
+    if (error.response.status === 404) console.log('주문 내역이 없습니다.');
   }
 }
 
