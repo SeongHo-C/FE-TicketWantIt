@@ -91,6 +91,7 @@ const emailConfirm = () => {
     });
 };
 
+let isAuth = false;
 //이메일 인증번호 일치여부
 const matchEmailConfirm = () => {
   axios
@@ -101,6 +102,7 @@ const matchEmailConfirm = () => {
       const token = localStorage.getItem('authCode');
       const decodedToken = jwt_decode(token);
       if (decodedToken.authCode === confirmInput.value) {
+        isAuth = true;
         alert('인증에 성공했습니다.');
         modal.style.display = 'none';
         clearInterval(tokenTimer);
@@ -113,10 +115,9 @@ const matchEmailConfirm = () => {
         password.setAttribute('readonly', true);
         confirmPassword.setAttribute('readonly', true);
       } else {
-        alert('인증번호가 틀립니다. 다시 시도해주세요.');
+        alert('인증번호가 일치하지 않습니다. 다시 시도해주세요.');
         modal.style.display = 'none';
         clearInterval(tokenTimer);
-        return false;
       }
     })
     .catch((error) => {
@@ -127,13 +128,16 @@ const matchEmailConfirm = () => {
 
 //회원가입
 const joinFunction = (e) => {
-  e.preventDefault();
-
-  if (!localStorage.getItem('authCode')) {
-    alert('이메일 인증을 먼저 진행해주세요.');
-    return false;
-  } else {
-    axios
+  if (isAuth) {
+    e.preventDefault();
+    const authToken = localStorage.getItem('authCode');
+    if (!authToken) {
+      alert('이메일 인증을 먼저 진행해주세요.');
+      return false;
+    }
+    const decodedToken = jwt_decode(authToken);
+    if (decodedToken.authCode === confirmInput.value) {
+      axios
       .post(
         `${URL}/api/user`,
         {
@@ -148,24 +152,23 @@ const joinFunction = (e) => {
         }
       )
       .then((response) => {
-        const authToken = localStorage.getItem('authCode');
-        const decodedToken = jwt_decode(authToken);
-        if (decodedToken.authCode === confirmInput.value) {
           alert('회원가입이 완료되었습니다!');
           localStorage.removeItem('authCode', authToken);
           const token = response.data;
           saveToken(token);
           window.location.href = '../../index.html';
-        } else {
-          alert('이메일 인증을 먼저 진행해주세요.');
-          return;
-        }
       })
       .catch((error) => {
         alert(`${error.response.data.message}`);
-      });
+    });
+  } else {
+      alert('이메일 인증을 먼저 진행해주세요.');
+      return;
+    }
+  } else {
+    alert('이메일 인증을 먼저 진행해주세요.')
   }
-};
+}
 
 document
   .querySelector('#selectEmail')
