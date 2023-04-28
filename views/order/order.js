@@ -92,8 +92,10 @@ async function pay(data) {
 }
 
 function onDeleteCart() {
-  const cart = JSON.parse(localStorage.getItem('cart'));
+  const cart = localStorage.getItem('cart');
+  if (!cart) return;
 
+  cart = JSON.parse(cart);
   const productIds = tickets_info.map((ticket_info) => ticket_info.productId);
 
   const remainingCart = cart.filter(
