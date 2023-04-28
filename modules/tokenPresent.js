@@ -34,8 +34,7 @@ const logout = () => {
   axios
     .get(`${URL}/api/auth/logout`)
     .then(() => {
-      const token = getToken();
-      removeToken(token);
+      removeToken();
       window.location.href = '/index.html';
       tokenPresent();
     })
