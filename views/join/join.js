@@ -1,4 +1,4 @@
-import { getToken, saveToken } from '../../modules/token.js';
+import { saveToken } from '../../modules/token.js';
 import URL from '../../modules/server_url.js';
 import {
   togglePasswordVisibility,
@@ -100,7 +100,7 @@ const matchEmailConfirm = () => {
     .then((response) => {
       const token = localStorage.getItem('authCode');
       const decodedToken = jwt_decode(token);
-      if (decodedToken.authCode == confirmInput.value) {
+      if (decodedToken.authCode === confirmInput.value) {
         alert('인증에 성공했습니다.');
         modal.style.display = 'none';
         clearInterval(tokenTimer);
@@ -148,15 +148,16 @@ const joinFunction = (e) => {
         }
       )
       .then((response) => {
-        if (response) {
+        const authToken = localStorage.getItem('authCode');
+        const decodedToken = jwt_decode(authToken);
+        if (decodedToken.authCode === confirmInput.value) {
           alert('회원가입이 완료되었습니다!');
-          const authToken = localStorage.getItem('authCode');
           localStorage.removeItem('authCode', authToken);
           const token = response.data;
           saveToken(token);
           window.location.href = '../../index.html';
         } else {
-          alert('회원가입에 실패했습니다.');
+          alert('이메일 인증을 먼저 진행해주세요.');
           return;
         }
       })

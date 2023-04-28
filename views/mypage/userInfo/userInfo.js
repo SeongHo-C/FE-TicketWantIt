@@ -16,7 +16,8 @@ const userInfo = () => {
       const decodedToken = jwt_decode(token);
       email.innerHTML = decodedToken.email;
       nameInput.innerHTML = decodedToken.name;
-      if (response.data.address === ` (상세주소)`) {
+      if (response.data.address === ` (상세주소)` || 
+      response.data.address === undefined) {
         address.innerHTML = '';
       } else {
         address.innerHTML = response.data.address;
