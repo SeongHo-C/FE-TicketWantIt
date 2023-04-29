@@ -1,268 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta Referrer-Policy="referrer" referrerpolicy="no-referrer-when-downgrade">
-        <link
-            rel="shortcut icon"
-            href="/asset/icons/favicon.ico"
-            type="image/x-icon"
-        />
-        <link rel="icon" href="/asset/icons/favicon.ico" type="image/x-icon" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      Referrer-Policy="referrer"
+      referrerpolicy="no-referrer-when-downgrade"
+    />
+    <link
+      rel="shortcut icon"
+      href="/asset/icons/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="icon" href="/asset/icons/favicon.ico" type="image/x-icon" />
 
-        <link
-            href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="../../css/style/reset.css" />
-        <link rel="stylesheet" href="../../css/style/style.css" />
-        <link rel="stylesheet" href="../../css/layout/login.css" />
-        <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
-        <script src="
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../css/style/reset.css" />
+    <link rel="stylesheet" href="../../css/style/style.css" />
+    <link rel="stylesheet" href="../../css/layout/login.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
+    <script src="
     https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
     "></script>
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
-        <script type="module" src="./login.js" defer></script>
-        <script type="module" src="../../modules/tokenPresent.js"></script>
-        <script src="../../modules/header.js" defer></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="module" src="./login.js" defer></script>
+    <script type="module" src="../../modules/tokenPresent.js"></script>
+    <script src="../../modules/header.js" defer></script>
 
-        <title>Login | Ticket Want it!</title>
-    </head>
-    <body>
-        <header>
-            <div class="header">
-                <div class="inner w1140">
-                    <div class="left">
-                        <div class="logo">
-                            <a href="/index.html"
-                                ><img
-                                    src="/asset/icons/logo_c.png"
-                                    alt="헤더로고"
-                            /></a>
-                        </div>
-                        <nav>
-                            <ul></ul>
-                        </nav>
-                    </div>
-                    <div class="right">
-                        <ul class="menu">
-                            <li class="menu_icon login">
-                                <a href="javascript:void(0)">
-                                    <div>
-                                        <i class="ri-login-circle-line"></i>
-                                    </div>
-                                    <span>LOGIN</span>
-                                </a>
-                            </li>
-                            <li class="menu_icon logout dn">
-                                <a href="javascript:void(0)">
-                                    <div>
-                                        <i class="ri-login-circle-line"></i>
-                                    </div>
-                                    <span>LOGOUT</span>
-                                </a>
-                            </li>
-                            <li class="menu_icon mypage">
-                                <a href="javascript:void(0)">
-                                    <div>
-                                        <i class="ri-user-3-line"></i>
-                                    </div>
-                                    <span>MYPAGE</span>
-                                </a>
-                            </li>
-                            <li class="menu_icon cart">
-                                <p class="cart_num">0</p>
-                                <a href="javascript:void(0)">
-                                    <div>
-                                        <i class="ri-shopping-cart-line"></i>
-                                    </div>
-                                    <span>CART</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+    <title>Login | Ticket Want it!</title>
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <div class="inner w1140">
+          <div class="left">
+            <div class="logo">
+              <a href="/index.html"
+                ><img src="/asset/icons/logo_c.png" alt="헤더로고"
+              /></a>
             </div>
-        </header>
-        <div id="container">
-            <div class="contents">
-                <div id="loginWrap" class="w500">
-                    <div class="page_title">
-                        <h2>로그인</h2>
-                    </div>
-                    
-                    <ul class="tab">
-                        <li class="on">
-                            <a href="javascript:void(0)">로그인</a>
-                        </li>
-                        
-                        <li><a href="../join/join.html">회원가입</a></li>
-                    </ul>
+            <nav>
+              <ul></ul>
+            </nav>
+          </div>
+          <div class="right">
+            <ul class="menu">
+              <li class="menu_icon login">
+                <a href="javascript:void(0)">
+                  <div>
+                    <i class="ri-login-circle-line"></i>
+                  </div>
+                  <span>LOGIN</span>
+                </a>
+              </li>
+              <li class="menu_icon logout dn">
+                <a href="javascript:void(0)">
+                  <div>
+                    <i class="ri-login-circle-line"></i>
+                  </div>
+                  <span>LOGOUT</span>
+                </a>
+              </li>
+              <li class="menu_icon mypage">
+                <a href="javascript:void(0)">
+                  <div>
+                    <i class="ri-user-3-line"></i>
+                  </div>
+                  <span>MYPAGE</span>
+                </a>
+              </li>
+              <li class="menu_icon cart">
+                <p class="cart_num">0</p>
+                <a href="javascript:void(0)">
+                  <div>
+                    <i class="ri-shopping-cart-line"></i>
+                  </div>
+                  <span>CART</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div id="container">
+      <div class="contents">
+        <div id="loginWrap" class="w500">
+          <div class="page_title">
+            <h2>로그인</h2>
+          </div>
 
-                    <form id="login_form">
-                        <fieldset>
-                            <legend>로그인</legend>
-                            <div class="input_box">
-                                <label for="login">E-MAIL</label>
-                                <input
-                                    type="text"
-                                    id="login"
-                                    class="login_inputText"
-                                    placeholder="E-MAIL"
-                                />
-                                <div class="error">이메일을 확인해주세요.</div>
-                            </div>
-                            <div class="input_box">
-                                <label for="password">PASSWORD</label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    class="login_inputText"
-                                    placeholder="PASSWORD"
-                                />
-                                <i class="ri-eye-close-line"></i>
-                                <i class="ri-eye-2-line"></i>
-                                <div class="error">
-                                    비밀번호를 확인해주세요. <br />
-                                    (비밀번호는 6글자 이상입니다.)
-                                </div>
-                            </div>
-                            <div class="btn_box">
-                                <button id="login_btn">로그인</button>
-                            </div>
-                            <div class='btn_sns_login'>
+          <ul class="tab">
+            <li class="on">
+              <a href="javascript:void(0)">로그인</a>
+            </li>
+
+            <li><a href="../join/join.html">회원가입</a></li>
+          </ul>
+
+          <form id="login_form">
+            <fieldset>
+              <legend>로그인</legend>
+              <div class="input_box">
+                <label for="login">E-MAIL</label>
+                <input
+                  type="text"
+                  id="login"
+                  class="login_inputText"
+                  placeholder="E-MAIL"
+                />
+                <div class="error">이메일을 확인해주세요.</div>
+              </div>
+              <div class="input_box">
+                <label for="password">PASSWORD</label>
+                <input
+                  type="password"
+                  id="password"
+                  class="login_inputText"
+                  placeholder="PASSWORD"
+                />
+                <i class="ri-eye-close-line"></i>
+                <i class="ri-eye-2-line"></i>
+                <div class="error">
+                  비밀번호를 확인해주세요. <br />
+                  (비밀번호는 6글자 이상입니다.)
+                </div>
+              </div>
+              <div class="btn_box">
+                <button id="login_btn">로그인</button>
+              </div>
+              <!-- <div class='btn_sns_login'>
                                 <div id="g_id_onload" data-client_id="563377459908-vdlu3khs2spdopuprrmlvkjbpo91mb8j.apps.googleusercontent.com"
                                     data-login_uri="https://ticketwantit.kro.kr/" data-auto_prompt="false">
                                 </div>
                                 <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
                                     data-shape="rectangular" data-logo_alignment="left">
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="login_etc">
-                                <a class="button" href="../join/join.html"
-                                    >회원가입</a
-                                >
-                                <a
-                                    class="button"
-                                    href="../findPassword/initializePassword.html"
-                                    >비밀번호 찾기</a
-                                >
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </div>
+              <div class="login_etc">
+                <a class="button" href="../join/join.html">회원가입</a>
+                <a class="button" href="../findPassword/initializePassword.html"
+                  >비밀번호 찾기</a
+                >
+              </div>
+            </fieldset>
+          </form>
         </div>
-        <footer>
-            <div class="inner w1140">
-                <div class="footer_top">
-                    <div class="left">
-                        <div class="logo">
-                            <img src="/asset/icons/logo_b.png" alt="" />
-                        </div>
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>개인정보처리방침</span></a
-                                >
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>이용약관</span></a
-                                >
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><span>이용안내</span></a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="right">
-                        <ul>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><i class="ri-instagram-line"></i
-                                ></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><i class="ri-gitlab-fill"></i
-                                ></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"
-                                    ><i class="ri-github-fill"></i
-                                ></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="footer_info">
-                    <ul>
-                        <li>
-                            <div class="customer_center">
-                                <strong>CUSTOMER SUPPORT CENTER</strong>
-                                <span>
-                                    <i class="ri-customer-service-line"></i>
-                                    <a href="tel:전화번호">02-1234-5678</a>
-                                </span>
-                            </div>
-                            <div class="kakaotalk">
-                                <strong>KAKAOTALK</strong>
-                                <span
-                                    ><i class="ri-kakao-talk-fill"></i
-                                    ><a href="javascript:void(0)"
-                                        >TICKET ONEIT!</a
-                                    >
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="operating_hours">
-                                <strong>OPERATING HOURS</strong>
-                                <p>
-                                    MON - FRI AM 09:30 - PM 05:30<br />
-                                    LUNCH PM 12:00 - 1:00<br />
-                                    SAT, SUN, HOLIDAY OFF
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="accout_info">
-                                <strong>ACCOUNT INFORMATION</strong>
-                                <p>
-                                    신한은행 12345678900<br />
-                                    예금주 (주)티켓원잇
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="company_info">
-                                <strong>COMPANY INFORMATION</strong>
-                                <p>
-                                    회사 : 주식회사 티켓원잇<br />
-                                    팀장 : 윤우정 <br />
-                                    팀원 : 김윤중, 유하영, 이민영, 이성호,
-                                    정혜린<br />
-                                    사업자등록번호 : [123-12-12345]<br />
-                                    주소 : (04799)서울 성동구 아차산로17길 48<br />
-                                    제휴문의 : 엘리스 / contact@elice.io
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer_etc">
-                    <p>
-                        Copyright ⓒ 2023 - 2023 Ticket One It Inc. All Rights
-                        Reserved.
-                    </p>
-                </div>
+      </div>
+    </div>
+    <footer>
+      <div class="inner w1140">
+        <div class="footer_top">
+          <div class="left">
+            <div class="logo">
+              <img src="/asset/icons/logo_b.png" alt="" />
             </div>
-        </footer>
-    </body>
+            <ul>
+              <li>
+                <a href="javascript:void(0)"><span>개인정보처리방침</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"><span>이용약관</span></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"><span>이용안내</span></a>
+              </li>
+            </ul>
+          </div>
+          <div class="right">
+            <ul>
+              <li>
+                <a href="javascript:void(0)"
+                  ><i class="ri-instagram-line"></i
+                ></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"><i class="ri-gitlab-fill"></i></a>
+              </li>
+              <li>
+                <a href="javascript:void(0)"><i class="ri-github-fill"></i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer_info">
+          <ul>
+            <li>
+              <div class="customer_center">
+                <strong>CUSTOMER SUPPORT CENTER</strong>
+                <span>
+                  <i class="ri-customer-service-line"></i>
+                  <a href="tel:전화번호">02-1234-5678</a>
+                </span>
+              </div>
+              <div class="kakaotalk">
+                <strong>KAKAOTALK</strong>
+                <span
+                  ><i class="ri-kakao-talk-fill"></i
+                  ><a href="javascript:void(0)">TICKET ONEIT!</a>
+                </span>
+              </div>
+            </li>
+            <li>
+              <div class="operating_hours">
+                <strong>OPERATING HOURS</strong>
+                <p>
+                  MON - FRI AM 09:30 - PM 05:30<br />
+                  LUNCH PM 12:00 - 1:00<br />
+                  SAT, SUN, HOLIDAY OFF
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="accout_info">
+                <strong>ACCOUNT INFORMATION</strong>
+                <p>
+                  신한은행 12345678900<br />
+                  예금주 (주)티켓원잇
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="company_info">
+                <strong>COMPANY INFORMATION</strong>
+                <p>
+                  회사 : 주식회사 티켓원잇<br />
+                  팀장 : 윤우정 <br />
+                  팀원 : 김윤중, 유하영, 이민영, 이성호, 정혜린<br />
+                  사업자등록번호 : [123-12-12345]<br />
+                  주소 : (04799)서울 성동구 아차산로17길 48<br />
+                  제휴문의 : 엘리스 / contact@elice.io
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="footer_etc">
+          <p>Copyright ⓒ 2023 - 2023 Ticket One It Inc. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
 </html>
