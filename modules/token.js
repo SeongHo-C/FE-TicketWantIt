@@ -8,8 +8,11 @@ function getRefreshToken() {
   return localStorage.getItem('refreshToken');
 }
 
-function saveToken(accessToken, refreshToken) {
+function saveToken(accessToken) {
   localStorage.setItem('token', accessToken);
+}
+
+function saveRefreshToken(refreshToken) {
   localStorage.setItem('refreshToken', refreshToken);
 }
 
@@ -29,7 +32,7 @@ function isTokenExpired() {
 
 async function tokenRefresh() {
   try {
-    const token = localStorage.getItem('refreshToken');
+    const token = getRefreshToken();
 
     const response = await axios.get(`${URL}/api/auth`, {
       headers: {
@@ -37,8 +40,8 @@ async function tokenRefresh() {
       },
     });
 
-    const { accessToken, refreshToken } = response.data;
-    saveToken(accessToken, refreshToken);
+    const { accessToken } = response.data;
+    saveToken(accessToken);
   } catch (error) {
     console.log(error);
   }
@@ -48,6 +51,7 @@ export {
   getToken,
   getRefreshToken,
   saveToken,
+  saveRefreshToken,
   removeToken,
   isTokenExpired,
   tokenRefresh,

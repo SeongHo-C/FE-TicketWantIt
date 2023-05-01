@@ -1,4 +1,4 @@
-import { getToken, saveToken } from '../../modules/token.js';
+import { getToken, saveToken, saveRefreshToken } from '../../modules/token.js';
 import URL from '../../modules/server_url.js';
 import {
   togglePasswordVisibility,
@@ -54,7 +54,8 @@ const logInFunction = async (e) => {
     const { accessToken, refreshToken } = response.data;
     const { isAdmin, isTempPassword } = jwt_decode(accessToken);
 
-    saveToken(accessToken, refreshToken);
+    saveToken(accessToken);
+    saveRefreshToken(refreshToken);
 
     if (isAdmin) {
       const isConfirm = confirm('관리자 페이지로 이동하시겠습니까?');
