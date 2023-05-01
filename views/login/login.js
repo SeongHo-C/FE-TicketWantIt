@@ -1,4 +1,4 @@
-import { getToken, saveToken } from '../../modules/token.js';
+import { getToken, saveToken, saveRefreshToken } from '../../modules/token.js';
 import URL from '../../modules/server_url.js';
 import {
   togglePasswordVisibility,
@@ -34,9 +34,7 @@ const deletePasswordErrorMessage = () => {
   }
 };
 
-//로그인
-// 토큰을 받아와서 localStorage에 저장하는 함수
-const logInFunction = (e) => {
+const logInFunction = async (e) => {
   e.preventDefault();
 
   if (email.value === '') {
@@ -47,34 +45,33 @@ const logInFunction = (e) => {
     return false;
   }
 
-  axios
-    .post(`${URL}/api/auth`, {
+  try {
+    const response = await axios.post(`${URL}/api/auth`, {
       email: email.value,
       password: password.value,
-    })
-    .then((response) => {
-      const token = response.data;
-      if (jwt_decode(token).isAdmin) {
-        if (confirm('관리자 페이지로 이동하시겠습니까?')) {
-          saveToken(token);
-          window.location.href = '../admin/goods.html';
-        } else {
-          return;
-        }
-      } else if (jwt_decode(token).isTempPassword) {
-        alert(
-          '임시 비밀번호로 로그인 했습니다. 비밀번호 변경창으로 이동합니다.'
-        );
-        saveToken(token);
-        window.location.href = '../findPassword/changePassword.html';
-      } else {
-        saveToken(token);
-        window.location.href = '../../index.html';
-      }
-    })
-    .catch((error) => {
-      alert(`${error.response.data.message}`);
     });
+
+    const { accessToken, refreshToken } = response.data;
+    const { isAdmin, isTempPassword } = jwt_decode(accessToken);
+
+    saveToken(accessToken);
+    saveRefreshToken(refreshToken);
+
+    if (isAdmin) {
+      const isConfirm = confirm('관리자 페이지로 이동하시겠습니까?');
+
+      if (isConfirm) location.href = '../admin/goods.html';
+      else location.href = '../../index.html';
+    } else if (isTempPassword) {
+      alert('임시 비밀번호로 로그인 했습니다. 비밀번호 변경창으로 이동합니다.');
+
+      location.href = '../findPassword/changePassword.html';
+    } else {
+      location.href = '../../index.html';
+    }
+  } catch (error) {
+    alert(`${error.response.data.message}`);
+  }
 };
 
 email.addEventListener('input', deleteEmailErrorMessage);
