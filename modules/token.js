@@ -4,8 +4,9 @@ function getToken() {
   return localStorage.getItem('token');
 }
 
-function saveToken(token) {
-  localStorage.setItem('token', token);
+function saveToken(accessToken, refreshToken) {
+  localStorage.setItem('token', accessToken);
+  localStorage.setItem('refreshToken', refreshToken);
 }
 
 function removeToken() {
