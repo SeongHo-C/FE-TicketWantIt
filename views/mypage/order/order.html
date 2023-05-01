@@ -18,16 +18,13 @@
     <link rel="stylesheet" href="../../../css/style/style.css" />
     <link rel="stylesheet" href="../../../css/layout/mypageOrder.css" />
 
-    <script
-      src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../../../modules/header.js" defer></script>
-    <script type="module" src="../../../modules/tokenPresent.js" defer></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="
     https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
     "></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../../modules/header.js" defer></script>
+    <script type="module" src="../../../modules/tokenPresent.js" defer></script>
     <script type="module" src="order.js" defer></script>
     <title>MyPage | Ticket Want it!</title>
   </head>
@@ -85,7 +82,8 @@
         </div>
       </div>
     </header>
-    <section class="w1140">
+
+    <main class="w1140">
       <div id="container">
         <div class="side_contents">
           <ul>
@@ -102,58 +100,57 @@
             </li>
           </ul>
         </div>
+
         <div class="contents">
-          <div class="inner">
-            <div class="page_title">
-              <h2>주문 조회</h2>
-            </div>
-            <table class="order_table">
-              <colgroup>
-                <col style="width: 17%" />
-                <col style="width: 10%" />
-                <col style="width: 35%" />
-                <col style="width: 8%" />
-                <col style="width: 15%" />
-                <col style="width: 15%" />
-              </colgroup>
-              <thead>
-                <tr>
-                  <th>주문일자<br />[주문번호]</th>
-                  <th>이미지</th>
-                  <th>상품명</th>
-                  <th>수량</th>
-                  <th>구매금액</th>
-                  <th>주문현황</th>
-                </tr>
-              </thead>
-              <tbody class="order_list">
-                <tr>
-                  <td colspan="6">
-                    <p style="font-size: 1rem">주문 내역이 없습니다.</p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="page_title">
+            <h2>주문 조회</h2>
           </div>
+          <table class="order_table">
+            <colgroup>
+              <col style="width: 17%" />
+              <col style="width: 10%" />
+              <col style="width: 35%" />
+              <col style="width: 8%" />
+              <col style="width: 15%" />
+              <col style="width: 15%" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th>주문일자<br />[주문번호]</th>
+                <th>이미지</th>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>구매금액</th>
+                <th>주문현황</th>
+              </tr>
+            </thead>
+            <tbody class="order_list">
+              <tr>
+                <td colspan="6">
+                  <p style="font-size: 1rem">주문 내역이 없습니다.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-    </section>
+    </main>
 
     <form class="modal_form" action="post">
       <div id="modal" class="modal-overlay">
-        <div class="modal-window">
+        <div class="modal_window">
           <div class="close_area">
             <button><i class="ri-close-fill"></i></button>
           </div>
-          <div class="modal_title">
+          <div class="title">
             <h2>주문정보 수정</h2>
           </div>
-          <div class="wrap address_layout">
+          <div class="address_layout">
             <div class="subtitle">
               <span class="star">*</span>
               <span>배송지</span>
             </div>
-            <ul class="address_input_wrap">
+            <ul class="address_list">
               <li>
                 <input
                   type="text"
@@ -191,12 +188,12 @@
               </li>
             </ul>
           </div>
-          <div class="wrap phone_layout">
+          <div class="phone_layout">
             <div class="subtitle">
               <span class="star">*</span>
               <span>휴대전화</span>
             </div>
-            <div class="phone_input_wrap">
+            <div class="phone_input">
               <select name="phone_1" id="phone1">
                 <option value="010">010</option>
                 <option value="011">011</option>
