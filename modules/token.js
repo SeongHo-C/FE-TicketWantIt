@@ -1,7 +1,11 @@
-import instance from './axios_interceptor.js';
+import URL from './server_url.js';
 
 function getToken() {
   return localStorage.getItem('token');
+}
+
+function getRefreshToken() {
+  return localStorage.getItem('refreshToken');
 }
 
 function saveToken(accessToken, refreshToken) {
@@ -11,6 +15,7 @@ function saveToken(accessToken, refreshToken) {
 
 function removeToken() {
   localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
 }
 
 function isTokenExpired() {
@@ -24,13 +29,26 @@ function isTokenExpired() {
 
 async function tokenRefresh() {
   try {
-    const response = await instance.get('/api/auth');
-    const token = response.data;
+    const token = localStorage.getItem('refreshToken');
 
-    saveToken(token);
+    const response = await axios.get(`${URL}/api/auth`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const { accessToken, refreshToken } = response.data;
+    saveToken(accessToken, refreshToken);
   } catch (error) {
     console.log(error);
   }
 }
 
-export { getToken, saveToken, removeToken, isTokenExpired, tokenRefresh };
+export {
+  getToken,
+  getRefreshToken,
+  saveToken,
+  removeToken,
+  isTokenExpired,
+  tokenRefresh,
+};
