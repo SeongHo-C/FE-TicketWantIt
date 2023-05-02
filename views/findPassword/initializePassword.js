@@ -1,3 +1,5 @@
+import instance from '../../modules/axios_interceptor.js';
+
 const [
   id,
   email
@@ -19,18 +21,17 @@ function emailSelection() {
   }
 }
 
-const sendMail = (e) => {
+const sendMail = async (e) => {
   e.preventDefault();
-
-  axios.post('http://34.64.112.166/api/user/reset-password', {
+  try {
+    const response = await instance.post('/api/user/reset-password', {
     email: id.value + '@' + email.value
   })
-  .then((response) => {
     alert('초기화 된 비밀번호를 발송했습니다.')
-  })
-  .catch((error) => {
+  }
+  catch (error) {
     alert(`${error.response.data.message}`);
-  })
+  }
 }
 
 document.querySelector('#selectEmail').addEventListener('change', emailSelection);
