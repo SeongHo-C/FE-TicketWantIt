@@ -38,7 +38,7 @@ const userInfoModify = async () => {
     name: nameInput.value,
     zipCode: `${zipCode.value}`,
     address: `${address.value} (상세주소)${addressDetail.value}`,
-    phoneNumber: `${phoneNumber1}-${phoneNumber2}-${phoneNumber3} `
+    phoneNumber: `${phoneNumber1.value}-${phoneNumber2.value}-${phoneNumber3.value}`
   })
     alert('정보가 성공적으로 업데이트 되었습니다.');
   } 
