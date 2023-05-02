@@ -1,44 +1,21 @@
 import { isTokenExpired, tokenRefresh } from '../../modules/token.js';
 import instance from '../../modules/axios_interceptor.js';
 
-const tickets_info = JSON.parse(localStorage.getItem('ticket_order'));
+const ticketsInfo = JSON.parse(localStorage.getItem('ticket_order'));
 
 async function onLoad() {
-  for (let ticket_info of tickets_info) {
-    const ticket = createTicket(ticket_info);
-    orderList.innerHTML += ticket;
-  }
+  const tickets = ticketsInfo
+    .map((ticketInfo) => createTicket(ticketInfo))
+    .join('');
+  orderList.innerHTML = tickets;
 
-  const totalPrice = calculateTotalPrice(tickets_info);
+  const totalPrice = calculateTotalPrice(ticketsInfo);
   paymentBtn.innerHTML = `<p>${totalPrice.toLocaleString()}원 결제하기</p>`;
 
   const { zipCode, userAddress, userAddressDetail } = await getUser();
   zipCodeInput.value = zipCode;
   addrInput.value = userAddress;
   addrDetailInput.value = userAddressDetail;
-}
-
-async function getUser() {
-  const response = await instance.get('/api/user');
-  let { zipCode = '', address } = response.data;
-  let userAddress = '',
-    userAddressDetail = '';
-
-  if (address) {
-    userAddress = address.split('(상세주소)')[0].trim();
-    userAddressDetail = address.split('(상세주소)')[1].trim() || '';
-  }
-
-  return { zipCode, userAddress, userAddressDetail };
-}
-
-function calculateTotalPrice(tickets_info) {
-  const totalPrice = tickets_info.reduce(
-    (sum, { price, quantity }) => sum + price * quantity,
-    0
-  );
-
-  return totalPrice;
 }
 
 function createTicket(ticket) {
@@ -61,6 +38,35 @@ function createTicket(ticket) {
 </li>`;
 }
 
+async function getUser() {
+  try {
+    if (isTokenExpired()) await tokenRefresh();
+
+    const response = await instance.get('/api/user');
+    let { zipCode = '', address } = response.data;
+    let userAddress = '',
+      userAddressDetail = '';
+
+    if (address) {
+      userAddress = address.split('(상세주소)')[0].trim();
+      userAddressDetail = address.split('(상세주소)')[1].trim() || '';
+    }
+
+    return { zipCode, userAddress, userAddressDetail };
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function calculateTotalPrice(ticketsinfo) {
+  const totalPrice = ticketsinfo.reduce(
+    (sum, { price, quantity }) => sum + price * quantity,
+    0
+  );
+
+  return totalPrice;
+}
+
 function execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -79,7 +85,7 @@ function execDaumPostcode() {
 
 async function pay(data) {
   try {
-    if (isTokenExpired()) tokenRefresh();
+    if (isTokenExpired()) await tokenRefresh();
 
     const response = await instance.post('/api/orders', data);
 
@@ -99,7 +105,7 @@ function onDeleteCart() {
 
   if (cart.length < 1) return;
 
-  const productIds = tickets_info.map((ticket_info) => ticket_info.productId);
+  const productIds = ticketsInfo.map((ticketInfo) => ticketInfo.productId);
 
   const remainingCart = cart.filter(
     (item) => !productIds.includes(item.productId)
@@ -149,13 +155,13 @@ orderForm.addEventListener('submit', (e) => {
     return;
   }
 
-  const items = tickets_info.map((ticket_info) => {
-    const { productName, quantity, price, imageUrl } = ticket_info;
+  const items = ticketsInfo.map((ticketInfo) => {
+    const { productName, quantity, price, imageUrl } = ticketInfo;
 
     return { name: productName, quantity, price, imgUrl: imageUrl };
   });
 
-  const totalPrice = calculateTotalPrice(tickets_info);
+  const totalPrice = calculateTotalPrice(ticketsInfo);
 
   const zipCode = zipCodeInput.value;
 
