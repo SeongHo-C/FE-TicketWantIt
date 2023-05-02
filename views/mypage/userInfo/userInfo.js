@@ -2,7 +2,7 @@ import { getToken, removeToken } from '../../../modules/token.js';
 import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
-const [email, nameInput, address] = document.querySelectorAll('.userInfo');
+const [email, nameInput, address, phoneNumber] = document.querySelectorAll('.userInfo');
 
 const withdrawalButton = document.querySelector('#withdrawalButton');
 
@@ -14,6 +14,7 @@ const userInfo = async () => {
     const decodedToken = jwt_decode(token);
     email.innerHTML = decodedToken.email;
     nameInput.innerHTML = decodedToken.name;
+    //phoneNumber.innerHTML = decodedToken.phoneNumber;
 
     if (
       response.data.address === ` (상세주소)` ||
@@ -23,6 +24,18 @@ const userInfo = async () => {
     } else {
       address.innerHTML = response.data.address;
     }
+    console.log(response)
+    console.log(decodedToken)
+    /*
+    if (
+      response.data.phoneNumber === `--` ||
+      response.data.phoneNumber === undefined
+    ) {
+      address.phoneNumber = '';
+    } else {
+      address.phoneNumber = response.data.phoneNumber;
+    }
+    */
   }
   catch (error) {
     alert(`회원정보를 불러오지 못했습니다.`);
