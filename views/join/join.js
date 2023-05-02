@@ -17,7 +17,7 @@ const [passwordCheckEyesClose, confirmPasswordCheckEyesClose] =
 const [passwordCheckEyesOpen, confirmPasswordCheckEyesOpen] =
   document.querySelectorAll('.ri-eye-2-line');
 
-const joinButton = document.querySelector('#join_btn');
+const joinButton = document.querySelector('#joinBtn');
 const modal = document.querySelector('#modal');
 const closeModalButton = document.querySelector('.close_area > button');
 const emailConfirmButton = document.querySelector('#emailConfirmButton');

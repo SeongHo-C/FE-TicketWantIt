@@ -22,10 +22,10 @@ const userInfo = async () => {
     } else {
       address.innerHTML = response.data.address;
     }
-    
+    console.log(response)
     if (
       response.data.phoneNumber === `--` ||
-      response.data.phoneNumber === undefined
+      response.data.phoneNumber.value === undefined
     ) {
       phoneNumber.innerHTML = '';
     } else {

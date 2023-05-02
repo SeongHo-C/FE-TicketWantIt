@@ -19,7 +19,7 @@ const [emailError, passwordError] = document.querySelectorAll('.error');
 
 const passwordCheckEyesClose = document.querySelector('.ri-eye-close-line');
 const passwordCheckEyesOpen = document.querySelector('.ri-eye-2-line');
-const logInButton = document.querySelector('#login_btn');
+const logInButton = document.querySelector('#loginBtn');
 
 //E-mail(id) & 비밀번호 Error 숨기기
 const deleteEmailErrorMessage = () => {

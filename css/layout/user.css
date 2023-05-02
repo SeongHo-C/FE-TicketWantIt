@@ -122,11 +122,11 @@
     display: none;
 }
 
-#join_form .info {
+#joinForm .info {
     margin: 20px auto 0;
 }
 
-#join_form .info p {
+#joinForm .info p {
     font-size: 13px;
     line-height: 1.8;
     color: var(--color--black3);
