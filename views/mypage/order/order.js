@@ -3,21 +3,22 @@ import instance from '../../../modules/axios_interceptor.js';
 
 async function onLoad() {
   const response = await getOrder();
-  if (!response) return;
 
   const orderList = response.orderList;
+  if (orderList.length < 1) return;
+
   orderTableList.innerHTML = orderList.map(createOrder).join('');
 }
 
 async function getOrder() {
   try {
-    if (isTokenExpired()) tokenRefresh();
+    if (isTokenExpired()) await tokenRefresh();
 
     const response = await instance.get('/api/orders');
 
     return response.data;
   } catch (error) {
-    if (error.response.status === 404) console.log('주문 내역이 없습니다.');
+    console.log(error);
   }
 }
 
@@ -164,7 +165,7 @@ function orderModify(zipCode, deliveryAddress, deliveryPhoneNum, orderId) {
 
 async function modifyAPI(data, orderId) {
   try {
-    if (isTokenExpired()) tokenRefresh();
+    if (isTokenExpired()) await tokenRefresh();
 
     const response = await instance.put(`/api/orders/${orderId}`, data);
 
@@ -184,7 +185,7 @@ function orderCancel(orderId) {
 
 async function cancelAPI(orderId) {
   try {
-    if (isTokenExpired()) tokenRefresh();
+    if (isTokenExpired()) await tokenRefresh();
 
     const response = await instance.delete(`/api/orders/${orderId}`);
 
