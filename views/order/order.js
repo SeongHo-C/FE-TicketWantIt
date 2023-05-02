@@ -92,7 +92,7 @@ async function pay(data) {
     const { orderId } = response.data;
     onDeleteCart();
 
-    location.href = `/views/order_complete/order_complete.html?orderId=${orderId}&totalPrice=${data.totalPrice}`;
+    location.href = `/views/orderComplete/orderComplete.html?orderId=${orderId}&totalPrice=${data.totalPrice}`;
   } catch (error) {
     console.log(error);
   }
