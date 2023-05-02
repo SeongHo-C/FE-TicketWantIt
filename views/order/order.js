@@ -12,23 +12,24 @@ async function onLoad() {
   const totalPrice = calculateTotalPrice(tickets_info);
   paymentBtn.innerHTML = `<p>${totalPrice.toLocaleString()}원 결제하기</p>`;
 
-  const { zipCode, address, address_detail } = await getUser();
+  const { zipCode, userAddress, userAddressDetail } = await getUser();
   zipCodeInput.value = zipCode;
-  addressInput.value = address;
-  addressDetail.value = address_detail;
+  addrInput.value = userAddress;
+  addrDetailInput.value = userAddressDetail;
 }
 
 async function getUser() {
   const response = await instance.get('/api/user');
-  let { zipCode = '', address = '' } = response.data;
-  let address_detail = '';
+  let { zipCode = '', address } = response.data;
+  let userAddress = '',
+    userAddressDetail = '';
 
   if (address) {
-    address = address.split('(상세주소)')[0];
-    address_detail = address.split('(상세주소)')[1] || '';
+    userAddress = address.split('(상세주소)')[0].trim();
+    userAddressDetail = address.split('(상세주소)')[1].trim() || '';
   }
 
-  return { zipCode, address, address_detail };
+  return { zipCode, userAddress, userAddressDetail };
 }
 
 function calculateTotalPrice(tickets_info) {
@@ -69,9 +70,9 @@ function execDaumPostcode() {
       else addr = data.jibunAddress;
 
       zipCodeInput.value = data.zonecode;
-      addressInput.value = addr;
+      addrInput.value = addr;
 
-      addressDetail.focus();
+      addrDetailInput.focus();
     },
   }).open();
 }
@@ -112,8 +113,8 @@ const orderList = document.querySelector('.order_list');
 const addressSearchBtn = document.querySelector('#addressSearchBtn');
 const paymentBtn = document.querySelector('.payment_button');
 const zipCodeInput = document.querySelector('.zip-code');
-const addressInput = document.querySelector('.address');
-const addressDetail = document.querySelector('.address_detail');
+const addrInput = document.querySelector('.address');
+const addrDetailInput = document.querySelector('.address_detail');
 const orderForm = document.querySelector('form');
 
 window.addEventListener('load', () => {
