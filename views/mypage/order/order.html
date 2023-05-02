@@ -1,311 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="/asset/icons/favicon.ico"
-      type="image/x-icon"
-    />
-    <link rel="icon" href="/asset/icons/favicon.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-    />
-    <link rel="stylesheet" href="../../../css/style/reset.css" />
-    <link rel="stylesheet" href="../../../css/style/style.css" />
-    <link rel="stylesheet" href="../../../css/layout/mypageOrder.css" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="shortcut icon"
+            href="/asset/icons/favicon.ico"
+            type="image/x-icon"
+        />
+        <link rel="icon" href="/asset/icons/favicon.ico" type="image/x-icon" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
+        />
+        <link rel="stylesheet" href="../../../css/style/reset.css" />
+        <link rel="stylesheet" href="../../../css/style/style.css" />
+        <link rel="stylesheet" href="../../../css/layout/mypage.css" />
+        <link rel="stylesheet" href="../../../css/layout/modal.css" />
 
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script src="
     https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
     "></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../../../modules/header.js" defer></script>
-    <script type="module" src="../../../modules/tokenPresent.js" defer></script>
-    <script type="module" src="order.js" defer></script>
-    <title>MyPage | Ticket Want it!</title>
-  </head>
-  <body>
-    <header>
-      <div class="header">
-        <div class="inner w1140">
-          <div class="left">
-            <div class="logo">
-              <a href="/index.html"
-                ><img src="/asset/icons/logo_c.png" alt="헤더로고"
-              /></a>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="../../../modules/header.js" defer></script>
+        <script
+            type="module"
+            src="../../../modules/tokenPresent.js"
+            defer
+        ></script>
+        <script type="module" src="order.js" defer></script>
+        <title>MyPage | Ticket Want it!</title>
+    </head>
+    <body>
+        <header>
+            <div class="header">
+                <div class="inner w1140">
+                    <div class="left">
+                        <div class="logo">
+                            <a href="/index.html"
+                                ><img
+                                    src="/asset/icons/logo_c.png"
+                                    alt="헤더로고"
+                            /></a>
+                        </div>
+                        <nav>
+                            <ul></ul>
+                        </nav>
+                    </div>
+                    <div class="right">
+                        <ul class="menu">
+                            <li class="menu_icon login">
+                                <a href="javascript:void(0)">
+                                    <div>
+                                        <i class="ri-login-circle-line"></i>
+                                    </div>
+                                    <span>LOGIN</span>
+                                </a>
+                            </li>
+                            <li class="menu_icon logout dn">
+                                <a href="javascript:void(0)">
+                                    <div>
+                                        <i class="ri-login-circle-line"></i>
+                                    </div>
+                                    <span>LOGOUT</span>
+                                </a>
+                            </li>
+                            <li class="menu_icon mypage">
+                                <a href="javascript:void(0)">
+                                    <div>
+                                        <i class="ri-user-3-line"></i>
+                                    </div>
+                                    <span>MYPAGE</span>
+                                </a>
+                            </li>
+                            <li class="menu_icon cart">
+                                <p class="cart_num">0</p>
+                                <a href="javascript:void(0)">
+                                    <div>
+                                        <i class="ri-shopping-cart-line"></i>
+                                    </div>
+                                    <span>CART</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <nav>
-              <ul></ul>
-            </nav>
-          </div>
-          <div class="right">
-            <ul class="menu">
-              <li class="menu_icon login">
-                <a href="javascript:void(0)">
-                  <div>
-                    <i class="ri-login-circle-line"></i>
-                  </div>
-                  <span>LOGIN</span>
-                </a>
-              </li>
-              <li class="menu_icon logout dn">
-                <a href="javascript:void(0)">
-                  <div>
-                    <i class="ri-login-circle-line"></i>
-                  </div>
-                  <span>LOGOUT</span>
-                </a>
-              </li>
-              <li class="menu_icon mypage">
-                <a href="javascript:void(0)">
-                  <div>
-                    <i class="ri-user-3-line"></i>
-                  </div>
-                  <span>MYPAGE</span>
-                </a>
-              </li>
-              <li class="menu_icon cart">
-                <p class="cart_num">0</p>
-                <a href="javascript:void(0)">
-                  <div>
-                    <i class="ri-shopping-cart-line"></i>
-                  </div>
-                  <span>CART</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </header>
+        </header>
 
-    <main class="w1140">
-      <div id="container">
-        <div class="side_contents">
-          <ul>
-            <li>
-              <a href="../userInfo/userInfo.html"><span>회원 정보</span></a>
-            </li>
-            <li>
-              <a href="../userInfoModify/userInfoModify.html"
-                ><span>회원정보 수정</span></a
-              >
-            </li>
-            <li>
-              <a href="./order.html"><span id="active">주문 조회</span></a>
-            </li>
-          </ul>
-        </div>
+        <section class="w1140">
+            <div id="container">
+                <div class="side_contents">
+                    <ul>
+                        <li>
+                            <a href="../userInfo/userInfo.html"
+                                ><span>회원 정보</span></a
+                            >
+                        </li>
+                        <li>
+                            <a href="../userInfoModify/userInfoModify.html"
+                                ><span>회원정보 수정</span></a
+                            >
+                        </li>
+                        <li>
+                            <a href="./order.html"
+                                ><span id="active">주문 조회</span></a
+                            >
+                        </li>
+                    </ul>
+                </div>
 
-        <div class="contents">
-          <div class="page_title">
-            <h2>주문 조회</h2>
-          </div>
-          <table class="order_table">
-            <colgroup>
-              <col style="width: 17%" />
-              <col style="width: 10%" />
-              <col style="width: 35%" />
-              <col style="width: 8%" />
-              <col style="width: 15%" />
-              <col style="width: 15%" />
-            </colgroup>
-            <thead>
-              <tr>
-                <th>주문일자<br />[주문번호]</th>
-                <th>이미지</th>
-                <th>상품명</th>
-                <th>수량</th>
-                <th>구매금액</th>
-                <th>주문현황</th>
-              </tr>
-            </thead>
-            <tbody class="order_list">
-              <tr>
-                <td colspan="6">
-                  <p style="font-size: 1rem">주문 내역이 없습니다.</p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </main>
+                <div class="contents">
+                    <div class="page_title">
+                        <h2>주문 조회</h2>
+                    </div>
+                    <table class="order_table">
+                        <colgroup>
+                            <col style="width: 17%" />
+                            <col style="width: 10%" />
+                            <col style="width: 35%" />
+                            <col style="width: 8%" />
+                            <col style="width: 15%" />
+                            <col style="width: 15%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>주문일자<br />[주문번호]</th>
+                                <th>이미지</th>
+                                <th>상품명</th>
+                                <th>수량</th>
+                                <th>구매금액</th>
+                                <th>주문현황</th>
+                            </tr>
+                        </thead>
+                        <tbody class="order_list">
+                            <tr>
+                                <td colspan="6">
+                                    <p style="font-size: 1rem">
+                                        주문 내역이 없습니다.
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
 
-    <form class="modal_form" action="post">
-      <div id="modal" class="modal-overlay">
-        <div class="modal_window">
-          <div class="close_area">
-            <button><i class="ri-close-fill"></i></button>
-          </div>
-          <div class="title">
-            <h2>주문정보 수정</h2>
-          </div>
-          <div class="address_layout">
-            <div class="subtitle">
-              <span class="star">*</span>
-              <span>배송지</span>
+        <form class="modal_form" action="post">
+            <div id="modal" class="modal-overlay">
+                <div class="modal_window">
+                    <div class="close_area">
+                        <button><i class="ri-close-fill"></i></button>
+                    </div>
+                    <div class="title">
+                        <h2>주문정보 수정</h2>
+                    </div>
+                    <div class="address_layout">
+                        <div class="subtitle">
+                            <span class="star">*</span>
+                            <span>배송지</span>
+                        </div>
+                        <ul class="address_list">
+                            <li>
+                                <input
+                                    type="text"
+                                    id="zipCode"
+                                    class="zip-code"
+                                    placeholder="우편번호"
+                                    readonly
+                                />
+                                <input
+                                    type="button"
+                                    id="addressSearchBtn"
+                                    class="address_search_btn"
+                                    value="주소 검색"
+                                />
+                            </li>
+                            <li>
+                                <input
+                                    type="text"
+                                    name="address"
+                                    id="address"
+                                    class="address"
+                                    placeholder="주소"
+                                    readonly
+                                    required
+                                />
+                            </li>
+                            <li>
+                                <input
+                                    type="text"
+                                    name="addressDetail"
+                                    id="addressDetail"
+                                    class="address_detail"
+                                    placeholder="상세주소"
+                                />
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="phone_layout">
+                        <div class="subtitle">
+                            <span class="star">*</span>
+                            <span>휴대전화</span>
+                        </div>
+                        <div class="phone_input">
+                            <select name="phone_1" id="phone1">
+                                <option value="010">010</option>
+                                <option value="011">011</option>
+                                <option value="016">016</option>
+                                <option value="017">017</option>
+                                <option value="018">018</option>
+                                <option value="019">019</option>
+                            </select>
+                            -
+                            <input
+                                type="text"
+                                name="phone_2"
+                                id="phone2"
+                                maxlength="4"
+                            />
+                            -
+                            <input
+                                type="text"
+                                name="phone_3"
+                                id="phone3"
+                                maxlength="4"
+                            />
+                        </div>
+                    </div>
+                    <div class="modal_modify">
+                        <button>수정하기</button>
+                    </div>
+                </div>
             </div>
-            <ul class="address_list">
-              <li>
-                <input
-                  type="text"
-                  id="zipCode"
-                  class="zip-code"
-                  placeholder="우편번호"
-                  readonly
-                />
-                <input
-                  type="button"
-                  id="addressSearchBtn"
-                  class="address_search_btn"
-                  value="주소 검색"
-                />
-              </li>
-              <li>
-                <input
-                  type="text"
-                  name="address"
-                  id="address"
-                  class="address"
-                  placeholder="주소"
-                  readonly
-                  required
-                />
-              </li>
-              <li>
-                <input
-                  type="text"
-                  name="addressDetail"
-                  id="addressDetail"
-                  class="address_detail"
-                  placeholder="상세주소"
-                />
-              </li>
-            </ul>
-          </div>
-          <div class="phone_layout">
-            <div class="subtitle">
-              <span class="star">*</span>
-              <span>휴대전화</span>
-            </div>
-            <div class="phone_input">
-              <select name="phone_1" id="phone1">
-                <option value="010">010</option>
-                <option value="011">011</option>
-                <option value="016">016</option>
-                <option value="017">017</option>
-                <option value="018">018</option>
-                <option value="019">019</option>
-              </select>
-              -
-              <input type="text" name="phone_2" id="phone2" maxlength="4" />
-              -
-              <input type="text" name="phone_3" id="phone3" maxlength="4" />
-            </div>
-          </div>
-          <div class="modal_modify">
-            <button>수정하기</button>
-          </div>
-        </div>
-      </div>
-    </form>
+        </form>
 
-    <footer>
-      <div class="inner w1140">
-        <div class="footer_top">
-          <div class="left">
-            <div class="logo">
-              <img src="/asset/icons/logo_b.png" alt="" />
+        <footer>
+            <div class="inner w1140">
+                <div class="footer_top">
+                    <div class="left">
+                        <div class="logo">
+                            <img src="/asset/icons/logo_b.png" alt="" />
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)"
+                                    ><span>개인정보처리방침</span></a
+                                >
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"
+                                    ><span>이용약관</span></a
+                                >
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"
+                                    ><span>이용안내</span></a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="right">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)"
+                                    ><i class="ri-instagram-line"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"
+                                    ><i class="ri-gitlab-fill"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)"
+                                    ><i class="ri-github-fill"></i
+                                ></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer_info">
+                    <ul>
+                        <li>
+                            <div class="customer_center">
+                                <strong>CUSTOMER SUPPORT CENTER</strong>
+                                <span>
+                                    <i class="ri-customer-service-line"></i>
+                                    <a href="tel:전화번호">02-1234-5678</a>
+                                </span>
+                            </div>
+                            <div class="kakaotalk">
+                                <strong>KAKAOTALK</strong>
+                                <span
+                                    ><i class="ri-kakao-talk-fill"></i
+                                    ><a href="javascript:void(0)"
+                                        >TICKET ONEIT!</a
+                                    >
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="operating_hours">
+                                <strong>OPERATING HOURS</strong>
+                                <p>
+                                    MON - FRI AM 09:30 - PM 05:30<br />
+                                    LUNCH PM 12:00 - 1:00<br />
+                                    SAT, SUN, HOLIDAY OFF
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="accout_info">
+                                <strong>ACCOUNT INFORMATION</strong>
+                                <p>
+                                    신한은행 12345678900<br />
+                                    예금주 (주)티켓원잇
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="company_info">
+                                <strong>COMPANY INFORMATION</strong>
+                                <p>
+                                    회사 : 주식회사 티켓원잇<br />
+                                    팀장 : 윤우정 <br />
+                                    팀원 : 김윤중, 유하영, 이민영, 이성호,
+                                    정혜린<br />
+                                    사업자등록번호 : [123-12-12345]<br />
+                                    주소 : (04799)서울 성동구 아차산로17길 48<br />
+                                    제휴문의 : 엘리스 / contact@elice.io
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer_etc">
+                    <p>
+                        Copyright ⓒ 2023 - 2023 Ticket One It Inc. All Rights
+                        Reserved.
+                    </p>
+                </div>
             </div>
-            <ul>
-              <li>
-                <a href="javascript:void(0)"><span>개인정보처리방침</span></a>
-              </li>
-              <li>
-                <a href="javascript:void(0)"><span>이용약관</span></a>
-              </li>
-              <li>
-                <a href="javascript:void(0)"><span>이용안내</span></a>
-              </li>
-            </ul>
-          </div>
-          <div class="right">
-            <ul>
-              <li>
-                <a href="javascript:void(0)"
-                  ><i class="ri-instagram-line"></i
-                ></a>
-              </li>
-              <li>
-                <a href="javascript:void(0)"><i class="ri-gitlab-fill"></i></a>
-              </li>
-              <li>
-                <a href="javascript:void(0)"><i class="ri-github-fill"></i></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer_info">
-          <ul>
-            <li>
-              <div class="customer_center">
-                <strong>CUSTOMER SUPPORT CENTER</strong>
-                <span>
-                  <i class="ri-customer-service-line"></i>
-                  <a href="tel:전화번호">02-1234-5678</a>
-                </span>
-              </div>
-              <div class="kakaotalk">
-                <strong>KAKAOTALK</strong>
-                <span
-                  ><i class="ri-kakao-talk-fill"></i
-                  ><a href="javascript:void(0)">TICKET ONEIT!</a>
-                </span>
-              </div>
-            </li>
-            <li>
-              <div class="operating_hours">
-                <strong>OPERATING HOURS</strong>
-                <p>
-                  MON - FRI AM 09:30 - PM 05:30<br />
-                  LUNCH PM 12:00 - 1:00<br />
-                  SAT, SUN, HOLIDAY OFF
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="accout_info">
-                <strong>ACCOUNT INFORMATION</strong>
-                <p>
-                  신한은행 12345678900<br />
-                  예금주 (주)티켓원잇
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="company_info">
-                <strong>COMPANY INFORMATION</strong>
-                <p>
-                  회사 : 주식회사 티켓원잇<br />
-                  팀장 : 윤우정 <br />
-                  팀원 : 김윤중, 유하영, 이민영, 이성호, 정혜린<br />
-                  사업자등록번호 : [123-12-12345]<br />
-                  주소 : (04799)서울 성동구 아차산로17길 48<br />
-                  제휴문의 : 엘리스 / contact@elice.io
-                </p>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="footer_etc">
-          <p>Copyright ⓒ 2023 - 2023 Ticket One It Inc. All Rights Reserved.</p>
-        </div>
-      </div>
-    </footer>
-  </body>
+        </footer>
+    </body>
 </html>
