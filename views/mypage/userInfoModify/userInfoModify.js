@@ -2,7 +2,8 @@ import { getToken } from '../../../modules/token.js';
 import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
-const [nameInput, zipCode, address, addressDetail] =
+const [nameInput, zipCode, address, addressDetail,
+  phoneNumber1, phoneNumber2, phoneNumber3] =
   document.querySelectorAll('.userInfoInput');
 
 const email = document.querySelector('#email');
@@ -31,20 +32,21 @@ function execDaumPostcode() {
 
 //유저 정보 수정
 const userInfoModify = async () => {
-  if (isTokenExpired()) tokenRefresh();
+  if (isTokenExpired()) await tokenRefresh();
   try {
     await instance.put('/api/user', {
-      name: nameInput.value,
-      zipCode: `${zipCode.value}`,
-      address: `${address.value} (상세주소)${addressDetail.value}`,
-    })
-      alert('정보가 성공적으로 업데이트 되었습니다.');
-    } 
-  catch (error)  {
-      console.log(error);
-      alert(`${error.response.data.message}`);
-    };
-  }
+    name: nameInput.value,
+    zipCode: `${zipCode.value}`,
+    address: `${address.value} (상세주소)${addressDetail.value}`,
+    phoneNumber: `${phoneNumber1}-${phoneNumber2}-${phoneNumber3} `
+  })
+    alert('정보가 성공적으로 업데이트 되었습니다.');
+  } 
+catch (error)  {
+    console.log(error);
+    alert(`${error.response.data.message}`);
+  };
+}
 
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);

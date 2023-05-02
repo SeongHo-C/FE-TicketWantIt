@@ -93,7 +93,7 @@ let isAuth = false;
 //이메일 인증번호 일치여부
 const matchEmailConfirm = async () => {
   try {
-    const response = await instance.post(`/api/user/emailAuth`, {
+      await instance.post(`/api/user/emailAuth`, {
       email: id.value + '@' + email.value,
     })
       const token = localStorage.getItem('authCode');

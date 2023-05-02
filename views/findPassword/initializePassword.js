@@ -24,7 +24,7 @@ function emailSelection() {
 const sendMail = async (e) => {
   e.preventDefault();
   try {
-    const response = await instance.post('/api/user/reset-password', {
+    await instance.post('/api/user/reset-password', {
     email: id.value + '@' + email.value
   })
     alert('초기화 된 비밀번호를 발송했습니다.')
