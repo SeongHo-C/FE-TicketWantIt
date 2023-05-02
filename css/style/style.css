@@ -42,9 +42,6 @@
 }
 
 #container {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
     margin: 0 0 200px;
 }
 
@@ -300,4 +297,33 @@ footer .inner {
     height: 8px;
     background: var(--color--blue1);
     border-radius: 50%;
+}
+
+/* button_layout */
+
+.border {
+    border-radius: 5px;
+}
+
+.btn_box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn_box * {
+    flex: 1;
+}
+
+.btn_box .button_bw {
+    background: var(--color--white);
+    border: 1px solid var(--color--blue2);
+    color: var(--color--blue2);
+}
+
+.btn_box .button_bb {
+    background: var(--color--blue2);
+    border: 1px solid var(--color--blue2);
+    color: var(--color--white);
 }
