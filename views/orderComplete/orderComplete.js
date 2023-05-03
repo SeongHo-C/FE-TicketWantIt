@@ -1,16 +1,18 @@
+import { getToken } from '../../modules/token.js';
+
 function onLoad(orderId, totalPrice) {
-  orderCompleteNum.innerHTML += `<p>${orderId}</p>`;
-  orderCompleteMoney.innerHTML += `<p>${totalPrice.toLocaleString()}원</p>`;
+  orderNumber.innerHTML += `<p>${orderId}</p>`;
+  orderMoney.innerHTML += `<p>${totalPrice.toLocaleString()}원</p>`;
 }
 
-const orderCompleteNum = document.querySelector('.order_complete_number');
-const orderCompleteMoney = document.querySelector('.order_complete_money');
+const orderNumber = document.querySelector('.order_number');
+const orderMoney = document.querySelector('.order_money');
 const orderDetailCheckBtn = document.querySelector(
   '.order_detail_check > button'
 );
 
 window.addEventListener('load', () => {
-  const url = new URL(window.location.href);
+  const url = new URL(location.href);
   const urlParams = url.searchParams;
 
   const orderId = urlParams.get('orderId');
@@ -20,7 +22,7 @@ window.addEventListener('load', () => {
 });
 
 orderDetailCheckBtn.addEventListener('click', () => {
-  const token = localStorage.getItem('token');
+  const token = getToken();
 
   if (!token) {
     location.href = '/views/login/login.html';

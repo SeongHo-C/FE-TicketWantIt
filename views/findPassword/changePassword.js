@@ -1,5 +1,4 @@
 import { getToken, removeToken } from '../../modules/token.js';
-import URL from '../../modules/server_url.js';
 import {
   togglePasswordVisibility,
   togglePasswordInvisibility,
@@ -28,9 +27,9 @@ const [
 
 const passwordChangeButton = document.querySelector('#passwordChangeButton');
 
-const changePassword = (e) => {
+const changePassword = async (e) => {
   e.preventDefault();
-  if (isTokenExpired()) tokenRefresh();
+  if (isTokenExpired()) await tokenRefresh();
 
   if (currentPassword.value.length < 6) {
     currentPasswordError.style.display = 'block';
@@ -42,16 +41,13 @@ const changePassword = (e) => {
     confirmPasswordError.style.display = 'block';
     return false;
   }
-
-  instance
-    .post(
-      `${URL}/api/user/change-password`,
+  try {
+  const response = await instance.post(`/api/user/change-password`,
       {
         currentPassword: currentPassword.value,
         password: password.value,
       }
     )
-    .then((response) => {
       if (response.status === 400) {
         currentPasswordError.style.display = 'block';
       } else {
@@ -60,10 +56,10 @@ const changePassword = (e) => {
         window.location.href = '../login/login.html';
         alert('비밀번호 변경이 완료되었습니다. 다시 로그인해주세요.');
       }
-    })
-    .catch((error) => {
+    }
+    catch (error) {
       alert(`${error.response.data.message}`);
-    });
+    };
 };
 
 currentPasswordCheckEyesClose.addEventListener('click', () => {

@@ -7,20 +7,21 @@
     <link
       rel="shortcut icon"
       href="/asset/icons/favicon.ico"
-      type="image/x-icon" />
+      type="image/x-icon"
+    />
     <link rel="icon" href="/asset/icons/favicon.ico" type="image/x-icon" />
-
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
-      rel="stylesheet" />
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../../css/style/reset.css" />
     <link rel="stylesheet" href="../../css/style/style.css" />
     <link rel="stylesheet" href="../../css/layout/orderComplete.css" />
 
-    <script src="order_complete.js" defer></script>
     <script src="../../modules/header.js" defer></script>
     <script type="module" src="../../modules/tokenPresent.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="orderComplete.js" defer></script>
     <title>Order Complete | Ticket Want it!</title>
   </head>
   <body>
@@ -78,12 +79,11 @@
       </div>
     </header>
 
-    <section>
+    <main>
       <div id="container">
         <div class="contents">
           <div id="orderComplete" class="w800">
             <div class="title_area">
-              <!-- <i class="ri-shopping-bag-line"></i> -->
               <div class="logo">
                 <img src="/asset/icons/logo_c.png" alt="" />
               </div>
@@ -91,10 +91,10 @@
               <p>자세한 구매내역 확인은 주문내역에서 확인하실 수 있습니다.</p>
             </div>
             <ul class="order_complete_list">
-              <li class="order_complete_number">
+              <li class="order_number">
                 <h3>주문번호</h3>
               </li>
-              <li class="order_complete_money">
+              <li class="order_money">
                 <h3>주문금액</h3>
               </li>
             </ul>
@@ -105,7 +105,8 @@
           </div>
         </div>
       </div>
-    </section>
+    </main>
+
     <footer>
       <div class="inner w1140">
         <div class="footer_top">

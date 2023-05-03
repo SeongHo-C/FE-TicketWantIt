@@ -1,9 +1,9 @@
-import { saveToken } from '../../modules/token.js';
-import URL from '../../modules/server_url.js';
+import { saveToken, saveRefreshToken } from '../../modules/token.js';
 import {
   togglePasswordVisibility,
   togglePasswordInvisibility,
 } from '../../modules/passwordVisibility.js';
+import instance from '../../modules/axios_interceptor.js';
 
 const [id, email, nameInput, password, confirmPassword] =
   document.querySelectorAll('.join_inputText');
@@ -17,7 +17,7 @@ const [passwordCheckEyesClose, confirmPasswordCheckEyesClose] =
 const [passwordCheckEyesOpen, confirmPasswordCheckEyesOpen] =
   document.querySelectorAll('.ri-eye-2-line');
 
-const joinButton = document.querySelector('#join_btn');
+const joinButton = document.querySelector('#joinBtn');
 const modal = document.querySelector('#modal');
 const closeModalButton = document.querySelector('.close_area > button');
 const emailConfirmButton = document.querySelector('#emailConfirmButton');
@@ -73,32 +73,29 @@ confirmPassword.addEventListener('input', () => {
 });
 
 //이메일 인증번호요청
-const emailConfirm = () => {
-  axios
-    .post(`${URL}/api/user/emailAuth`, {
+const emailConfirm = async () => {
+  try {
+    const response = await instance.post(`/api/user/emailAuth`, {
       email: id.value + '@' + email.value,
     })
-    .then((response) => {
       const token = response.data;
       localStorage.setItem('authCode', token);
       alert('인증번호를 발송했습니다.');
-    })
-    .catch((error) => {
+  } catch (error) {
       console.log(error);
       alert(`${error.response.data.message}`);
       modal.style.display = 'none';
       clearInterval(tokenTimer);
-    });
+  }
 };
 
 let isAuth = false;
 //이메일 인증번호 일치여부
-const matchEmailConfirm = () => {
-  axios
-    .post(`${URL}/api/user/emailAuth`, {
+const matchEmailConfirm = async () => {
+  try {
+      await instance.post(`/api/user/emailAuth`, {
       email: id.value + '@' + email.value,
     })
-    .then((response) => {
       const token = localStorage.getItem('authCode');
       const decodedToken = jwt_decode(token);
       if (decodedToken.authCode === confirmInput.value) {
@@ -119,15 +116,15 @@ const matchEmailConfirm = () => {
         modal.style.display = 'none';
         clearInterval(tokenTimer);
       }
-    })
-    .catch((error) => {
+    }
+    catch (error) {
       console.log(error);
       alert(`${error.response.data.message}`);
-    });
+    };
 };
 
 //회원가입
-const joinFunction = (e) => {
+const joinFunction = async (e) => {
   if (isAuth) {
     e.preventDefault();
     const authToken = localStorage.getItem('authCode');
@@ -137,9 +134,8 @@ const joinFunction = (e) => {
     }
     const decodedToken = jwt_decode(authToken);
     if (decodedToken.authCode === confirmInput.value) {
-      axios
-      .post(
-        `${URL}/api/user`,
+      try {
+        const response = await instance.post(`/api/user`,
         {
           email: id.value + '@' + email.value,
           name: nameInput.value,
@@ -149,18 +145,18 @@ const joinFunction = (e) => {
           headers: {
             'Content-Type': 'application/json',
           },
-        }
-      )
-      .then((response) => {
+        })
           alert('회원가입이 완료되었습니다!');
           localStorage.removeItem('authCode', authToken);
-          const token = response.data;
-          saveToken(token);
+          const { accessToken, refreshToken } = response.data;
+          console.log(response)
+          saveToken(accessToken);
+          saveRefreshToken(refreshToken);
           window.location.href = '../../index.html';
-      })
-      .catch((error) => {
+      }
+      catch (error) {
         alert(`${error.response.data.message}`);
-    });
+    };
   } else {
       alert('이메일 인증을 먼저 진행해주세요.');
       return;

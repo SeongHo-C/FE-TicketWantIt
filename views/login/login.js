@@ -1,9 +1,9 @@
 import { getToken, saveToken, saveRefreshToken } from '../../modules/token.js';
-import URL from '../../modules/server_url.js';
 import {
   togglePasswordVisibility,
   togglePasswordInvisibility,
 } from '../../modules/passwordVisibility.js';
+import instance from '../../modules/axios_interceptor.js';
 
 window.onload = function tokenCheck() {
   const token = getToken();
@@ -19,7 +19,7 @@ const [emailError, passwordError] = document.querySelectorAll('.error');
 
 const passwordCheckEyesClose = document.querySelector('.ri-eye-close-line');
 const passwordCheckEyesOpen = document.querySelector('.ri-eye-2-line');
-const logInButton = document.querySelector('#login_btn');
+const logInButton = document.querySelector('#loginBtn');
 
 //E-mail(id) & 비밀번호 Error 숨기기
 const deleteEmailErrorMessage = () => {
@@ -46,11 +46,11 @@ const logInFunction = async (e) => {
   }
 
   try {
-    const response = await axios.post(`${URL}/api/auth`, {
+    const response = await instance.post('/api/auth', {
       email: email.value,
       password: password.value,
     });
-
+    
     const { accessToken, refreshToken } = response.data;
     const { isAdmin, isTempPassword } = jwt_decode(accessToken);
 
