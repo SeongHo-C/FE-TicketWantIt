@@ -72,11 +72,13 @@ function createTicket(ticket) {
   return `<tr id=ticket${productId}>
   <td><input type="checkbox" id=only_check${productId} name='ticket_check'/></td>
   <td>
+  <a href="/views/goods/goods_view.html?productId=${productId}">
     <img
       class="ticket_img"
       src="${imageUrl}"
       alt="상품 이미지"
     />
+  </a>
   </td>
   <td>
     <p class="ticket_title">
