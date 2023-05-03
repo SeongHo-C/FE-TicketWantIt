@@ -1,21 +1,21 @@
-let tickets_info = localStorage.getItem('cart')
+let ticketsInfo = localStorage.getItem('cart')
   ? JSON.parse(localStorage.getItem('cart'))
   : [];
 
 function onLoad() {
-  if (tickets_info.length < 1) return;
+  if (ticketsInfo.length < 1) return;
 
-  const tickets = tickets_info
-    .map((ticket_info) => createTicket(ticket_info))
+  const tickets = ticketsInfo
+    .map((ticketInfo) => createTicket(ticketInfo))
     .join('');
   ticketsList.innerHTML = tickets;
 
-  const totalPrice = calculateTotalPrice(tickets_info);
+  const totalPrice = calculateTotalPrice(ticketsInfo);
   calculateList.innerHTML = totalPrice;
 }
 
-function calculateTotalPrice(tickets_info) {
-  const totalPrice = tickets_info.reduce(
+function calculateTotalPrice(ticketsInfo) {
+  const totalPrice = ticketsInfo.reduce(
     (sum, { price, quantity }) => sum + price * quantity,
     0
   );
@@ -27,34 +27,34 @@ function calculateTotalPrice(tickets_info) {
 }
 
 function onMinus(productId) {
-  tickets_info = tickets_info.map((ticket_info) => {
-    const quantity = ticket_info.quantity;
+  ticketsInfo = ticketsInfo.map((ticketInfo) => {
+    const quantity = ticketInfo.quantity;
 
-    if (ticket_info.productId === productId) {
+    if (ticketInfo.productId === productId) {
       if (quantity <= 1) {
         alert('최소 수량은 1개 입니다.');
-        return ticket_info;
+        return ticketInfo;
       }
-      return { ...ticket_info, quantity: quantity - 1 };
+      return { ...ticketInfo, quantity: quantity - 1 };
     }
-    return ticket_info;
+    return ticketInfo;
   });
 
-  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  localStorage.setItem('cart', JSON.stringify(ticketsInfo));
   location.reload();
 }
 
 function onPlus(productId) {
-  tickets_info = tickets_info.map((ticket_info) => {
-    const quantity = ticket_info.quantity;
+  ticketsInfo = ticketsInfo.map((ticketInfo) => {
+    const quantity = ticketInfo.quantity;
 
-    if (ticket_info.productId === productId) {
-      return { ...ticket_info, quantity: quantity + 1 };
+    if (ticketInfo.productId === productId) {
+      return { ...ticketInfo, quantity: quantity + 1 };
     }
-    return ticket_info;
+    return ticketInfo;
   });
 
-  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  localStorage.setItem('cart', JSON.stringify(ticketsInfo));
   location.reload();
 }
 
@@ -121,20 +121,20 @@ function onCheckedCheckbox() {
 }
 
 function onlyOrder(productId) {
-  const ticket = tickets_info.find(
-    (ticket_info) => ticket_info.productId === productId
+  const ticket = ticketsInfo.find(
+    (ticketInfo) => ticketInfo.productId === productId
   );
 
   onNavigateOrder([ticket]);
 }
 
 function allOrder() {
-  if (tickets_info.length < 1) {
+  if (ticketsInfo.length < 1) {
     alert('장바구니에 상품이 없습니다.');
     return;
   }
 
-  onNavigateOrder(tickets_info);
+  onNavigateOrder(ticketsInfo);
 }
 
 function selectedOrder() {
@@ -145,14 +145,14 @@ function selectedOrder() {
     return;
   }
 
-  const selectedTickets = tickets_info.filter((ticket_info) =>
-    productIds.includes(ticket_info.productId)
+  const selectedTickets = ticketsInfo.filter((ticketInfo) =>
+    productIds.includes(ticketInfo.productId)
   );
 
   onNavigateOrder(selectedTickets);
 }
 
-function onNavigateOrder(tickets_info) {
+function onNavigateOrder(ticketsInfo) {
   const token = localStorage.getItem('token');
 
   if (!token) {
@@ -160,13 +160,13 @@ function onNavigateOrder(tickets_info) {
     alert('로그인 후 이용해주시기 바랍니다.');
   }
 
-  localStorage.setItem('ticket_order', JSON.stringify(tickets_info));
+  localStorage.setItem('ticket_order', JSON.stringify(ticketsInfo));
 
   location.href = '/views/order/order.html';
 }
 
 function allDelete() {
-  if (tickets_info.length < 1) {
+  if (ticketsInfo.length < 1) {
     alert('장바구니에 상품이 없습니다.');
     return;
   }
@@ -191,12 +191,12 @@ function onlyDelete(productId) {
 
 function onDelete(type, productIds) {
   if (type === 'selected')
-    tickets_info = tickets_info.filter(
-      (ticket_info) => !productIds.includes(ticket_info.productId)
+    ticketsInfo = ticketsInfo.filter(
+      (ticketInfo) => !productIds.includes(ticketInfo.productId)
     );
-  else tickets_info.length = 0;
+  else ticketsInfo.length = 0;
 
-  localStorage.setItem('cart', JSON.stringify(tickets_info));
+  localStorage.setItem('cart', JSON.stringify(ticketsInfo));
   location.reload();
 }
 
