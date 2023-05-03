@@ -1,31 +1,39 @@
-import { isTokenExpired, tokenRefresh } from '../../modules/token.js';
-import instance from '../../modules/axios_interceptor.js';
+import { isTokenExpired, tokenRefresh } from "../../modules/token.js";
+import instance from "../../modules/axios_interceptor.js";
 
-('use strict');
+("use strict");
 
 const currentDate = new Date();
-const options = { day: 'numeric', month: 'short', year: 'numeric' };
+const options = { day: "numeric", month: "short", year: "numeric" };
 const formattedDate = currentDate
-  .toLocaleDateString('en-US', options)
-  .toUpperCase();
+    .toLocaleDateString("en-US", options)
+    .toUpperCase();
 
-const date = document.querySelector('.date span');
+const date = document.querySelector(".date span");
 date.innerHTML = formattedDate;
 
 /* 주문목록 조회 */
-const orderList = document.querySelector('.order_list');
+const orderList = document.querySelector(".order_list");
 // console.log(localStorage.getItem("token"));
 async function goodsConnectApi() {
-  if (isTokenExpired()) tokenRefresh();
+    if (isTokenExpired()) await tokenRefresh();
 
-  const response = await instance.get('/api/adminOrder');
+    const response = await instance.get("/api/adminOrder");
 
-  const orders = response.data;
-  console.log(orders.orderList);
+    const orders = response.data;
+    console.log(orders.orderList);
 
-  orderList.innerHTML = orders.orderList
-    .map(
-      ({ _id, orderId, date, customerId, items, totalPrice, orderStatus }) => `
+    orderList.innerHTML = orders.orderList
+        .map(
+            ({
+                _id,
+                orderId,
+                date,
+                customerId,
+                items,
+                totalPrice,
+                orderStatus,
+            }) => `
             <li data-order="${orderId}" data-id="${_id}">
                 <div class="order_detail">
                     <div class="top">
@@ -43,13 +51,13 @@ async function goodsConnectApi() {
                             <div class="order_status">
                                 <select name="orderStatus" id="orderStatus">
                                 <option value="1" ${
-                                  orderStatus === 1 ? 'selected' : ''
+                                    orderStatus === 1 ? "selected" : ""
                                 }>주문확인</option>
                                 <option value="2" ${
-                                  orderStatus === 2 ? 'selected' : ''
+                                    orderStatus === 2 ? "selected" : ""
                                 }>배송중</option>
                                 <option value="3" ${
-                                  orderStatus === 3 ? 'selected' : ''
+                                    orderStatus === 3 ? "selected" : ""
                                 }>배송완료</option>
                                 </select>
                             </div>
@@ -73,9 +81,15 @@ async function goodsConnectApi() {
                             <div class="title">주문정보</div>
                             <ul>
                                 ${items
-                                  .map(
-                                    ({ _id, name, quantity, price, imgUrl }) =>
-                                      `<li data-order-item="${_id}">
+                                    .map(
+                                        ({
+                                            _id,
+                                            name,
+                                            quantity,
+                                            price,
+                                            imgUrl,
+                                        }) =>
+                                            `<li data-order-item="${_id}">
                                             <div class="img">
                                                 <img src=${imgUrl} alt="" />
                                             </div>
@@ -91,8 +105,8 @@ async function goodsConnectApi() {
                                                 </dl>
                                             </div>
                                         </li>`
-                                  )
-                                  .join('')}
+                                    )
+                                    .join("")}
                             </ul>
                         </div>
                     </div>
@@ -108,56 +122,64 @@ async function goodsConnectApi() {
                 </div>
             </li>
         `
-    )
-    .join('');
+        )
+        .join("");
 
-  const list = document.querySelectorAll('.order_list > li');
+    const list = document.querySelectorAll(".order_list > li");
 
-  list.forEach((li) => {
-    li.querySelector('#orderStatus').addEventListener('change', async (e) => {
-      const orderElem = e.target.closest('li');
-      const orderId = orderElem.dataset.order;
-      const orderStatus = e.target.value;
-      console.log('onchange select', orderStatus, orderId);
+    list.forEach((li) => {
+        li.querySelector("#orderStatus").addEventListener(
+            "change",
+            async (e) => {
+                const orderElem = e.target.closest("li");
+                const orderId = orderElem.dataset.order;
+                const orderStatus = e.target.value;
+                console.log("onchange select", orderStatus, orderId);
 
-      try {
-        if (isTokenExpired()) tokenRefresh();
+                try {
+                    if (isTokenExpired()) await tokenRefresh();
 
-        const response = await instance.put(
-          `/api/adminOrder/${orderId}/${orderStatus}`
+                    const response = await instance.put(
+                        `/api/adminOrder/${orderId}/${orderStatus}`
+                    );
+
+                    console.log("배송정보가 변경되었습니다:", response);
+
+                    alert("배송정보가 변경되었습니다.");
+                    location.reload();
+                } catch (error) {
+                    console.error(
+                        "배송정보 변경 중 오류가 발생했습니다:",
+                        error
+                    );
+                }
+            }
         );
-
-        console.log('배송정보가 변경되었습니다:', response);
-
-        alert('배송정보가 변경되었습니다.');
-        location.reload();
-      } catch (error) {
-        console.error('배송정보 변경 중 오류가 발생했습니다:', error);
-      }
     });
-  });
 
-  list.forEach((li) =>
-    li.querySelector('.btn_delete').addEventListener('click', async (e) => {
-      const orderElem = e.target.closest('li');
-      const orderId = orderElem.dataset.order;
+    list.forEach((li) =>
+        li.querySelector(".btn_delete").addEventListener("click", async (e) => {
+            const orderElem = e.target.closest("li");
+            const orderId = orderElem.dataset.order;
 
-      console.log(orderId);
+            console.log(orderId);
 
-      try {
-        if (isTokenExpired()) tokenRefresh();
+            try {
+                if (isTokenExpired()) await tokenRefresh();
 
-        const response = await instance.delete(`/api/adminOrder/${orderId}`);
+                const response = await instance.delete(
+                    `/api/adminOrder/${orderId}`
+                );
 
-        console.log('상품이 삭제되었습니다:', response);
+                console.log("상품이 삭제되었습니다:", response);
 
-        alert('상품이 삭제되었습니다.');
-        location.reload();
-      } catch (error) {
-        console.error('상품 삭제 중 오류가 발생했습니다:', error);
-      }
-    })
-  );
+                alert("상품이 삭제되었습니다.");
+                location.reload();
+            } catch (error) {
+                console.error("상품 삭제 중 오류가 발생했습니다:", error);
+            }
+        })
+    );
 }
 
 goodsConnectApi();
