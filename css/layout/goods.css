@@ -163,32 +163,11 @@
 }
 
 .btn_box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0 10px;
-
     margin-top: 20px;
 }
 
-.btn_box > button {
-    display: block;
-    padding: 10px 0;
-    width: 50%;
+.btn_box button {
+    height: 55px;
     font-size: 18px;
     font-weight: 600;
-    line-height: 30px;
-    cursor: pointer;
-}
-
-.btn_box > button.btn_cart {
-    background: var(--color--white);
-    border: 1px solid var(--color--black3);
-    color: var(--color--black1);
-}
-
-.btn_box > button.btn_buy {
-    background: var(--color--black1);
-    border: 1px solid var(--color--black1);
-    color: var(--color--white);
 }
