@@ -106,6 +106,33 @@ section {
 }
 
 /* 주문조회 table_layout */
+.order_info {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.order_info > ul {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.order_info li p {
+  font-size: 16px;
+}
+
+.order_info li span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color--white);
+  background-color: var(--color--black1);
+  border-radius: 50%;
+}
 
 .order_table > thead {
   background: var(--color--black1);

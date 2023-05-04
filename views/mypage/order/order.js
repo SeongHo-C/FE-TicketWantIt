@@ -8,6 +8,25 @@ async function onLoad() {
   if (orderList.length < 1) return;
 
   orderTableList.innerHTML = orderList.map(createOrder).join('');
+
+  const [ordering, shipping, deliveryCompleted] = calOrderStatus(orderList);
+  orderStatus1.textContent = ordering;
+  orderStatus2.textContent = shipping;
+  orderStatus3.textContent = deliveryCompleted;
+}
+
+function calOrderStatus(orderList) {
+  let ordering = 0,
+    shipping = 0,
+    deliveryCompleted = 0;
+
+  orderList.forEach(({ orderStatus }) => {
+    if (orderStatus === 1) ordering++;
+    else if (orderStatus === 2) shipping++;
+    else deliveryCompleted++;
+  });
+
+  return [ordering, shipping, deliveryCompleted];
 }
 
 async function getOrder() {
@@ -238,6 +257,9 @@ const addressDetail = document.querySelector('.address_detail');
 const phone1Input = document.querySelector('#phone1');
 const phone2Input = document.querySelector('#phone2');
 const phone3Input = document.querySelector('#phone3');
+const orderStatus1 = document.querySelector('#orderStatus1');
+const orderStatus2 = document.querySelector('#orderStatus2');
+const orderStatus3 = document.querySelector('#orderStatus3');
 
 window.addEventListener('load', () => {
   onLoad();
