@@ -3,18 +3,35 @@ import instance from "../../modules/axios_interceptor.js";
 
 ("use strict");
 
-const currentDate = new Date();
-const options = { day: "numeric", month: "short", year: "numeric" };
-const formattedDate = currentDate
-    .toLocaleDateString("en-US", options)
-    .toUpperCase();
-
-const date = document.querySelector(".date span");
-date.innerHTML = formattedDate;
-
 const categoryList = document.querySelector(".cate_list > ul");
+const addCategorybutton = document.querySelector(".btn_add_category");
 
-/* 상품목록리스트 */
+/* 카테고리 추가 */
+
+async function categoryAdd() {
+    const addCategoryInput = document.querySelector("#addCategory");
+    console.log(addCategoryInput.value);
+
+    if (addCategoryInput.value !== "") {
+        try {
+            if (isTokenExpired()) await tokenRefresh();
+
+            const response = await instance.post("/api/admin_category/add", {
+                category: addCategoryInput.value,
+            });
+
+            console.log("카테고리가 추가되었습니다.", response.data);
+            location.reload();
+            addCategoryInput.value = "";
+        } catch (error) {
+            console.error("카테고리가 추가에 실패했습니다", error);
+        }
+    }
+}
+
+addCategorybutton.addEventListener("click", categoryAdd);
+
+/* 카테고리 수정, 삭제 */
 async function categoryApi() {
     if (isTokenExpired()) await tokenRefresh();
 
@@ -39,7 +56,6 @@ async function categoryApi() {
         )
         .join("");
 
-    // 카테고리 추가, 삭제
     async function handleCategoryClick(e) {
         e.preventDefault();
         const categoryElem = e.target.closest("li");
@@ -95,28 +111,3 @@ async function categoryApi() {
 }
 
 categoryApi();
-
-const addCategorybutton = document.querySelector(".btn_add_category");
-
-async function categoryAdd() {
-    const addCategoryInput = document.querySelector("#addCategory");
-    console.log(addCategoryInput.value);
-
-    if (addCategoryInput.value !== "") {
-        try {
-            if (isTokenExpired()) await tokenRefresh();
-
-            const response = await instance.post("/api/admin_category/add", {
-                category: addCategoryInput.value,
-            });
-
-            console.log("카테고리가 추가되었습니다.", response.data);
-            location.reload();
-            addCategoryInput.value = "";
-        } catch (error) {
-            console.error("카테고리가 추가에 실패했습니다", error);
-        }
-    }
-}
-
-addCategorybutton.addEventListener("click", categoryAdd);
