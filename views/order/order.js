@@ -12,10 +12,17 @@ async function onLoad() {
   const totalPrice = calculateTotalPrice(ticketsInfo);
   paymentBtn.innerHTML = `<p>${totalPrice.toLocaleString()}원 결제하기</p>`;
 
-  const { zipCode, userAddress, userAddressDetail } = await getUser();
+  const { zipCode, userAddress, userAddressDetail, phoneNumber } =
+    await getUser();
   zipCodeInput.value = zipCode;
   addrInput.value = userAddress;
   addrDetailInput.value = userAddressDetail;
+
+  if (phoneNumber) {
+    phone1Input.value = phoneNumber[0];
+    phone2Input.value = phoneNumber[1];
+    phone3Input.value = phoneNumber[2];
+  }
 }
 
 function createTicket(ticket) {
@@ -52,7 +59,8 @@ async function getUser() {
     if (isTokenExpired()) await tokenRefresh();
 
     const response = await instance.get('/api/user');
-    let { zipCode = '', address } = response.data;
+
+    let { zipCode = '', address, phoneNumber = '' } = response.data;
     let userAddress = '',
       userAddressDetail = '';
 
@@ -61,7 +69,9 @@ async function getUser() {
       userAddressDetail = address.split('(상세주소)')[1].trim() || '';
     }
 
-    return { zipCode, userAddress, userAddressDetail };
+    if (phoneNumber) phoneNumber = phoneNumber.split('-');
+
+    return { zipCode, userAddress, userAddressDetail, phoneNumber };
   } catch (error) {
     console.log(error);
   }
@@ -131,6 +141,9 @@ const zipCodeInput = document.querySelector('.zip-code');
 const addrInput = document.querySelector('.address');
 const addrDetailInput = document.querySelector('.address_detail');
 const orderForm = document.querySelector('form');
+const phone1Input = document.querySelector('#phone1');
+const phone2Input = document.querySelector('#phone2');
+const phone3Input = document.querySelector('#phone3');
 
 window.addEventListener('load', () => {
   onLoad();
