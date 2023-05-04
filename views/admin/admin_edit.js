@@ -28,24 +28,24 @@ const urlParams = url.searchParams;
 const urlProductId = urlParams.get("productId");
 console.log(urlProductId);
 
-/* 카테고리 api 받아서 selectbox로 만들기 */
-async function categorySelectApi() {
-    const categorySelect = document.querySelector("#goodsCate");
-    if (isTokenExpired()) await tokenRefresh();
+// /* 카테고리 api 받아서 selectbox로 만들기 */
+// async function categorySelectApi() {
+//     const categorySelect = document.querySelector("#goodsCate");
+//     if (isTokenExpired()) await tokenRefresh();
 
-    const response = await instance.get("/api/admin_category");
+//     const response = await instance.get("/api/admin_category");
 
-    const categories = response.data;
-    console.log(categories);
+//     const categories = response.data;
+//     console.log(categories);
 
-    categorySelect.innerHTML = categories
-        .map(
-            ({ category, categoryId }) => `
-            <option data-id="${categoryId}" value="${category}">${category}</option>
-        `
-        )
-        .join("");
-}
+//     categorySelect.innerHTML = categories
+//         .map(
+//             ({ category, categoryId }) => `
+//             <option data-id="${categoryId}" value="${category}">${category}</option>
+//         `
+//         )
+//         .join("");
+// }
 
 categorySelectApi();
 
@@ -84,13 +84,16 @@ if (urlProductId !== null) {
 
         const file = await convertURLtoFile(defaultUrl);
         console.log(file);
+        // 새로운 FileList 객체를 만들고
+        const fileList = new FileList();
+        fileList.add(file);
 
         /* 가짜 file_inputbox에 url경로만 넣어주기 */
         formUrlInput.value = filteredProduct[0].imageUrl;
-        /* url을 file객체로 변환해서 실제 file_inputbox에 넣어주기 */
-        imageUrl.files[0] = file;
+        // input 요소의 값으로 FileList 객체를 설정하기.
+        imageUrl.files = fileList;
         productName.value = filteredProduct[0].productName;
-
+        category.value = filteredProduct[0].category;
         startDate.value = filteredProduct[0].startDate;
         endDate.value = filteredProduct[0].endDate;
         description.value = filteredProduct[0].description;
