@@ -3,15 +3,6 @@ import instance from "../../modules/axios_interceptor.js";
 
 ("use strict");
 
-const currentDate = new Date();
-const options = { day: "numeric", month: "short", year: "numeric" };
-const formattedDate = currentDate
-    .toLocaleDateString("en-US", options)
-    .toUpperCase();
-
-const date = document.querySelector(".date span");
-date.innerHTML = formattedDate;
-
 const imageUrl = document.querySelector("#goodsImage");
 const formUrlInput = document.querySelector(".goods_image");
 
@@ -19,13 +10,6 @@ imageUrl.addEventListener("change", function () {
     const imageValue = imageUrl.value;
     formUrlInput.value = imageValue;
 });
-
-/*
-
-상품수정 작업순서:
-1. localStorage 말고 api에서 불러오기 
-2. 수정일때 해당 product데이터의 url값으로 file[0]에 맞는 obj를 만들어서 넣어놓기
-*/
 
 const form = document.querySelector(".goods_form form");
 const updateBtn = document.querySelector('.goods_form input[type="submit"]');
@@ -44,6 +28,27 @@ const urlParams = url.searchParams;
 const urlProductId = urlParams.get("productId");
 console.log(urlProductId);
 
+// /* 카테고리 api 받아서 selectbox로 만들기 */
+// async function categorySelectApi() {
+//     const categorySelect = document.querySelector("#goodsCate");
+//     if (isTokenExpired()) await tokenRefresh();
+
+//     const response = await instance.get("/api/admin_category");
+
+//     const categories = response.data;
+//     console.log(categories);
+
+//     categorySelect.innerHTML = categories
+//         .map(
+//             ({ category, categoryId }) => `
+//             <option data-id="${categoryId}" value="${category}">${category}</option>
+//         `
+//         )
+//         .join("");
+// }
+
+categorySelectApi();
+
 if (urlProductId !== null) {
     const productModifyApi = async () => {
         if (isTokenExpired()) await tokenRefresh();
@@ -57,6 +62,7 @@ if (urlProductId !== null) {
         console.log(filteredProduct);
 
         const defaultUrl = filteredProduct[0].imageUrl;
+        console.log(defaultUrl);
 
         async function convertURLtoFile(url) {
             if (isTokenExpired()) await tokenRefresh();
@@ -78,12 +84,14 @@ if (urlProductId !== null) {
 
         const file = await convertURLtoFile(defaultUrl);
         console.log(file);
+        // 새로운 FileList 객체를 만들고
+        const fileList = new FileList();
+        fileList.add(file);
 
         /* 가짜 file_inputbox에 url경로만 넣어주기 */
         formUrlInput.value = filteredProduct[0].imageUrl;
-        /* url을 file객체로 변환해서 실제 file_inputbox에 넣어주기 */
-        imageUrl.files[0] = file;
-        /* 기타 데이터 받아와서 빈 input값에 넣어주기 */
+        // input 요소의 값으로 FileList 객체를 설정하기.
+        imageUrl.files = fileList;
         productName.value = filteredProduct[0].productName;
         category.value = filteredProduct[0].category;
         startDate.value = filteredProduct[0].startDate;
@@ -92,8 +100,6 @@ if (urlProductId !== null) {
         price.value = filteredProduct[0].price;
         speciesAge.value = filteredProduct[0].speciesAge;
         place.value = filteredProduct[0].place;
-
-        console.log(defaultUrl);
     };
 
     productModifyApi();

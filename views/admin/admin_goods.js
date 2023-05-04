@@ -3,15 +3,6 @@ import instance from "../../modules/axios_interceptor.js";
 
 ("use strict");
 
-const currentDate = new Date();
-const options = { day: "numeric", month: "short", year: "numeric" };
-const formattedDate = currentDate
-    .toLocaleDateString("en-US", options)
-    .toUpperCase();
-
-const date = document.querySelector(".date span");
-date.innerHTML = formattedDate;
-
 const productList = document.querySelector(".admin_goods .goods_list");
 
 /* 상품목록리스트 */
@@ -57,6 +48,10 @@ async function goodsListApi() {
                     <dl class="price">
                     <dt>가격</dt>
                     <dd>${price}원</dd>
+                    </dl>
+                    <dl class="cate">
+                    <dt>카테고리</dt>
+                    <dd>${category}</dd>
                     </dl>
                     <dl class="age">
                     <dt>연령제한</dt>
