@@ -158,7 +158,22 @@ function execDaumPostcode() {
 }
 
 window.orderConfirm = orderConfirm;
-function orderConfirm() {}
+async function orderConfirm(orderId) {
+  try {
+    const isConfirm = confirm('구매확정 하시겠습니까?');
+
+    if (isConfirm) {
+      if (isTokenExpired()) await tokenRefresh();
+
+      const response = await instance.put(`/api/orders/delivery/${orderId}`);
+
+      if (response) alert('구매확정이 완료되었습니다.');
+      location.reload();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 window.orderModify = orderModify;
 function orderModify(zipCode, deliveryAddress, deliveryPhoneNum, orderId) {
