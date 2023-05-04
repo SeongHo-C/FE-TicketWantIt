@@ -24,11 +24,11 @@ async function getOrder() {
 
 function createOrder(orderData) {
   const {
+    createdAt,
     items,
     orderId,
     orderStatus,
     zipCode,
-    date,
     deliveryAddress = '모르는 주소',
     deliveryPhoneNum = '없는 번호',
   } = orderData;
@@ -37,7 +37,7 @@ function createOrder(orderData) {
     .map((item, idx) => {
       if (idx === 0)
         return firstItemTemplate(
-          date,
+          createdAt,
           item,
           orderId,
           orderStatus,
@@ -52,7 +52,7 @@ function createOrder(orderData) {
 }
 
 function firstItemTemplate(
-  date,
+  createdAt,
   item,
   orderId,
   orderStatus,
@@ -62,6 +62,7 @@ function firstItemTemplate(
   deliveryPhoneNum
 ) {
   const {
+    productId,
     name,
     quantity,
     price,
@@ -71,13 +72,15 @@ function firstItemTemplate(
 
   return `<tr>
               <td rowspan=${num}>
-                <p>${date}<br />[${orderId}]</p>
+                <p>${createdAt.split('T')[0]}<br />[${orderId}]</p>
               </td>
               <td>
-                <img
-                  src=${imgUrl}
-                  alt="상품 이미지"
-                />
+                <a href="/views/goods/goods_view.html?productId=${productId}">
+                  <img
+                    src=${imgUrl}
+                    alt="상품 이미지"
+                  />
+                </a>
               </td>
               <td class="product_info">
                 <p>${name}</p>
@@ -100,6 +103,7 @@ function firstItemTemplate(
 
 function extraItemTemplate(item) {
   const {
+    productId,
     name,
     quantity,
     price,
@@ -108,10 +112,12 @@ function extraItemTemplate(item) {
 
   return ` <tr>
           <td>
-          <img
-            src=${imgUrl}
-            alt="상품 이미지"
-          />
+            <a href="/views/goods/goods_view.html?productId=${productId}">
+              <img
+                src=${imgUrl}
+                alt="상품 이미지"
+              />
+            </a>
           </td>
           <td class="product_info">
             <p>${name}</p>
@@ -126,7 +132,8 @@ function extraItemTemplate(item) {
 function getOrderStatus(orderStatus) {
   if (orderStatus === 1) return '주문중';
   else if (orderStatus === 2) return '배송중';
-  else return '배송 완료';
+  else if (orderStatus === 3) return '배송완료';
+  else return '구매확정';
 }
 
 function execDaumPostcode() {
