@@ -1,24 +1,29 @@
-import instance from '../../modules/axios_interceptor.js';
+import URL from '../../modules/server_url.js';
 
 let productViewItem;
+let quantity = 1;
 
-async function main() {
+async function onLoad() {
   try {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(location.search);
     const productId = urlParams.get('productId');
 
-    const response = await instance.get(
-      `/api/product/detail?productId=${productId}`
+    const response = await axios.get(
+      `${URL}/api/product/detail?productId=${productId}`
     );
     productViewItem = response.data;
 
     productView.innerHTML = createView(productViewItem);
 
     const addCartBtn = document.querySelector('.btn_box > .btn_cart');
-    addCartBtn.onclick = onAddCart;
-
     const directBuyBtn = document.querySelector('.btn_box > .btn_buy');
+    const minusBtn = document.querySelector('.ticket_quantity > .minus_btn');
+    const plusBtn = document.querySelector('.ticket_quantity > .plus_btn');
+
+    addCartBtn.onclick = onAddCart;
     directBuyBtn.onclick = onDirectBuy;
+    minusBtn.addEventListener('click', () => onCount('minus'));
+    plusBtn.addEventListener('click', () => onCount('plus'));
   } catch (error) {
     console.log(error);
   }
@@ -64,10 +69,19 @@ function createView(data) {
                         <dd>${place}</dd>
                     </dl>
                 </div>
+                <div class="ticket_quantity">
+                    <button class="minus_btn">
+                        <span></span>
+                    </button>
+                    <input type="text" value=${quantity} readonly/>
+                    <button class="plus_btn">
+                        <span></span>
+                    </button>
+                </div>
             </div>
             <div class="btn_box">
-                <button class="btn_cart">장바구니</button>
-                <button class="btn_buy">바로구매</button>
+                <button class="btn_cart button_dw border">장바구니</button>
+                <button class="btn_buy button_dd border">바로구매</button>
             </div>
         </div>
     `;
@@ -117,6 +131,23 @@ function onNavigateOrder(ticket) {
   location.href = '../order/order.html';
 }
 
+function onCount(type) {
+  const quantityInput = document.querySelector('.ticket_quantity > input');
+
+  if (type === 'minus') {
+    if (quantity <= 1) {
+      alert('상품의 최소 수량은 1개입니다.');
+      return;
+    }
+
+    quantity -= 1;
+    quantityInput.value = quantity;
+  } else {
+    quantity += 1;
+    quantityInput.value = quantity;
+  }
+}
+
 function createTicket() {
   const { productId, imageUrl, productName, place, speciesAge, price } =
     productViewItem;
@@ -128,12 +159,12 @@ function createTicket() {
     place,
     speciesAge,
     price,
-    quantity: 1,
+    quantity,
   };
 }
 
 const productView = document.querySelector('.goods_detail');
 
 window.addEventListener('load', () => {
-  main();
+  onLoad();
 });

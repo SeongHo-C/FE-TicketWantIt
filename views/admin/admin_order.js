@@ -3,20 +3,11 @@ import instance from '../../modules/axios_interceptor.js';
 
 ('use strict');
 
-const currentDate = new Date();
-const options = { day: 'numeric', month: 'short', year: 'numeric' };
-const formattedDate = currentDate
-  .toLocaleDateString('en-US', options)
-  .toUpperCase();
-
-const date = document.querySelector('.date span');
-date.innerHTML = formattedDate;
-
 /* 주문목록 조회 */
 const orderList = document.querySelector('.order_list');
 // console.log(localStorage.getItem("token"));
 async function goodsConnectApi() {
-  if (isTokenExpired()) tokenRefresh();
+  if (isTokenExpired()) await tokenRefresh();
 
   const response = await instance.get('/api/adminOrder');
 
@@ -25,14 +16,22 @@ async function goodsConnectApi() {
 
   orderList.innerHTML = orders.orderList
     .map(
-      ({ _id, orderId, date, customerId, items, totalPrice, orderStatus }) => `
+      ({
+        _id,
+        orderId,
+        createdAt,
+        customerId,
+        items,
+        totalPrice,
+        orderStatus,
+      }) => `
             <li data-order="${orderId}" data-id="${_id}">
                 <div class="order_detail">
                     <div class="top">
                         <div class="left">
                             <div>
                                 <strong>주문일자</strong>
-                                <span>${date.slice(0, 10)}</span>
+                                <span>${createdAt.split('T')[0]}</span>
                             </div>
                             <div>
                                 <strong>주문번호</strong>
@@ -121,7 +120,7 @@ async function goodsConnectApi() {
       console.log('onchange select', orderStatus, orderId);
 
       try {
-        if (isTokenExpired()) tokenRefresh();
+        if (isTokenExpired()) await tokenRefresh();
 
         const response = await instance.put(
           `/api/adminOrder/${orderId}/${orderStatus}`
@@ -145,7 +144,7 @@ async function goodsConnectApi() {
       console.log(orderId);
 
       try {
-        if (isTokenExpired()) tokenRefresh();
+        if (isTokenExpired()) await tokenRefresh();
 
         const response = await instance.delete(`/api/adminOrder/${orderId}`);
 

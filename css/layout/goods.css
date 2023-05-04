@@ -1,194 +1,254 @@
 #container {
-    min-height: 500px;
+  min-height: 500px;
 }
 
 #goods {
-    padding: 120px 20px 0;
+  padding: 120px 20px 0;
 }
 
 .goods_list ul {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 30px 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 30px 12px;
 }
 
 .goods_list ul li {
-    display: inline-block;
-    width: calc(25% - 9px);
+  display: inline-block;
+  width: calc(25% - 9px);
 }
 
 .goods_list ul li .img_box {
-    width: 266px;
-    height: 266px;
-    overflow: hidden;
+  width: 266px;
+  height: 266px;
+  overflow: hidden;
 }
 .goods_list ul li .img_box img {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 .goods_list .info_box {
-    display: block;
-    margin: 15px 0 0;
+  display: block;
+  margin: 15px 0 0;
 }
 
 .goods_list .info_box > * {
-    display: block;
+  display: block;
 }
 
 .goods_list .info_box .goods_date {
-    margin-bottom: 5px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color--black3);
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color--black3);
 }
 
 .goods_list .info_box .goods_tit {
-    margin-bottom: 5px;
-    width: 100%;
-    min-height: 48px;
-    font-size: 16px;
-    font-weight: 700;
+  margin-bottom: 5px;
+  width: 100%;
+  min-height: 48px;
+  font-size: 16px;
+  font-weight: 700;
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
 }
 
 .goods_list .info_box .goods_pri {
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--color--red);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color--red);
 }
 
 /* goods_view.html */
 .goods_detail {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    gap: 0 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 0 50px;
 }
 
 .goods_detail > div {
-    flex: 0.5;
+  flex: 0.5;
 }
 
 .goods_detail > div.img_box {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .goods_detail > div.img_box img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .goods_detail .info_box {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-left: 30px;
-    border-left: 2px solid var(--color--black1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 30px;
+  border-left: 2px solid var(--color--black1);
 }
 
 .goods_detail .info_box .ticket_info {
-    flex: 1;
+  flex: 1;
 }
 
 .goods_detail .info_box .top {
-    margin: 0 0 20px;
+  margin: 0 0 20px;
 }
 
 .goods_detail .info_box .date {
-    display: block;
-    padding: 0 0 20px;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--color--black3);
+  display: block;
+  padding: 0 0 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color--black3);
 }
 
 .goods_detail .info_box .title {
-    display: block;
-    padding: 0 0 5px;
-    width: 100%;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 1px;
+  display: block;
+  padding: 0 0 5px;
+  width: 100%;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .goods_detail .info_box .description {
-    display: block;
-    font-size: 16px;
-    color: var(--color--black3);
-    word-break: keep-all;
+  display: block;
+  font-size: 16px;
+  color: var(--color--black3);
+  word-break: keep-all;
 }
 
 .goods_detail .info_box .price {
-    margin: 30px 0;
+  margin: 30px 0;
 
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--color--red);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color--red);
 }
 
 .goods_detail .detail_info {
-    margin: 0 0 30px;
+  margin: 0 0 30px;
 }
 
 .goods_detail .detail_info dl:last-child {
-    padding: 0;
+  padding: 0;
 }
 .goods_detail .detail_info dl {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 0 5px;
-    width: 100%;
-    font-size: 16px;
-    color: var(--color--black2);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 0 5px;
+  width: 100%;
+  font-size: 16px;
+  color: var(--color--black2);
 }
 
 .goods_detail .detail_info dl dt {
-    display: block;
-    padding-right: 10px;
-    min-width: 100px;
-    font-weight: 500;
+  display: block;
+  padding-right: 10px;
+  min-width: 100px;
+  font-weight: 500;
 }
 
 .btn_box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0 10px;
-
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-.btn_box > button {
-    display: block;
-    padding: 10px 0;
-    width: 50%;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 30px;
-    cursor: pointer;
+.btn_box button {
+  height: 55px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
-.btn_box > button.btn_cart {
-    background: var(--color--white);
-    border: 1px solid var(--color--black3);
-    color: var(--color--black1);
+.ticket_quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.btn_box > button.btn_buy {
-    background: var(--color--black1);
-    border: 1px solid var(--color--black1);
-    color: var(--color--white);
+.ticket_quantity input {
+  display: block;
+  width: 80%;
+  height: 50px;
+  font-size: 18px;
+  border: none;
+  border-top: 1px solid var(--color--black4);
+  border-bottom: 1px solid var(--color--black4);
+  outline: none;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.ticket_quantity button span {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ticket_quantity button {
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 50px;
+  height: 50px;
+  background: var(--color--black1);
+  border: none;
+  font-size: 16px;
+  color: var(--color--white);
+  outline: none;
+  cursor: pointer;
+  transition: all 300ms ease-in;
+}
+
+.ticket_quantity button:hover {
+  opacity: 0.8;
+}
+
+.ticket_quantity > .minus_btn span::after {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 1px;
+  background: var(--color--white);
+}
+
+.ticket_quantity > .plus_btn span::after {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 1px;
+  background: var(--color--white);
+}
+
+.ticket_quantity > .plus_btn span::before {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 12px;
+  background: var(--color--white);
 }

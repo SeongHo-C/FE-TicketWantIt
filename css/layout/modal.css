@@ -14,139 +14,11 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#modal > .modal-window {
-    position: absolute;
-    display: block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
-    width: 400px;
-    background: var(--color--white);
-    border-radius: 5px;
-}
-
-.close_area {
-    display: flex;
-    justify-content: flex-end;
-}
-
-.close_area > button {
-    padding: 0;
-
-    background: transparent;
-    border: 0;
-    outline: none;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: all 300ms ease-in;
-}
-
-.close_area > button:hover {
-    transform: scale(1.05);
-    color: var(--color--red);
-}
-
-.modal_title {
-    display: block;
-    padding: 0 0 10px;
-    margin: 0 0 20px;
-    border-bottom: 1px solid var(--color--black1);
-    text-align: center;
-}
-
-.modal_title h2 {
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.confirm_input_wrap {
-    display: block;
-    padding: 20px 0;
-}
-
-#confirmInput {
-    display: inline-block;
-    padding: 0px 15px;
-    width: 74%;
-    border: 1px solid var(--color--black3);
-    border-radius: 3px;
-    height: 40px;
-    box-sizing: border-box;
-}
-
-.modal_modify {
-    display: inline-block;
-    width: 24%;
-}
-
-.modal_modify > button {
-    width: 100%;
-    height: 40px;
-    background: var(--color--black3);
-    border: none;
-    border-radius: 3px;
-
-    color: var(--color--white);
-
-    transition: all 100ms ease-in;
-    box-sizing: border-box;
-    outline: none;
-    cursor: pointer;
-}
-
-.modal_modify > button:hover {
-    background-color: var(--color--black1);
-}
-
-#timer {
-    display: block;
-    padding: 10px 10px 0;
-    margin: auto;
-    color: red;
-}
-
-#modal {
-    display: none;
-    justify-content: center;
-    align-items: center;
-
-    width: 100%;
-    height: 100%;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* 팀장님께 물어볼 것! modal_window */
-/* 선택자 물어볼 것! */
 .modal_window {
-    position: absolute;
-    display: block;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     padding: 20px;
     width: 400px;
     background: var(--color--white);
     border-radius: 5px;
-}
-
-.modal_window .title {
-    display: block;
-    padding: 0 0 10px;
-    margin: 0 0 20px;
-    border-bottom: 1px solid var(--color--black1);
-    text-align: center;
-}
-
-.modal_window .title h2 {
-    font-size: 20px;
-    font-weight: 600;
 }
 
 .close_area {
@@ -154,30 +26,63 @@
     justify-content: flex-end;
 }
 
-.close_area > button {
-    padding: 0;
-
+.close_area button {
     background: transparent;
-    border: 0;
-    outline: none;
-    cursor: pointer;
     font-size: 1.2rem;
-    transition: all 300ms ease-in;
 }
 
-.close_area > button:hover {
-    transform: scale(1.05);
-    color: var(--color--red);
+.title {
+    display: block;
+    padding: 0 0 10px;
+    margin: 0 0 20px;
+    border-bottom: 1px solid var(--color--black1);
+    text-align: center;
+}
+
+.title h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modal_window .subtitle {
+    padding: 10px 10px 0;
 }
 
 .star {
     color: var(--color--red);
 }
 
-.modal_window .subtitle {
-    padding: 0.5rem;
+#modal input[type="text"] {
+    padding: 0px 10px;
+    width: 100%;
+    height: 42px;
+    border: 1px solid #dadada;
+    border-radius: 3px;
 }
 
+.modal_modify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0 10px;
+    gap: 10px;
+}
+
+.modal_modify button {
+    width: 50%;
+    height: 40px;
+    background: var(--color--black1);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color--white);
+    transition: background 300ms ease-in;
+}
+
+.modal_modify button:hover {
+    background: var(--color--blue2);
+}
+
+/* 주문정보 수정 모달 */
 .address_list {
     display: flex;
     flex-direction: column;
@@ -185,27 +90,15 @@
     padding: 1rem;
 }
 
-.address_list > li {
+.address_list li {
     padding: 0 0 10px;
 }
 
-.address_list > li > input {
-    height: 40px;
-
-    vertical-align: middle;
-    border: 1px solid #dadada;
-    padding: 0px 15px;
-}
-
-.address_list .address_search_btn {
-    background-color: var(--color--white);
-    outline: none;
-    cursor: pointer;
-}
-
-.address_list .address,
-.address_list .address_detail {
-    width: 100%;
+.address_list li:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
 }
 
 .phone_input {
@@ -213,41 +106,42 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    gap: 2px;
 }
 
-#phone1,
-#phone2,
-#phone3 {
-    padding: 0px 15px;
-    width: 100px;
-    height: 40px;
+.phone_input * {
+    flex: 0.3;
+}
+
+#phone1 {
+    padding: 0px 10px;
+    height: 42px;
     border: 1px solid #dadada;
+    border-radius: 3px;
 }
 
-#phone2,
-#phone3 {
+/* 이메일 인증 모달 */
+
+.confirm_input_wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    padding: 20px 20px 0;
+}
+
+#confirmButton {
     width: 100px;
-}
-
-.modal_modify {
-    margin: 0.25rem 0;
-    text-align: center;
-}
-
-.modal_modify > button {
-    width: 50%;
-    height: 40px;
-    background: var(--color--black3);
+    height: 42px;
+    background: var(--color--black1);
     font-size: 16px;
     font-weight: 500;
     color: var(--color--white);
-
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: all 300ms ease-in;
 }
 
-.modal_modify > button:hover {
-    background-color: var(--color--black2);
+#timer {
+    display: block;
+    padding: 20px 20px 0;
+    margin: auto;
+    color: red;
 }
