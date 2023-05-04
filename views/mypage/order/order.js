@@ -97,6 +97,11 @@ function firstItemTemplate(
                   <button class="cancel_button" onclick="orderCancel('${orderId}')">취소하기</button>`
                     : ''
                 }
+                ${
+                  orderStatus === '배송완료'
+                    ? `<button class="confirm_button" onclick="orderConfirm('${orderId}')">구매확정</button>`
+                    : ''
+                }
               </td>
             </tr>`;
 }
@@ -151,6 +156,9 @@ function execDaumPostcode() {
     },
   }).open();
 }
+
+window.orderConfirm = orderConfirm;
+function orderConfirm() {}
 
 window.orderModify = orderModify;
 function orderModify(zipCode, deliveryAddress, deliveryPhoneNum, orderId) {
