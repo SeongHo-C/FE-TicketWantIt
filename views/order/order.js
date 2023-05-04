@@ -165,9 +165,9 @@ orderForm.addEventListener('submit', (e) => {
   }
 
   const items = ticketsInfo.map((ticketInfo) => {
-    const { productName, quantity, price, imageUrl } = ticketInfo;
+    const { productId, productName, quantity, price, imageUrl } = ticketInfo;
 
-    return { name: productName, quantity, price, imgUrl: imageUrl };
+    return { productId, name: productName, quantity, price, imgUrl: imageUrl };
   });
 
   const totalPrice = calculateTotalPrice(ticketsInfo);

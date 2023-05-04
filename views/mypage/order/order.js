@@ -8,6 +8,25 @@ async function onLoad() {
   if (orderList.length < 1) return;
 
   orderTableList.innerHTML = orderList.map(createOrder).join('');
+
+  const [ordering, shipping, deliveryCompleted] = calOrderStatus(orderList);
+  orderStatus1.textContent = ordering;
+  orderStatus2.textContent = shipping;
+  orderStatus3.textContent = deliveryCompleted;
+}
+
+function calOrderStatus(orderList) {
+  let ordering = 0,
+    shipping = 0,
+    deliveryCompleted = 0;
+
+  orderList.forEach(({ orderStatus }) => {
+    if (orderStatus === 1) ordering++;
+    else if (orderStatus === 2) shipping++;
+    else deliveryCompleted++;
+  });
+
+  return [ordering, shipping, deliveryCompleted];
 }
 
 async function getOrder() {
@@ -24,11 +43,11 @@ async function getOrder() {
 
 function createOrder(orderData) {
   const {
+    createdAt,
     items,
     orderId,
     orderStatus,
     zipCode,
-    date,
     deliveryAddress = '모르는 주소',
     deliveryPhoneNum = '없는 번호',
   } = orderData;
@@ -37,7 +56,7 @@ function createOrder(orderData) {
     .map((item, idx) => {
       if (idx === 0)
         return firstItemTemplate(
-          date,
+          createdAt,
           item,
           orderId,
           orderStatus,
@@ -52,7 +71,7 @@ function createOrder(orderData) {
 }
 
 function firstItemTemplate(
-  date,
+  createdAt,
   item,
   orderId,
   orderStatus,
@@ -62,6 +81,7 @@ function firstItemTemplate(
   deliveryPhoneNum
 ) {
   const {
+    productId,
     name,
     quantity,
     price,
@@ -71,13 +91,15 @@ function firstItemTemplate(
 
   return `<tr>
               <td rowspan=${num}>
-                <p>${date}<br />[${orderId}]</p>
+                <p>${createdAt.split('T')[0]}<br />[${orderId}]</p>
               </td>
               <td>
-                <img
-                  src=${imgUrl}
-                  alt="상품 이미지"
-                />
+                <a href="/views/goods/goods_view.html?productId=${productId}">
+                  <img
+                    src=${imgUrl}
+                    alt="상품 이미지"
+                  />
+                </a>
               </td>
               <td class="product_info">
                 <p>${name}</p>
@@ -94,12 +116,18 @@ function firstItemTemplate(
                   <button class="cancel_button" onclick="orderCancel('${orderId}')">취소하기</button>`
                     : ''
                 }
+                ${
+                  orderStatus === '배송완료'
+                    ? `<button class="confirm_button" onclick="orderConfirm('${orderId}')">구매확정</button>`
+                    : ''
+                }
               </td>
             </tr>`;
 }
 
 function extraItemTemplate(item) {
   const {
+    productId,
     name,
     quantity,
     price,
@@ -108,10 +136,12 @@ function extraItemTemplate(item) {
 
   return ` <tr>
           <td>
-          <img
-            src=${imgUrl}
-            alt="상품 이미지"
-          />
+            <a href="/views/goods/goods_view.html?productId=${productId}">
+              <img
+                src=${imgUrl}
+                alt="상품 이미지"
+              />
+            </a>
           </td>
           <td class="product_info">
             <p>${name}</p>
@@ -126,7 +156,8 @@ function extraItemTemplate(item) {
 function getOrderStatus(orderStatus) {
   if (orderStatus === 1) return '주문중';
   else if (orderStatus === 2) return '배송중';
-  else return '배송 완료';
+  else if (orderStatus === 3) return '배송완료';
+  else return '구매확정';
 }
 
 function execDaumPostcode() {
@@ -143,6 +174,24 @@ function execDaumPostcode() {
       addressDetail.focus();
     },
   }).open();
+}
+
+window.orderConfirm = orderConfirm;
+async function orderConfirm(orderId) {
+  try {
+    const isConfirm = confirm('구매확정 하시겠습니까?');
+
+    if (isConfirm) {
+      if (isTokenExpired()) await tokenRefresh();
+
+      const response = await instance.put(`/api/orders/delivery/${orderId}`);
+
+      if (response) alert('구매확정이 완료되었습니다.');
+      location.reload();
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 window.orderModify = orderModify;
@@ -208,6 +257,9 @@ const addressDetail = document.querySelector('.address_detail');
 const phone1Input = document.querySelector('#phone1');
 const phone2Input = document.querySelector('#phone2');
 const phone3Input = document.querySelector('#phone3');
+const orderStatus1 = document.querySelector('#orderStatus1');
+const orderStatus2 = document.querySelector('#orderStatus2');
+const orderStatus3 = document.querySelector('#orderStatus3');
 
 window.addEventListener('load', () => {
   onLoad();

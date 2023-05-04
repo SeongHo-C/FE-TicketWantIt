@@ -1,201 +1,229 @@
 #container {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 section {
-    padding: 120px 30px 0;
+  padding: 120px 30px 0;
 }
 
 #active {
-    color: var(--color--blue2);
-    font-weight: bold;
+  color: var(--color--blue2);
+  font-weight: bold;
 }
 
 .side_contents {
-    display: block;
-    width: 200px;
-    padding: 75px 0 0;
+  display: block;
+  width: 200px;
+  padding: 75px 0 0;
 }
 
 .side_contents ul {
-    display: block;
-    padding: 30px 0 30px 30px;
-    height: 100%;
-    border: 1px solid var(--color--black4);
-    border-top: 2px solid var(--color--black1);
+  display: block;
+  padding: 30px 0 30px 30px;
+  height: 100%;
+  border: 1px solid var(--color--black4);
+  border-top: 2px solid var(--color--black1);
 }
 
 .side_contents li {
-    display: block;
-    padding: 10px 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--color--black1);
+  display: block;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color--black1);
 }
 
 .contents {
-    padding-left: 50px;
+  padding-left: 50px;
 }
 
 /* 회원정보 table_layout */
 
 .userInfo_table {
-    display: table;
-    margin: 0 auto;
-    width: 80%;
+  display: table;
+  margin: 0 auto;
+  width: 80%;
 }
 
 .userInfo_table * {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .userInfo_table > thead {
-    border-top: 2px solid var(--color--black1);
-    border-bottom: 1px solid var(--color--black4);
+  border-top: 2px solid var(--color--black1);
+  border-bottom: 1px solid var(--color--black4);
 }
 
 .userInfo_table td {
-    padding: 20px 5px;
-    font-size: 16px;
-    border-bottom: 1px solid var(--color--black4);
-    text-align: center;
+  padding: 20px 5px;
+  font-size: 16px;
+  border-bottom: 1px solid var(--color--black4);
+  text-align: center;
 }
 
 .userInfo_table td:first-child {
-    width: 25%;
-    background: var(--background--gray1);
-    font-size: 16px;
-    font-weight: 600;
+  width: 25%;
+  background: var(--background--gray1);
+  font-size: 16px;
+  font-weight: 600;
 }
 
 /* 회원정보 수정 table_layout */
 
-.userInfo_table td input[type="text"] {
-    padding: 0 10px;
-    width: 350px;
-    height: 42px;
-    border: 1px solid var(--color--black4);
-    border-radius: 3px;
-    font-size: 14px;
+.userInfo_table td input[type='text'] {
+  padding: 0 10px;
+  width: 350px;
+  height: 42px;
+  border: 1px solid var(--color--black4);
+  border-radius: 3px;
+  font-size: 14px;
 }
 
 .userInfo_table .address_input_wrap li {
-    padding: 0 0 5px;
+  padding: 0 0 5px;
 }
 
 .userInfo_table .address_input_wrap li:first-child input.userInfoInput {
-    width: calc(350px - 75px);
+  width: calc(350px - 75px);
 }
 
 .userInfo_table .userInfoInput.phone_number {
-    width: calc(350px / 3);
+  width: calc(350px / 3);
 }
 
 .address_search_btn {
-    position: relative;
-    width: 72px;
-    height: 42px;
-    background-color: var(--color--white);
-    border: 1px solid var(--color--black2);
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: -0.5px;
-    cursor: pointer;
+  position: relative;
+  width: 72px;
+  height: 42px;
+  background-color: var(--color--white);
+  border: 1px solid var(--color--black2);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+  cursor: pointer;
 }
 
 /* 주문조회 table_layout */
+.order_info {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.order_info > ul {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.order_info li p {
+  font-size: 16px;
+}
+
+.order_info li span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color--white);
+  background-color: var(--color--black1);
+  border-radius: 50%;
+}
 
 .order_table > thead {
-    background: var(--color--black1);
+  background: var(--color--black1);
 }
 
 .order_table > thead > tr > th {
-    padding: 10px 15px;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--color--white);
-    vertical-align: middle;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color--white);
+  vertical-align: middle;
 }
 
 .order_table > tbody > tr > td {
-    padding: 20px 5px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 14px;
-    border-bottom: 1px solid var(--color--black4);
+  padding: 20px 5px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  border-bottom: 1px solid var(--color--black4);
 }
 
 .order_table > tbody > tr > td:first-child p {
-    font-size: 14px;
-    font-weight: 500;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .order_table > tbody img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-    overflow: hidden;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  overflow: hidden;
 }
 
 .order_table > tbody .product_info p {
-    font-size: 14px;
-    font-weight: 600;
-    word-break: keep-all;
+  font-size: 14px;
+  font-weight: 600;
+  word-break: keep-all;
 }
 
 .order_table > tbody .order_price p {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--color--red);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color--red);
 }
 
 .order_table > tbody .order_status p {
-    display: block;
-    padding: 0 0 10px;
-    font-size: 16px;
-    font-weight: 600;
+  display: block;
+  padding: 0 0 10px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .order_status > button {
-    padding: 0.4rem 0.6rem;
-    margin: 0.2rem 0;
-    width: 6rem;
-    outline: none;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 500;
-    transition: background 0.1s ease-in-out;
+  padding: 0.4rem 0.6rem;
+  margin: 0.2rem 0;
+  width: 6rem;
+  outline: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: background 0.1s ease-in-out;
 }
 
-.order_status > button.modify_button {
-    background: var(--color--black1);
-    color: var(--color--white);
+.order_status > button.modify_button,
+.order_status > button.confirm_button {
+  background: var(--color--black1);
+  color: var(--color--white);
 }
 
 .order_status > button.cancel_button {
-    background-color: white;
-    border: 0.5px solid var(--color--black4);
+  background-color: white;
+  border: 0.5px solid var(--color--black4);
 }
 
 .btn_box {
-    margin: 0 auto;
-    padding: 50px 0 0;
-    width: 50%;
+  margin: 0 auto;
+  padding: 50px 0 0;
+  width: 50%;
 }
 
 .btn_box > button,
 .btn_box > a {
-    height: 50px;
-    font-size: 18px;
-    font-weight: 500;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 #warning {
-    display: block;
-    padding: 30px 0 0;
-    font-size: 13px;
-    color: var(--color--blue2);
-    text-align: center;
+  display: block;
+  padding: 30px 0 0;
+  font-size: 13px;
+  color: var(--color--blue2);
+  text-align: center;
 }
