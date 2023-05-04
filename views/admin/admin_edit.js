@@ -87,7 +87,6 @@ if (urlProductId !== null) {
         // 새로운 FileList 객체를 만들고
         const fileList = new DataTransfer();
         fileList.items.add(file);
-        imageUrl.files = fileList.files;
 
         productName.value = filteredProduct[0].productName;
         category.value = filteredProduct[0].category;
@@ -101,7 +100,8 @@ if (urlProductId !== null) {
         /* 가짜 file_inputbox에 url경로만 넣어주기 */
         formUrlInput.value = filteredProduct[0].imageUrl;
         // input 요소의 값으로 FileList 객체를 설정하기.
-        imageUrl.files = fileList;
+        // imageUrl.files = fileList;
+        imageUrl.files = fileList.files;
     };
 
     productModifyApi();
