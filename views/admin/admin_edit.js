@@ -47,7 +47,7 @@ console.log(urlProductId);
 //         .join("");
 // }
 
-categorySelectApi();
+// categorySelectApi();
 
 if (urlProductId !== null) {
     const productModifyApi = async () => {
@@ -88,10 +88,6 @@ if (urlProductId !== null) {
         const fileList = new FileList();
         fileList.add(file);
 
-        /* 가짜 file_inputbox에 url경로만 넣어주기 */
-        formUrlInput.value = filteredProduct[0].imageUrl;
-        // input 요소의 값으로 FileList 객체를 설정하기.
-        imageUrl.files = fileList;
         productName.value = filteredProduct[0].productName;
         category.value = filteredProduct[0].category;
         startDate.value = filteredProduct[0].startDate;
@@ -100,6 +96,11 @@ if (urlProductId !== null) {
         price.value = filteredProduct[0].price;
         speciesAge.value = filteredProduct[0].speciesAge;
         place.value = filteredProduct[0].place;
+
+        /* 가짜 file_inputbox에 url경로만 넣어주기 */
+        formUrlInput.value = filteredProduct[0].imageUrl;
+        // input 요소의 값으로 FileList 객체를 설정하기.
+        imageUrl.files = fileList;
     };
 
     productModifyApi();
