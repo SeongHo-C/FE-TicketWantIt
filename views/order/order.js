@@ -19,14 +19,23 @@ async function onLoad() {
 }
 
 function createTicket(ticket) {
-  const { imageUrl, productName, place, price, quantity = 1 } = ticket;
+  const {
+    productId,
+    imageUrl,
+    productName,
+    place,
+    price,
+    quantity = 1,
+  } = ticket;
 
   return `<li class="ticket">
-  <img
-    class="ticket_img"
-    src=${imageUrl}
-    alt="상품 이미지"
-  />
+  <a href="/views/goods/goods_view.html?productId=${productId}">
+    <img
+      class="ticket_img"
+      src=${imageUrl}
+      alt="상품 이미지"
+    />
+  </a>
   <div class="ticket_info">
     <h2>${productName}</h2>
     <div class="ticket_sub_info">

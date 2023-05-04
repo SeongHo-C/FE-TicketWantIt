@@ -1,41 +1,41 @@
-import { isTokenExpired, tokenRefresh } from '../../modules/token.js';
-import instance from '../../modules/axios_interceptor.js';
+import { isTokenExpired, tokenRefresh } from "../../modules/token.js";
+import instance from "../../modules/axios_interceptor.js";
 
-('use strict');
+("use strict");
 
 const currentDate = new Date();
-const options = { day: 'numeric', month: 'short', year: 'numeric' };
+const options = { day: "numeric", month: "short", year: "numeric" };
 const formattedDate = currentDate
-  .toLocaleDateString('en-US', options)
-  .toUpperCase();
+    .toLocaleDateString("en-US", options)
+    .toUpperCase();
 
-const date = document.querySelector('.date span');
+const date = document.querySelector(".date span");
 date.innerHTML = formattedDate;
 
-const productList = document.querySelector('.admin_goods .goods_list');
+const productList = document.querySelector(".admin_goods .goods_list");
 
 /* 상품목록리스트 */
 async function goodsListApi() {
-  if (isTokenExpired()) tokenRefresh();
+    if (isTokenExpired()) await tokenRefresh();
 
-  const response = await instance.get('/api/admin_product');
+    const response = await instance.get("/api/admin_product");
 
-  const products = response.data;
+    const products = response.data;
 
-  productList.innerHTML = products
-    .map(
-      ({
-        productId,
-        productName,
-        imageUrl,
-        price,
-        place,
-        speciesAge,
-        description,
-        startDate,
-        endDate,
-        category,
-      }) => `
+    productList.innerHTML = products
+        .map(
+            ({
+                productId,
+                productName,
+                imageUrl,
+                price,
+                place,
+                speciesAge,
+                description,
+                startDate,
+                endDate,
+                category,
+            }) => `
         <li data-id="${productId}" data-category="${category}">
             <div class="goods_detail">
                 <div class="img_box">
@@ -68,87 +68,45 @@ async function goodsListApi() {
                     </dl>
                 </div>
                 <div class="btn_box">
-                    <button class="btn_modify">상품수정</button>
+                    <a href='./goods_edit.html?productId=${productId}' class="btn_modify">상품수정</a>
                     <button class="btn_delete">상품삭제</button>
                 </div>
                 </div>
             </div>
         </li>
     `
-    )
-    .join('');
+        )
+        .join("");
 
-  const list = document.querySelectorAll('.goods_list > li');
+    const list = document.querySelectorAll(".goods_list > li");
 
-  list.forEach((li) =>
-    li.querySelector('.btn_modify').addEventListener('click', async (e) => {
-      e.preventDefault();
-
-      const productElem = e.target.closest('li');
-      const productId = productElem.dataset.id;
-
-      const category = productElem.dataset.category;
-      const productName =
-        productElem.querySelector('.title strong').textContent;
-      const image = productElem.querySelector('.img_box img').src;
-      const startDate = productElem
-        .querySelector('.date dd')
-        .textContent.split(' - ')[0];
-      const endDate = productElem
-        .querySelector('.date dd')
-        .textContent.split(' - ')[1];
-      const description =
-        productElem.querySelector('.description dd').textContent;
-      const price = productElem
-        .querySelector('.price dd')
-        .textContent.slice(0, -1);
-      const speciesAge = productElem.querySelector('.age dd').textContent;
-      const place = productElem.querySelector('.place dd').textContent;
-
-      const product = {
-        category: category,
-        name: productName,
-        image: image,
-        startDate: startDate,
-        endDate: endDate,
-        description: description,
-        price: price,
-        speciesAge: speciesAge,
-        place: place,
-      };
-
-      localStorage.setItem('product', JSON.stringify(product));
-      window.location.href = `./goods_edit.html?productId=${productId}`;
-    })
-  );
-
-  /*
+    /*
         상품삭제 작업순서:
 
         1. 삭제할 상품목록의 상품삭제버튼 클릭
         2. 해당 목록의 productId 값 찾아서 상품삭제 api에 post로 정보보내기
     */
 
-  list.forEach((li) =>
-    li.querySelector('.btn_delete').addEventListener('click', async () => {
-      let productId = li.dataset.id;
-      console.log(productId);
+    list.forEach((li) =>
+        li.querySelector(".btn_delete").addEventListener("click", async () => {
+            let productId = li.dataset.id;
+            console.log(productId);
 
-      try {
-        if (isTokenExpired()) tokenRefresh();
+            try {
+                if (isTokenExpired()) await tokenRefresh();
 
-        const response = await instance.delete(
-          `/api/admin_product/delete?productId=${productId}`
-        );
+                const response = await instance.delete(
+                    `/api/admin_product/delete?productId=${productId}`
+                );
 
-        console.log('상품이 삭제되었습니다:', response);
-        alert('상품이 삭제되었습니다.');
-        location.reload();
-      } catch (error) {
-        console.error('상품 삭제 중 오류가 발생했습니다:', error);
-      }
-    })
-  );
+                console.log("상품이 삭제되었습니다:", response);
+                alert("상품이 삭제되었습니다.");
+                location.reload();
+            } catch (error) {
+                console.error("상품 삭제 중 오류가 발생했습니다:", error);
+            }
+        })
+    );
 }
 
 goodsListApi();

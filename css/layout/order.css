@@ -127,25 +127,19 @@
     color: var(--color--red);
 }
 
-#order .btn_box {
+.btn_box {
     padding: 20px 0 0;
 }
 
 .payment_button {
-    display: block;
-    width: 100%;
     height: 64px;
     background: var(--color--black1);
-    border: none;
-    border-radius: 5px;
-    font-size: 1.2rem;
+    font-size: 20px;
     font-weight: 500;
-    color: var(--color--white);
-    outline: none;
-    cursor: pointer;
-    transition: all 0.1s ease-in;
+    transition: background 0.1s ease-in;
 }
 
 .payment_button:hover {
-    background-color: var(--color--blue2);
+    border: none;
+    background: var(--color--blue2);
 }
