@@ -85,8 +85,9 @@ if (urlProductId !== null) {
         const file = await convertURLtoFile(defaultUrl);
         console.log(file);
         // 새로운 FileList 객체를 만들고
-        const fileList = new FileList();
-        fileList.add(file);
+        const fileList = new DataTransfer();
+        fileList.items.add(file);
+        imageUrl.files = fileList.files;
 
         productName.value = filteredProduct[0].productName;
         category.value = filteredProduct[0].category;
