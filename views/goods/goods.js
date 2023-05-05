@@ -4,6 +4,7 @@ async function main() {
   const url = new window.URL(location.href);
   const urlParams = url.searchParams;
   const urlCategoryId = urlParams.get('category');
+  const urlSearchId = urlParams.get('search');
 
   const categoryTitle = document.querySelector('.category_title h2');
   const productList = document.querySelector('.goods_list ul');
@@ -38,7 +39,17 @@ async function main() {
 
     categoryTitle.innerHTML = urlCategoryId;
   } else {
-    const response = await axios.get(`${URL}/api/product`);
+    let response;
+
+    if (urlSearchId) {
+      categoryTitle.innerHTML = '검색상품';
+      response = await axios.get(
+        `${URL}/api/product/search?keyword=${urlSearchId}`
+      );
+    } else {
+      categoryTitle.innerHTML = '전체상품';
+      response = await axios.get(`${URL}/api/product`);
+    }
 
     const products = response.data;
 
@@ -62,8 +73,6 @@ async function main() {
             `
       )
       .join('');
-
-    categoryTitle.innerHTML = '전체상품';
   }
 }
 

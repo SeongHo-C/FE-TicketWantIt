@@ -24,7 +24,7 @@
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="module" src="./goods.js" defer></script>
-    <script defer src="../../modules/header.js"></script>
+    <script src="../../modules/header.js" defer></script>
     <script type="module" src="../../modules/tokenPresent.js"></script>
     <title>Goods | Ticket Want it!</title>
   </head>
@@ -44,19 +44,14 @@
           </div>
 
           <div class="right">
-            <!-- <div class="search">
-              <input type="text" />
-              <div class="search_icon">
-              
-              </div>
-            </div> -->
-
             <ul class="menu">
               <li class="search">
-                <input type="text" />
-                <button class="search_btn">
-                  <i class="fa-solid fa-magnifying-glass fa-2xs"></i>
-                </button>
+                <form method="post">
+                  <input name="search_input" class="search_input" type="text" />
+                  <button class="search_btn">
+                    <i class="fa-solid fa-magnifying-glass fa-2xs"></i>
+                  </button>
+                </form>
               </li>
               <li class="menu_icon login">
                 <a href="javascript:void(0)">
