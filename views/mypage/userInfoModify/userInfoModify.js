@@ -2,10 +2,15 @@ import { getToken } from '../../../modules/token.js';
 import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
-const [nameInput, zipCode, address, addressDetail,
+const [ nameInput, zipCode, address, addressDetail,
   phoneNumber1, phoneNumber2, phoneNumber3] =
   document.querySelectorAll('.userInfoInput');
 
+const profileImageBtn = document.querySelector('#profileImageBtn');
+const profileImageSaveBtn = document.querySelector('#profileImageSaveBtn');
+const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
+const profileImage = document.querySelector('#profileImage');
+const defaultImage = document.querySelector('.ri-account-box-fill');
 const email = document.querySelector('#email');
 const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const addressSearchBtn = document.querySelector('#addressSearchBtn');
@@ -24,7 +29,7 @@ const userInfo = async () => {
         const addressArr = response.data.address.split(' (상세주소)');
         zipCode.setAttribute('value', response.data.zipCode);
         address.setAttribute('value', addressArr[0]);
-        addressDetail.setAttribute('value', addressArr[1]);
+        addressDetail.setAttribute('value', addressArr[1].trim());
     } else {
       zipCode.setAttribute('value', '');
       address.setAttribute('value', '');
@@ -50,6 +55,21 @@ const userInfo = async () => {
 };
 
 userInfo();
+const profileImageSave = async (e) => {
+  e.preventDefault();
+  const profileImageURL = profileImageBtn.value.split('\\')
+  console.log(profileImageURL[profileImageURL.length-1])
+  try {
+    await instance.post('/api/user/profileImage', {
+      profileImage: profileImageURL[profileImageURL.length-1]
+    })
+    alert('정보가 성공적으로 업데이트 되었습니다.');
+  }
+  catch (error) {
+    console.log(error);
+    alert('정보 업데이트에 실패했습니다.')
+  }
+}
 
 function execDaumPostcode() {
   new daum.Postcode({
@@ -92,5 +112,22 @@ const userInfoModify = async () => {
   }
 }
 
+profileImageBtn.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => {
+    profileImage.style = `
+      display: inline-block;
+      width: 390px;
+      height: 335px;
+      border: var(--color--black2) solid;
+      background : url(${reader.result});
+      background-size : cover`;
+    defaultImage.style.display = 'none';
+  }
+});
+profileImageSaveBtn.addEventListener('click', profileImageSave);
+//profileImageDeleteBtn.addEventListener('click', )
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);

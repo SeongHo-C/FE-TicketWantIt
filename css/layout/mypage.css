@@ -84,6 +84,48 @@ section {
     padding: 0 0 5px;
 }
 
+.userInfo_table label {
+    display: inline-block;
+    padding: 0.4rem 0.6rem;
+    margin: 0.2rem 0;
+    width: 6rem;
+    background-color: var(--color--white);
+    border: 1px solid var(--color--black1);
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background 0.1s ease-in-out;
+}
+
+.userInfo_table button {
+    padding: 0.5rem 0.6rem;
+    margin: 0.2rem 0;
+    width: 6rem;
+    outline: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-radius: 3px;
+    
+    transition: background 0.1s ease-in-out;
+    background: var(--color--black1);
+    color: var(--color--white);
+}
+
+.userInfo_table form {
+    text-align: center;
+}
+
+#profileImage {
+    display: inline-block;
+    margin-bottom: 5px;
+    width: 80%;
+    font-size: 200px;
+    color: var(--color--black3);
+    border: var(--color--black2) solid 1px;
+}
+
 .userInfo_table .address_input_wrap li:first-child input.userInfoInput {
     width: calc(350px - 75px);
 }
