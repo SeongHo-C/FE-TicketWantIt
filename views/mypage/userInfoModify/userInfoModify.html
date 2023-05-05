@@ -123,6 +123,22 @@
                             <tbody>
                                 <tr>
                                     <td>
+                                        <p>프로필 사진</p>
+                                    </td>
+                                    <td>
+                                        <form id='form' method="POST" enctype="multipart/form-data">
+                                            <div id='profileImage'>
+                                                <i class="ri-account-box-fill"></i>
+                                            </div>
+                                            <label for='profileImageBtn'>사진 등록</label>
+                                            <input type="file" name="profileImage" id='profileImageBtn' class='dn'>
+                                            <button id='profileImageSaveBtn' type="submit">저장</button>
+                                        </form>
+                                        <button id='profileImageDeleteBtn'>삭제</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
                                         <p>E-MAIL</p>
                                     </td>
                                     <td id="email" class="userInfo"></td>

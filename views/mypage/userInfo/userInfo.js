@@ -13,7 +13,7 @@ const userInfo = async () => {
     const decodedToken = jwt_decode(token);
     email.innerHTML = decodedToken.email;
     nameInput.innerHTML = decodedToken.name;
-
+    console.log(response)
     if (
       response.data.address === ` (상세주소)` ||
       response.data.address === undefined
@@ -22,7 +22,7 @@ const userInfo = async () => {
     } else {
       address.innerHTML = response.data.address;
     }
-    console.log(response.data.phoneNumber)
+    
     if (
       response.data.phoneNumber === `--` ||
       response.data.phoneNumber === undefined

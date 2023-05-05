@@ -1,11 +1,17 @@
 import { getToken } from '../../../modules/token.js';
 import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
+import URL from '../../../modules/server_url.js';
 
-const [nameInput, zipCode, address, addressDetail,
+const [ nameInput, zipCode, address, addressDetail,
   phoneNumber1, phoneNumber2, phoneNumber3] =
   document.querySelectorAll('.userInfoInput');
 
+const profileImageBtn = document.querySelector('#profileImageBtn');
+// const form = document.querySelector('#form')
+// const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
+const profileImage = document.querySelector('#profileImage');
+const defaultImage = document.querySelector('.ri-account-box-fill');
 const email = document.querySelector('#email');
 const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const addressSearchBtn = document.querySelector('#addressSearchBtn');
@@ -24,7 +30,7 @@ const userInfo = async () => {
         const addressArr = response.data.address.split(' (상세주소)');
         zipCode.setAttribute('value', response.data.zipCode);
         address.setAttribute('value', addressArr[0]);
-        addressDetail.setAttribute('value', addressArr[1]);
+        addressDetail.setAttribute('value', addressArr[1].trim());
     } else {
       zipCode.setAttribute('value', '');
       address.setAttribute('value', '');
@@ -51,6 +57,14 @@ const userInfo = async () => {
 
 userInfo();
 
+/*
+const profileImageDelete = async (e) => {
+  e.preventDefault();
+  profileImage.style.display = `none`;
+  defaultImage.style.display = 'blcok';
+}
+*/
+
 function execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -73,7 +87,7 @@ const userInfoModify = async () => {
 
   const regPhone= /^([0-9]{2,3})-([0-9]{3,4})-([0-9]{4})$/;
   const phoneNumber = `${phoneNumber1.value}-${phoneNumber2.value}-${phoneNumber3.value}`
-  if (regPhone.test(phoneNumber)) {
+  if (regPhone.test(phoneNumber) || phoneNumber === '--') {
     try {
       await instance.put('/api/user', {
       name: nameInput.value,
@@ -92,5 +106,45 @@ const userInfoModify = async () => {
   }
 }
 
+let file;
+
+profileImageBtn.addEventListener('change', (e) => {
+  file = e.target.files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => {
+    profileImage.style = `
+      display: inline-block;
+      width: 390px;
+      height: 335px;
+      border: var(--color--black2) solid;
+      background : url(${reader.result});
+      background-size : cover`;
+    defaultImage.style.display = 'none';
+  }
+});
+
+const onFileUpload = async (e) => {
+  e.preventDefault();
+  const formData = new FormData();
+  formData.append('profileImage', file);
+  if (isTokenExpired()) await tokenRefresh();
+
+  const token = getToken();
+  try {
+    await axios.post(`${URL}/api/user/profileImage`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data', 
+        'Authorization': `Bearer ${token}` }
+    })
+    alert('정보가 성공적으로 업데이트 되었습니다.');
+  }
+  catch (error) {
+    console.log(error);
+    alert('정보 업데이트에 실패했습니다.');
+  }
+
+}
+form.addEventListener('submit', onFileUpload);
+// profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);
