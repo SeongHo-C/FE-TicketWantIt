@@ -8,8 +8,8 @@ const [ nameInput, zipCode, address, addressDetail,
   document.querySelectorAll('.userInfoInput');
 
 const profileImageBtn = document.querySelector('#profileImageBtn');
-// const form = document.querySelector('#form')
-// const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
+const form = document.querySelector('#form')
+const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
 const profileImage = document.querySelector('#profileImage');
 const defaultImage = document.querySelector('.ri-account-box-fill');
 const email = document.querySelector('#email');
@@ -82,7 +82,9 @@ function execDaumPostcode() {
 }
 
 //유저 정보 수정
-const userInfoModify = async () => {
+
+const userInfoModify = async (e) => {
+  e.preventDefault();
   if (isTokenExpired()) await tokenRefresh();
 
   const regPhone= /^([0-9]{2,3})-([0-9]{3,4})-([0-9]{4})$/;
@@ -106,10 +108,11 @@ const userInfoModify = async () => {
   }
 }
 
-let file;
+profileImageBtn.addEventListener('change', async (e) => {
+  e.preventDefault();
+  if (isTokenExpired()) await tokenRefresh();
 
-profileImageBtn.addEventListener('change', (e) => {
-  file = e.target.files[0];
+  const file = e.target.files[0];
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => {
@@ -122,13 +125,8 @@ profileImageBtn.addEventListener('change', (e) => {
       background-size : cover`;
     defaultImage.style.display = 'none';
   }
-});
-
-const onFileUpload = async (e) => {
-  e.preventDefault();
   const formData = new FormData();
   formData.append('profileImage', file);
-  if (isTokenExpired()) await tokenRefresh();
 
   const token = getToken();
   try {
@@ -136,14 +134,13 @@ const onFileUpload = async (e) => {
       headers: { 'Content-Type': 'multipart/form-data', 
         'Authorization': `Bearer ${token}` }
     })
-    alert('정보가 성공적으로 업데이트 되었습니다.');
   }
   catch (error) {
     console.log(error);
     alert('정보 업데이트에 실패했습니다.');
   }
+});
 
-}
 form.addEventListener('submit', onFileUpload);
 // profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
 userInfoModifyButton.addEventListener('click', userInfoModify);
