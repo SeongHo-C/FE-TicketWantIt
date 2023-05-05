@@ -1,6 +1,7 @@
 import { getToken } from '../../../modules/token.js';
 import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
+import URL from '../../../modules/server_url.js';
 
 const [ nameInput, zipCode, address, addressDetail,
   phoneNumber1, phoneNumber2, phoneNumber3] =
@@ -55,23 +56,8 @@ const userInfo = async () => {
 };
 
 userInfo();
-/*
-const profileImageSave = async (e) => {
-  e.preventDefault();
-  const profileImageURL = profileImageBtn.value.split('\\').pop();
-  try {
-    console.log(profileImageURL)
-    await instance.post('/api/user/profileImage', {
-      profileImage: profileImageURL
-    })
-    alert('정보가 성공적으로 업데이트 되었습니다.');
-  }
-  catch (error) {
-    console.log(error);
-    alert('정보 업데이트에 실패했습니다.')
-  }
-}
 
+/*
 const profileImageDelete = async (e) => {
   e.preventDefault();
   profileImage.style.display = `none`;
@@ -120,8 +106,10 @@ const userInfoModify = async () => {
   }
 }
 
+let file;
+
 profileImageBtn.addEventListener('change', (e) => {
-  const file = e.target.files[0];
+  file = e.target.files[0];
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => {
@@ -135,7 +123,28 @@ profileImageBtn.addEventListener('change', (e) => {
     defaultImage.style.display = 'none';
   }
 });
-// form.addEventListener('submit', profileImageSave);
+
+const onFileUpload = async (e) => {
+  e.preventDefault();
+  const formData = new FormData();
+  formData.append('profileImage', file);
+  if (isTokenExpired()) await tokenRefresh();
+
+  const token = getToken();
+  try {
+    await axios.post(`${URL}/api/user/profileImage`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data', 
+        'Authorization': `Bearer ${token}` }
+    })
+    alert('정보가 성공적으로 업데이트 되었습니다.');
+  }
+  catch (error) {
+    console.log(error);
+    alert('정보 업데이트에 실패했습니다.');
+  }
+
+}
+form.addEventListener('submit', onFileUpload);
 // profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);
