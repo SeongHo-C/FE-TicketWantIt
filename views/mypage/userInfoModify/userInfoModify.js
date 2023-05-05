@@ -7,8 +7,8 @@ const [ nameInput, zipCode, address, addressDetail,
   document.querySelectorAll('.userInfoInput');
 
 const profileImageBtn = document.querySelector('#profileImageBtn');
-const profileImageSaveBtn = document.querySelector('#profileImageSaveBtn');
-const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
+// const form = document.querySelector('#form')
+// const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
 const profileImage = document.querySelector('#profileImage');
 const defaultImage = document.querySelector('.ri-account-box-fill');
 const email = document.querySelector('#email');
@@ -55,13 +55,14 @@ const userInfo = async () => {
 };
 
 userInfo();
+/*
 const profileImageSave = async (e) => {
   e.preventDefault();
-  const profileImageURL = profileImageBtn.value.split('\\')
-  console.log(profileImageURL[profileImageURL.length-1])
+  const profileImageURL = profileImageBtn.value.split('\\').pop();
   try {
+    console.log(profileImageURL)
     await instance.post('/api/user/profileImage', {
-      profileImage: profileImageURL[profileImageURL.length-1]
+      profileImage: profileImageURL
     })
     alert('정보가 성공적으로 업데이트 되었습니다.');
   }
@@ -70,6 +71,13 @@ const profileImageSave = async (e) => {
     alert('정보 업데이트에 실패했습니다.')
   }
 }
+
+const profileImageDelete = async (e) => {
+  e.preventDefault();
+  profileImage.style.display = `none`;
+  defaultImage.style.display = 'blcok';
+}
+*/
 
 function execDaumPostcode() {
   new daum.Postcode({
@@ -93,7 +101,7 @@ const userInfoModify = async () => {
 
   const regPhone= /^([0-9]{2,3})-([0-9]{3,4})-([0-9]{4})$/;
   const phoneNumber = `${phoneNumber1.value}-${phoneNumber2.value}-${phoneNumber3.value}`
-  if (regPhone.test(phoneNumber)) {
+  if (regPhone.test(phoneNumber) || phoneNumber === '--') {
     try {
       await instance.put('/api/user', {
       name: nameInput.value,
@@ -127,7 +135,7 @@ profileImageBtn.addEventListener('change', (e) => {
     defaultImage.style.display = 'none';
   }
 });
-profileImageSaveBtn.addEventListener('click', profileImageSave);
-//profileImageDeleteBtn.addEventListener('click', )
+// form.addEventListener('submit', profileImageSave);
+// profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);
