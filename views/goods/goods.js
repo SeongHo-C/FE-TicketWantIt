@@ -1,15 +1,16 @@
+import URL from '../../modules/server_url.js';
+
 async function main() {
-  const url = new URL(window.location.href);
+  const url = new window.URL(location.href);
   const urlParams = url.searchParams;
   const urlCategoryId = urlParams.get('category');
-  console.log(urlCategoryId);
 
   const categoryTitle = document.querySelector('.category_title h2');
   const productList = document.querySelector('.goods_list ul');
 
   if (urlCategoryId !== null) {
     const response = await axios.get(
-      `http://34.64.112.166/api/product/category?category=${urlCategoryId}`
+      `${URL}/api/product/category?category=${urlCategoryId}`
     );
 
     const products = response.data;
@@ -37,7 +38,7 @@ async function main() {
 
     categoryTitle.innerHTML = urlCategoryId;
   } else {
-    const response = await axios.get(`http://34.64.112.166/api/product`);
+    const response = await axios.get(`${URL}/api/product`);
 
     const products = response.data;
 
