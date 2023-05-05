@@ -52,6 +52,10 @@ async function main() {
     }
 
     const products = response.data;
+    if (products.length < 1) {
+      productList.innerHTML = `<li style="width: 100%; margin-top: 100px; font-size: 20px; color: var(--color--black2); text-align: center;">검색결과가 없습니다.</li>`;
+      return;
+    }
 
     productList.innerHTML = products
       .map(
