@@ -113,17 +113,17 @@ section {
   color: var(--color--white);
 }
 
-.userInfo_table form {
-  text-align: center;
-}
-
-#profileImage {
-  display: inline-block;
-  margin-bottom: 5px;
-  width: 80%;
-  font-size: 200px;
+.userInfo_table #profileImage {
+  display: flex;
+  margin: 5px auto;
+  width: 250px;
+  height: 250px;
   color: var(--color--black3);
   border: var(--color--black2) solid 1px;
+}
+.userInfo_table .ri-account-box-fill {
+  margin: auto;
+  font-size: 135px;
 }
 
 .userInfo_table .address_input_wrap li:first-child input.userInfoInput {

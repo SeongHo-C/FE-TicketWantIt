@@ -25,6 +25,15 @@ const userInfo = async () => {
   try {
     const response = await instance.get('/api/user')
     nameInput.setAttribute('value', `${decodedToken.name}`);
+    
+    if (response.data.profileImage !== undefined) {
+      profileImage.style = `
+      margin: 0 auto;
+      background : url(http://${response.data.profileImage});
+      background-size : cover;`;
+      defaultImage.style.display = 'none';
+    }
+    
     if (response.data.address !== ` (상세주소)` &&
         response.data.address !== undefined) {
         const addressArr = response.data.address.split(' (상세주소)');
@@ -57,13 +66,14 @@ const userInfo = async () => {
 
 userInfo();
 
-/*
+//이미지 삭제
 const profileImageDelete = async (e) => {
   e.preventDefault();
-  profileImage.style.display = `none`;
-  defaultImage.style.display = 'blcok';
+  profileImage.style = `
+    margin: 0 auto;
+    background-size : cover;`;
+    defaultImage.style.display = 'block';
 }
-*/
 
 function execDaumPostcode() {
   new daum.Postcode({
@@ -82,7 +92,6 @@ function execDaumPostcode() {
 }
 
 //유저 정보 수정
-
 const userInfoModify = async (e) => {
   e.preventDefault();
   if (isTokenExpired()) await tokenRefresh();
@@ -111,18 +120,14 @@ const userInfoModify = async (e) => {
 profileImageBtn.addEventListener('change', async (e) => {
   e.preventDefault();
   if (isTokenExpired()) await tokenRefresh();
-
   const file = e.target.files[0];
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => {
     profileImage.style = `
-      display: inline-block;
-      width: 390px;
-      height: 335px;
-      border: var(--color--black2) solid;
+      margin: 0 auto;
       background : url(${reader.result});
-      background-size : cover`;
+      background-size : cover;`;
     defaultImage.style.display = 'none';
   }
   const formData = new FormData();
@@ -134,6 +139,7 @@ profileImageBtn.addEventListener('change', async (e) => {
       headers: { 'Content-Type': 'multipart/form-data', 
         'Authorization': `Bearer ${token}` }
     })
+    location.reload();
   }
   catch (error) {
     console.log(error);
@@ -142,6 +148,6 @@ profileImageBtn.addEventListener('change', async (e) => {
 });
 
 form.addEventListener('submit', onFileUpload);
-// profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
+profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);
