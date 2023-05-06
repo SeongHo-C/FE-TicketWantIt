@@ -1,9 +1,8 @@
-import { getToken, removeToken } from '../../modules/token.js';
+import { getToken, removeToken, isTokenExpired, tokenRefresh } from '../../modules/token.js';
 import {
   togglePasswordVisibility,
   togglePasswordInvisibility,
 } from '../../modules/passwordVisibility.js';
-import { isTokenExpired, tokenRefresh } from '../../modules/token.js';
 import instance from '../../modules/axios_interceptor.js';
 
 const [currentPassword, password, confirmPassword] = document.querySelectorAll(

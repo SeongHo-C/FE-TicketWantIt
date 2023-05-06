@@ -1,5 +1,4 @@
-import { getToken } from '../../../modules/token.js';
-import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
+import { getToken, isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 import URL from '../../../modules/server_url.js';
 
@@ -8,7 +7,6 @@ const [ nameInput, zipCode, address, addressDetail,
   document.querySelectorAll('.userInfoInput');
 
 const profileImageBtn = document.querySelector('#profileImageBtn');
-const form = document.querySelector('#form')
 const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
 const profileImage = document.querySelector('#profileImage');
 const defaultImage = document.querySelector('.ri-account-box-fill');
@@ -147,7 +145,6 @@ profileImageBtn.addEventListener('change', async (e) => {
   }
 });
 
-form.addEventListener('submit', onFileUpload);
 profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);

@@ -1,5 +1,4 @@
-import { getToken, removeToken } from '../../../modules/token.js';
-import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
+import { getToken, removeToken, isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
 const [email, nameInput, address, phoneNumber] = document.querySelectorAll('.userInfo');
