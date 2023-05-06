@@ -5,7 +5,7 @@ import {
 } from '../../modules/passwordVisibility.js';
 import instance from '../../modules/axios_interceptor.js';
 
-window.onload = function tokenCheck() {
+function tokenCheck() {
   const token = getToken();
   if (token) {
     alert('이미 로그인 한 상태입니다.');
@@ -74,6 +74,7 @@ const logInFunction = async (e) => {
   }
 };
 
+window.addEventListener('load', tokenCheck);
 email.addEventListener('input', deleteEmailErrorMessage);
 password.addEventListener('input', deletePasswordErrorMessage);
 passwordCheckEyesClose.addEventListener('click', () => {

@@ -5,6 +5,8 @@ const [email, nameInput, address, phoneNumber] = document.querySelectorAll('.use
 const withdrawalButton = document.querySelector('#withdrawalButton');
 const profileImage = document.querySelector('#profileImage');
 
+if (isTokenExpired()) tokenRefresh();
+
 const userInfo = async () => {
   if (isTokenExpired()) tokenRefresh();
   try {

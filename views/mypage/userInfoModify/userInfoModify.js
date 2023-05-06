@@ -15,6 +15,9 @@ const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const addressSearchBtn = document.querySelector('#addressSearchBtn');
 const token = getToken();
 const decodedToken = jwt_decode(token);
+
+if (isTokenExpired()) tokenRefresh();
+
 email.innerHTML = decodedToken.email;
 
 //사용자 정보 미리 input에 넣어놓기

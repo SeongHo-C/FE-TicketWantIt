@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="../../css/style/reset.css" />
         <link rel="stylesheet" href="../../css/style/style.css" />
         <link rel="stylesheet" href="../../css/layout/user.css" />
+        <link rel="stylesheet" href="../../css/layout/spinner.css" />
         <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
         <script src="
     https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
@@ -34,6 +35,7 @@
         <script type="module" src="./login.js" defer></script>
         <script type="module" src="../../modules/tokenPresent.js"></script>
         <script src="../../modules/header.js" defer></script>
+        <script src="../../modules/spinner.js" defer></script>
 
         <title>Login | Ticket Want it!</title>
     </head>
@@ -141,15 +143,14 @@
                                     로그인
                                 </button>
                             </div>
-                            <!-- <div class='btn_sns_login'>
-                                <div id="g_id_onload" data-client_id="563377459908-vdlu3khs2spdopuprrmlvkjbpo91mb8j.apps.googleusercontent.com"
-                                    data-login_uri="https://ticketwantit.kro.kr/" data-auto_prompt="false">
+                                <div class='btn_sns_login'>
+                                    <div id="g_id_onload" data-client_id="563377459908-vdlu3khs2spdopuprrmlvkjbpo91mb8j.apps.googleusercontent.com"
+                                        data-login_uri="https://ticketwantit.kro.kr/" data-auto_prompt="false">
+                                    </div>
+                                    <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
+                                        data-shape="rectangular" data-logo_alignment="left">
                                 </div>
-                                <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with"
-                                    data-shape="rectangular" data-logo_alignment="left">
-                                </div>
-                            </div> -->
-
+                            </div>
                             <div class="login_etc">
                                 <a class="button" href="../join/join.html"
                                     >회원가입</a
