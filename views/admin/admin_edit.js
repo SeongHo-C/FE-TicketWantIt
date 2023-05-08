@@ -1,7 +1,6 @@
 import { isTokenExpired, tokenRefresh } from "../../modules/token.js";
 import instance from "../../modules/axios_interceptor.js";
 
-
 /** 헤더 달력 */
 const currentDate = new Date();
 const options = { day: "numeric", month: "short", year: "numeric" };
@@ -39,24 +38,84 @@ const urlParams = url.searchParams;
 const urlProductId = urlParams.get("productId");
 console.log(urlProductId);
 
-const product = JSON.parse(localStorage.getItem("product"));
-console.log(product)
+let filteredProduct;
 
-if (product !== null) {
-    category.value = product.category;
-    productName.value = product.name;
-    price.value = product.price;
-    discount.value = product.discount;
-    description.value = product.description;
-    startDate.value = product.startDate;
-    endDate.value = product.endDate;
-    speciesAge.value = product.speciesAge;
-    place.value = product.place;
+if (urlProductId !== null) {
+    const productModifyApi = async () => {
+        if (isTokenExpired()) await tokenRefresh();
 
-    formUrlInput.value = product.image;
+        const response = await instance.get("/api/admin_product");
+        const products = response.data;
+
+        filteredProduct = products.filter(
+            ({ productId }) => productId === urlProductId
+        );
+        console.log(filteredProduct);
+
+        const defaultUrl = filteredProduct[0].imageUrl;
+        console.log(defaultUrl);
+
+
+        productName.value = filteredProduct[0].productName;
+        category.value = filteredProduct[0].category;
+        startDate.value = filteredProduct[0].startDate;
+        endDate.value = filteredProduct[0].endDate;
+        description.value = filteredProduct[0].description;
+        price.value = filteredProduct[0].price;
+        discount.value = filteredProduct[0].discount
+        speciesAge.value = filteredProduct[0].speciesAge;
+        place.value = filteredProduct[0].place;
+
+        /* 가짜 file_inputbox에 url경로만 넣어주기 */
+        formUrlInput.value = filteredProduct[0].imageUrl;
+
+    };
+
+    productModifyApi();
+
+} else {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear().toString().padStart(4, "0");
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = currentDate.getDate().toString().padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+
+    if (!startDate.value) {
+        startDate.value = formattedDate;
+    }
+
+    if (!endDate.value) {
+        endDate.value = formattedDate;
+    }
 }
 
-localStorage.removeItem("product");
+/* 카테고리 api 받아서 selectbox로 만들기 */
+async function categorySelectApi() {
+    const categorySelect = document.querySelector("#goodsCate");
+    if (isTokenExpired()) await tokenRefresh();
+
+    const response = await instance.get("/api/admin_category");
+    const categories = response.data;
+
+    categories.forEach(({ category, categoryId }) => {
+        const option = document.createElement("option");
+        option.setAttribute("data-id", categoryId);
+        option.setAttribute("value", category);
+        option.textContent = category;
+
+        if (urlProductId !== null && filteredProduct && category === filteredProduct[0].category) {
+            option.selected = true;
+        }
+
+        categorySelect.appendChild(option);
+    });
+
+    FancySelect.update(goodsCate);
+}
+
+categorySelectApi();
+
+
 
 const goodsUpdateApi = async (e) => {
     e.preventDefault();
@@ -80,6 +139,7 @@ const goodsUpdateApi = async (e) => {
         formData.append("imageUrl", imageUrl.files[0]);
 
         try {
+            if (isTokenExpired()) await tokenRefresh();
             const response = await instance.put(
                 `/api/admin_product/edit?productId=${urlProductId}`,
                 updateApi
@@ -92,6 +152,7 @@ const goodsUpdateApi = async (e) => {
         }
 
         try {
+            if (isTokenExpired()) await tokenRefresh();
             const responseUrl = await instance.put(
                 `/api/admin_product/edit/img?productId=${urlProductId}`,
                 formData
@@ -120,7 +181,7 @@ const goodsUpdateApi = async (e) => {
         formData.append("endDate", endDate.value);
 
         try {
-
+            if (isTokenExpired()) await tokenRefresh();
             const response = await instance.post(
                 "/api/admin_product/add",
                 formData

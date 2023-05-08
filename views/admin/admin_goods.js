@@ -10,7 +10,6 @@ async function goodsListApi() {
     if (isTokenExpired()) await tokenRefresh();
 
     const response = await instance.get("/api/admin_product");
-
     const products = response.data;
 
     productList.innerHTML = products
@@ -68,7 +67,7 @@ async function goodsListApi() {
                     </dl>
                 </div>
                 <div class="btn_box">
-                    <button class="btn_modify">상품수정</button>
+                    <a href="../admin/goods_edit.html?productId=${productId}"  class="btn_modify">상품수정</a>
                     <button class="btn_delete">상품삭제</button>
                 </div>
                 </div>
@@ -80,49 +79,7 @@ async function goodsListApi() {
 
     const list = document.querySelectorAll(".goods_list > li");
 
-    list.forEach((li) =>
-        li.querySelector(".btn_modify").addEventListener("click", async (e) => {
-            e.preventDefault();
 
-            const productElem = e.target.closest("li");
-            const productId = productElem.dataset.id;
-
-            const category = productElem.dataset.category;
-            const productName =
-                productElem.querySelector(".title strong").textContent;
-            const image = productElem.querySelector(".img_box img").src;
-            const startDate = productElem
-                .querySelector(".date dd")
-                .textContent.split(" - ")[0];
-            const endDate = productElem
-                .querySelector(".date dd")
-                .textContent.split(" - ")[1];
-            const description =
-                productElem.querySelector(".description dd").textContent;
-            const price = productElem
-                .querySelector(".price dd")
-                .textContent.slice(0, -1);
-            const speciesAge = productElem.querySelector(".age dd").textContent;
-            const place = productElem.querySelector(".place dd").textContent;
-            const discount = productElem.querySelector(".discount dd").textContent.slice(0, -1);;
-
-            const product = {
-                category: category,
-                name: productName,
-                image: image,
-                startDate: startDate,
-                endDate: endDate,
-                description: description,
-                price: price,
-                speciesAge: speciesAge,
-                place: place,
-                discount: discount
-            };
-
-            localStorage.setItem("product", JSON.stringify(product));
-            window.location.href = `./goods_edit.html?productId=${productId}`;
-        })
-    );
 
     /*
         상품삭제 작업순서:

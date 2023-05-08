@@ -12,13 +12,23 @@
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css"
       rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <link rel="stylesheet" href="../../css/style/reset.css" />
     <link rel="stylesheet" href="../../css/style/style.css" />
     <link rel="stylesheet" href="../../css/admin/admin.css" />
+    <link rel="stylesheet" href="/modules/select/select.css" />
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <!-- flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/rangePlugin.js"></script>
+    <!-- select -->
+    <script defer src="../../modules/select/select.js"></script>
     <script type="module" defer src="./admin_edit.js"></script>
+
     <title>Admin Goods Edit | Ticket Want it!</title>
   </head>
   <body>
@@ -140,11 +150,9 @@
                           <label for="goodsCate">카테고리</label>
                         </dt>
                         <dd>
-                          <!-- <select
-                                                        name="goodsCate"
-                                                        id="goodsCate"
-                                                    ></select> -->
-                          <input type="text" id="goodsCate" />
+                          <div class="full-width custom-style">
+                            <select name="goodsCate" id="goodsCate"></select>
+                          </div>
                         </dd>
                       </dl>
                       <dl>
@@ -218,14 +226,14 @@
 
     <footer></footer>
     <script>
-      const currentDate = new Date();
-      const options = { day: 'numeric', month: 'short', year: 'numeric' };
-      const formattedDate = currentDate
-        .toLocaleDateString('en-US', options)
-        .toUpperCase();
+      const startDateInput = document.querySelector('#goodsDateStart');
+      const endDateInput = document.querySelector('#goodsDateEnd');
 
-      const date = document.querySelector('.date span');
-      date.innerHTML = formattedDate;
+      flatpickr(startDateInput, {
+        plugins: [new rangePlugin({ input: endDateInput })],
+        mode: 'range',
+        dateFormat: 'Y-m-d',
+      });
     </script>
   </body>
 </html>
