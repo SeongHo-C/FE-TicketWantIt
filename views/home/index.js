@@ -10,7 +10,7 @@ async function newArrivals() {
 
   productList.innerHTML = products
     .map(
-      ({ productId, productName, price, imageUrl, startDate, endDate }) => `
+      ({ productId, productName, price, imageUrl, startDate, endDate, discount, discountPrice }) => `
             <li>
                 <a href="/views/goods/goods_view.html?productId=${productId}">
                 <div class="img_box">
@@ -19,9 +19,13 @@ async function newArrivals() {
                 <div class="info_box">
                     <span class="goods_date">${startDate} ~ ${endDate}</span>
                     <strong class="goods_tit">${productName}</strong>
-                    <span class="goods_pri">${Number(price).toLocaleString(
-                      'ko-KR'
-                    )}원</span>
+                    <div class="price_box ${discount !== 0 ? "discount" : ''}">
+                      <strong class="discount">${discount}%</strong>
+
+                      <span class="discount_price">${Number(discountPrice).toLocaleString('ko-KR')}원</span>
+                      <span class="fixed_price">${Number(price).toLocaleString('ko-KR')}원</span>
+                    </div>
+                    
                 </div>
                 </a>
             </li>
@@ -44,7 +48,7 @@ async function mdRecommends() {
 
   productList.innerHTML = products
     .map(
-      ({ productId, productName, price, imageUrl, startDate, endDate }) => `
+      ({ productId, productName, price, imageUrl, startDate, endDate, discount, discountPrice }) => `
             <li>
                 <a href="/views/goods/goods_view.html?productId=${productId}">
                 <div class="img_box">
@@ -53,9 +57,12 @@ async function mdRecommends() {
                 <div class="info_box">
                     <span class="goods_date">${startDate} ~ ${endDate}</span>
                     <strong class="goods_tit">${productName}</strong>
-                    <span class="goods_pri">${Number(price).toLocaleString(
-                      'ko-KR'
-                    )}원</span>
+                    <div class="price_box ${discount !== 0 ? "discount" : ''}">
+                      <strong class="discount">${discount}%</strong>
+
+                      <span class="discount_price">${Number(discountPrice).toLocaleString('ko-KR')}원</span>
+                      <span class="fixed_price">${Number(price).toLocaleString('ko-KR')}원</span>
+                    </div>
                 </div>
                 </a>
             </li>
