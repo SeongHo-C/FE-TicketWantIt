@@ -26,6 +26,7 @@ async function goodsListApi() {
                 startDate,
                 endDate,
                 category,
+                discount
             }) => `
         <li data-id="${productId}" data-category="${category}">
             <div class="goods_detail">
@@ -48,6 +49,10 @@ async function goodsListApi() {
                     <dl class="price">
                     <dt>가격</dt>
                     <dd>${price}원</dd>
+                    </dl>
+                    <dl class="discount">
+                    <dt>할인율</dt>
+                    <dd>${discount}%</dd>
                     </dl>
                     <dl class="cate">
                     <dt>카테고리</dt>
@@ -99,6 +104,7 @@ async function goodsListApi() {
                 .textContent.slice(0, -1);
             const speciesAge = productElem.querySelector(".age dd").textContent;
             const place = productElem.querySelector(".place dd").textContent;
+            const discount = productElem.querySelector(".discount dd").textContent.slice(0, -1);;
 
             const product = {
                 category: category,
@@ -110,6 +116,7 @@ async function goodsListApi() {
                 price: price,
                 speciesAge: speciesAge,
                 place: place,
+                discount: discount
             };
 
             localStorage.setItem("product", JSON.stringify(product));
