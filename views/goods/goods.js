@@ -1,42 +1,45 @@
 import URL from '../../modules/server_url.js';
 
+const noSearchResultPage =
+  '<li style="width: 100%; margin-top: 100px; font-size: 20px; color: var(--color--black2); text-align: center;">검색결과가 없습니다.</li>';
+
 async function onLoad() {
   const url = new window.URL(location.href);
   const urlParams = url.searchParams;
   const urlCategoryId = urlParams.get('category');
   const urlSearchId = urlParams.get('search');
 
-  const categoryTitle = document.querySelector('.category_title h2');
-  const productList = document.querySelector('.goods_list ul');
+  const option = {
+    root: null,
+    rootMargin: '0px 0px 0px 0px',
+    thredhold: 0,
+  };
 
-  let response;
+  let page = 0;
+  const onIntersect = (entries, observer) => {
+    entries.forEach(async (entry) => {
+      if (entry.isIntersecting) {
+        console.log('무한 스크롤 실행');
+        console.log('page: ' + page);
+        page++;
+        const response = await getData(page, urlCategoryId, urlSearchId);
+        const products = response.data;
 
-  if (urlCategoryId !== null) {
-    categoryTitle.innerHTML = urlCategoryId;
-    response = await axios.get(
-      `${URL}/api/product/category?category=${urlCategoryId}&sort=${'new'}`
-    );
-  } else {
-    if (urlSearchId) {
-      categoryTitle.innerHTML = '검색상품';
-      response = await axios.get(
-        `${URL}/api/product/search?keyword=${urlSearchId}&sort=${'new'}`
-      );
-    } else {
-      categoryTitle.innerHTML = '전체상품';
-      response = await axios.get(`${URL}/api/product?sort=${'new'}`);
-    }
-  }
+        if (products.length < 1) {
+          productList.innerHTML = noSearchResultPage;
+          return;
+        }
 
-  const products = response.data;
-  if (products.length < 1) {
-    productList.innerHTML = `<li style="width: 100%; margin-top: 100px; font-size: 20px; color: var(--color--black2); text-align: center;">검색결과가 없습니다.</li>`;
-    return;
-  }
+        productList.insertAdjacentHTML(
+          'beforeend',
+          products.map(createTicket).join('')
+        );
+      }
+    });
+  };
 
-  productList.innerHTML = products
-    .map((product) => createTicket(product))
-    .join('');
+  const observer = new IntersectionObserver(onIntersect, option);
+  observer.observe(listEnd);
 }
 
 function createTicket(product) {
@@ -58,6 +61,29 @@ function createTicket(product) {
             </a>
           </li>`;
 }
+
+async function getData(page, urlCategoryId, urlSearchId) {
+  if (urlCategoryId !== null) {
+    categoryTitle.innerHTML = urlCategoryId;
+    return await axios.get(
+      `${URL}/api/product/category?category=${urlCategoryId}&sort=${'new'}&page=${page}`
+    );
+  } else {
+    if (urlSearchId) {
+      categoryTitle.innerHTML = '검색상품';
+      return await axios.get(
+        `${URL}/api/product/search?keyword=${urlSearchId}&sort=${'new'}&page=${page}`
+      );
+    } else {
+      categoryTitle.innerHTML = '전체상품';
+      return await axios.get(`${URL}/api/product?sort=${'new'}&page=${page}`);
+    }
+  }
+}
+
+const categoryTitle = document.querySelector('.category_title h2');
+const productList = document.querySelector('.goods_list ul');
+const listEnd = document.querySelector('#endList');
 
 window.addEventListener('load', () => {
   onLoad();
