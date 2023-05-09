@@ -32,11 +32,11 @@ function isTokenExpired() {
 
 async function tokenRefresh() {
   try {
-    const token = getRefreshToken();
+    const refreshToken = getRefreshToken();
 
     const response = await axios.get(`${URL}/api/auth`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${refreshToken}`,
       },
     });
 
