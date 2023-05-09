@@ -8,10 +8,11 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const token = getToken();
+    const accessToken = getToken();
 
-    config.headers['Content-Type'] = 'application/json; charset=utf-8';
-    config.headers['Authorization'] = `Bearer ${token}`;
+    config.headers['Content-Type'] = 'application/json';
+    config.headers['Authorization'] = `Bearer ${accessToken}`;
+
     return config;
   },
   (error) => {
@@ -22,17 +23,21 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
+    if (response.status === 404) {
+      console.log('404 페이지로 넘어가야 함!');
+    }
+
     return response;
   },
   async (error) => {
     if (error.response?.status === 401) {
       if (isTokenExpired()) await tokenRefresh();
 
-      const token = getToken();
+      const accessToken = getToken();
 
       error.config.headers = {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       };
 
       const response = await axios.request(error.config);
