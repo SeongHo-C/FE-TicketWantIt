@@ -1,11 +1,14 @@
-function loadingSpinner(e) {
-  e.preventDefault();
-  
+function loadingSpinner() {
   const spinnerModal = `
         <div class="spinner">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
+            <div>
+              <i class="ri-mail-fill"></i>
+            </div>
+            <div class='bounce'>
+              <div class="loading bounce1"></div>
+              <div class="loading bounce2"></div>
+              <div class="loading bounce3"></div>
+            </div>
         </div>
   `
   const spinnerModalWrap = document.createElement('div');
@@ -13,18 +16,9 @@ function loadingSpinner(e) {
   spinnerModalWrap.innerHTML = spinnerModal;
   document.body.appendChild(spinnerModalWrap);
   
-  setTimeout(() => {
-    spinnerModalWrap.style.display = "none";
-  }, 500);
+   window.addEventListener('load', () => {
+     spinnerModalWrap.style.display = 'none';
+   });
 }
-
-window.addEventListener('load', loadingSpinner);
-
-/*
-window.addEventListener('load', () => {
-  spinnerModalWrap.style.display = 'none';
-});
-}
-
+  
 loadingSpinner();
-*/

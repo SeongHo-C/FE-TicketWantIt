@@ -1,17 +1,9 @@
-import { getToken, saveToken, saveRefreshToken } from '../../modules/token.js';
+import { saveToken, saveRefreshToken } from '../../modules/token.js';
 import {
   togglePasswordVisibility,
   togglePasswordInvisibility,
 } from '../../modules/passwordVisibility.js';
 import instance from '../../modules/axios_interceptor.js';
-
-function tokenCheck() {
-  const token = getToken();
-  if (token) {
-    alert('이미 로그인 한 상태입니다.');
-    window.location.href = '/index.html';
-  }
-};
 
 const [email, password] = document.querySelectorAll('.login_inputText');
 
@@ -74,7 +66,6 @@ const logInFunction = async (e) => {
   }
 };
 
-window.addEventListener('load', tokenCheck);
 email.addEventListener('input', deleteEmailErrorMessage);
 password.addEventListener('input', deletePasswordErrorMessage);
 passwordCheckEyesClose.addEventListener('click', () => {
@@ -91,4 +82,5 @@ passwordCheckEyesOpen.addEventListener('click', () => {
     passwordCheckEyesClose
   );
 });
+//window.addEventListener('load', tokenCheckAlert);
 logInButton.addEventListener('click', logInFunction);

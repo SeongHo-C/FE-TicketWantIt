@@ -9,7 +9,6 @@ const [ nameInput, zipCode, address, addressDetail,
 const profileImageBtn = document.querySelector('#profileImageBtn');
 const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
 const profileImage = document.querySelector('#profileImage');
-const defaultImage = document.querySelector('.ri-account-box-fill');
 const email = document.querySelector('#email');
 const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const addressSearchBtn = document.querySelector('#addressSearchBtn');
@@ -32,7 +31,6 @@ const userInfo = async () => {
       margin: 0 auto;
       background : url(http://${response.data.profileImage});
       background-size : cover;`;
-      defaultImage.style.display = 'none';
     }
     
     if (response.data.address !== ` (상세주소)` &&
@@ -66,15 +64,6 @@ const userInfo = async () => {
 };
 
 userInfo();
-
-//이미지 삭제
-const profileImageDelete = async (e) => {
-  e.preventDefault();
-  profileImage.style = `
-    margin: 0 auto;
-    background-size : cover;`;
-    defaultImage.style.display = 'block';
-}
 
 function execDaumPostcode() {
   new daum.Postcode({
@@ -127,9 +116,8 @@ profileImageBtn.addEventListener('change', async (e) => {
   reader.onload = () => {
     profileImage.style = `
       margin: 0 auto;
-      background : url(${reader.result});
+      background-color : white;
       background-size : cover;`;
-    defaultImage.style.display = 'none';
   }
   const formData = new FormData();
   formData.append('profileImage', file);
@@ -147,7 +135,22 @@ profileImageBtn.addEventListener('change', async (e) => {
     alert('정보 업데이트에 실패했습니다.');
   }
 });
-
-profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
+profileImageDeleteBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  if (isTokenExpired()) await tokenRefresh();
+  const token = getToken();
+  try {
+    const response = await axios.delete(`${URL}/api/user/profileImage`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    console.log(response)
+    location.reload();
+    } catch (error) {
+      console.log(error);
+      alert('정보 업데이트에 실패했습니다.');
+  }
+});
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);
