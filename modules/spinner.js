@@ -13,18 +13,9 @@ function loadingSpinner(e) {
   spinnerModalWrap.innerHTML = spinnerModal;
   document.body.appendChild(spinnerModalWrap);
   
-  setTimeout(() => {
-    spinnerModalWrap.style.display = "none";
-  }, 500);
+  window.addEventListener('load', () => {
+    spinnerModalWrap.style.display = 'none';
+  });
 }
-
-window.addEventListener('load', loadingSpinner);
-
-/*
-window.addEventListener('load', () => {
-  spinnerModalWrap.style.display = 'none';
-});
-}
-
+  
 loadingSpinner();
-*/
