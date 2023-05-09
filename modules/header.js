@@ -1,7 +1,7 @@
+import URL from './server_url.js';
+
 async function headerCategory() {
-  const response = await axios.get(
-    'http://34.64.112.166/api/product/category/all'
-  );
+  const response = await axios.get(`${URL}/api/product/category/all`);
 
   const categories = response.data;
   const categoryList = document.querySelector('nav > ul');
