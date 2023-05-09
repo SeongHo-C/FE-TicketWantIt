@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="../../../css/style/style.css" />
         <link rel="stylesheet" href="../../../css/layout/userInfoModify.css" />
         <link rel="stylesheet" href="../../../css/layout/mypage.css" />
+        <link rel="stylesheet" href="../../../css/layout/spinner.css" />
         <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
         <script src="
     https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js
@@ -31,7 +32,7 @@
         <script type="module" src="../../../modules/tokenPresent.js"></script>
         <script type="module" src="../../../modules/tokenCheck.js"></script>
         <script src="../../../modules/header.js" defer></script>
-
+        <script src="../../../modules/spinner.js" defer></script>
         <title>My Page | Ticket Want it!</title>
     </head>
     <body>
@@ -116,120 +117,121 @@
                         <div class="page_title">
                             <h2>회원정보</h2>
                         </div>
-                        <table class="userInfo_table">
-                            <thead>
-                                <tr></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <p>프로필 사진</p>
-                                    </td>
-                                    <td>
-                                        <form id='form' method="POST" enctype="multipart/form-data">
+                        <form id='form' method="POST" enctype="multipart/form-data">
+                            <table class="userInfo_table">
+                                <thead>
+                                    <tr></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <p>프로필 사진</p>
+                                        </td>
+                                        <td>
                                             <div id='profileImage'>
                                                 <i class="ri-account-box-fill"></i>
                                             </div>
                                             <label for='profileImageBtn'>사진 등록</label>
                                             <input type="file" name="profileImage" id='profileImageBtn' class='dn'>
-                                            <button id='profileImageSaveBtn' type="submit">저장</button>
-                                        </form>
-                                        <button id='profileImageDeleteBtn'>삭제</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>E-MAIL</p>
-                                    </td>
-                                    <td id="email" class="userInfo"></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>이름</p>
-                                    </td>
-                                    <td class="userInfo">
-                                        <input
-                                            type="text"
-                                            class="userInfoInput"
-                                        />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p>주소</p>
-                                    </td>
+                                            <button id='profileImageDeleteBtn' type='button'>삭제</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>E-MAIL</p>
+                                        </td>
+                                        <td id="email" class="userInfo"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>이름</p>
+                                        </td>
+                                        <td class="userInfo">
+                                            <input
+                                                type="text"
+                                                class="userInfoInput"
+                                            />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p>주소</p>
+                                        </td>
 
-                                    <td class="userInfo">
-                                        <ul class="address_input_wrap">
-                                            <li>
-                                                <input
-                                                    type="text"
-                                                    class="userInfoInput"
-                                                    placeholder="우편번호"
-                                                    readonly
-                                                />
-                                                <input
-                                                    type="button"
-                                                    id="addressSearchBtn"
-                                                    class="address_search_btn"
-                                                    value="주소 검색"
-                                                />
-                                            </li>
-                                            <li>
-                                                <input
-                                                    type="text"
-                                                    class="userInfoInput"
-                                                    placeholder="주소"
-                                                    readonly
-                                                    required
-                                                />
-                                            </li>
-                                            <li>
-                                                <input
-                                                    type="text"
-                                                    class="userInfoInput"
-                                                    placeholder="상세주소"
-                                                />
-                                            </li>
-                                        </ul>
-                                        <tr>
-                                            <td>
-                                                <p>전화번호</p>
-                                            </td>
-                                            <td class="userInfo">
-                                                <input
-                                                    type="text"
-                                                    class="userInfoInput phone_number"
-                                                />
-                                                <input
-                                                    type="text"
-                                                    class="userInfoInput phone_number"
-                                                />
-                                                <input
-                                                    type="text"
-                                                    class="userInfoInput phone_number"
-                                                />
-                                            </td>
-                                        </tr>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="btn_box">
-                            <button
-                                id="userPasswordButton"
-                                class="button_dw border"
-                            >
-                                <a href="../../findPassword/changePassword.html"
-                                    >비밀번호 변경</a
+                                        <td class="userInfo">
+                                            <ul class="address_input_wrap">
+                                                <li>
+                                                    <input
+                                                        type="text"
+                                                        class="userInfoInput"
+                                                        placeholder="우편번호"
+                                                        readonly
+                                                    />
+                                                    <input
+                                                        type="button"
+                                                        id="addressSearchBtn"
+                                                        class="address_search_btn"
+                                                        value="주소 검색"
+                                                    />
+                                                </li>
+                                                <li>
+                                                    <input
+                                                        type="text"
+                                                        class="userInfoInput"
+                                                        placeholder="주소"
+                                                        readonly
+                                                        required
+                                                    />
+                                                </li>
+                                                <li>
+                                                    <input
+                                                        type="text"
+                                                        class="userInfoInput"
+                                                        placeholder="상세주소"
+                                                    />
+                                                </li>
+                                            </ul>
+                                            <tr>
+                                                <td>
+                                                    <p>전화번호</p>
+                                                </td>
+                                                <td class="userInfo">
+                                                    <input
+                                                        type="text"
+                                                        class="userInfoInput phone_number"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        class="userInfoInput phone_number"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        class="userInfoInput phone_number"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="btn_box">
+                                <button
+                                    id="userPasswordButton"
+                                    class="button_dw border"
+                                    type='button'
                                 >
-                            </button>
-                            <button
-                                id="userInfoModifyButton"
-                                class="button_dd border"
-                            >
-                                정보변경
-                            </button>
+                                    <a href="../../findPassword/changePassword.html"
+                                        >비밀번호 변경</a
+                                    >
+                                </button>
+                                <button
+                                    id="userInfoModifyButton"
+                                    class="button_dd border"
+                                    type='button'
+                                >
+                                    정보변경
+                                </button>
+                            </form>
                         </div>
                         <div id="warning">
                             *회원정보를 정확히 입력하지 않으면 배송 시 불이익이

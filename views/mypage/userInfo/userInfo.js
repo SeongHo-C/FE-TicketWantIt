@@ -1,9 +1,11 @@
-import { getToken, removeToken } from '../../../modules/token.js';
-import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
+import { getToken, removeToken, isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
 const [email, nameInput, address, phoneNumber] = document.querySelectorAll('.userInfo');
 const withdrawalButton = document.querySelector('#withdrawalButton');
+const profileImage = document.querySelector('#profileImage');
+
+if (isTokenExpired()) tokenRefresh();
 
 const userInfo = async () => {
   if (isTokenExpired()) tokenRefresh();
@@ -13,7 +15,11 @@ const userInfo = async () => {
     const decodedToken = jwt_decode(token);
     email.innerHTML = decodedToken.email;
     nameInput.innerHTML = decodedToken.name;
-    console.log(response)
+    profileImage.innerHTML = `
+    <img src='http://${response.data.profileImage}' alt="이미지"
+    style= '
+    background-size : cover;'>`;
+    
     if (
       response.data.address === ` (상세주소)` ||
       response.data.address === undefined

@@ -124,8 +124,8 @@ const matchEmailConfirm = async () => {
 
 //회원가입
 const joinFunction = async (e) => {
+    e.preventDefault();
     if (isAuth) {
-        e.preventDefault();
         const authToken = localStorage.getItem("authCode");
         if (!authToken) {
             alert("이메일 인증을 먼저 진행해주세요.");

@@ -99,31 +99,31 @@ section {
 }
 
 .userInfo_table button {
-    padding: 0.5rem 0.6rem;
-    margin: 0.2rem 0;
-    width: 6rem;
-    outline: none;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 500;
-    border-radius: 3px;
-    
-    transition: background 0.1s ease-in-out;
-    background: var(--color--black1);
-    color: var(--color--white);
+  padding: 0.5rem 0.6rem;
+  margin: 0.2rem 0;
+  width: 6rem;
+  outline: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 3px;
+  
+  transition: background 0.1s ease-in-out;
+  background: var(--color--black1);
+  color: var(--color--white);
 }
 
-.userInfo_table form {
-    text-align: center;
+.userInfo_table #profileImage {
+  display: flex;
+  margin: 5px auto;
+  width: 250px;
+  height: 250px;
+  color: var(--color--black3);
+  border: var(--color--black2) solid 1px;
 }
-
-#profileImage {
-    display: inline-block;
-    margin-bottom: 5px;
-    width: 80%;
-    font-size: 200px;
-    color: var(--color--black3);
-    border: var(--color--black2) solid 1px;
+.userInfo_table .ri-account-box-fill {
+  margin: auto;
+  font-size: 135px;
 }
 
 .userInfo_table .address_input_wrap li:first-child input.userInfoInput {

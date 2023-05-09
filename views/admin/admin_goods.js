@@ -10,7 +10,6 @@ async function goodsListApi() {
     if (isTokenExpired()) await tokenRefresh();
 
     const response = await instance.get("/api/admin_product");
-
     const products = response.data;
 
     productList.innerHTML = products
@@ -26,6 +25,7 @@ async function goodsListApi() {
                 startDate,
                 endDate,
                 category,
+                discount
             }) => `
         <li data-id="${productId}" data-category="${category}">
             <div class="goods_detail">
@@ -49,6 +49,10 @@ async function goodsListApi() {
                     <dt>가격</dt>
                     <dd>${price}원</dd>
                     </dl>
+                    <dl class="discount">
+                    <dt>할인율</dt>
+                    <dd>${discount}%</dd>
+                    </dl>
                     <dl class="cate">
                     <dt>카테고리</dt>
                     <dd>${category}</dd>
@@ -63,7 +67,7 @@ async function goodsListApi() {
                     </dl>
                 </div>
                 <div class="btn_box">
-                    <a href='./goods_edit.html?productId=${productId}' class="btn_modify">상품수정</a>
+                    <a href="../admin/goods_edit.html?productId=${productId}"  class="btn_modify">상품수정</a>
                     <button class="btn_delete">상품삭제</button>
                 </div>
                 </div>
@@ -74,6 +78,8 @@ async function goodsListApi() {
         .join("");
 
     const list = document.querySelectorAll(".goods_list > li");
+
+
 
     /*
         상품삭제 작업순서:

@@ -31,17 +31,10 @@ const cart = () => {
 };
 
 const logout = () => {
-  axios
-    .get(`${URL}/api/auth/logout`)
-    .then(() => {
-      removeToken();
-      window.location.href = '/index.html';
-      tokenPresent();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+  removeToken();
+  window.location.href = '/index.html';
+  tokenPresent();
+}
 
 window.addEventListener('load', tokenPresent);
 document.querySelector('.login').addEventListener('click', login);
