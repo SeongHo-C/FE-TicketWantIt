@@ -8,6 +8,23 @@ async function onLoad() {
   const urlParams = url.searchParams;
   const urlCategoryId = urlParams.get('category');
   const urlSearchId = urlParams.get('search');
+  const urlSortId = urlParams.get('sort') || 'new';
+
+  const selectedText = getSelectedText(urlSortId);
+  selectBtn.innerHTML = selectedText;
+
+  goodsFilter.addEventListener('change', (e) => {
+    const url = location.href.split('?')[0];
+    const sort = e.target.value;
+
+    if (sort === urlSortId) return;
+
+    location.href = `${url}?sort=${sort}${
+      (urlCategoryId && '&category=' + urlCategoryId) ||
+      (urlSearchId && '&keyword=' + urlSearchId) ||
+      ''
+    }`;
+  });
 
   const option = {
     root: null,
@@ -22,7 +39,12 @@ async function onLoad() {
         console.log('무한 스크롤 실행');
         page++;
         console.log('page: ' + page);
-        const response = await getData(page, urlCategoryId, urlSearchId);
+        const response = await getData(
+          page,
+          urlCategoryId,
+          urlSearchId,
+          urlSortId
+        );
         const products = response.data;
 
         if (page === 1 && products.length < 1) {
@@ -40,6 +62,11 @@ async function onLoad() {
 
   const observer = new IntersectionObserver(onIntersect, option);
   observer.observe(listEnd);
+}
+
+function getSelectedText(urlSortId) {
+  return [...goodsFilter.options].find((option) => option.value === urlSortId)
+    .text;
 }
 
 function createTicket(product) {
@@ -62,28 +89,36 @@ function createTicket(product) {
           </li>`;
 }
 
-async function getData(page, urlCategoryId, urlSearchId) {
-  if (urlCategoryId !== null) {
-    categoryTitle.innerHTML = urlCategoryId;
-    return await axios.get(
-      `${URL}/api/product/category?category=${urlCategoryId}&sort=${'new'}&page=${page}`
-    );
-  } else {
-    if (urlSearchId) {
-      categoryTitle.innerHTML = '검색상품';
+async function getData(page, urlCategoryId, urlSearchId, urlSortId) {
+  try {
+    if (urlCategoryId !== null) {
+      categoryTitle.innerHTML = urlCategoryId;
       return await axios.get(
-        `${URL}/api/product/search?keyword=${urlSearchId}&sort=${'new'}&page=${page}`
+        `${URL}/api/product/category?category=${urlCategoryId}&sort=${urlSortId}&page=${page}`
       );
     } else {
-      categoryTitle.innerHTML = '전체상품';
-      return await axios.get(`${URL}/api/product?sort=${'new'}&page=${page}`);
+      if (urlSearchId) {
+        categoryTitle.innerHTML = '검색상품';
+        return await axios.get(
+          `${URL}/api/product/search?keyword=${urlSearchId}&sort=${urlSortId}&page=${page}`
+        );
+      } else {
+        categoryTitle.innerHTML = '전체상품';
+        return await axios.get(
+          `${URL}/api/product?sort=${urlSortId}&page=${page}`
+        );
+      }
     }
+  } catch (error) {
+    console.log(error);
   }
 }
 
 const categoryTitle = document.querySelector('.category_title h2');
 const productList = document.querySelector('.goods_list ul');
 const listEnd = document.querySelector('#endList');
+const goodsFilter = document.querySelector('#goodsFilter');
+const selectBtn = document.querySelector('.fsb-button');
 
 window.addEventListener('load', () => {
   onLoad();
