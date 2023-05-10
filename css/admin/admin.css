@@ -974,3 +974,79 @@ nav .logo span {
   color: var(--color--white);
   cursor: pointer;
 }
+
+/* admin-user.html */
+
+.userList_table {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.userList_table > thead {
+  background: var(--color--black1);
+}
+
+.userList_table > thead > tr > th {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color--white);
+  vertical-align: middle;
+}
+
+.userList_table > tbody > tr > td {
+  padding: 8px 5px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 14px;
+  border-bottom: 1px solid var(--color--black4);
+}
+
+.userList_table > tbody > tr > td:first-child p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.userList_table > tbody img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  overflow: hidden;
+}
+
+.userList_table > tbody > tr > td > .button_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.userList_table > tbody > tr > td > .button_box button {
+  margin: 5px;
+  width: 50px;
+  height: 25px;
+  background: var(--color--black1);
+  border: 1px solid var(--color--black1);
+  color: var(--color--white);
+}
+
+.pagination {
+  padding: 20px;
+}
+
+.pagination ol {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.pagination > ol > li {
+  color: var(--color--black1);
+  cursor: pointer;
+}
+
+.active {
+  border-bottom: 1px solid var(--color--black1);
+}
+

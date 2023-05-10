@@ -210,7 +210,7 @@ emailConfirmButton.addEventListener("click", (e) => {
 
 closeModalButton.addEventListener("click", (e) => {
     clearInterval(tokenTimer);
-    modal.style.display = "none";
+    modal.style.display = "flex";
 });
 passwordCheckEyesClose.addEventListener("click", () => {
     togglePasswordVisibility(

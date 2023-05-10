@@ -28,7 +28,6 @@ const passwordChangeButton = document.querySelector('#passwordChangeButton');
 
 const changePassword = async (e) => {
   e.preventDefault();
-  if (isTokenExpired()) await tokenRefresh();
 
   if (currentPassword.value.length < 6) {
     currentPasswordError.style.display = 'block';

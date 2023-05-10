@@ -1,4 +1,3 @@
-import { isTokenExpired, tokenRefresh } from "../../modules/token.js";
 import instance from "../../modules/axios_interceptor.js";
 
 ("use strict");
@@ -14,8 +13,6 @@ async function categoryAdd() {
 
     if (addCategoryInput.value !== "") {
         try {
-            if (isTokenExpired()) await tokenRefresh();
-
             const response = await instance.post("/api/admin_category/add", {
                 category: addCategoryInput.value,
             });
@@ -33,8 +30,6 @@ addCategorybutton.addEventListener("click", categoryAdd);
 
 /* 카테고리 수정, 삭제 */
 async function categoryApi() {
-    if (isTokenExpired()) await tokenRefresh();
-
     const response = await instance.get("/api/admin_category");
 
     const categories = response.data;
@@ -80,8 +75,6 @@ async function categoryApi() {
             const categoryInput = categoryElem.querySelector("input");
 
             try {
-                if (isTokenExpired()) await tokenRefresh();
-
                 const response = await instance.put(
                     `/api/admin_category/edit?categoryId=${categoryId}`,
                     {
