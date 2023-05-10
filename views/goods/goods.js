@@ -20,12 +20,12 @@ async function onLoad() {
     entries.forEach(async (entry) => {
       if (entry.isIntersecting) {
         console.log('무한 스크롤 실행');
-        console.log('page: ' + page);
         page++;
+        console.log('page: ' + page);
         const response = await getData(page, urlCategoryId, urlSearchId);
         const products = response.data;
 
-        if (products.length < 1) {
+        if (page === 1 && products.length < 1) {
           productList.innerHTML = noSearchResultPage;
           return;
         }
