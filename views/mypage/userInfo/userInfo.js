@@ -5,10 +5,7 @@ const [email, nameInput, address, phoneNumber] = document.querySelectorAll('.use
 const withdrawalButton = document.querySelector('#withdrawalButton');
 const profileImage = document.querySelector('#profileImage');
 
-if (isTokenExpired()) tokenRefresh();
-
 const userInfo = async () => {
-  if (isTokenExpired()) tokenRefresh();
   try {
     const response = await instance.get('/api/user')
     const token = getToken();
@@ -16,7 +13,7 @@ const userInfo = async () => {
     email.innerHTML = decodedToken.email;
     nameInput.innerHTML = decodedToken.name;
     profileImage.innerHTML = `
-    <img src='http://${response.data.profileImage}' alt="이미지"
+    <img src='${response.data.profileImage}' alt="이미지"
     style= '
     background-size : cover;'>`;
     
@@ -51,7 +48,6 @@ const withdrawal = async (e) => {
   e.preventDefault();
 
   if (confirm('정말 탈퇴하시겠습니까?')) {
-    if (isTokenExpired()) await tokenRefresh();
     try {
       await instance.delete('/api/user')
       removeToken();

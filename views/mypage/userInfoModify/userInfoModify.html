@@ -17,7 +17,6 @@
         />
         <link rel="stylesheet" href="../../../css/style/reset.css" />
         <link rel="stylesheet" href="../../../css/style/style.css" />
-        <link rel="stylesheet" href="../../../css/layout/userInfoModify.css" />
         <link rel="stylesheet" href="../../../css/layout/mypage.css" />
         <link rel="stylesheet" href="../../../css/layout/spinner.css" />
         <script src="https://unpkg.com/axios/dist/axios.min.js" defer></script>
@@ -31,8 +30,8 @@
         <script type="module" src="./userInfoModify.js" defer></script>
         <script type="module" src="../../../modules/tokenPresent.js"></script>
         <script type="module" src="../../../modules/tokenCheck.js"></script>
-        <script src="../../../modules/header.js" defer></script>
-        <script src="../../../modules/spinner.js" defer></script>
+        <script type="module" src="../../../modules/header.js" defer></script>
+        <script type="module" src="../../../modules/spinner.js" defer></script>
         <title>My Page | Ticket Want it!</title>
     </head>
     <body>
@@ -129,7 +128,6 @@
                                         </td>
                                         <td>
                                             <div id='profileImage'>
-                                                <i class="ri-account-box-fill"></i>
                                             </div>
                                             <label for='profileImageBtn'>사진 등록</label>
                                             <input type="file" name="profileImage" id='profileImageBtn' class='dn'>

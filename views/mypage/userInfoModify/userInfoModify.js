@@ -1,4 +1,4 @@
-import { getToken, isTokenExpired, tokenRefresh } from '../../../modules/token.js';
+import { getToken } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 import URL from '../../../modules/server_url.js';
 
@@ -9,20 +9,16 @@ const [ nameInput, zipCode, address, addressDetail,
 const profileImageBtn = document.querySelector('#profileImageBtn');
 const profileImageDeleteBtn = document.querySelector('#profileImageDeleteBtn');
 const profileImage = document.querySelector('#profileImage');
-const defaultImage = document.querySelector('.ri-account-box-fill');
 const email = document.querySelector('#email');
 const userInfoModifyButton = document.querySelector('#userInfoModifyButton');
 const addressSearchBtn = document.querySelector('#addressSearchBtn');
 const token = getToken();
 const decodedToken = jwt_decode(token);
 
-if (isTokenExpired()) tokenRefresh();
-
 email.innerHTML = decodedToken.email;
 
 //사용자 정보 미리 input에 넣어놓기
 const userInfo = async () => {
-  if (isTokenExpired()) tokenRefresh();
   try {
     const response = await instance.get('/api/user')
     nameInput.setAttribute('value', `${decodedToken.name}`);
@@ -30,13 +26,13 @@ const userInfo = async () => {
     if (response.data.profileImage !== undefined) {
       profileImage.style = `
       margin: 0 auto;
-      background : url(http://${response.data.profileImage});
+      background : url(${response.data.profileImage});
       background-size : cover;`;
-      defaultImage.style.display = 'none';
     }
     
     if (response.data.address !== ` (상세주소)` &&
-        response.data.address !== undefined) {
+        response.data.address !== undefined &&
+        response.data.zipCode !== undefined) {
         const addressArr = response.data.address.split(' (상세주소)');
         zipCode.setAttribute('value', response.data.zipCode);
         address.setAttribute('value', addressArr[0]);
@@ -67,15 +63,6 @@ const userInfo = async () => {
 
 userInfo();
 
-//이미지 삭제
-const profileImageDelete = async (e) => {
-  e.preventDefault();
-  profileImage.style = `
-    margin: 0 auto;
-    background-size : cover;`;
-    defaultImage.style.display = 'block';
-}
-
 function execDaumPostcode() {
   new daum.Postcode({
     oncomplete: function (data) {
@@ -95,7 +82,6 @@ function execDaumPostcode() {
 //유저 정보 수정
 const userInfoModify = async (e) => {
   e.preventDefault();
-  if (isTokenExpired()) await tokenRefresh();
 
   const regPhone= /^([0-9]{2,3})-([0-9]{3,4})-([0-9]{4})$/;
   const phoneNumber = `${phoneNumber1.value}-${phoneNumber2.value}-${phoneNumber3.value}`
@@ -120,16 +106,14 @@ const userInfoModify = async (e) => {
 
 profileImageBtn.addEventListener('change', async (e) => {
   e.preventDefault();
-  if (isTokenExpired()) await tokenRefresh();
   const file = e.target.files[0];
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => {
     profileImage.style = `
       margin: 0 auto;
-      background : url(${reader.result});
+      background-color : white;
       background-size : cover;`;
-    defaultImage.style.display = 'none';
   }
   const formData = new FormData();
   formData.append('profileImage', file);
@@ -140,6 +124,7 @@ profileImageBtn.addEventListener('change', async (e) => {
       headers: { 'Content-Type': 'multipart/form-data', 
         'Authorization': `Bearer ${token}` }
     })
+    alert('프로필 사진을 등록했습니다.')
     location.reload();
   }
   catch (error) {
@@ -147,7 +132,21 @@ profileImageBtn.addEventListener('change', async (e) => {
     alert('정보 업데이트에 실패했습니다.');
   }
 });
-
-profileImageDeleteBtn.addEventListener('clcik', profileImageDelete);
+profileImageDeleteBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+  const token = getToken();
+  try {
+    const response = await axios.delete(`${URL}/api/user/profileImage`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    alert('프로필 사진을 삭제했습니다.');
+    location.reload();
+    } catch (error) {
+      console.log(error);
+      alert('정보 업데이트에 실패했습니다.');
+  }
+});
 userInfoModifyButton.addEventListener('click', userInfoModify);
 addressSearchBtn.addEventListener('click', execDaumPostcode);

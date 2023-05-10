@@ -17,12 +17,13 @@
         <link rel="stylesheet" href="../../css/style/reset.css" />
         <link rel="stylesheet" href="../../css/style/style.css" />
         <link rel="stylesheet" href="../../css/admin/admin.css" />
+        <link rel="stylesheet" href="../../css/layout/modal.css" />
         <!-- Axios -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
-        <script defer type="module" src="./admin_order.js"></script>
+        <script type="module" defer src="./admin_user.js"></script>
         <script type="script" defer src="./date.js"></script>
-        <title>Admin Order | Ticket Want it!</title>
+        <title>Admin User | Ticket Want it!</title>
     </head>
     <body>
         <div id="container">
@@ -37,7 +38,7 @@
                         <div class="category">
                             <div class="title">CATEGORY</div>
                             <ul>
-                                <li class="on">
+                                <li>
                                     <a href="./order.html"
                                         ><i class="ri-file-list-3-line"></i
                                         ><span>주문조회</span>
@@ -55,12 +56,12 @@
                                         ><span>카테고리</span></a
                                     >
                                 </li>
-                                <li>
-                                    <a href="./user.html"
-                                        ><i class="ri-user-3-line"></i
-                                          ><span>회원관리</span></a
-                                    >
-                                  </li>
+                                <li class="on">
+                                  <a href="./user.html"
+                                      ><i class="ri-user-3-line"></i
+                                        ><span>회원관리</span></a
+                                  >
+                                </li>
                             </ul>
 
                             <div class="link">
@@ -118,20 +119,98 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="admin_order">
+                        <div class="admin_category">
                             <div class="admin_title">
-                                <h2>주문조회</h2>
-                                <span>Order list</span>
+                                <h2>회원 관리</h2>
+                                <span>User list</span>
                             </div>
                             <div class="admin_content">
-                                <ul class="order_list"></ul>
+                                <div class="category_box">
+                                    <div class="add_cate">
+                                        <div class="title">
+                                            <h3>회원 검색</h3>
+                                        </div>
+                                        <select name="" id="">
+                                          <option value="userName">이름</option>
+                                          <option value="userAddress">주소</option>
+                                        </select>
+                                        <input
+                                            type="text"
+                                            placeholder="유저 정보를 입력해주세요"
+                                            id="userSearch"
+                                        />
+                                        <button id="userSearchBtn">
+                                            검색
+                                        </button>
+                                    </div>
+                                    <div>
+                                      <div class="title">
+                                        <h3>회원 리스트</h3>
+                                      </div>
+                                      <table class='userList_table'>
+                                        <colgroup>
+                                            <col style="width: 10%" />
+                                            <col style="width: 10%" />
+                                            <col style="width: 15%" />
+                                            <col style="width: 35%" />
+                                            <col style="width: 20%" />
+                                            <col style="width: 10%" />
+                                          </colgroup>
+                                        <thead>
+                                          <th>사진</th>
+                                          <th>이름</th>
+                                          <th>E-MAIL</th>
+                                          <th>주소</th>
+                                          <th>전화번호</th>
+                                          <th>수정/삭제</th>
+                                        </thead>
+                                        <tbody id='userList'>
+                                        </tbody>
+                                      </table>
+                                      <div class='pagination'>
+                                        <ol>
+                                        </ol>
+                                      </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </main>
                 </div>
             </div>
         </div>
-
+        <div id="modal">
+            <div class="modal_window">
+              <div class="close_area">
+                <button><i class="ri-close-fill"></i></button>
+              </div>
+              <div class="title">
+                <h2>회원정보수정</h2>
+              </div>
+                <div class="userInfo_modify_wrap">
+                    <span>
+                        이름
+                    </span>
+                    <input type="text" class='userInfoInput'/>
+                    <span>
+                        전화번호
+                    </span>
+                    <input type="text" class='userInfoInput'/>
+                    <span>
+                        주소
+                    </span>
+                    <input type="text" class='userInfoInput'/>
+                    <span>
+                        우편번호
+                    </span>
+                    <input type="text" class='userInfoInput'/>
+                </div>
+                <div class='modal_modify'>
+                    <button id='userInfoModify' class='border'>수정</button>
+                </div> 
+              </div>
+            </div>
+          </div>
         <footer></footer>
     </body>
 </html>
