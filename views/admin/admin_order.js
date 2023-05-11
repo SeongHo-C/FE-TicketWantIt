@@ -11,8 +11,6 @@ let currentPage;
 async function goodsConnectApi(page) {
     currentPage = page || 1;
 
-    if (isTokenExpired()) await tokenRefresh();
-
     const response = await instance.get("/api/adminOrder");
 
     const ordersData = response.data;
@@ -136,8 +134,6 @@ async function goodsConnectApi(page) {
                 console.log("onchange select", orderStatus, orderId);
 
                 try {
-                    if (isTokenExpired()) await tokenRefresh();
-
                     const response = await instance.put(
                         `/api/adminOrder/${orderId}/${orderStatus}`
                     );
@@ -164,8 +160,6 @@ async function goodsConnectApi(page) {
             console.log(orderId);
 
             try {
-                if (isTokenExpired()) await tokenRefresh();
-
                 const response = await instance.delete(
                     `/api/adminOrder/${orderId}`
                 );
