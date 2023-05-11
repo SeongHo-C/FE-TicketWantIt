@@ -14,11 +14,20 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
+#modal.active {
+    display: flex;
+}
+
 .modal_window {
     padding: 20px;
     width: 400px;
     background: var(--color--white);
     border-radius: 5px;
+}
+
+#modal.admin_modal .modal_window {
+    width: 80%;
+    min-width: 800px;
 }
 
 .close_area {

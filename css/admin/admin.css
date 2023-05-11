@@ -443,7 +443,8 @@ nav .logo span {
 
 .admin_goods,
 .admin_order,
-.admin_category {
+.admin_category,
+.admin_recommends {
     margin: 80px 20px;
     padding: 50px;
     background: var(--color--white);
