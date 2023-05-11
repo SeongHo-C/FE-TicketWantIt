@@ -1,4 +1,3 @@
-import { isTokenExpired, tokenRefresh } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
 async function onLoad() {
@@ -31,8 +30,6 @@ function calOrderStatus(orderList) {
 
 async function getOrder() {
   try {
-    if (isTokenExpired()) await tokenRefresh();
-
     const response = await instance.get('/api/orders');
 
     return response.data;
@@ -182,8 +179,6 @@ async function orderConfirm(orderId) {
     const isConfirm = confirm('구매확정 하시겠습니까?');
 
     if (isConfirm) {
-      if (isTokenExpired()) await tokenRefresh();
-
       const response = await instance.put(`/api/orders/delivery/${orderId}`);
 
       if (response) alert('구매확정이 완료되었습니다.');
@@ -214,8 +209,6 @@ function orderModify(zipCode, deliveryAddress, deliveryPhoneNum, orderId) {
 
 async function modifyAPI(data, orderId) {
   try {
-    if (isTokenExpired()) await tokenRefresh();
-
     const response = await instance.put(`/api/orders/${orderId}`, data);
 
     if (response) alert('주문정보 수정이 완료되었습니다.');
@@ -234,8 +227,6 @@ function orderCancel(orderId) {
 
 async function cancelAPI(orderId) {
   try {
-    if (isTokenExpired()) await tokenRefresh();
-
     const response = await instance.delete(`/api/orders/${orderId}`);
 
     if (response) alert('주문 취소가 완료되었습니다.');

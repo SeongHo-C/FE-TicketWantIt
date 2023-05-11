@@ -1,4 +1,3 @@
-import { isTokenExpired, tokenRefresh } from '../../modules/token.js';
 import instance from '../../modules/axios_interceptor.js';
 
 const ticketsInfo = JSON.parse(localStorage.getItem('ticket_order'));
@@ -56,8 +55,6 @@ function createTicket(ticket) {
 
 async function getUser() {
   try {
-    if (isTokenExpired()) await tokenRefresh();
-
     const response = await instance.get('/api/user');
 
     let { zipCode = '', address, phoneNumber = '' } = response.data;
@@ -104,8 +101,6 @@ function execDaumPostcode() {
 
 async function pay(data) {
   try {
-    if (isTokenExpired()) await tokenRefresh();
-
     const response = await instance.post('/api/orders', data);
 
     const { orderId } = response.data;
