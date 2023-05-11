@@ -56,6 +56,8 @@
 </aside>
 
 ### 🏁데모영상
+https://github.com/SeongHo-C/FE-TicketWantIt/assets/87592697/b975d804-5844-4b5b-bbfd-93055f5ebcc3
+
 
 # ✨기술스택
 
