@@ -1,9 +1,8 @@
-import { isTokenExpired, tokenRefresh } from "../../modules/token.js";
 import instance from "../../modules/axios_interceptor.js";
 
 ("use strict");
 
-const productList = document.querySelector(".admin_goods .goods_list");
+const productList = document.querySelector(".admin_recommends .goods_list");
 const list = document.querySelectorAll(".goods_list > li");
 const pagination = document.querySelector(".pagination ol");
 let currentPage;
