@@ -16,17 +16,12 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.log(error);
     return Promise.reject(error);
   }
 );
 
 instance.interceptors.response.use(
   (response) => {
-    if (response.status === 404) {
-      console.log('404 페이지로 넘어가야 함!');
-    }
-
     return response;
   },
   async (error) => {
