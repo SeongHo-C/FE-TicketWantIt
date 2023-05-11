@@ -38,9 +38,10 @@ if (searchForm) {
   searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const search = e.target['search_input'].value.trim();
+    const keyword = e.target['search_input'].value.trim();
 
-    if (search) location.href = `/views/goods/goods_list.html?search=${search}`;
+    if (keyword)
+      location.href = `/views/goods/goods_list.html?keyword=${keyword}`;
   });
 
   searchInput.addEventListener('focus', () => {

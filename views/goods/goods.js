@@ -7,7 +7,7 @@ async function onLoad() {
   const url = new window.URL(location.href);
   const urlParams = url.searchParams;
   const urlCategoryId = urlParams.get('category');
-  const urlSearchId = urlParams.get('search');
+  const urlKeywordId = urlParams.get('keyword');
   const urlSortId = urlParams.get('sort') || 'new';
 
   const selectedText = getSelectedText(urlSortId);
@@ -21,7 +21,7 @@ async function onLoad() {
 
     location.href = `${url}?sort=${sort}${
       (urlCategoryId && '&category=' + urlCategoryId) ||
-      (urlSearchId && '&keyword=' + urlSearchId) ||
+      (urlKeywordId && '&keyword=' + urlKeywordId) ||
       ''
     }`;
   });
@@ -42,7 +42,7 @@ async function onLoad() {
         const response = await getData(
           page,
           urlCategoryId,
-          urlSearchId,
+          urlKeywordId,
           urlSortId
         );
         const products = response.data;
@@ -89,7 +89,7 @@ function createTicket(product) {
           </li>`;
 }
 
-async function getData(page, urlCategoryId, urlSearchId, urlSortId) {
+async function getData(page, urlCategoryId, urlKeywordId, urlSortId) {
   try {
     if (urlCategoryId !== null) {
       categoryTitle.innerHTML = urlCategoryId;
@@ -97,10 +97,10 @@ async function getData(page, urlCategoryId, urlSearchId, urlSortId) {
         `${URL}/api/product/category?category=${urlCategoryId}&sort=${urlSortId}&page=${page}`
       );
     } else {
-      if (urlSearchId) {
+      if (urlKeywordId) {
         categoryTitle.innerHTML = '검색상품';
         return await axios.get(
-          `${URL}/api/product/search?keyword=${urlSearchId}&sort=${urlSortId}&page=${page}`
+          `${URL}/api/product/search?keyword=${urlKeywordId}&sort=${urlSortId}&page=${page}`
         );
       } else {
         categoryTitle.innerHTML = '전체상품';
