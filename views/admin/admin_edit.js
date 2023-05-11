@@ -1,4 +1,3 @@
-import { isTokenExpired, tokenRefresh } from "../../modules/token.js";
 import instance from "../../modules/axios_interceptor.js";
 
 /** 헤더 달력 */
@@ -26,7 +25,7 @@ const form = document.querySelector(".goods_form form");
 const productName = document.querySelector("#goodsName");
 const category = document.querySelector("#goodsCate");
 const price = document.querySelector("#goodsPrice");
-const discount = document.querySelector('#goodsDiscount');
+const discount = document.querySelector("#goodsDiscount");
 const place = document.querySelector("#goodsPlace");
 const speciesAge = document.querySelector("#goodsAge");
 const description = document.querySelector("#goodsDesc");
@@ -42,10 +41,9 @@ let filteredProduct;
 
 if (urlProductId !== null) {
     const productModifyApi = async () => {
-        if (isTokenExpired()) await tokenRefresh();
-
         const response = await instance.get("/api/admin_product");
-        const products = response.data;
+        const productsData = response.data;
+        const { data: products } = productsData;
 
         filteredProduct = products.filter(
             ({ productId }) => productId === urlProductId
@@ -55,24 +53,21 @@ if (urlProductId !== null) {
         const defaultUrl = filteredProduct[0].imageUrl;
         console.log(defaultUrl);
 
-
         productName.value = filteredProduct[0].productName;
         category.value = filteredProduct[0].category;
         startDate.value = filteredProduct[0].startDate;
         endDate.value = filteredProduct[0].endDate;
         description.value = filteredProduct[0].description;
         price.value = filteredProduct[0].price;
-        discount.value = filteredProduct[0].discount
+        discount.value = filteredProduct[0].discount;
         speciesAge.value = filteredProduct[0].speciesAge;
         place.value = filteredProduct[0].place;
 
         /* 가짜 file_inputbox에 url경로만 넣어주기 */
         formUrlInput.value = filteredProduct[0].imageUrl;
-
     };
 
     productModifyApi();
-
 } else {
     const currentDate = new Date();
     const year = currentDate.getFullYear().toString().padStart(4, "0");
@@ -92,7 +87,6 @@ if (urlProductId !== null) {
 /* 카테고리 api 받아서 selectbox로 만들기 */
 async function categorySelectApi() {
     const categorySelect = document.querySelector("#goodsCate");
-    if (isTokenExpired()) await tokenRefresh();
 
     const response = await instance.get("/api/admin_category");
     const categories = response.data;
@@ -103,7 +97,11 @@ async function categorySelectApi() {
         option.setAttribute("value", category);
         option.textContent = category;
 
-        if (urlProductId !== null && filteredProduct && category === filteredProduct[0].category) {
+        if (
+            urlProductId !== null &&
+            filteredProduct &&
+            category === filteredProduct[0].category
+        ) {
             option.selected = true;
         }
 
@@ -114,8 +112,6 @@ async function categorySelectApi() {
 }
 
 categorySelectApi();
-
-
 
 const goodsUpdateApi = async (e) => {
     e.preventDefault();
@@ -137,33 +133,43 @@ const goodsUpdateApi = async (e) => {
 
         const formData = new FormData();
         formData.append("imageUrl", imageUrl.files[0]);
+        console.log(imageUrl.files[0]);
+
+        console.log([
+            category.value,
+            productName.value,
+            price.value,
+            discount.value,
+            place.value,
+            speciesAge.value,
+            description.value,
+            startDate.value,
+            endDate.value,
+        ]);
 
         try {
-            if (isTokenExpired()) await tokenRefresh();
             const response = await instance.put(
                 `/api/admin_product/edit?productId=${urlProductId}`,
                 updateApi
             );
 
             console.log("상품이 수정되었습니다:", response.data);
-            window.location.href = "./goods.html";
+            // window.location.href = "./goods.html";
         } catch (error) {
             console.error("상품 수정 중 오류가 발생했습니다:", error);
         }
 
         try {
-            if (isTokenExpired()) await tokenRefresh();
             const responseUrl = await instance.put(
                 `/api/admin_product/edit/img?productId=${urlProductId}`,
                 formData
             );
 
             console.log("상품 이미지가 수정되었습니다:", responseUrl.data);
-            window.location.href = "./goods.html";
+            // window.location.href = "./goods.html";
         } catch (error) {
             console.error("이미지 수정 중 오류가 발생했습니다:", error);
         }
-
     } else {
         console.log("상품추가");
 
@@ -177,14 +183,24 @@ const goodsUpdateApi = async (e) => {
         formData.append("place", place.value);
         formData.append("speciesAge", speciesAge.value);
         formData.append("description", description.value);
-        formData.append("startDate", startDate.value);
-        formData.append("endDate", endDate.value);
+        formData.append("startDate", String(startDate.value));
+        formData.append("endDate", String(endDate.value));
+
+        console.log(category.value);
+        console.log(productName.value);
+        console.log(price.value);
+        console.log(discount.value);
+        console.log(place.value);
+        console.log(speciesAge.value);
+        console.log(description.value);
+        console.log(String(startDate.value));
+        console.log(String(endDate.value));
 
         try {
-            if (isTokenExpired()) await tokenRefresh();
             const response = await instance.post(
                 "/api/admin_product/add",
-                formData
+                formData,
+                { timeout: 5000 }
             );
 
             console.log("새 상품이 추가되었습니다:", response.data);
