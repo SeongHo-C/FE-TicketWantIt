@@ -51,7 +51,7 @@
 # ✨데모 사이트 및 데모영상
 
 <aside>
-👉🏻 [http://ticketwantit.kro.kr/](http://ticketwantit.kro.kr/)
+👉🏻 [https://ticketwantit.shop/)
 
 </aside>
 
