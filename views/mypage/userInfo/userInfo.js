@@ -1,4 +1,4 @@
-import { getToken, removeToken, isTokenExpired, tokenRefresh } from '../../../modules/token.js';
+import { getToken, removeToken } from '../../../modules/token.js';
 import instance from '../../../modules/axios_interceptor.js';
 
 const [email, nameInput, address, phoneNumber] = document.querySelectorAll('.userInfo');
@@ -14,8 +14,9 @@ const userInfo = async () => {
     nameInput.innerHTML = decodedToken.name;
     profileImage.innerHTML = `
     <img src='${response.data.profileImage}' alt="이미지"
-    style= '
-    background-size : cover;'>`;
+      style= '
+        background-size : cover;
+    '>`;
     
     if (
       response.data.address === ` (상세주소)` ||
@@ -36,7 +37,6 @@ const userInfo = async () => {
     }
   }
   catch (error) {
-    alert(`회원정보를 불러오지 못했습니다.`);
     console.log(error);
   };
 };

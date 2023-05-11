@@ -1,4 +1,4 @@
-import { getToken, removeToken, isTokenExpired, tokenRefresh } from '../../modules/token.js';
+import { getToken, removeToken } from '../../modules/token.js';
 import {
   togglePasswordVisibility,
   togglePasswordInvisibility,

@@ -47,26 +47,27 @@ async function showUserList() {
           userInfo[i].phoneNumber === '--') {
           userInfo[i].phoneNumber = '';
         }
+       
+          const modifyBtn = document.createElement("button");
+
+          if (userInfo[i].state === true) {
+            modifyBtn.textContent = "수정";
+            modifyBtn.className = "userInfo_modify_btn";
+          } else {
+            modifyBtn.style.display = 'none';
+          }
         
-        const modifyBtn = document.createElement("button");
-        modifyBtn.textContent = "수정";
-        modifyBtn.className = "userInfo_modify_btn";
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "삭제";
-        deleteBtn.className = "userInfo_delete_btn";
-
-        modifyBtn.addEventListener('click', function() {
+          const deleteBtn = document.createElement("button");
+          deleteBtn.textContent = "삭제";
+          deleteBtn.className = "userInfo_delete_btn";
+  
+          modifyBtn.addEventListener('click', function() {
           modal.style.display = 'flex';
           nameInput.setAttribute('value', userInfo[i].name);
           phoneNumberInput.setAttribute('value', userInfo[i].phoneNumber);
           addressInput.setAttribute('value', userInfo[i].address);
-          if (userInfo[i].zipCode !== undefined) {
-            zipCodeInput.setAttribute('value', userInfo[i].zipCode);
-          } else {
-            zipCodeInput.setAttribute('value', '');
-          }
-
+          zipCodeInput.setAttribute('value', userInfo[i].zipCode);
+          console.log(userInfo[i].state)
           userInfoModifyBtn.addEventListener('click', async () => {
             try {
               const postResponse = await instance.put(`api/adminUser/${userInfo[i].shortId}`, {
@@ -86,15 +87,18 @@ async function showUserList() {
         )
 
         deleteBtn.addEventListener('click', async () => {
-          confirm('유저정보를 정말 삭제하시겠습니까?');
-          alert('유저정보가 삭제되었습니다.');
-          try {
-            const deleteResponse = await instance.delete(`api/adminUser/${userInfo[i].shortId}`)
-            location.reload();
-          } catch (error) {
-            console.log(error);
-          }
-        });
+          if (confirm('유저정보를 정말 삭제하시겠습니까?')) {
+            try {
+              const deleteResponse = await instance.delete(`api/adminUser/${userInfo[i].shortId}`)
+              location.reload();
+            } catch (error) {
+              console.log(error);
+            }
+            alert('유저정보가 삭제되었습니다.');
+            } else {
+            alert('유저정보 삭제를 취소했습니다.');
+            }
+          });
 
         const btnBox = document.createElement("div");
         btnBox.className = "button_box";

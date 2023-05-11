@@ -56,7 +56,6 @@ const userInfo = async () => {
     }
   }
   catch (error) {
-    alert(`회원정보를 불러오지 못했습니다.`);
     console.log(error);
   };
 };
@@ -112,7 +111,6 @@ profileImageBtn.addEventListener('change', async (e) => {
   reader.onload = () => {
     profileImage.style = `
       margin: 0 auto;
-      background-color : white;
       background-size : cover;`;
   }
   const formData = new FormData();
