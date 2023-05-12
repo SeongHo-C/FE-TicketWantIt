@@ -99,4 +99,4 @@ https://github.com/SeongHo-C/FE-TicketWantIt/assets/87592697/b975d804-5844-4b5b-
 |Frontend|Frontend|Frontend|Backend|Backend|Backend|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 | ![](https://github.com/younu-Yun.png?size=120)| ![](https://github.com/SeongHo-C.png?size=120) | ![](https://github.com/YunJ96.png?size=120) | ![](https://github.com/yooha0518.png?size=120) | ![](https://github.com/02rynn.png?size=120) | ![](https://github.com/zhal7779.png?size=120) | 
-|[윤우정](https://github.com/younu-Yun)|[이성호](https://github.com/SeongHo-C)|[김윤중](https://github.com/YunJ96)|[유하영](https://github.com/songhwee1)|[정혜린](https://github.com/02rynn)|[이민영](https://github.com/zhal7779)|
+|[윤우정](https://github.com/younu-Yun)|[이성호](https://github.com/SeongHo-C)|[김윤중](https://github.com/YunJ96)|[유하영](https://github.com/yooha0518)|[정혜린](https://github.com/02rynn)|[이민영](https://github.com/zhal7779)|
