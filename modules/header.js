@@ -22,9 +22,9 @@ async function headerCategory() {
 
   const url = new window.URL(location.href);
   const urlParams = url.searchParams;
-  const urlSearchId = urlParams.get('search');
+  const urlKeywordId = urlParams.get('keyword');
 
-  if (urlSearchId) searchInput.value = urlSearchId;
+  if (urlKeywordId) searchInput.value = urlKeywordId;
 }
 
 window.addEventListener('load', () => {
