@@ -1,4 +1,6 @@
+// import { getToken } from "../../../modules/token.js";
 import instance from "../../modules/axios_interceptor.js";
+import URL from "../../../modules/server_url.js";
 
 /** 헤더 달력 */
 const currentDate = new Date();
@@ -32,7 +34,7 @@ const description = document.querySelector("#goodsDesc");
 const startDate = document.querySelector("#goodsDateStart");
 const endDate = document.querySelector("#goodsDateEnd");
 
-const url = new URL(window.location.href);
+const url = new window.URL(window.location.href);
 const urlParams = url.searchParams;
 const urlProductId = urlParams.get("productId");
 console.log(urlProductId);
@@ -135,18 +137,6 @@ const goodsUpdateApi = async (e) => {
         formData.append("imageUrl", imageUrl.files[0]);
         console.log(imageUrl.files[0]);
 
-        console.log([
-            category.value,
-            productName.value,
-            price.value,
-            discount.value,
-            place.value,
-            speciesAge.value,
-            description.value,
-            startDate.value,
-            endDate.value,
-        ]);
-
         try {
             const response = await instance.put(
                 `/api/admin_product/edit?productId=${urlProductId}`,
@@ -154,24 +144,26 @@ const goodsUpdateApi = async (e) => {
             );
 
             console.log("상품이 수정되었습니다:", response.data);
-            // window.location.href = "./goods.html";
+            window.location.href = "./goods.html";
         } catch (error) {
             console.error("상품 수정 중 오류가 발생했습니다:", error);
         }
 
         try {
+            // const token = getToken();
             const responseUrl = await instance.put(
                 `/api/admin_product/edit/img?productId=${urlProductId}`,
                 formData
             );
 
             console.log("상품 이미지가 수정되었습니다:", responseUrl.data);
-            // window.location.href = "./goods.html";
+            window.location.href = "./goods.html";
         } catch (error) {
             console.error("이미지 수정 중 오류가 발생했습니다:", error);
         }
     } else {
         console.log("상품추가");
+        console.log(URL);
 
         const formData = new FormData();
 
@@ -186,21 +178,11 @@ const goodsUpdateApi = async (e) => {
         formData.append("startDate", String(startDate.value));
         formData.append("endDate", String(endDate.value));
 
-        console.log(category.value);
-        console.log(productName.value);
-        console.log(price.value);
-        console.log(discount.value);
-        console.log(place.value);
-        console.log(speciesAge.value);
-        console.log(description.value);
-        console.log(String(startDate.value));
-        console.log(String(endDate.value));
-
         try {
+            // const token = getToken();
             const response = await instance.post(
-                "/api/admin_product/add",
-                formData,
-                { timeout: 5000 }
+                `/api/admin_product/add`,
+                formData
             );
 
             console.log("새 상품이 추가되었습니다:", response.data);

@@ -26,8 +26,7 @@
 }
 
 #modal.admin_modal .modal_window {
-    width: 80%;
-    min-width: 800px;
+    min-width: 600px;
 }
 
 .close_area {
