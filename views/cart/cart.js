@@ -16,7 +16,7 @@ function onLoad() {
 
 function calculateTotalPrice(ticketsInfo) {
   const totalPrice = ticketsInfo.reduce(
-    (sum, { price, quantity }) => sum + price * quantity,
+    (sum, { discountPrice, quantity }) => sum + discountPrice * quantity,
     0
   );
 
@@ -67,6 +67,8 @@ function createTicket(ticket) {
     speciesAge,
     price,
     quantity = 1,
+    discount,
+    discountPrice
   } = ticket;
 
   return `<tr id=ticket${productId}>
@@ -87,7 +89,17 @@ function createTicket(ticket) {
   </td>
   <td><p>${place}</p></td>
   <td><p>${speciesAge}</p></td>
-  <td><p class="ticket_price">${Number(price).toLocaleString()}원</p></td>
+  <td>
+    <div class="ticket_price">
+      <div class="price_box ${discount !== 0 ? 'discount' : ''}">
+        <strong class="discount">${discount}%</strong>
+        <span class="discount_price">
+        ${Number(discountPrice).toLocaleString('ko-KR')}원
+        </span>
+        <span class="fixed_price">${Number(price).toLocaleString('ko-KR')}원</span>
+      </div>
+    </div>
+  </td>
   <td class="ticket_quantity">
   <div>
     <button class="minus_button" onclick="onMinus('${productId}')">
@@ -99,7 +111,7 @@ function createTicket(ticket) {
     </button>
     </div>
   </td>
-  <td><p class="ticket_total">${(price * quantity).toLocaleString()}원</p></td>
+  <td><p class="ticket_total">${(discountPrice * quantity).toLocaleString()}원</p></td>
   <td class="only_ticket">
     <button class="ticket_order" onclick="onlyOrder('${productId}')">
       주문하기

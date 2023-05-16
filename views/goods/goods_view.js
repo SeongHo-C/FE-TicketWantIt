@@ -39,6 +39,8 @@ function createView(data) {
     price,
     productName,
     speciesAge,
+    discount,
+    discountPrice
   } = data;
 
   return `<div class="img_box">
@@ -58,7 +60,13 @@ function createView(data) {
                         ${description}
                     </div>
                 </div>
-                <div class="price">${Number(price).toLocaleString()}원</div>
+                <div class="price_box ${discount !== 0 ? 'discount' : ''}">
+                  <strong class="discount">${discount}%</strong>
+                  <span class="discount_price">
+                  ${Number(discountPrice).toLocaleString('ko-KR')}원
+                  </span>
+                  <span class="fixed_price">${Number(price).toLocaleString('ko-KR')}원</span>
+                </div>
                 <div class="detail_info">
                     <dl class="age">
                         <dt>연령제한</dt>
@@ -149,7 +157,7 @@ function onCount(type) {
 }
 
 function createTicket() {
-  const { productId, imageUrl, productName, place, speciesAge, price } =
+  const { productId, imageUrl, productName, place, speciesAge, price, discount, discountPrice } =
     productViewItem;
 
   return {
@@ -160,6 +168,8 @@ function createTicket() {
     speciesAge,
     price,
     quantity,
+    discount,
+    discountPrice
   };
 }
 
