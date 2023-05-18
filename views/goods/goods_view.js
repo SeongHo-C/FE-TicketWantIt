@@ -1,49 +1,51 @@
-import URL from '../../modules/server_url.js';
+import URL from "../../modules/server_url.js";
 
 let productViewItem;
 let quantity = 1;
 
 async function onLoad() {
-  try {
-    const urlParams = new URLSearchParams(location.search);
-    const productId = urlParams.get('productId');
+    try {
+        const urlParams = new URLSearchParams(location.search);
+        const productId = urlParams.get("productId");
 
-    const response = await axios.get(
-      `${URL}/api/product/detail?productId=${productId}`
-    );
-    productViewItem = response.data;
+        const response = await axios.get(
+            `${URL}/api/product/detail?productId=${productId}`
+        );
+        productViewItem = response.data;
 
-    productView.innerHTML = createView(productViewItem);
+        productView.innerHTML = createView(productViewItem);
 
-    const addCartBtn = document.querySelector('.btn_box > .btn_cart');
-    const directBuyBtn = document.querySelector('.btn_box > .btn_buy');
-    const minusBtn = document.querySelector('.ticket_quantity > .minus_btn');
-    const plusBtn = document.querySelector('.ticket_quantity > .plus_btn');
+        const addCartBtn = document.querySelector(".btn_box > .btn_cart");
+        const directBuyBtn = document.querySelector(".btn_box > .btn_buy");
+        const minusBtn = document.querySelector(
+            ".ticket_quantity > .minus_btn"
+        );
+        const plusBtn = document.querySelector(".ticket_quantity > .plus_btn");
 
-    addCartBtn.onclick = onAddCart;
-    directBuyBtn.onclick = onDirectBuy;
-    minusBtn.addEventListener('click', () => onCount('minus'));
-    plusBtn.addEventListener('click', () => onCount('plus'));
-  } catch (error) {
-    console.log(error);
-  }
+        addCartBtn.onclick = onAddCart;
+        directBuyBtn.onclick = onDirectBuy;
+        minusBtn.addEventListener("click", () => onCount("minus"));
+        plusBtn.addEventListener("click", () => onCount("plus"));
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function createView(data) {
-  const {
-    description,
-    startDate,
-    endDate,
-    imageUrl,
-    place,
-    price,
-    productName,
-    speciesAge,
-    discount,
-    discountPrice
-  } = data;
+    const {
+        description,
+        startDate,
+        endDate,
+        imageUrl,
+        place,
+        price,
+        productName,
+        speciesAge,
+        discount,
+        discountPrice,
+    } = data;
 
-  return `<div class="img_box">
+    return `<div class="img_box">
             <img
                 src=${imageUrl}
                 alt="상품 이미지"
@@ -60,12 +62,14 @@ function createView(data) {
                         ${description}
                     </div>
                 </div>
-                <div class="price_box ${discount !== 0 ? 'discount' : ''}">
+                <div class="price_box ${discount !== 0 ? "discount" : ""}">
+                  <span class="fixed_price">${Number(price).toLocaleString(
+                      "ko-KR"
+                  )}원</span>
                   <strong class="discount">${discount}%</strong>
                   <span class="discount_price">
-                  ${Number(discountPrice).toLocaleString('ko-KR')}원
+                  ${Number(discountPrice).toLocaleString("ko-KR")}원
                   </span>
-                  <span class="fixed_price">${Number(price).toLocaleString('ko-KR')}원</span>
                 </div>
                 <div class="detail_info">
                     <dl class="age">
@@ -96,85 +100,95 @@ function createView(data) {
 }
 
 function onAddCart() {
-  const ticket = createTicket();
+    const ticket = createTicket();
 
-  const cart = localStorage.getItem('cart')
-    ? JSON.parse(localStorage.getItem('cart'))
-    : false;
+    const cart = localStorage.getItem("cart")
+        ? JSON.parse(localStorage.getItem("cart"))
+        : false;
 
-  if (cart) {
-    const isTicket = cart.find((item) => item.productId === ticket.productId);
+    if (cart) {
+        const isTicket = cart.find(
+            (item) => item.productId === ticket.productId
+        );
 
-    if (isTicket) {
-      alert('장바구니에 상품이 이미 존재합니다.');
-      return;
+        if (isTicket) {
+            alert("장바구니에 상품이 이미 존재합니다.");
+            return;
+        }
+
+        cart.push(ticket);
+        localStorage.setItem("cart", JSON.stringify(cart));
+    } else {
+        localStorage.setItem("cart", JSON.stringify([ticket]));
     }
 
-    cart.push(ticket);
-    localStorage.setItem('cart', JSON.stringify(cart));
-  } else {
-    localStorage.setItem('cart', JSON.stringify([ticket]));
-  }
-
-  alert('장바구니에 상품이 추가되었습니다.');
-  location.reload();
+    alert("장바구니에 상품이 추가되었습니다.");
+    location.reload();
 }
 
 function onDirectBuy() {
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
-  if (!token) {
-    location.href = '/views/login/login.html';
-    alert('로그인 후 이용해주시기 바랍니다.');
-  }
+    if (!token) {
+        location.href = "/views/login/login.html";
+        alert("로그인 후 이용해주시기 바랍니다.");
+    }
 
-  const ticket = createTicket();
+    const ticket = createTicket();
 
-  onNavigateOrder([ticket]);
+    onNavigateOrder([ticket]);
 }
 
 function onNavigateOrder(ticket) {
-  localStorage.setItem('ticket_order', JSON.stringify(ticket));
+    localStorage.setItem("ticket_order", JSON.stringify(ticket));
 
-  location.href = '../order/order.html';
+    location.href = "../order/order.html";
 }
 
 function onCount(type) {
-  const quantityInput = document.querySelector('.ticket_quantity > input');
+    const quantityInput = document.querySelector(".ticket_quantity > input");
 
-  if (type === 'minus') {
-    if (quantity <= 1) {
-      alert('상품의 최소 수량은 1개입니다.');
-      return;
+    if (type === "minus") {
+        if (quantity <= 1) {
+            alert("상품의 최소 수량은 1개입니다.");
+            return;
+        }
+
+        quantity -= 1;
+        quantityInput.value = quantity;
+    } else {
+        quantity += 1;
+        quantityInput.value = quantity;
     }
-
-    quantity -= 1;
-    quantityInput.value = quantity;
-  } else {
-    quantity += 1;
-    quantityInput.value = quantity;
-  }
 }
 
 function createTicket() {
-  const { productId, imageUrl, productName, place, speciesAge, price, discount, discountPrice } =
-    productViewItem;
+    const {
+        productId,
+        imageUrl,
+        productName,
+        place,
+        speciesAge,
+        price,
+        discount,
+        discountPrice,
+    } = productViewItem;
 
-  return {
-    productId,
-    imageUrl,
-    productName,
-    place,
-    speciesAge,
-    price,
-    quantity,
-    discount,
-    discountPrice
-  };
+    return {
+        productId,
+        imageUrl,
+        productName,
+        place,
+        speciesAge,
+        price,
+        quantity,
+        discount,
+        discountPrice,
+    };
 }
 
-const productView = document.querySelector('.goods_detail');
+const productView = document.querySelector(".goods_detail");
 
-window.addEventListener('load', () => {
-  onLoad();
+window.addEventListener("load", () => {
+    onLoad();
 });

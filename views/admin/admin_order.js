@@ -3,6 +3,15 @@ import instance from "../../modules/axios_interceptor.js";
 
 ("use strict");
 
+const currentDate = new Date();
+const options = { day: "numeric", month: "short", year: "numeric" };
+const formattedDate = currentDate
+    .toLocaleDateString("en-US", options)
+    .toUpperCase();
+
+const date = document.querySelector(".date span");
+date.innerHTML = formattedDate;
+
 /* 주문목록 조회 */
 const orderList = document.querySelector(".order_list");
 const pagination = document.querySelector(".pagination ol");
@@ -129,7 +138,7 @@ async function goodsConnectApi(page) {
                             <span>${totalPrice.toLocaleString()}원</span>
                         </div>
                         <div class="btn_box">
-                            <button class="btn_delete">주문삭제</button>
+                            <button class="btn_delete border">주문삭제</button>
                         </div>
                     </div>
                 </div>

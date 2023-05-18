@@ -1,8 +1,18 @@
 import instance from "../../modules/axios_interceptor.js";
 
-const modal = document.querySelector('#modal')
-const openModalButton = document.querySelector('.btn_modal');
-const closeModalButton = document.querySelector('#modal .close_area button')
+/** 헤더 달력 */
+const currentDate = new Date();
+const options = { day: "numeric", month: "short", year: "numeric" };
+const formattedDate = currentDate
+    .toLocaleDateString("en-US", options)
+    .toUpperCase();
+
+const date = document.querySelector(".date span");
+date.innerHTML = formattedDate;
+
+const modal = document.querySelector("#modal");
+const openModalButton = document.querySelector(".btn_modal");
+const closeModalButton = document.querySelector("#modal .close_area button");
 
 function openModal() {
     modal.classList.add("active");
@@ -13,52 +23,51 @@ function closeModal() {
     modal.classList.remove("active");
 }
 
-openModalButton.addEventListener('click', openModal)
-closeModalButton.addEventListener('click', closeModal)
-
+openModalButton.addEventListener("click", openModal);
+closeModalButton.addEventListener("click", closeModal);
 
 const productList = document.querySelector(".product_all .table_cont ul");
 const pagination = document.querySelector(".pagination ol");
-const addButton = document.querySelector('.admin_modal .add')
-const deleteButton = document.querySelector('.admin_modal .delete')
+const addButton = document.querySelector(".admin_modal .add");
+const deleteButton = document.querySelector(".admin_modal .delete");
 let currentPage;
 
-
 function addRecommendList() {
-    const recommedList = document.querySelector('.product_select .table_cont ul');
-    const selectedLists = Array.from(document.querySelectorAll(".product_all .list_box input[type='checkbox']:checked"))
-        .map(checkbox => checkbox.closest("li"))
-        .map(item => {
+    const recommedList = document.querySelector(
+        ".product_select .table_cont ul"
+    );
+    const selectedLists = Array.from(
+        document.querySelectorAll(
+            ".product_all .list_box input[type='checkbox']:checked"
+        )
+    )
+        .map((checkbox) => checkbox.closest("li"))
+        .map((item) => {
             const productId = item.getAttribute("data-id");
             const productName = item.querySelector(".name span").textContent;
             const price = item.querySelector(".price span").textContent;
-            const imageUrl = item.querySelector('.image img').src;
+            const imageUrl = item.querySelector(".image img").src;
 
             return {
                 productId: productId,
                 productName: productName,
                 price: price,
-                imageUrl: imageUrl
+                imageUrl: imageUrl,
             };
         });
 
+    const existingProductIds = Array.from(
+        recommedList.querySelectorAll("li")
+    ).map((li) => li.getAttribute("data-id"));
 
-
-    const existingProductIds = Array.from(recommedList.querySelectorAll("li")).map(li => li.getAttribute("data-id"));
-
-    selectedLists.forEach(({
-        productId,
-        productName,
-        imageUrl,
-        price
-    }) => {
+    selectedLists.forEach(({ productId, productName, imageUrl, price }) => {
         if (recommedList.childElementCount >= 6) {
             alert("상품을 6개 이상 담을 수 없습니다.");
             return;
         }
 
         if (existingProductIds.includes(productId)) {
-            alert('이미 선택된 상품입니다.')
+            alert("이미 선택된 상품입니다.");
             return;
         }
 
@@ -85,40 +94,32 @@ function addRecommendList() {
         existingProductIds.push(productId);
     });
 
-    const productAllLists = document.querySelectorAll('.product_all .table_cont li');
-    productAllLists.forEach(item => {
+    const productAllLists = document.querySelectorAll(
+        ".product_all .table_cont li"
+    );
+    productAllLists.forEach((item) => {
         const checkbox = item.querySelector('.list_box input[type="checkbox"]');
         if (checkbox) {
             checkbox.checked = false;
         }
     });
-
-
 }
 
 function deleteRecommendList() {
-    const recommedList = document.querySelector('.product_select .table_cont ul');
+    const recommedList = document.querySelector(
+        ".product_select .table_cont ul"
+    );
     const selectedItems = Array.from(recommedList.querySelectorAll("li"));
 
-    selectedItems.forEach(item => {
+    selectedItems.forEach((item) => {
         const checkbox = item.querySelector("input[type='checkbox']");
         if (checkbox.checked) {
             const productId = item.getAttribute("data-id");
 
-            // Remove the item from the recommedList
             item.remove();
-
-            // Remove the item from localStorage if needed
-            // const storedSelectedLists = localStorage.getItem('selectedLists');
-            // if (storedSelectedLists) {
-            //     const selectedLists = JSON.parse(storedSelectedLists);
-            //     const updatedSelectedLists = selectedLists.filter(list => list.productId !== productId);
-            //     localStorage.setItem('selectedLists', JSON.stringify(updatedSelectedLists));
-            // }
         }
     });
 }
-
 
 /* 상품목록리스트 */
 async function goodsListApi(page) {
@@ -131,15 +132,10 @@ async function goodsListApi(page) {
         pageInfo: { currentPage: responseDataPage, totalPage },
     } = productsData;
 
-    console.log(products)
+    console.log(products);
     productList.innerHTML = products
         .map(
-            ({
-                productId,
-                productName,
-                imageUrl,
-                price,
-            }) => `
+            ({ productId, productName, imageUrl, price }) => `
             <li data-id=${productId}>
                 <div class="list_box">
                     <div class="select">
@@ -164,7 +160,7 @@ async function goodsListApi(page) {
         )
         .join("");
 
-    recommendList('modal')
+    recommendList("modal");
 
     const itemsPerPage = 5; // 한 그룹당 표시할 페이지 수
     const totalGroups = Math.ceil(totalPage / itemsPerPage);
@@ -173,10 +169,8 @@ async function goodsListApi(page) {
         currentGroup = totalGroups;
     }
 
-
-    addButton.addEventListener('click', addRecommendList)
-    deleteButton.addEventListener('click', deleteRecommendList)
-
+    addButton.addEventListener("click", addRecommendList);
+    deleteButton.addEventListener("click", deleteRecommendList);
 
     pagination.innerHTML = "";
 
@@ -195,14 +189,16 @@ async function goodsListApi(page) {
 
     // 현재 그룹에 대한 버튼 생성
     for (let i = startPage; i <= endPage; i++) {
-        pagination.innerHTML += `<li class="btn_page ${i === currentPage ? "active" : ""
-            }" data-page="${i}"><span>${i}</span></li>`;
+        pagination.innerHTML += `<li class="btn_page ${
+            i === currentPage ? "active" : ""
+        }" data-page="${i}"><span>${i}</span></li>`;
     }
 
     // 다음 그룹 버튼 표시
     if (currentGroup < totalGroups) {
-        pagination.innerHTML += `<li class="btn_page" data-group="${currentGroup + 1
-            }"><span>>></span></li>`;
+        pagination.innerHTML += `<li class="btn_page" data-group="${
+            currentGroup + 1
+        }"><span>>></span></li>`;
     }
 
     const pageButtons = document.querySelectorAll(".btn_page");
@@ -218,26 +214,25 @@ async function goodsListApi(page) {
                 currentPage = parseInt(button.dataset.page);
             }
             goodsListApi(currentPage);
-
         });
     });
-
 }
 
 async function fixRecommendList() {
-    const fixRecommendLists =
-        Array.from(document.querySelectorAll(".product_select .table_cont li"))
-            .map(item => item.getAttribute("data-id"))
-    console.log(fixRecommendLists)
+    const fixRecommendLists = Array.from(
+        document.querySelectorAll(".product_select .table_cont li")
+    ).map((item) => item.getAttribute("data-id"));
+    console.log(fixRecommendLists);
 
     try {
-        const response = await instance.post("/api/admin_product/recommended_product", {
-            productIds: fixRecommendLists,
-        });
+        const response = await instance.post(
+            "/api/admin_product/recommended_product",
+            {
+                productIds: fixRecommendLists,
+            }
+        );
 
         console.log("추천상품이 등록되었습니다.", response.data);
-
-
     } catch (error) {
         console.error("추천상품 등록 중 오류가 발생했습니다.", error);
     }
@@ -246,24 +241,22 @@ async function fixRecommendList() {
     location.reload();
 }
 
-
-const recommendButton = document.querySelector('.btn_recomm');
-recommendButton.addEventListener('click', fixRecommendList)
-
-
-
+const recommendButton = document.querySelector(".btn_recomm");
+recommendButton.addEventListener("click", fixRecommendList);
 
 async function recommendList(version) {
-
     const response = await instance.get("/api/product/MD_Pick");
-    const products = response.data
-    console.log(products)
+    const products = response.data;
+    console.log(products);
 
-    const fixRecommendList = document.querySelector('.admin_content .recomm_list');
-    const recommedList = document.querySelector('.product_select .table_cont ul');
+    const fixRecommendList = document.querySelector(
+        ".admin_content .recomm_list"
+    );
+    const recommedList = document.querySelector(
+        ".product_select .table_cont ul"
+    );
 
-
-    if (version === 'totalList') {
+    if (version === "totalList") {
         fixRecommendList.innerHTML = products
             .map(
                 ({
@@ -317,17 +310,10 @@ async function recommendList(version) {
             .join("");
     }
 
-    if (version === 'modal') {
-
-
+    if (version === "modal") {
         recommedList.innerHTML = products
             .map(
-                ({
-                    productId,
-                    productName,
-                    imageUrl,
-                    price,
-                }) => `
+                ({ productId, productName, imageUrl, price }) => `
             <li data-id=${productId}>
                 <div class="list_box">
                     <div class="select">
@@ -352,7 +338,6 @@ async function recommendList(version) {
             )
             .join("");
     }
-
 }
 
-recommendList('totalList')
+recommendList("totalList");
