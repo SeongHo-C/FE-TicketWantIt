@@ -1,7 +1,14 @@
 import { isTokenExpired, tokenRefresh } from "../../modules/token.js";
 import instance from "../../modules/axios_interceptor.js";
 
-("use strict");
+const currentDate = new Date();
+const options = { day: "numeric", month: "short", year: "numeric" };
+const formattedDate = currentDate
+    .toLocaleDateString("en-US", options)
+    .toUpperCase();
+
+const date = document.querySelector(".date span");
+date.innerHTML = formattedDate;
 
 const productList = document.querySelector(".admin_goods .goods_list");
 const pagination = document.querySelector(".pagination ol");
