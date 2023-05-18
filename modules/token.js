@@ -1,4 +1,5 @@
 import URL from './server_url.js';
+import { logout } from './tokenPresent.js';
 
 function getToken() {
   return localStorage.getItem('token');
@@ -43,7 +44,10 @@ async function tokenRefresh() {
     const { accessToken } = response.data;
     saveToken(accessToken);
   } catch (error) {
-    console.log(error);
+    if (error.response.status === 403) {
+      alert('다시 로그인 후 이용해주시기 바랍니다.');
+      logout();
+    }
   }
 }
 

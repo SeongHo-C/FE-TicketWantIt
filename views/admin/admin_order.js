@@ -84,6 +84,8 @@ async function goodsConnectApi(page) {
                                             name,
                                             quantity,
                                             price,
+                                            discountPrice,
+                                            discount,
                                             imgUrl,
                                         }) =>
                                             `<li data-order-item="${_id}">
@@ -97,8 +99,22 @@ async function goodsConnectApi(page) {
                                                     <dd>${quantity}</dd>
                                                 </dl>
                                                 <dl>
-                                                    <dt>가격</dt>
-                                                    <dd>${price.toLocaleString()}원</dd>
+                                                    <dt>구매가격</dt>
+                                                    <dd>${
+                                                        discount !== 0
+                                                            ? Number(
+                                                                  price
+                                                              ).toLocaleString()
+                                                            : Number(
+                                                                  discountPrice
+                                                              ).toLocaleString()
+                                                    }원</dd>
+                                                </dl>
+                                                <dl>
+                                                    <dt>할인율</dt>
+                                                    <dd>${Number(
+                                                        discount
+                                                    )}%</dd>
                                                 </dl>
                                             </div>
                                         </li>`

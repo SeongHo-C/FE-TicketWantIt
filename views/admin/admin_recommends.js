@@ -1,11 +1,124 @@
 import instance from "../../modules/axios_interceptor.js";
 
-("use strict");
+const modal = document.querySelector('#modal')
+const openModalButton = document.querySelector('.btn_modal');
+const closeModalButton = document.querySelector('#modal .close_area button')
 
-const productList = document.querySelector(".admin_recommends .goods_list");
-const list = document.querySelectorAll(".goods_list > li");
+function openModal() {
+    modal.classList.add("active");
+    goodsListApi();
+}
+
+function closeModal() {
+    modal.classList.remove("active");
+}
+
+openModalButton.addEventListener('click', openModal)
+closeModalButton.addEventListener('click', closeModal)
+
+
+const productList = document.querySelector(".product_all .table_cont ul");
 const pagination = document.querySelector(".pagination ol");
+const addButton = document.querySelector('.admin_modal .add')
+const deleteButton = document.querySelector('.admin_modal .delete')
 let currentPage;
+
+
+function addRecommendList() {
+    const recommedList = document.querySelector('.product_select .table_cont ul');
+    const selectedLists = Array.from(document.querySelectorAll(".product_all .list_box input[type='checkbox']:checked"))
+        .map(checkbox => checkbox.closest("li"))
+        .map(item => {
+            const productId = item.getAttribute("data-id");
+            const productName = item.querySelector(".name span").textContent;
+            const price = item.querySelector(".price span").textContent;
+            const imageUrl = item.querySelector('.image img').src;
+
+            return {
+                productId: productId,
+                productName: productName,
+                price: price,
+                imageUrl: imageUrl
+            };
+        });
+
+
+
+    const existingProductIds = Array.from(recommedList.querySelectorAll("li")).map(li => li.getAttribute("data-id"));
+
+    selectedLists.forEach(({
+        productId,
+        productName,
+        imageUrl,
+        price
+    }) => {
+        if (recommedList.childElementCount >= 6) {
+            alert("상품을 6개 이상 담을 수 없습니다.");
+            return;
+        }
+
+        if (existingProductIds.includes(productId)) {
+            alert('이미 선택된 상품입니다.')
+            return;
+        }
+
+        const listItemHTML = `
+        <li data-id="${productId}">
+          <div class="list_box">
+            <div class="select">
+              <input type="checkbox" name="recommendCheck" id="recommendCheck" />
+            </div>
+            <div class="image">
+              <img src="${imageUrl}" alt="${productName}" />
+            </div>
+            <div class="name">
+              <span>${productName}</span>
+            </div>
+            <div class="price">
+              <span>${price}</span>
+            </div>
+          </div>
+        </li>
+      `;
+
+        recommedList.innerHTML += listItemHTML;
+        existingProductIds.push(productId);
+    });
+
+    const productAllLists = document.querySelectorAll('.product_all .table_cont li');
+    productAllLists.forEach(item => {
+        const checkbox = item.querySelector('.list_box input[type="checkbox"]');
+        if (checkbox) {
+            checkbox.checked = false;
+        }
+    });
+
+
+}
+
+function deleteRecommendList() {
+    const recommedList = document.querySelector('.product_select .table_cont ul');
+    const selectedItems = Array.from(recommedList.querySelectorAll("li"));
+
+    selectedItems.forEach(item => {
+        const checkbox = item.querySelector("input[type='checkbox']");
+        if (checkbox.checked) {
+            const productId = item.getAttribute("data-id");
+
+            // Remove the item from the recommedList
+            item.remove();
+
+            // Remove the item from localStorage if needed
+            // const storedSelectedLists = localStorage.getItem('selectedLists');
+            // if (storedSelectedLists) {
+            //     const selectedLists = JSON.parse(storedSelectedLists);
+            //     const updatedSelectedLists = selectedLists.filter(list => list.productId !== productId);
+            //     localStorage.setItem('selectedLists', JSON.stringify(updatedSelectedLists));
+            // }
+        }
+    });
+}
+
 
 /* 상품목록리스트 */
 async function goodsListApi(page) {
@@ -18,6 +131,7 @@ async function goodsListApi(page) {
         pageInfo: { currentPage: responseDataPage, totalPage },
     } = productsData;
 
+    console.log(products)
     productList.innerHTML = products
         .map(
             ({
@@ -25,82 +139,32 @@ async function goodsListApi(page) {
                 productName,
                 imageUrl,
                 price,
-                place,
-                speciesAge,
-                description,
-                startDate,
-                endDate,
-                category,
-                discount,
             }) => `
-        <li data-id="${productId}" data-category="${category}">
-            <div class="goods_detail">
-                <div class="img_box">
-                <img src="${imageUrl}" alt="${productName}" />
-                </div>
-                <div class="info_box">
-                <div class="detail_info">
-                    <div class="title">
-                    <strong>${productName}</strong>
+            <li data-id=${productId}>
+                <div class="list_box">
+                    <div class="select">
+                        <input
+                            type="checkbox"
+                            name="recommendCheck"
+                            id="recommendCheck"
+                        />
                     </div>
-                    <dl class="date">
-                    <dt>날짜</dt>
-                    <dd>${startDate} - ${endDate}</dd>
-                    </dl>
-                    <dl class="description">
-                    <dt>설명</dt>
-                    <dd>${description}</dd>
-                    </dl>
-                    <dl class="price">
-                    <dt>가격</dt>
-                    <dd>${price}원</dd>
-                    </dl>
-                    <dl class="discount">
-                    <dt>할인율</dt>
-                    <dd>${discount}%</dd>
-                    </dl>
-                    <dl class="cate">
-                    <dt>카테고리</dt>
-                    <dd>${category}</dd>
-                    </dl>
-                    <dl class="age">
-                    <dt>연령제한</dt>
-                    <dd>${speciesAge}</dd>
-                    </dl>
-                    <dl class="place">
-                    <dt>장소</dt>
-                    <dd>${place}</dd>
-                    </dl>
+                    <div class="image">
+                        <img src=${imageUrl} alt=${productName}/>
+                    </div>
+                    <div class="name">
+                        <span>${productName}</span>
+                    </div>
+                    <div class="price">
+                        <span>${price}</span>
+                    </div>
                 </div>
-                <div class="btn_box">
-                    <a href="../admin/goods_edit.html?productId=${productId}"  class="btn_modify">상품수정</a>
-                    <button class="btn_delete">상품삭제</button>
-                </div>
-                </div>
-            </div>
-        </li>
-    `
+            </li>
+            `
         )
         .join("");
 
-    list.forEach((li) =>
-        li.querySelector(".btn_delete").addEventListener("click", async () => {
-            let productId = li.dataset.id;
-            console.log(productId);
-
-            try {
-                const response = await instance.delete(
-                    `/api/admin_product/delete?productId=${productId}`
-                );
-
-                console.log("상품이 삭제되었습니다:", response);
-                alert("상품이 삭제되었습니다.");
-                location.reload();
-            } catch (error) {
-                console.error("상품 삭제 중 오류가 발생했습니다:", error);
-            }
-        })
-    );
+    recommendList('modal')
 
     const itemsPerPage = 5; // 한 그룹당 표시할 페이지 수
     const totalGroups = Math.ceil(totalPage / itemsPerPage);
@@ -109,13 +173,20 @@ async function goodsListApi(page) {
         currentGroup = totalGroups;
     }
 
+
+    addButton.addEventListener('click', addRecommendList)
+    deleteButton.addEventListener('click', deleteRecommendList)
+
+
     pagination.innerHTML = "";
 
     // 이전 그룹 버튼 표시
     if (currentGroup > 1) {
-        pagination.innerHTML += `<li class="btn_page" data-group="${
-            currentGroup - 1
-        }"><span><<</span></li>`;
+        pagination.innerHTML += `
+        <li class="btn_page" data-group="${currentGroup - 1}">
+            <span><<</span>
+        </li>
+        `;
     }
 
     // 현재 그룹에 대한 시작 페이지와 끝 페이지 인덱스 계산
@@ -124,16 +195,14 @@ async function goodsListApi(page) {
 
     // 현재 그룹에 대한 버튼 생성
     for (let i = startPage; i <= endPage; i++) {
-        pagination.innerHTML += `<li class="btn_page ${
-            i === currentPage ? "active" : ""
-        }" data-page="${i}"><span>${i}</span></li>`;
+        pagination.innerHTML += `<li class="btn_page ${i === currentPage ? "active" : ""
+            }" data-page="${i}"><span>${i}</span></li>`;
     }
 
     // 다음 그룹 버튼 표시
     if (currentGroup < totalGroups) {
-        pagination.innerHTML += `<li class="btn_page" data-group="${
-            currentGroup + 1
-        }"><span>>></span></li>`;
+        pagination.innerHTML += `<li class="btn_page" data-group="${currentGroup + 1
+            }"><span>>></span></li>`;
     }
 
     const pageButtons = document.querySelectorAll(".btn_page");
@@ -150,16 +219,140 @@ async function goodsListApi(page) {
             }
             goodsListApi(currentPage);
 
-            const urlParams = new URLSearchParams(window.location.search);
-            urlParams.set("page", currentPage);
-            const newUrl = `${
-                window.location.pathname
-            }?${urlParams.toString()}`;
-            history.pushState(null, null, newUrl);
-
-            window.scrollTo(0, 0);
         });
     });
+
 }
 
-goodsListApi(1);
+async function fixRecommendList() {
+    const fixRecommendLists =
+        Array.from(document.querySelectorAll(".product_select .table_cont li"))
+            .map(item => item.getAttribute("data-id"))
+    console.log(fixRecommendLists)
+
+    try {
+        const response = await instance.post("/api/admin_product/recommended_product", {
+            productIds: fixRecommendLists,
+        });
+
+        console.log("추천상품이 등록되었습니다.", response.data);
+
+
+    } catch (error) {
+        console.error("추천상품 등록 중 오류가 발생했습니다.", error);
+    }
+
+    closeModal();
+    location.reload();
+}
+
+
+const recommendButton = document.querySelector('.btn_recomm');
+recommendButton.addEventListener('click', fixRecommendList)
+
+
+
+
+async function recommendList(version) {
+
+    const response = await instance.get("/api/product/MD_Pick");
+    const products = response.data
+    console.log(products)
+
+    const fixRecommendList = document.querySelector('.admin_content .recomm_list');
+    const recommedList = document.querySelector('.product_select .table_cont ul');
+
+
+    if (version === 'totalList') {
+        fixRecommendList.innerHTML = products
+            .map(
+                ({
+                    productId,
+                    productName,
+                    imageUrl,
+                    price,
+                    place,
+                    speciesAge,
+                    description,
+                    startDate,
+                    endDate,
+                    category,
+                    discount,
+                    discountPrice,
+                }) => `
+            <li data-id="${productId}" data-category="${category}">
+                <div class="goods_detail">
+                    <div class="img_box">
+                    <img src="${imageUrl}" alt="${productName}" />
+                    </div>
+                    <div class="info_box">
+                    <div class="detail_info">
+                        <div class="title">
+                        <strong>${productName}</strong>
+                        </div>
+                        <dl class="date">
+                        <dt>날짜</dt>
+                        <dd>${startDate} - ${endDate}</dd>
+                        </dl>
+                        <dl class="price">
+                        <dt>가격</dt>
+                        <dd>${price}원</dd>
+                        </dl>
+                        <dl class="discount">
+                        <dt>할인율</dt>
+                        <dd>${discount}%</dd>
+                        </dl>
+                        <dl class="discount_price">
+                        <dt>할인가</dt>
+                        <dd>${discountPrice}원</dd>
+                        </dl>
+                        
+                    </div>
+            
+                    </div>
+                </div>
+            </li>
+        `
+            )
+            .join("");
+    }
+
+    if (version === 'modal') {
+
+
+        recommedList.innerHTML = products
+            .map(
+                ({
+                    productId,
+                    productName,
+                    imageUrl,
+                    price,
+                }) => `
+            <li data-id=${productId}>
+                <div class="list_box">
+                    <div class="select">
+                        <input
+                            type="checkbox"
+                            name="recommendCheck"
+                            id="recommendCheck"
+                        />
+                    </div>
+                    <div class="image">
+                        <img src=${imageUrl} alt=${productName}/>
+                    </div>
+                    <div class="name">
+                        <span>${productName}</span>
+                    </div>
+                    <div class="price">
+                        <span>${price}</span>
+                    </div>
+                </div>
+            </li>
+            `
+            )
+            .join("");
+    }
+
+}
+
+recommendList('totalList')

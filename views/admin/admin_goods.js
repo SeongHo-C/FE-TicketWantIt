@@ -4,7 +4,6 @@ import instance from "../../modules/axios_interceptor.js";
 ("use strict");
 
 const productList = document.querySelector(".admin_goods .goods_list");
-const list = document.querySelectorAll(".goods_list > li");
 const pagination = document.querySelector(".pagination ol");
 let currentPage;
 
@@ -18,6 +17,7 @@ async function goodsListApi(page) {
         data: products,
         pageInfo: { currentPage: responseDataPage, totalPage },
     } = productsData;
+    console.log(products);
 
     productList.innerHTML = products
         .map(
@@ -33,6 +33,7 @@ async function goodsListApi(page) {
                 endDate,
                 category,
                 discount,
+                discountPrice,
             }) => `
         <li data-id="${productId}" data-category="${category}">
             <div class="goods_detail">
@@ -60,6 +61,10 @@ async function goodsListApi(page) {
                     <dt>할인율</dt>
                     <dd>${discount}%</dd>
                     </dl>
+                    <dl class="discount_price">
+                    <dt>할인가</dt>
+                    <dd>${discountPrice}원</dd>
+                    </dl>
                     <dl class="cate">
                     <dt>카테고리</dt>
                     <dd>${category}</dd>
@@ -83,6 +88,8 @@ async function goodsListApi(page) {
     `
         )
         .join("");
+
+    const list = document.querySelectorAll(".goods_list > li");
 
     list.forEach((li) =>
         li.querySelector(".btn_delete").addEventListener("click", async () => {

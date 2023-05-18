@@ -19,17 +19,17 @@ async function onLoad() {
 
     if (sort === urlSortId) return;
 
-    location.href = `${url}?sort=${sort}${
-      (urlCategoryId && '&category=' + urlCategoryId) ||
+    location.href = `${url}?sort=${sort}${(urlCategoryId && '&category=' + urlCategoryId) ||
       (urlKeywordId && '&keyword=' + urlKeywordId) ||
       ''
-    }`;
+      }`;
   });
 
-  const option = {
+  const listEnd = document.querySelector('#listEnd');
+  const options = {
     root: null,
     rootMargin: '0px 0px 0px 0px',
-    thredhold: 0,
+    threshold: 0,
   };
 
   let page = 0;
@@ -39,16 +39,16 @@ async function onLoad() {
         console.log('무한 스크롤 실행');
         page++;
         console.log('page: ' + page);
-        const response = await getData(
+        const products = await getData(
           page,
           urlCategoryId,
           urlKeywordId,
           urlSortId
         );
-        const products = response.data;
 
-        if (page === 1 && products.length < 1) {
-          productList.innerHTML = noSearchResultPage;
+        if (products.length < 1) {
+          if (page === 1) productList.innerHTML = noSearchResultPage;
+          observer.unobserve(listEnd);
           return;
         }
 
@@ -60,7 +60,7 @@ async function onLoad() {
     });
   };
 
-  const observer = new IntersectionObserver(onIntersect, option);
+  const observer = new IntersectionObserver(onIntersect, options);
   observer.observe(listEnd);
 }
 
@@ -70,45 +70,52 @@ function getSelectedText(urlSortId) {
 }
 
 function createTicket(product) {
-  const { productId, productName, price, imageUrl, startDate, endDate } =
+  const { productId, productName, price, imageUrl, startDate, endDate, discount, discountPrice, } =
     product;
 
   return `<li>
             <a href="/views/goods/goods_view.html?productId=${productId}">
               <div class="img_box">
-                <img src="${imageUrl}" alt="${productName}" />
+                  <img src="${imageUrl}" alt="${productName}" />
               </div>
               <div class="info_box">
                 <span class="goods_date">${startDate} ~ ${endDate}</span>
                 <strong class="goods_tit">${productName}</strong>
-                <span class="goods_pri">${Number(
-                  price
-                ).toLocaleString()}원</span>
-              </div>
+                <div class="price_box ${discount !== 0 ? 'discount' : ''}">
+                  <strong class="discount">${discount}%</strong>
+                  <span class="discount_price">
+                  ${Number(discountPrice).toLocaleString('ko-KR')}원
+                  </span>
+                  <span class="fixed_price">${Number(price).toLocaleString('ko-KR')}원</span>
+                </div>
             </a>
           </li>`;
 }
 
 async function getData(page, urlCategoryId, urlKeywordId, urlSortId) {
   try {
+    let response;
+
     if (urlCategoryId !== null) {
       categoryTitle.innerHTML = urlCategoryId;
-      return await axios.get(
+      response = await axios.get(
         `${URL}/api/product/category?category=${urlCategoryId}&sort=${urlSortId}&page=${page}`
       );
     } else {
       if (urlKeywordId) {
         categoryTitle.innerHTML = '검색상품';
-        return await axios.get(
+        response = await axios.get(
           `${URL}/api/product/search?keyword=${urlKeywordId}&sort=${urlSortId}&page=${page}`
         );
       } else {
         categoryTitle.innerHTML = '전체상품';
-        return await axios.get(
+        response = await axios.get(
           `${URL}/api/product?sort=${urlSortId}&page=${page}`
         );
       }
     }
+
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -116,7 +123,6 @@ async function getData(page, urlCategoryId, urlKeywordId, urlSortId) {
 
 const categoryTitle = document.querySelector('.category_title h2');
 const productList = document.querySelector('.goods_list ul');
-const listEnd = document.querySelector('#endList');
 const goodsFilter = document.querySelector('#goodsFilter');
 const selectBtn = document.querySelector('.fsb-button');
 

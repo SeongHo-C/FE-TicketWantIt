@@ -31,6 +31,8 @@ function createTicket(ticket) {
     productName,
     place,
     price,
+    discount,
+    discountPrice,
     quantity = 1,
   } = ticket;
 
@@ -48,7 +50,15 @@ function createTicket(ticket) {
       <p>장소: ${place}</p>
       <p>수량: ${quantity}개</p>
     </div>
-    <p class="ticket_money">${(price * quantity).toLocaleString()}원</p>
+    <p class="ticket_money">
+      <div class="price_box ${discount !== 0 ? 'discount' : ''}">
+        <strong class="discount">${discount}%</strong>
+        <span class="discount_price">
+        ${Number(discountPrice * quantity).toLocaleString('ko-KR')}원
+        </span>
+        <span class="fixed_price">${Number(price * quantity).toLocaleString('ko-KR')}원</span>
+      </div>
+    </p>
   </div>
 </li>`;
 }
@@ -76,7 +86,7 @@ async function getUser() {
 
 function calculateTotalPrice(ticketsinfo) {
   const totalPrice = ticketsinfo.reduce(
-    (sum, { price, quantity }) => sum + price * quantity,
+    (sum, { discountPrice, quantity }) => sum + discountPrice * quantity,
     0
   );
 
@@ -173,9 +183,9 @@ orderForm.addEventListener('submit', (e) => {
   }
 
   const items = ticketsInfo.map((ticketInfo) => {
-    const { productId, productName, quantity, price, imageUrl } = ticketInfo;
+    const { productId, productName, quantity, price, discount, discountPrice, imageUrl } = ticketInfo;
 
-    return { productId, name: productName, quantity, price, imgUrl: imageUrl };
+    return { productId, name: productName, quantity, price, discount, discountPrice, imgUrl: imageUrl };
   });
 
   const totalPrice = calculateTotalPrice(ticketsInfo);
