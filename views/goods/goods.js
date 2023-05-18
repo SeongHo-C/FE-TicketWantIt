@@ -19,11 +19,10 @@ async function onLoad() {
 
     if (sort === urlSortId) return;
 
-    location.href = `${url}?sort=${sort}${
-      (urlCategoryId && '&category=' + urlCategoryId) ||
+    location.href = `${url}?sort=${sort}${(urlCategoryId && '&category=' + urlCategoryId) ||
       (urlKeywordId && '&keyword=' + urlKeywordId) ||
       ''
-    }`;
+      }`;
   });
 
   const listEnd = document.querySelector('#listEnd');
@@ -71,21 +70,24 @@ function getSelectedText(urlSortId) {
 }
 
 function createTicket(product) {
-  const { productId, productName, price, imageUrl, startDate, endDate } =
+  const { productId, productName, price, imageUrl, startDate, endDate, discount, discountPrice, } =
     product;
 
   return `<li>
             <a href="/views/goods/goods_view.html?productId=${productId}">
               <div class="img_box">
-                <img src="${imageUrl}" alt="${productName}" />
+                  <img src="${imageUrl}" alt="${productName}" />
               </div>
               <div class="info_box">
                 <span class="goods_date">${startDate} ~ ${endDate}</span>
                 <strong class="goods_tit">${productName}</strong>
-                <span class="goods_pri">${Number(
-                  price
-                ).toLocaleString()}원</span>
-              </div>
+                <div class="price_box ${discount !== 0 ? 'discount' : ''}">
+                  <strong class="discount">${discount}%</strong>
+                  <span class="discount_price">
+                  ${Number(discountPrice).toLocaleString('ko-KR')}원
+                  </span>
+                  <span class="fixed_price">${Number(price).toLocaleString('ko-KR')}원</span>
+                </div>
             </a>
           </li>`;
 }

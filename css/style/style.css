@@ -375,3 +375,50 @@ footer .inner {
   border: 1px solid var(--color--black1);
   color: var(--color--black1);
 }
+
+/* 할인율 공통 */
+
+.info_box .fixed_price {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color--black1);
+}
+
+.price_box {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.price_box .discount {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color--blue2);
+}
+
+.price_box.discount .fixed_price {
+  font-size: 14px;
+  font-weight: 400;
+  color: #adb4c1;
+  text-decoration: line-through;
+}
+
+.price_box.discount .discount_price {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color--black1);
+}
+
+.price_box .discount,
+.price_box .discount_price {
+  display: none;
+}
+
+.price_box.discount .discount,
+.main_goods .price_box.discount .discount_price {
+  display: block;
+}
