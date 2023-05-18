@@ -26,10 +26,11 @@ async function onLoad() {
     }`;
   });
 
-  const option = {
+  const listEnd = document.querySelector('#listEnd');
+  const options = {
     root: null,
     rootMargin: '0px 0px 0px 0px',
-    thredhold: 0,
+    threshold: 0,
   };
 
   let page = 0;
@@ -39,16 +40,16 @@ async function onLoad() {
         console.log('무한 스크롤 실행');
         page++;
         console.log('page: ' + page);
-        const response = await getData(
+        const products = await getData(
           page,
           urlCategoryId,
           urlKeywordId,
           urlSortId
         );
-        const products = response.data;
 
-        if (page === 1 && products.length < 1) {
-          productList.innerHTML = noSearchResultPage;
+        if (products.length < 1) {
+          if (page === 1) productList.innerHTML = noSearchResultPage;
+          observer.unobserve(listEnd);
           return;
         }
 
@@ -60,7 +61,7 @@ async function onLoad() {
     });
   };
 
-  const observer = new IntersectionObserver(onIntersect, option);
+  const observer = new IntersectionObserver(onIntersect, options);
   observer.observe(listEnd);
 }
 
@@ -91,24 +92,28 @@ function createTicket(product) {
 
 async function getData(page, urlCategoryId, urlKeywordId, urlSortId) {
   try {
+    let response;
+
     if (urlCategoryId !== null) {
       categoryTitle.innerHTML = urlCategoryId;
-      return await axios.get(
+      response = await axios.get(
         `${URL}/api/product/category?category=${urlCategoryId}&sort=${urlSortId}&page=${page}`
       );
     } else {
       if (urlKeywordId) {
         categoryTitle.innerHTML = '검색상품';
-        return await axios.get(
+        response = await axios.get(
           `${URL}/api/product/search?keyword=${urlKeywordId}&sort=${urlSortId}&page=${page}`
         );
       } else {
         categoryTitle.innerHTML = '전체상품';
-        return await axios.get(
+        response = await axios.get(
           `${URL}/api/product?sort=${urlSortId}&page=${page}`
         );
       }
     }
+
+    return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -116,7 +121,6 @@ async function getData(page, urlCategoryId, urlKeywordId, urlSortId) {
 
 const categoryTitle = document.querySelector('.category_title h2');
 const productList = document.querySelector('.goods_list ul');
-const listEnd = document.querySelector('#endList');
 const goodsFilter = document.querySelector('#goodsFilter');
 const selectBtn = document.querySelector('.fsb-button');
 
