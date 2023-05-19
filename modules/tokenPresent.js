@@ -30,11 +30,11 @@ const cart = () => {
   window.location.href = '/views/cart/cart.html';
 };
 
-const logout = () => {
+export const logout = () => {
   removeToken();
   window.location.href = '/index.html';
   tokenPresent();
-}
+};
 
 window.addEventListener('load', tokenPresent);
 document.querySelector('.login').addEventListener('click', login);
