@@ -1,6 +1,5 @@
 import URL from "./server_url.js";
 import { getToken } from "./token.js";
-import instance from "./axios_interceptor.js";
 
 async function headerCategory() {
     const response = await axios.get(`${URL}/api/product/category/all`);
@@ -74,7 +73,6 @@ async function addSideButtons() {
     document.body.appendChild(sideBtnBox);
 
     try {
-        const response = await instance.get("/api/user");
         const token = getToken();
         const { isAdmin } = jwt_decode(token);
 
