@@ -191,11 +191,23 @@ nav {
     display: block;
     top: 0;
     left: 0;
+    padding: 0 0 30px;
     width: 300px;
     height: 100vh;
     background: #24252a;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
+}
+
+nav > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.side_top {
 }
 
 nav .logo .img {
@@ -215,22 +227,24 @@ nav .logo {
     border-bottom: 1px solid #504e59;
 }
 
-nav .logo span {
+nav .logo a {
     width: 60%;
     font-size: 28px;
 }
 
 .category {
-    padding: 80px 0;
-    margin: 0 20px;
+    padding: 60px 20px;
+    width: 100%;
 }
 
 .category .title {
     display: block;
     padding: 0 0 30px;
+    margin: 0;
     font-size: 16px;
     font-weight: 700;
     color: #cccccc;
+    text-align: left;
 }
 
 .category > ul li {
@@ -244,7 +258,7 @@ nav .logo span {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 10px 0 10px 30px;
+    padding: 7px 0 7px 30px;
 }
 
 .category > ul li i {
@@ -277,39 +291,29 @@ nav .logo span {
     color: #ffffff;
 }
 
-.category .link {
-    position: absolute;
+nav .link {
     display: block;
-    bottom: 20px;
-    left: 20px;
-}
-
-.category .link {
-    position: absolute;
-    display: block;
-    bottom: 30px;
-    left: 20px;
     padding-left: 30px;
 }
 
-.category .link ul li {
+.link ul li {
     display: block;
-    padding: 10px 0;
+    padding: 10px 0 10px 30px;
 }
 
-.category .link ul li a {
+.link ul li a {
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
 
-.category .link i {
+.link i {
     font-size: 28px;
     color: var(--color--black2);
     transition: 0.3s ease;
 }
 
-.category .link ul li span {
+.link ul li span {
     display: block;
     padding-left: 20px;
     font-size: 16px;
@@ -318,8 +322,8 @@ nav .logo span {
     transition: 0.3s ease;
 }
 
-.category .link ul li:hover i,
-.category .link ul li:hover span {
+.link ul li:hover i,
+.link ul li:hover span {
     color: var(--color--white);
 }
 
@@ -444,6 +448,7 @@ nav .logo span {
 .admin_goods,
 .admin_order,
 .admin_category,
+.admin_user,
 .admin_recommends {
     margin: 80px 20px;
     padding: 50px;
@@ -591,7 +596,8 @@ nav .logo span {
 }
 
 .admin_goods .btn_box button,
-.admin_goods .btn_box a {
+.admin_goods .btn_box a,
+.admin_title .btn_box button {
     display: block;
     margin: 0 5px;
     width: 150px;
@@ -792,6 +798,7 @@ nav .logo span {
     height: 40px;
     background: var(--color--blue2);
     border: 1px solid var(--color--blue2);
+    font-size: 16px;
     color: var(--color--white);
 }
 
@@ -1008,76 +1015,253 @@ nav .logo span {
 
 /* admin-user.html */
 
+.user_search_box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.user_search_box .fsb-select button {
+    margin-left: 0;
+}
+
 .userList_table {
-  width: 100%;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .userList_table > thead {
-  background: var(--color--black1);
+    background: var(--color--black1);
 }
 
 .userList_table > thead > tr > th {
-  padding: 10px 15px;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--color--white);
-  vertical-align: middle;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color--white);
+    vertical-align: middle;
 }
 
 .userList_table > tbody > tr > td {
-  padding: 8px 5px;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 14px;
-  border-bottom: 1px solid var(--color--black4);
+    padding: 8px 5px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-bottom: 1px solid var(--color--black4);
 }
 
 .userList_table > tbody > tr > td:first-child p {
-  font-size: 14px;
-  font-weight: 500;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .userList_table > tbody img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  overflow: hidden;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    overflow: hidden;
 }
 
 .userList_table > tbody > tr > td > .button_box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
 }
 
 .userList_table > tbody > tr > td > .button_box button {
-  margin: 5px;
-  width: 50px;
-  height: 25px;
-  background: var(--color--black1);
-  border: 1px solid var(--color--black1);
-  color: var(--color--white);
+    margin: 5px;
+    width: 50px;
+    height: 25px;
+    background: var(--color--black1);
+    border: 1px solid var(--color--black1);
+    color: var(--color--white);
 }
 
-.pagination {
-  padding: 20px;
+/* admin-recommends.html */
+
+.recomm_head ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 15px 20px;
+    background: var(--color--black1);
+    font-size: 16px;
+    color: white;
 }
 
-.pagination ol {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
+.admin_recommends .btn_modal {
+    background: var(--color--blue1);
+    border: 1px solid var(--color--blue1);
+    color: var(--color--white);
 }
 
-.pagination > ol > li {
-  color: var(--color--black1);
-  cursor: pointer;
+.table_top ul,
+.table_cont .list_box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-.active {
-  border-bottom: 1px solid var(--color--black1);
+.table_top ul li,
+.table_cont .list_box > div {
+    padding: 5px;
+    text-align: center;
 }
 
+.table_cont > ul {
+    overflow-y: auto;
+    height: 420px;
+}
+
+.table_cont > ul::-webkit-scrollbar {
+    background: var(--color--black4);
+    width: 5px; /* 세로축 스크롤바 폭 너비 */
+}
+
+.table_cont > ul::-webkit-scrollbar-thumb {
+    width: 3px;
+    background: var(--color--black2);
+    border-radius: 3px;
+}
+
+.table_top ul li {
+    font-size: 14px;
+}
+
+.table_cont > ul > li:not(:last-child) {
+    border-bottom: 1px solid var(--color--black4);
+}
+
+.table_cont > ul > li {
+    min-height: 70px;
+    font-size: 13px;
+    word-break: keep-all;
+}
+
+.select {
+    width: 7%;
+}
+
+.image {
+    width: 18%;
+}
+
+.image img {
+    width: 45px;
+}
+
+.name {
+    width: 50%;
+}
+
+.price {
+    width: 25%;
+}
+
+#modal .recomm .table_top {
+    display: block;
+    background: var(--color--black1);
+    color: var(--color--white);
+}
+
+#modal .modal_window.recomm {
+    position: relative;
+    margin: 0 auto;
+    min-width: 1000px;
+}
+
+.content .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 10px;
+}
+.content section {
+    flex: 0.45;
+}
+
+.recomm_chk {
+    flex: 0.1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.recomm_chk button {
+    display: block;
+    width: 50px;
+    height: 45px;
+}
+
+.recomm_chk button.add {
+    background: var(--color--white);
+    border: 1px solid var(--color--blue2);
+    border-radius: 5px;
+    font-size: 14px;
+    color: var(--color--blue2);
+    font-weight: 500;
+}
+
+.recomm_chk button.delete {
+    background: var(--color--white);
+    border: 1px solid var(--color--black1);
+    border-radius: 5px;
+    font-size: 14px;
+    color: var(--color--black1);
+    font-weight: 500;
+}
+
+.btn_box.recomm_modal {
+    padding: 10px 0 0;
+}
+
+.recomm_list li {
+    display: block;
+    margin: 0 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--color--black4);
+}
+
+.recomm_list .goods_detail {
+    align-items: flex-start;
+}
+
+#modal .recomm .btn_recomm {
+    width: 180px;
+    height: 45px;
+    font-size: 16px;
+    font-weight: 500;
+    flex: none;
+}
+
+#modal .recomm .pagination ol {
+    gap: 5px;
+}
+
+.product_all h4,
+.product_select h4 {
+    position: relative;
+    display: block;
+    padding-left: 20px;
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.product_all h4::after,
+.product_select h4::after {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 5px;
+    height: 80%;
+    background: #4f72f2;
+}

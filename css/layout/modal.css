@@ -25,10 +25,6 @@
     border-radius: 5px;
 }
 
-#modal.admin_modal .modal_window {
-    min-width: 600px;
-}
-
 .close_area {
     display: flex;
     justify-content: flex-end;
@@ -39,7 +35,7 @@
     font-size: 1.2rem;
 }
 
-.title {
+#modal .title {
     display: block;
     padding: 0 0 10px;
     margin: 0 0 20px;

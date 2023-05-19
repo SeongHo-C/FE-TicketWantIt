@@ -1,6 +1,13 @@
 import instance from "../../modules/axios_interceptor.js";
 
-("use strict");
+const currentDate = new Date();
+const options = { day: "numeric", month: "short", year: "numeric" };
+const formattedDate = currentDate
+    .toLocaleDateString("en-US", options)
+    .toUpperCase();
+
+const date = document.querySelector(".date span");
+date.innerHTML = formattedDate;
 
 const categoryList = document.querySelector(".cate_list > ul");
 const addCategorybutton = document.querySelector(".btn_add_category");
