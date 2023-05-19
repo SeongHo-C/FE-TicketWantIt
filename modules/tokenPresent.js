@@ -30,7 +30,7 @@ const cart = () => {
   window.location.href = '/views/cart/cart.html';
 };
 
-export const logout = () => {
+const logout = () => {
   removeToken();
   window.location.href = '/index.html';
   tokenPresent();
