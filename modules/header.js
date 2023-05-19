@@ -1,6 +1,5 @@
-import { saveToken, saveRefreshToken } from "./token.js";
-import instance from "./axios_interceptor.js";
 import URL from "./server_url.js";
+import { getToken } from "./token.js";
 
 async function headerCategory() {
     const response = await axios.get(`${URL}/api/product/category/all`);
@@ -71,35 +70,25 @@ async function addSideButtons() {
   `;
     ul.innerHTML += liHtml;
 
-    /*
+    document.body.appendChild(sideBtnBox);
+
     try {
-        const response = await instance.post("/api/auth", {
-            email: email.value,
-            password: password.value,
-        });
-
-        const { accessToken, refreshToken } = response.data;
-        const { isAdmin } = jwt_decode(accessToken);
-
-        saveToken(accessToken);
-        saveRefreshToken(refreshToken);
-
-        console.log(isAdmin);
+        const token = getToken();
+        const { isAdmin } = jwt_decode(token);
 
         if (isAdmin) {
             const adminLiHtml = `
-              <li>
-                <a href="./views/admin/goods.html" class="btn_admin">
-                  <span>관리자<br />바로가기</span>
-                </a>
-              </li>
-            `;
+            <li>
+              <a href="/views/admin/goods.html" class="btn_admin">
+                <span>관리자<br />바로가기</span>
+              </a>
+            </li>
+          `;
             ul.innerHTML += adminLiHtml;
         }
-    } catch {}
-
-    */
-    document.body.appendChild(sideBtnBox);
+    } catch (error) {
+        console.log(error);
+    }
 
     const btnScroll = document.querySelector(".btn_scroll");
 
