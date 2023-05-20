@@ -1,5 +1,5 @@
 .dn {
-    display: none;
+    display: none !important;
 }
 
 .w500 {
@@ -165,7 +165,7 @@ header {
     background-color: var(--color--blue1);
     border-radius: 50%;
 }
-
+/* 
 .search {
     display: flex;
     position: relative;
@@ -199,6 +199,49 @@ header {
 
 .search i {
     font-size: 18px;
+} */
+
+.search_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background: var(--color--white);
+}
+
+.search_box {
+    position: relative;
+    display: block;
+    min-width: 500px;
+    width: 50%;
+    border-bottom: 2px solid var(--color--black1);
+}
+
+.search_box input {
+    display: block;
+    padding: 5px 10px;
+    width: calc(100% - 50px);
+    height: 40px;
+    border: none;
+    font-size: 20px;
+    outline: none;
+}
+
+.search_box input::placeholder {
+    color: var(--color--black4);
+}
+
+.search_btn {
+    position: absolute;
+    display: block;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background: none;
+    font-size: 32px;
 }
 
 /* footer layout */

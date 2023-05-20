@@ -33,9 +33,15 @@ window.addEventListener("load", () => {
     headerCategory();
 });
 
-const searchForm = document.querySelector(".search > form");
+const searchForm = document.querySelector(".search_container > form");
 const searchInput = document.querySelector(".search_input");
+const searchIcon = document.querySelector("header .menu_icon.search");
+const searchContainer = document.querySelector(".search_container");
 
+searchIcon.addEventListener("click", () => {
+    searchContainer.classList.toggle("dn");
+});
+console.log("");
 if (searchForm) {
     searchForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -44,10 +50,6 @@ if (searchForm) {
 
         if (keyword)
             location.href = `/views/goods/goods_list.html?keyword=${keyword}`;
-    });
-
-    searchInput.addEventListener("focus", () => {
-        searchInput.style.border = "2px solid var(--color--blue2)";
     });
 
     searchInput.addEventListener("blur", () => {

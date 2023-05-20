@@ -52,19 +52,13 @@
                     </div>
                     <div class="right">
                         <ul class="menu">
-                            <li class="search">
-                                <form method="post">
-                                    <input
-                                        name="search_input"
-                                        class="search_input"
-                                        type="text"
-                                    />
-                                    <button class="search_btn">
-                                        <i
-                                            class="fa-solid fa-magnifying-glass fa-2xs"
-                                        ></i>
-                                    </button>
-                                </form>
+                            <li class="menu_icon search">
+                                <a href="javascript:void(0)">
+                                    <div>
+                                        <i class="ri-search-2-line"></i>
+                                    </div>
+                                    <span>SEARCH</span>
+                                </a>
                             </li>
                             <li class="menu_icon login">
                                 <a href="javascript:void(0)">
@@ -101,6 +95,21 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="search_container dn">
+                    <form method="post">
+                        <div class="search_box">
+                            <input
+                                name="search_input"
+                                class="search_input"
+                                type="text"
+                                placeholder="검색어를 입력해주세요."
+                            />
+                            <button class="search_btn">
+                                <i class="ri-search-2-line"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </header>
