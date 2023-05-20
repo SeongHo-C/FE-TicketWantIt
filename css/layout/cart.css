@@ -11,46 +11,137 @@ h2 {
 }
 
 section .cart {
-    padding: 120px 0 0;
+    padding: 120px 20px 0;
 }
 
 /* 테이블 */
 
-.tickets > thead {
-    background: var(--color--black1);
-    /* border-top: 2px solid var(--color--black1);
-    border-bottom: 1px solid var(--color--black4); */
+.tickets_head ul,
+.tickets_list ul {
+    display: flex;
+    justify-content: flex-start;
 }
 
-.tickets > thead > tr > th {
-    padding: 20px 15px;
+.tickets_head {
+    background: var(--color--black1);
+    padding: 15px 0;
+}
+
+.tickets_head ul li {
+    padding: 0 15px;
+    color: var(--color--white);
     font-size: 16px;
     font-weight: 500;
-    color: var(--color--white);
-}
-
-.tickets > tbody > tr > td {
-    padding: 20px;
-    border-bottom: 1px solid var(--color--black4);
-    font-size: 0.8rem;
-    word-break: keep-all;
-    vertical-align: middle;
     text-align: center;
 }
 
-.ticket_img {
-    width: 80px;
-    height: 80px;
+.tickets li:first-child {
+    width: 4%;
 }
 
-.ticket_title {
-    font-size: 15px;
-    font-weight: 700;
+.tickets li:nth-child(2) {
+    width: 50%;
+}
+
+.tickets li:nth-child(3),
+.tickets li:nth-child(4) {
+    width: 23%;
+}
+
+.tickets_list > div {
+    border-bottom: 1px solid var(--color--black4);
+}
+
+.tickets_list li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.ticket_info > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    gap: 30px;
+}
+
+.ticket_info .img_box {
+    width: 120px;
+}
+
+.ticket_info .info_box {
+    width: calc(100% - 120px);
+}
+
+.ticket_info .info_box .title {
+    display: block;
+    padding: 0 0 10px;
+    font-size: 20px;
+    font-weight: 500;
     word-break: keep-all;
 }
 
-.ticket_price {
+.ticket_info .etc {
+    display: block;
+    padding: 0 0 15px;
+}
+
+.ticket_info .etc dl {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
     font-size: 14px;
+    color: var(--color--black3);
+    word-break: keep-all;
+}
+
+.ticket_info .etc dl dt {
+    width: 55px;
+}
+
+.ticket_info .etc dl dd {
+    width: calc(100% - 55px);
+}
+
+.ticket_info .fixed_price {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    color: #adb4c1;
+    text-decoration: line-through;
+}
+
+.ticket_info .discount_price {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color--black1);
+}
+
+.ticket_info .discount {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color--blue2);
+}
+
+.ticket_info .price .fixed_price {
+    display: none;
+}
+
+.ticket_info .price .discount {
+    display: none;
+}
+
+.ticket_info .price.discount .fixed_price {
+    display: block;
+}
+
+.ticket_info .price.discount .discount {
+    display: inline-block;
 }
 
 .ticket_quantity > div {
@@ -62,7 +153,7 @@ section .cart {
 .ticket_quantity input {
     display: block;
     width: 50px;
-    height: 30px;
+    height: 35px;
     border: none;
     border-top: 1px solid var(--color--black4);
     border-bottom: 1px solid var(--color--black4);
@@ -75,8 +166,8 @@ section .cart {
     display: block;
     margin: 0;
     padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background: var(--color--black1);
     border: none;
     font-size: 16px;
@@ -129,20 +220,20 @@ section .cart {
     background: var(--color--white);
 }
 
-.ticket_total {
-    font-size: 16px;
+.ticket_total .total {
+    display: block;
+    padding: 0 0 10px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--color--red);
 }
 
-.only_ticket > button {
-    padding: 0.4rem 0.6rem;
-    margin: 0.2rem 0;
-    width: 6rem;
-    outline: none;
-    cursor: pointer;
-
-    font-size: 0.8rem;
+.ticket_total button {
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    width: 100px;
+    font-size: 14px;
     font-weight: 500;
     transition: background 0.1s ease-in-out;
 }
@@ -261,4 +352,128 @@ section .cart {
     height: 55px;
     font-size: 18px;
     font-weight: 500;
+}
+
+@media (max-width: 1140px) {
+}
+
+@media (max-width: 720px) {
+    section .cart {
+        padding: 50px 15px 0;
+    }
+
+    .tickets_head {
+        display: none;
+    }
+
+    .tickets_list ul {
+        display: block;
+    }
+
+    .tickets_list li {
+        width: 100% !important;
+        padding: 0 0 10px;
+    }
+
+    .tickets li:first-child {
+        padding: 10px 0;
+        justify-content: flex-start;
+    }
+
+    .ticket_info > div {
+        flex-direction: row-reverse;
+        padding: 0 15px;
+    }
+
+    .ticket_info .price.discount .fixed_price {
+        display: none;
+    }
+
+    .ticket_info .price.discount .discount {
+        display: none;
+    }
+
+    .tickets_list .ticket_quantity {
+        padding: 0 10px;
+        justify-content: flex-start;
+    }
+
+    .ticket_quantity button {
+        width: 30px;
+        height: 30px;
+        background: var(--color--white);
+        border: 1px solid var(--color--black4);
+    }
+
+    .ticket_quantity input {
+        height: 30px;
+    }
+
+    .ticket_quantity button.minus_button span::after {
+        width: 8px;
+        height: 2px;
+        background: var(--color--black4);
+    }
+
+    .ticket_quantity button.plus_button span::after {
+        width: 8px;
+        height: 2px;
+        background: var(--color--black4);
+    }
+
+    .ticket_quantity button.plus_button span::before {
+        width: 2px;
+        height: 8px;
+        background: var(--color--black4);
+    }
+
+    .ticket_total > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 10px 0;
+        width: 100%;
+    }
+
+    .ticket_total .total {
+        padding: 0;
+    }
+
+    .ticket_total > div > div:last-child {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .ticket_total button {
+        width: 80px;
+    }
+
+    .btn_box {
+        gap: 5px;
+        padding: 50px 0 0;
+        width: 100%;
+    }
+
+    .btn_box > button {
+        height: 45px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ticket_info .info_box .title {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .ticket_info .etc dl {
+        font-size: 13px;
+    }
+
+    .ticket_info .discount_price {
+        font-size: 16px;
+        font-weight: 400;
+    }
 }

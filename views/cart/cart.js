@@ -71,59 +71,76 @@ function createTicket(ticket) {
         discountPrice,
     } = ticket;
 
-    return `<tr id=ticket${productId}>
-  <td><input type="checkbox" id=only_check${productId} name='ticket_check'/></td>
-  <td>
-  <a href="/views/goods/goods_view.html?productId=${productId}">
-    <img
-      class="ticket_img"
-      src="${imageUrl}"
-      alt="상품 이미지"
-    />
-  </a>
-  </td>
-  <td>
-    <p class="ticket_title">
-      ${productName}
-    </p>
-  </td>
-  <td><p>${place}</p></td>
-  <td><p>${speciesAge}</p></td>
-  <td>
-    <div class="ticket_price">
-      <div class="price_box ${discount !== 0 ? "discount" : ""}">
-        <strong class="discount">${Number(discount)}%</strong>
-        <span class="discount_price">
-        ${Number(discountPrice).toLocaleString("ko-KR")}원
-        </span>
-        <span class="fixed_price">${Number(price).toLocaleString(
-            "ko-KR"
-        )}원</span>
-      </div>
-    </div>
-  </td>
-  <td class="ticket_quantity">
-  <div>
-    <button class="minus_button" onclick="onMinus('${productId}')">
-    <span></span>
-    </button>
-    <input type="text" class="ticket_quantity_input" value=${quantity} readonly/>
-    <button class="plus_button" onclick="onPlus('${productId}')">
-    <span></span>
-    </button>
-    </div>
-  </td>
-  <td><p class="ticket_total">${(
-      discountPrice * quantity
-  ).toLocaleString()}원</p></td>
-  <td class="only_ticket">
-    <button class="ticket_order" onclick="onlyOrder('${productId}')">
-      주문하기
-    </button>
-    <button class="ticket_delete" onclick="onlyDelete('${productId}')">삭제</button>
-  </td>
-</tr>
-  `;
+    return `<div id="ticket${productId}">
+        <ul>
+            <li>
+                <input type="checkbox" id="only_check${productId}" name="ticket_check"/>
+            </li>
+            <li class="ticket_info">
+                <div>
+                    <div class="img_box">
+                        <a href="/views/goods/goods_view.html?productId=${productId}">
+                            <img src="${imageUrl}" alt="${productName}" />
+                        </a>
+                    </div>
+                    <div class="info_box">
+                        <div class="title">
+                            <strong>${productName}</strong>
+                        </div>
+                        <div class="etc">
+                            <dl><dt>제한연령</dt><dd>${speciesAge}</dd></dl>
+                            <dl><dt>장소</dt><dd>${place}</dd></dl>
+                            <span></span>
+                        </div>
+                        <div class="price ${discount !== 0 ? "discount" : ""}">
+                            <div class="fixed_price">${Number(
+                                price
+                            ).toLocaleString("ko-KR")}원</div>
+                            <div class="discount">${Number(discount)}%</div>
+                            <div class="discount_price">${Number(
+                                discountPrice
+                            ).toLocaleString("ko-KR")}원</div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="ticket_quantity">
+                <div>
+                    <button class="minus_button" onclick="onMinus('${productId}')" >
+                        <span></span>
+                    </button>
+                    <input type="text" class="ticket_quantity_input" value="${quantity}" readonly />
+                    <button class="plus_button" onclick="onPlus('${productId}')">
+                        <span></span>
+                    </button>
+                </div>
+            </li>
+            <li class="ticket_total">
+                <div>
+                    <div class="total">
+                        <span>${(
+                            discountPrice * quantity
+                        ).toLocaleString()}원</span>
+                    </div>
+                    <div>
+                        <button
+                            class="ticket_order"
+                            onclick="onlyOrder('${productId}')"
+                        >
+                            주문하기
+                        </button>
+                        <button
+                            class="ticket_delete"
+                            onclick="onlyDelete('${productId}')"
+                        >
+                            삭제
+                        </button>
+                    </div>
+                </div>
+            </li>
+           
+        </ul>
+    </div>`;
 }
 
 function onCheckedCheckbox() {
