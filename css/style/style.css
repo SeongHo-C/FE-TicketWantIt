@@ -10,7 +10,7 @@
 
 .w500 {
     position: relative;
-    width: 400px;
+    width: 500px;
     margin: 0 auto;
 }
 
@@ -793,6 +793,14 @@ footer .inner {
 
     .footer_top .logo {
         display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .w500 {
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
     }
 }
 
