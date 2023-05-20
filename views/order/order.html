@@ -86,94 +86,92 @@
       </div>
     </header>
 
-    <main>
-      <div id="container">
-        <div class="contents">
-          <div id="order" class="w800">
-            <div class="page_title">
-              <h2>주문 / 결제</h2>
-            </div>
-            <form method="post">
-              <div class="wrap order_layout">
-                <div class="subtitle">
-                  <span>주문상품 확인</span>
-                </div>
-                <ul class="order_list"></ul>
-              </div>
-              <div class="wrap address_layout">
-                <div class="subtitle">
-                  <span class="star">*</span>
-                  <span>배송지</span>
-                </div>
-                <ul class="address_input_wrap">
-                  <li>
-                    <input
-                      type="text"
-                      id="zipCode"
-                      class="zip-code"
-                      placeholder="우편번호"
-                      readonly
-                    />
-                    <input
-                      type="button"
-                      id="addressSearchBtn"
-                      class="address_search_btn"
-                      value="주소 검색"
-                    />
-                  </li>
-                  <li>
-                    <input
-                      type="text"
-                      name="address"
-                      id="address"
-                      class="address"
-                      placeholder="주소"
-                      readonly
-                      required
-                    />
-                  </li>
-                  <li>
-                    <input
-                      type="text"
-                      name="addressDetail"
-                      id="addressDetail"
-                      class="address_detail"
-                      placeholder="상세주소"
-                    />
-                  </li>
-                </ul>
-              </div>
-              <div class="wrap phone_layout">
-                <div class="subtitle">
-                  <span class="star">*</span>
-                  <span>휴대전화</span>
-                </div>
-                <div class="phone_input_wrap">
-                  <select name="phone_1" id="phone1">
-                    <option value="010">010</option>
-                    <option value="011">011</option>
-                    <option value="016">016</option>
-                    <option value="017">017</option>
-                    <option value="018">018</option>
-                    <option value="019">019</option>
-                  </select>
-                  -
-                  <input type="text" name="phone_2" id="phone2" maxlength="4" />
-                  -
-                  <input type="text" name="phone_3" id="phone3" maxlength="4" />
-                </div>
-              </div>
-              <div class="btn_box">
-                <button
-                  type="submit"
-                  class="payment_button button_dd border"
-                ></button>
-              </div>
-            </form>
+    <div id="container">
+      <div class="contents">
+        <div id="order">
+          <div class="page_title">
+            <h2>주문 / 결제</h2>
           </div>
+          <form method="post">
+            <div class="wrap order_layout">
+              <div class="subtitle">
+                <span>주문상품 확인</span>
+              </div>
+              <ul class="order_list"></ul>
+            </div>
+            <div class="wrap address_layout">
+              <div class="subtitle">
+                <span class="star">*</span>
+                <span>배송지</span>
+              </div>
+              <ul class="address_input_wrap">
+                <li>
+                  <input
+                    type="text"
+                    id="zipCode"
+                    class="zip-code"
+                    placeholder="우편번호"
+                    readonly
+                  />
+                  <input
+                    type="button"
+                    id="addressSearchBtn"
+                    class="address_search_btn"
+                    value="주소 검색"
+                  />
+                </li>
+                <li>
+                  <input
+                    type="text"
+                    name="address"
+                    id="address"
+                    class="address"
+                    placeholder="주소"
+                    readonly
+                    required
+                  />
+                </li>
+                <li>
+                  <input
+                    type="text"
+                    name="addressDetail"
+                    id="addressDetail"
+                    class="address_detail"
+                    placeholder="상세주소"
+                  />
+                </li>
+              </ul>
+            </div>
+            <div class="wrap phone_layout">
+              <div class="subtitle">
+                <span class="star">*</span>
+                <span>휴대전화</span>
+              </div>
+              <div class="phone_input_wrap">
+                <select name="phone_1" id="phone1">
+                  <option value="010">010</option>
+                  <option value="011">011</option>
+                  <option value="016">016</option>
+                  <option value="017">017</option>
+                  <option value="018">018</option>
+                  <option value="019">019</option>
+                </select>
+                -
+                <input type="text" name="phone_2" id="phone2" maxlength="4" />
+                -
+                <input type="text" name="phone_3" id="phone3" maxlength="4" />
+              </div>
+            </div>
+            <div class="btn_box">
+              <button
+                type="submit"
+                class="payment_button button_dd border"
+              ></button>
+            </div>
+          </form>
         </div>
       </div>
-    </main>
+    </div>
 
     <footer>
       <div class="inner w1140">
