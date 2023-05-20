@@ -131,3 +131,23 @@
         padding: 0px 20px;
     }
 }
+
+@media screen and (max-width: 550px) {
+    .order_complete_list {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .title_area .logo {
+        width: 220px;
+    }
+
+    .title_area > h2 {
+        font-size: 22px;
+    }
+
+    #orderComplete {
+        padding: 0px 20px;
+    }
+}
