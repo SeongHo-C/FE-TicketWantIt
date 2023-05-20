@@ -307,7 +307,7 @@
 
     .goods_list ul li {
         display: block;
-        padding: 0 0 20px;
+        padding: 0 0 10px;
         width: calc(50% - 5px);
     }
 

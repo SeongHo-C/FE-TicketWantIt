@@ -2,6 +2,12 @@
     display: none !important;
 }
 
+.no-scroll {
+    overflow: hidden;
+    width: 100%;
+    touch-action: none;
+}
+
 .w500 {
     position: relative;
     width: 400px;
@@ -149,6 +155,10 @@ header {
     text-align: center;
 }
 
+.header .menu .menu_icon.nav {
+    display: none;
+}
+
 .header .menu .menu_icon i {
     font-size: 22px;
 }
@@ -165,41 +175,6 @@ header {
     background-color: var(--color--blue1);
     border-radius: 50%;
 }
-/* 
-.search {
-    display: flex;
-    position: relative;
-    margin-right: 10px;
-}
-
-.search input {
-    padding: 12px;
-    width: 165px;
-    height: 35px;
-    border: none;
-    border-radius: 1rem;
-    color: #5f5f5f;
-    background-color: var(--color--black5);
-    font-size: 1rem;
-}
-
-.search_btn {
-    position: absolute;
-    right: 6px;
-    top: 15px;
-    border: none;
-    outline: none;
-    background: transparent;
-    transition: all 300ms ease-in;
-}
-
-.search_btn:hover {
-    scale: 1.05;
-}
-
-.search i {
-    font-size: 18px;
-} */
 
 .search_container {
     display: flex;
@@ -242,6 +217,190 @@ header {
     height: 40px;
     background: none;
     font-size: 32px;
+}
+
+.side_container {
+    position: fixed;
+    display: block;
+    top: 0;
+    right: -9999px;
+    width: 50%;
+    height: 100%;
+    background: var(--color--white);
+    z-index: 10;
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.side_container.active {
+    right: 0;
+    opacity: 1;
+}
+
+.side_container .menu_box {
+    position: relative;
+    padding: 60px;
+    height: 100%;
+}
+
+.side_container .top {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 30px;
+    width: 100%;
+}
+
+.side_container .logo {
+    display: none;
+}
+
+.side_container .top .close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    font-size: 42px;
+    background: var(--color--black1);
+    color: var(--color--white);
+    cursor: pointer;
+}
+
+.side_container .cate {
+    display: block;
+    padding: 40% 0 0;
+    width: 100%;
+}
+
+.side_container .cate strong {
+    display: block;
+    padding: 0 0 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color--blue1);
+}
+
+.side_container .cate li {
+    position: relative;
+    display: block;
+    padding: 10px 0;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.side_container .cate li:after {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 9px;
+    left: 0;
+    background: var(--color--black1);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.side_container .cate li:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.side_container .cate li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.side_container .cate li i {
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.side_container .cate li span {
+    position: relative;
+}
+
+.side_container .cate li span::after {
+    position: absolute;
+    display: block;
+    content: "";
+    top: -4px;
+    left: -19px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color--blue1);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.side_container .cate li:hover i {
+    opacity: 1;
+}
+
+.side_container .cate li:hover span::after {
+    opacity: 1;
+}
+
+.connect {
+    padding: 50px 0 0;
+}
+
+.connect ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+.connect ul li {
+    font-size: 20px;
+    opacity: 0.5;
+}
+
+.side_container .user {
+    margin: 30px 0 0;
+}
+
+.side_container .user ul li span {
+    font-size: 16px;
+}
+
+.side_container .user ul li div {
+    font-size: 24px;
+}
+
+.side_container .user ul li a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0 15px;
+    padding: 5px 0 0;
+    color: var(--color--black3);
+}
+
+.background {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(34, 34, 34, 0.5);
+    z-index: 5;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.background.active {
+    visibility: visible;
+    opacity: 1;
 }
 
 /* footer layout */
@@ -535,6 +694,14 @@ footer .inner {
         margin: 0 0 100px;
     }
 
+    nav {
+        display: none;
+    }
+
+    .header .menu .menu_icon.nav {
+        display: block;
+    }
+
     .footer_info ul {
         flex-wrap: wrap;
     }
@@ -554,6 +721,53 @@ footer .inner {
 }
 
 @media (max-width: 720px) {
+    .search_box {
+        min-width: auto;
+        width: 100%;
+    }
+    .search_container form {
+        width: 80%;
+    }
+
+    .header .inner {
+        padding: 0 15px;
+    }
+
+    .header .menu li a {
+        padding: 0;
+        padding-left: 15px;
+    }
+
+    .header .menu .menu_icon p {
+        transform: translate(33px, 3px);
+    }
+
+    .side_container {
+        width: 100%;
+    }
+
+    .side_container .top {
+        justify-content: space-between;
+    }
+
+    .side_container .logo {
+        display: block;
+    }
+
+    .menu_icon.login,
+    .menu_icon.logout,
+    .menu_icon.mypage {
+        display: none;
+    }
+
+    .header .menu .menu_icon i {
+        font-size: 30px;
+    }
+
+    .header .menu li span {
+        display: none;
+    }
+
     /* footer layout */
 
     footer .inner {
@@ -598,6 +812,28 @@ footer .inner {
         font-size: 24px;
     }
 
+    .side_container .top {
+        top: 13px;
+        padding: 0 15px;
+    }
+
+    .side_container .menu_box {
+        padding: 60px 40px;
+    }
+
+    .side_container .top .close {
+        width: 40px;
+        height: 40px;
+        font-size: 32px;
+    }
+
+    .side_container .cate strong {
+        font-size: 16px;
+    }
+
+    .side_container .cate li {
+        font-size: 24px;
+    }
     /* footer layout */
     footer .inner {
         padding: 15px;
@@ -615,5 +851,11 @@ footer .inner {
 
     .footer_info span {
         justify-content: center;
+    }
+
+    .side_btn_box li button,
+    .side_btn_box li a {
+        width: 50px;
+        height: 50px;
     }
 }
