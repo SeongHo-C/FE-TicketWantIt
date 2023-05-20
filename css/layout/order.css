@@ -2,9 +2,27 @@
     box-sizing: border-box;
 }
 
+#container {
+    display: flex;
+    justify-content: center;
+}
+
+#container > .contents {
+    max-width: 820px;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+}
+
+#container > .contents {
+    max-width: 820px;
+}
+
 #order {
-    display: block;
-    padding: 120px 0 0;
+    padding: 120px 20px;
+    width: 100%;
 }
 
 .star {
@@ -19,6 +37,27 @@
     color: var(--color--white);
     font-size: 18px;
     font-weight: 500;
+}
+
+.ticket .price_box {
+    flex-wrap: wrap;
+}
+
+.ticket .price_box .fixed_price {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--color--black1);
+}
+
+.ticket .price_box.discount .fixed_price {
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    color: #adb4c1;
+    text-decoration: line-through;
 }
 
 .wrap {
@@ -59,7 +98,7 @@
 
 .address,
 .address_detail {
-    width: 500px;
+    width: 80%;
 }
 
 .phone_input_wrap {
@@ -71,7 +110,7 @@
 #phone2,
 #phone3 {
     padding: 0px 15px;
-    width: 150px;
+    width: 20%;
     height: 40px;
     border: 1px solid var(--color--black4);
     border-radius: 3px;
@@ -142,4 +181,59 @@
 .payment_button:hover {
     border: none;
     background: var(--color--blue2);
+}
+
+@media screen and (max-width: 720px) {
+    .address,
+    .address_detail {
+        width: 100%;
+    }
+
+    #phone1,
+    #phone2,
+    #phone3 {
+        width: 30.5%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    #order {
+        padding: 50px 15px;
+        width: 100%;
+    }
+
+    .ticket_info h2 {
+        font-size: 16px;
+    }
+
+    .subtitle {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .address_input_wrap li {
+        padding: 0 0 5px;
+    }
+
+    .phone_input_wrap {
+        display: flex;
+        align-items: center;
+        gap: 0 5px;
+    }
+
+    .address,
+    .address_detail {
+        width: 100%;
+    }
+
+    #phone1,
+    #phone2,
+    #phone3 {
+        width: 30.5%;
+    }
+
+    .payment_button {
+        height: 50px;
+        font-size: 16px;
+    }
 }

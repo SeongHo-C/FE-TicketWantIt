@@ -28,7 +28,7 @@
         <script type="module" src="../../../modules/tokenCheck.js"></script>
         <script type="module" src="../../../modules/header.js" defer></script>
         <script type="module" src="../../../modules/spinner.js" defer></script>
-    
+
         <title>MyPage | Ticket Want it!</title>
     </head>
     <body>
@@ -49,6 +49,14 @@
                     </div>
                     <div class="right">
                         <ul class="menu">
+                            <li class="menu_icon search">
+                                <a href="javascript:void(0)">
+                                    <div>
+                                        <i class="ri-search-2-line"></i>
+                                    </div>
+                                    <span>SEARCH</span>
+                                </a>
+                            </li>
                             <li class="menu_icon login">
                                 <a href="javascript:void(0)">
                                     <div>
@@ -82,19 +90,111 @@
                                     <span>CART</span>
                                 </a>
                             </li>
+                            <li class="menu_icon nav">
+                                <a href="javascript:void(0)">
+                                    <div>
+                                        <i class="ri-menu-2-fill"></i>
+                                    </div>
+                                    <span>MENU</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
+                <div class="search_container dn">
+                    <form method="post">
+                        <div class="search_box">
+                            <input
+                                name="search_input"
+                                class="search_input"
+                                type="text"
+                                placeholder="검색어를 입력해주세요."
+                            />
+                            <button class="search_btn">
+                                <i class="ri-search-2-line"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="side_container">
+                    <div class="menu_box">
+                        <div class="top">
+                            <div class="logo">
+                                <a href="/index.html"
+                                    ><img
+                                        src="/asset/icons/logo_c.png"
+                                        alt="헤더로고"
+                                /></a>
+                            </div>
+                            <div class="close">
+                                <i class="ri-close-line"></i>
+                            </div>
+                        </div>
+
+                        <div class="cate">
+                            <strong>CATEGORY</strong>
+                            <ul></ul>
+                        </div>
+                        <div class="connect">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                        ><i class="ri-instagram-line"></i
+                                    ></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                        ><i class="ri-gitlab-fill"></i
+                                    ></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"
+                                        ><i class="ri-github-fill"></i
+                                    ></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="user">
+                            <ul>
+                                <li class="mypage">
+                                    <a
+                                        href="/views/mypage/userInfo/userInfo.html"
+                                    >
+                                        <div>
+                                            <i class="ri-user-3-line"></i>
+                                        </div>
+                                        <span>MYPAGE</span>
+                                    </a>
+                                </li>
+                                <li class="login">
+                                    <a href="/views/login/login.html">
+                                        <div>
+                                            <i class="ri-login-circle-line"></i>
+                                        </div>
+                                        <span>LOGIN</span>
+                                    </a>
+                                </li>
+                                <li class="logout">
+                                    <a href="javascript:void(0)">
+                                        <div>
+                                            <i class="ri-login-circle-line"></i>
+                                        </div>
+                                        <span>LOGOUT</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="background"></div>
             </div>
         </header>
         <section class="w1140">
             <div id="container">
                 <div class="side_contents">
                     <ul>
-                        <li>
-                            <a href="./userInfo.html"
-                                ><span id="active">회원 정보</span></a
-                            >
+                        <li class="active">
+                            <a href="./userInfo.html"><span>회원 정보</span></a>
                         </li>
                         <li>
                             <a href="../userInfoModify/userInfoModify.html"
@@ -120,11 +220,10 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <p>프로필 사진</p>
+                                        <p>프로필<br />사진</p>
                                     </td>
                                     <td>
-                                        <div id='profileImage'>
-                                        </div>
+                                        <div id="profileImage"></div>
                                     </td>
                                 </tr>
                                 <tr>
