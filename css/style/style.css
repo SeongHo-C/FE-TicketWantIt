@@ -426,7 +426,7 @@ footer .inner {
 /* 할인율 공통 */
 
 .info_box .fixed_price {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: 1px;
     color: var(--color--black1);
@@ -436,7 +436,7 @@ footer .inner {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 5px;
+    gap: 0 5px;
 }
 
 .price_box .discount {
@@ -527,6 +527,12 @@ footer .inner {
         position: relative;
         width: 100%;
         margin: 0 auto;
+    }
+}
+
+@media (max-width: 1024px) {
+    #container {
+        margin: 0 0 100px;
     }
 
     .footer_info ul {
