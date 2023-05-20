@@ -181,6 +181,13 @@
 }
 
 @media (max-width: 720px) {
+    #joinWrap,
+    #loginWrap,
+    #initPassword,
+    #changePassword {
+        padding: 50px 15px 0;
+    }
+
     #modal {
         width: 80%;
     }
@@ -203,11 +210,11 @@
     .input_box.select_box input#id {
         width: 42%;
     }
-    
+
     .input_box.select_box input#email {
         width: 40%;
     }
-    
+
     .input_box.select_box #selectEmail {
         width: 1%;
     }
@@ -218,23 +225,7 @@
 }
 
 @media (max-width: 653px) {
-    footer {
-        display: none;
-    }
 }
 
-@media (max-width: 400px) {
-    #joinWrap,
-    #loginWrap,
-    #initPassword,
-    #changePassword {
-        padding: 200px 20px;
-        width: 100%;
-    }
-}
-
-@media (max-width: 283px) {
-    .button {
-        font-size: 12px;
-    }
+@media (max-width: 480px) {
 }
