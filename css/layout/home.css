@@ -196,6 +196,10 @@
         width: calc(50% - 5px);
     }
 
+    .goods_list .info_box .goods_date {
+        font-size: 13px;
+    }
+
     .price_box {
         flex-flow: row wrap-reverse;
     }
@@ -212,6 +216,9 @@
 }
 
 @media (max-width: 480px) {
+    .main_visual {
+        margin: 0 0 50px;
+    }
     .main_visual .text strong {
         padding: 0 0 10px;
         font-size: 16px;

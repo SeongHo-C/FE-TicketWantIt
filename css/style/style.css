@@ -583,6 +583,21 @@ footer .inner {
 }
 
 @media (max-width: 480px) {
+    #container {
+        margin: 0 0 50px;
+    }
+
+    .category_title,
+    .page_title {
+        padding: 10px 20px;
+        margin: 0 0 20px;
+    }
+
+    .category_title h2,
+    .page_title h2 {
+        font-size: 24px;
+    }
+
     /* footer layout */
     footer .inner {
         padding: 15px;

@@ -20,8 +20,6 @@
 }
 
 .goods_list ul li .img_box {
-    width: 266px;
-    height: 266px;
     overflow: hidden;
 }
 .goods_list ul li .img_box img {
@@ -199,14 +197,14 @@
 
 .ticket_quantity {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
 .ticket_quantity input {
     display: block;
-    width: 80%;
-    height: 50px;
+    width: 100px;
+    height: 35px;
     font-size: 18px;
     border: none;
     border-top: 1px solid var(--color--black4);
@@ -216,19 +214,12 @@
     text-align: center;
 }
 
-.ticket_quantity button span {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
 .ticket_quantity button {
     display: block;
     margin: 0;
     padding: 0;
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     background: var(--color--black1);
     border: none;
     font-size: 16px;
@@ -236,6 +227,13 @@
     outline: none;
     cursor: pointer;
     transition: all 300ms ease-in;
+}
+
+.ticket_quantity button span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .ticket_quantity button:hover {
@@ -282,4 +280,92 @@
     display: flex;
     justify-content: flex-end;
     padding: 0 0 15px;
+}
+
+@media (max-width: 1024px) {
+    .goods_list ul li {
+        width: calc(33.3% - 8px);
+    }
+}
+
+@media (max-width: 720px) {
+    .btn_box {
+        gap: 5px;
+    }
+
+    .btn_box button {
+        height: 50px;
+        font-size: 16px;
+    }
+
+    #goods {
+        padding: 50px 15px 0;
+    }
+    .goods_list ul {
+        gap: 0 10px;
+    }
+
+    .goods_list ul li {
+        display: block;
+        padding: 0 0 20px;
+        width: calc(50% - 5px);
+    }
+
+    .goods_list .info_box .goods_date {
+        font-size: 13px;
+    }
+
+    .price_box {
+        flex-flow: row wrap-reverse;
+    }
+
+    .info_box .fixed_price {
+        padding: 21px 0 0;
+    }
+
+    .price_box.discount .fixed_price {
+        padding: 0;
+        display: block;
+        width: 100%;
+    }
+
+    .goods_detail {
+        display: block;
+    }
+
+    .goods_detail .info_box {
+        padding-left: 0;
+        padding: 30px 0 0;
+        border-left: none;
+    }
+    .goods_detail .info_box .date {
+        font-size: 16px;
+    }
+
+    .goods_detail .info_box .title {
+        font-size: 24px;
+    }
+
+    .goods_detail .info_box .description {
+        font-size: 14px;
+    }
+
+    .goods_detail .price_box.discount .discount_price {
+        font-size: 20px;
+    }
+
+    .goods_detail .price_box.discount .discount {
+        font-size: 20px;
+    }
+
+    .goods_detail .detail_info dl {
+        font-size: 14px;
+    }
+
+    .ticket_quantity input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
 }
