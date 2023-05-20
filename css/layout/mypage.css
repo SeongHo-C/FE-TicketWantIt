@@ -268,3 +268,106 @@ section {
   color: var(--color--blue2);
   text-align: center;
 }
+
+@media (max-width: 720px) {
+  .left > nav {
+    display: none;
+  }
+  
+  .w1140 {
+    width: 100%;
+    padding: 0;
+  }
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .side_contents {
+    width: 70%;
+    padding: 20px;
+  }
+
+  .side_contents ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 30px;
+    border: 0;
+    border-top: 2px solid var(--color--black1);
+    border-bottom: 2px solid var(--color--black1);
+  }
+
+  .contents {
+    width: 100%;
+    padding: 0;
+  }
+
+  .userInfo_table {
+    width: 100%;
+  }
+
+  #userPasswordButton,
+  #userInfoModifyButton {
+    font-size: 15px;
+  }
+
+  .side_contents > ul > li {
+    font-size: 15px;
+  }
+  .userInfo_table td input[type='text'] {
+    width: 300px;
+  }
+
+  .userInfo_table .address_input_wrap li:first-child input.userInfoInput {
+    width: calc(300px - 75px);
+  }
+
+  .userInfo_table .userInfoInput.phone_number {
+    width: calc(280px / 3);
+  }
+}
+
+@media (max-width: 653px) {
+  footer {
+    display: none;
+  }
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .side_contents {
+    width: 100%;
+  }
+
+  .side_contents + .contents {
+    width: calc(100%);
+  }
+
+  .contents {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 456px) {
+  .userInfo_table td input[type='text'] {
+    width: 230px;
+  }
+
+  .userInfo_table .address_input_wrap li:first-child input.userInfoInput {
+    width: calc(230px - 75px);
+  }
+
+  .userInfo_table .userInfoInput.phone_number {
+    width: calc(210px / 3);
+  }
+}
