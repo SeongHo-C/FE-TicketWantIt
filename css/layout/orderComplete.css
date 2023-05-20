@@ -1,5 +1,15 @@
+#container {
+  display: flex;
+  justify-content: center;
+}
+
+#container > .contents {
+  max-width: 820px;
+}
+
 #orderComplete {
-  padding: 120px 0 0;
+  padding: 120px 20px;
+  width: 100%;
 }
 
 .title_area {
@@ -100,4 +110,24 @@
   line-height: 50px;
   color: var(--color--blue2);
   outline: none;
+}
+
+@media screen and (max-width: 550px) {
+  .order_complete_list {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .title_area .logo {
+    width: 220px;
+  }
+
+  .title_area > h2 {
+    font-size: 22px;
+  }
+
+  #orderComplete {
+    padding: 0px 20px;
+  }
 }
