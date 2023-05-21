@@ -6,7 +6,7 @@ async function onLoad() {
     const orderList = response.orderList;
     if (orderList.length < 1) return;
 
-    orderTableList.innerHTML = orderList.map(createOrder).join("");
+    orderTableList.innerHTML = createOrder(orderList);
 
     const [ordering, shipping, deliveryCompleted] = calOrderStatus(orderList);
     orderStatus1.textContent = ordering;
@@ -38,132 +38,97 @@ async function getOrder() {
     }
 }
 
-function createOrder(orderData) {
-    const {
-        createdAt,
-        items,
-        orderId,
-        orderStatus,
-        zipCode,
-        deliveryAddress = "모르는 주소",
-        deliveryPhoneNum = "없는 번호",
-    } = orderData;
-
-    return items
-        .map((item, idx) => {
-            if (idx === 0)
-                return firstItemTemplate(
-                    createdAt,
-                    item,
-                    orderId,
-                    orderStatus,
-                    zipCode,
-                    items.length,
-                    deliveryAddress,
-                    deliveryPhoneNum
-                );
-            else return extraItemTemplate(item);
-        })
+function createOrder(orderList) {
+    return orderList
+        .map(
+            ({
+                createdAt,
+                items,
+                orderId,
+                orderStatus,
+                zipCode,
+                deliveryAddress = "모르는 주소",
+                deliveryPhoneNum = "없는 번호",
+            }) => {
+                return `<div>
+            <ul>
+                <li class="order_no">
+                    <div>
+                        <span>${createdAt.split("T")[0]}</span>
+                        <strong>${orderId}</strong>
+                    </div>
+                </li>
+                <li class="order_item">
+                    ${createOrderItems(items)}
+                </li>
+                <li class="order_status">
+                    <div>
+                        <strong>${getOrderStatus(orderStatus)}</strong>
+                        <div class="status_btn_box">
+                            ${
+                                orderStatus === 1
+                                    ? `<button class="modify_button" onclick="orderModify('${zipCode}', '${deliveryAddress}', '${deliveryPhoneNum}', '${orderId}')">수정하기</button>
+                            <button class="cancel_button" onclick="orderCancel('${orderId}')">취소하기</button>`
+                                    : ""
+                            }
+                            ${
+                                orderStatus === 3
+                                    ? `<button class="confirm_button" onclick="orderConfirm('${orderId}')">구매확정</button>`
+                                    : ""
+                            }
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>`;
+            }
+        )
         .join("");
 }
 
-function firstItemTemplate(
-    createdAt,
-    item,
-    orderId,
-    orderStatus,
-    zipCode,
-    num,
-    deliveryAddress,
-    deliveryPhoneNum
-) {
-    const {
-        productId,
-        name,
-        quantity,
-        price,
-        discountPrice,
-        discount,
-        imgUrl = "https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg",
-    } = item;
-    orderStatus = getOrderStatus(orderStatus);
-
-    return `<tr>
-              <td rowspan=${num}>
-                <p>${createdAt.split("T")[0]}<br />[${orderId}]</p>
-              </td>
-              <td>
-                <a href="/views/goods/goods_view.html?productId=${productId}">
-                  <img
-                    src=${imgUrl}
-                    alt="상품 이미지"
-                  />
-                </a>
-              </td>
-              <td class="product_info">
-                <p>${name}</p>
-              </td>
-              <td><p>${quantity}</p></td>
-              <td class="order_price">
-                <p>
-                ${
-                    discount === 0
-                        ? Number(price * quantity).toLocaleString()
-                        : Number(discountPrice * quantity).toLocaleString()
-                }원
-                </p>
-              </td>
-              <td rowspan=${num} class="order_status">
-                <p>${orderStatus}</p>
-                ${
-                    orderStatus === "주문중"
-                        ? `<button class="modify_button" onclick="orderModify('${zipCode}', '${deliveryAddress}', '${deliveryPhoneNum}', '${orderId}')">수정하기</button>
-                  <button class="cancel_button" onclick="orderCancel('${orderId}')">취소하기</button>`
-                        : ""
-                }
-                ${
-                    orderStatus === "배송완료"
-                        ? `<button class="confirm_button" onclick="orderConfirm('${orderId}')">구매확정</button>`
-                        : ""
-                }
-              </td>
-            </tr>`;
-}
-
-function extraItemTemplate(item) {
-    const {
-        productId,
-        name,
-        quantity,
-        price,
-        discountPrice,
-        discount,
-        imgUrl = "https://img.29cm.co.kr//next-product/2023/04/03/ad7307f5595b433cab22b2bc26c9124c_20230403114503.jpg",
-    } = item;
-
-    return ` <tr>
-          <td>
-            <a href="/views/goods/goods_view.html?productId=${productId}">
-              <img
-                src=${imgUrl}
-                alt="상품 이미지"
-              />
-            </a>
-          </td>
-          <td class="product_info">
-            <p>${name}</p>
-          </td>
-          <td><p>${quantity}</p></td>
-          <td class="order_price">
-            <p>
-              ${
-                  discount === 0
-                      ? Number(price * quantity).toLocaleString()
-                      : Number(discountPrice * quantity).toLocaleString()
-              }원
-            </p>
-          </td>
-        </tr>`;
+function createOrderItems(items) {
+    return items
+        .map(
+            ({
+                name,
+                productId,
+                imgUrl,
+                quantity,
+                price,
+                discount,
+                discountPrice,
+            }) => {
+                return `
+            <div class="item_list">
+                <div class="img_box">
+                    <a href="/views/goods/goods_view.html?productId=${productId}">
+                        <img src=${imgUrl} alt="${name}"/>
+                    </a>
+                </div>
+                <div class="info_box">
+                    <div class="title">${name}</div>
+                    <div class="quantity">
+                        <dl>
+                            <dt>수량:</dt>
+                            <dd>${quantity}</dd>
+                        </dl>
+                    </div>
+                    <div class="price">
+                        <strong>${
+                            discount === 0
+                                ? Number(price * quantity).toLocaleString()
+                                : Number(
+                                      discountPrice * quantity
+                                  ).toLocaleString()
+                        }원</strong>
+                    </div>
+                </div>
+            </div>
+        `;
+            }
+        )
+        .join("");
 }
 
 function getOrderStatus(orderStatus) {
@@ -259,7 +224,7 @@ const modal = document.querySelector("#modal");
 const modalForm = document.querySelector(".modal_form");
 const closeModalBtn = document.querySelector(".close_area > button");
 const addressSearchBtn = document.querySelector("#addressSearchBtn");
-const orderTableList = document.querySelector(".order_table > .order_list");
+const orderTableList = document.querySelector(".order_table .table_list");
 const zipCodeInput = document.querySelector(".zip-code");
 const addressInput = document.querySelector(".address");
 const addressDetail = document.querySelector(".address_detail");

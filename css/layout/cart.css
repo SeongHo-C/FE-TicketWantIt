@@ -238,6 +238,16 @@ section .cart {
     transition: background 0.1s ease-in-out;
 }
 
+.no_data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    /* text-align: center; */
+    width: 100%;
+    color: var(--color--black3);
+}
+
 .ticket_order {
     border: 0;
     color: white;
