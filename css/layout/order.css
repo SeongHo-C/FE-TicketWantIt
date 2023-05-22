@@ -1,239 +1,236 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 #container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #container > .contents {
-    max-width: 820px;
+  max-width: 820px;
 }
 
 #container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #container > .contents {
-    max-width: 820px;
+  max-width: 820px;
 }
 
 #order {
-    padding: 120px 20px;
-    width: 100%;
+  padding: 120px 20px;
+  width: 100%;
 }
 
 .star {
-    color: var(--color--red);
+  color: var(--color--red);
 }
 
 .subtitle {
-    display: block;
-    padding: 15px 30px;
-    background: var(--color--black1);
-    border-radius: 5px 5px 0 0;
-    color: var(--color--white);
-    font-size: 18px;
-    font-weight: 500;
+  display: block;
+  padding: 15px 30px;
+  background: var(--color--black1);
+  border-radius: 5px 5px 0 0;
+  color: var(--color--white);
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .ticket .price_box {
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 }
 
 .ticket .price_box .fixed_price {
-    display: block;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--color--black1);
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--color--black1);
 }
 
 .ticket .price_box.discount .fixed_price {
-    display: block;
-    width: 100%;
-    font-size: 14px;
-    font-weight: 400;
-    color: #adb4c1;
-    text-decoration: line-through;
+  display: block;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  color: #adb4c1;
+  text-decoration: line-through;
 }
 
 .wrap {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .address_input_wrap {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 30px 20px;
-    border: 1px solid var(--color--black4);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 20px;
+  border: 1px solid var(--color--black4);
 }
 
 .address_input_wrap li {
-    padding: 0 0 15px;
+  padding: 0 0 15px;
 }
 
 .address_input_wrap li:last-child {
-    padding: 0;
+  padding: 0;
 }
 
 .address_input_wrap > li > input {
-    padding: 0px 15px;
-    height: 40px;
-    border: 1px solid var(--color--black4);
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 500;
-    outline: none;
+  padding: 0px 15px;
+  height: 40px;
+  border: 1px solid var(--color--black4);
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
 }
 
 .address_search_btn {
-    background-color: var(--color--white);
-    outline: none;
-    cursor: pointer;
+  background-color: var(--color--white);
+  outline: none;
+  cursor: pointer;
 }
 
 .address,
 .address_detail {
-    width: 80%;
+  width: 80%;
 }
 
 .phone_input_wrap {
-    padding: 30px 20px;
-    border: 1px solid var(--color--black4);
+  padding: 30px 20px;
+  border: 1px solid var(--color--black4);
 }
 
 #phone1,
 #phone2,
 #phone3 {
-    padding: 0px 15px;
-    width: 20%;
-    height: 40px;
-    border: 1px solid var(--color--black4);
-    border-radius: 3px;
+  padding: 0px 15px;
+  width: 20%;
+  height: 40px;
+  border: 1px solid var(--color--black4);
+  border-radius: 3px;
 }
 
 .order_list {
-    padding: 0 20px;
-    border: 1px solid var(--color--black4);
+  padding: 0 20px;
+  border: 1px solid var(--color--black4);
 }
 
 .ticket {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px dotted var(--color--black3);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px dotted var(--color--black3);
 }
 
 .ticket:last-child {
-    border: none;
+  border: none;
 }
 
 .ticket_img {
-    width: 120px;
-    height: 120px;
+  width: 120px;
+  height: 120px;
 }
 
 .ticket_info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
 .ticket_info h2 {
-    display: block;
-    padding: 0 0 10px;
-    font-size: 18px;
-    font-weight: 600;
+  display: block;
+  padding: 0 0 10px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .ticket_sub_info {
-    display: block;
-    padding: 0 0 10px;
-    font-size: 13px;
-    color: var(--color--black3);
+  display: block;
+  padding: 0 0 10px;
+  font-size: 13px;
+  color: var(--color--black3);
 }
 
 .ticket_money {
-    display: block;
-    font-weight: 600;
-    color: var(--color--red);
+  display: block;
+  font-weight: 600;
+  color: var(--color--red);
 }
 
 .btn_box {
-    padding: 20px 0 0;
+  padding: 20px 0 0;
 }
 
 .payment_button {
-    height: 64px;
-    background: var(--color--black1);
-    font-size: 20px;
-    font-weight: 500;
-    transition: background 0.1s ease-in;
+  height: 64px;
+  background: var(--color--black1);
+  font-size: 20px;
+  font-weight: 500;
+  transition: background 0.1s ease-in;
 }
 
 .payment_button:hover {
-    border: none;
-    background: var(--color--blue2);
+  border: none;
+  background: var(--color--blue2);
 }
 
 @media screen and (max-width: 720px) {
-    .address,
-    .address_detail {
-        width: 100%;
-    }
+  #order {
+    padding: 50px 15px;
+    width: 100%;
+  }
 
-    #phone1,
-    #phone2,
-    #phone3 {
-        width: 30.5%;
-    }
-}
+  .ticket_info h2 {
+    font-size: 16px;
+  }
 
-@media screen and (max-width: 720px) {
-    #order {
-        padding: 50px 15px;
-        width: 100%;
-    }
+  .subtitle {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
 
-    .ticket_info h2 {
-        font-size: 16px;
-    }
+  .phone_input_wrap {
+    display: flex;
+    align-items: center;
+    gap: 0 5px;
+  }
 
-    .subtitle {
-        padding: 10px 20px;
-        font-size: 16px;
-    }
+  .address_input_wrap li {
+    padding: 0 0 5px;
+  }
 
-    .address_input_wrap li {
-        padding: 0 0 5px;
-    }
+  .address_input_wrap li:first-child {
+    display: flex;
+    width: 100%;
+    gap: 0 5px;
+  }
 
-    .phone_input_wrap {
-        display: flex;
-        align-items: center;
-        gap: 0 5px;
-    }
+  .zip-code {
+    width: 100%;
+  }
 
-    .address,
-    .address_detail {
-        width: 100%;
-    }
+  .address,
+  .address_detail {
+    width: 100%;
+  }
 
-    #phone1,
-    #phone2,
-    #phone3 {
-        width: 30.5%;
-    }
+  #phone1,
+  #phone2,
+  #phone3 {
+    width: 30.5%;
+  }
 
-    .payment_button {
-        height: 50px;
-        font-size: 16px;
-    }
+  .payment_button {
+    height: 50px;
+    font-size: 16px;
+  }
 }
