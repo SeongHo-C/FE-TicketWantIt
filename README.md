@@ -4,33 +4,33 @@
 <img src="https://github.com/SeongHo-C/FE-TicketWantIt/assets/83394485/d6285bb3-bfa7-4269-a5db-a320ad7b8167" width="400"/>
 
 ### 티켓원잇 (one it, want it!)  
-[<img src="https://img.shields.io/badge/프로젝트 기간-2023.04.17~진행중-0090f6?style=flat&logoColor=white" />]()
+[<img src="https://img.shields.io/badge/프로젝트 기간-2023.04.17~2023.05.20-0090f6?style=flat&logoColor=white" />]()
 <br />
 [🧑🏻‍💻 사이트 바로가기](https://ticketwantit.shop/) 
 </div> 
 
-## 📝 소개
-<br />
+## 소개
 <b>”저희는 전시, 공연 등 다양한 티켓을 구매 할 수 있는 서비스를 구현합니다.”</b> <br />
 실제 소장할 수 있는 종이티켓을 구매할 수 있습니다.<br />
 좋아하는 문화생활을 맛보기 전, 설렘을 먼저 받아보세요! 🤗
-<br />
-
-### 목표
-- 메인페이지와 상세페이지에서 상품 정보를 확인할 수 있습니다.
-- 보기 좋고 깔끔하며 감성적인 UI
-- 회원가입, 구매, 관리자, 상품관리 등의 기본적인 기능 구현
 
 <br />
 
-### 👧🏻페르소나
-![페르소나](https://github.com/SeongHo-C/FE-TicketWantIt/assets/87592697/2d32d1b2-c861-4f92-a6ec-d41b1aaef29b)
-- 다양한 문화생활을 즐기고 싶은 20~30대.
+### 📌 목표
+1. 메인페이지와 상세페이지에서 상품 정보 확인
+2. 보기 좋고 깔끔하며 감성적인 UI
+3. 회원가입, 구매, 관리자, 상품관리 등의 필수 기능 구현
+
+<br />
+
+### 👧🏻 페르소나
+<img src="https://github.com/SeongHo-C/FE-TicketWantIt/assets/87592697/2d32d1b2-c861-4f92-a6ec-d41b1aaef29b?raw=true" width="800" height="400"><br />
+- 다양한 문화생활을 즐기고 싶은 20~30대
 - 예술의 알고리즘을 탐구하는 사람들
 
 <br />
 
-## 📌 기능정리
+## 📝 기능 정리
 
 ### 사용자 - 필수기능
 • 회원가입(이메일 인증) 및 로그인을 통해 회원 전용 서비스 이용
@@ -71,13 +71,11 @@
 <br />
 • 상품 목록 필터 기능
 <br />
-•티켓에 할인율 적용
-
+• 티켓에 할인율 적용
 
 <br />
 
-
-### 👩🏻‍💻 데모 영상
+## 📹 데모 영상
 https://github.com/SeongHo-C/FE-TicketWantIt/assets/87592697/b975d804-5844-4b5b-bbfd-93055f5ebcc3
 
 <br />
@@ -109,7 +107,6 @@ https://github.com/SeongHo-C/FE-TicketWantIt/assets/87592697/b975d804-5844-4b5b-
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Discord.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Figma.png?raw=true" width="80">
 <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/GatherTown.png?raw=true" width="80">
-
 </div>
 
 <br />
@@ -127,10 +124,14 @@ https://github.com/SeongHo-C/FE-TicketWantIt/assets/87592697/b975d804-5844-4b5b-
 <br />
 
 ## 💚 프로젝트 회고
+[이성호] https://leeseong010.tistory.com/144 <br />
+[윤우정] https://younu-yun.tistory.com/11 <br />
+[유하영] https://hayoung-dev-story.tistory.com/28 <br />
+[정혜린] https://02rynn-lap.tistory.com/217
 
 <br />
 
-## 💁‍♂️ 프로젝트 팀원
+## 😎 프로젝트 팀원
 
 |Frontend|Frontend|Frontend|Backend|Backend|Backend|
 |:---:|:---:|:---:|:---:|:---:|:---:|
