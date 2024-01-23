@@ -127,7 +127,8 @@ https://github.com/SeongHo-C/FE-TicketWantIt/assets/87592697/b975d804-5844-4b5b-
 [이성호] https://leeseong010.tistory.com/144 <br />
 [윤우정] https://younu-yun.tistory.com/11 <br />
 [유하영] https://hayoung-dev-story.tistory.com/28 <br />
-[정혜린] https://02rynn-lap.tistory.com/217
+[정혜린] https://02rynn-lap.tistory.com/217 <br />
+[김윤중] https://velog.io/@mon/%EC%B2%AB%EB%B2%88%EC%A7%B8-%ED%8C%80-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9A%8C%EA%B3%A0
 
 <br />
 
